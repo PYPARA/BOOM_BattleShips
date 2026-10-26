@@ -1,0 +1,1214 @@
+[
+  {
+    "id": "AEsd",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "AEtr",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "BEah",
+    "name": "随船机械修理队",
+    "tip": "随船机械修理队",
+    "description": "这个单位有随船机械修理队;可以自动修复所在船只"
+  },
+  {
+    "id": "BEar",
+    "name": "强击光环",
+    "tip": "强击光环",
+    "description": "该单位处在强击光环的作用之下，因此其远程攻击力得到了加强。"
+  },
+  {
+    "id": "BEer",
+    "name": "纠缠根须",
+    "tip": "纠缠根须",
+    "description": "该单位受到了纠缠根须的攻击，因此其不能移动并在一定时间内会持续受到伤害。"
+  },
+  {
+    "id": "BEfn",
+    "name": "自然之力",
+    "tip": "自然之力",
+    "description": "召唤出来的单位会受到驱逐魔法的伤害。"
+  },
+  {
+    "id": "BEia",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "BEim",
+    "name": "献祭",
+    "tip": "献祭",
+    "description": "该单位有着献祭技能，因此其周围的地面单位会持续受到伤害。"
+  },
+  {
+    "id": "BEme",
+    "name": "变身",
+    "tip": "变身",
+    "description": "让恶魔猎手变身为一个威力巨大的恶魔，该恶魔具有远程攻击能力。"
+  },
+  {
+    "id": "BEsh",
+    "name": "暗影突袭",
+    "tip": "暗影突袭",
+    "description": "This unit was hit by Shadow Strike; it will take damage over time and move more slowly."
+  },
+  {
+    "id": "BEst",
+    "name": "侦察",
+    "tip": "侦察",
+    "description": "召唤出来的单位会受到驱逐魔法的伤害。"
+  },
+  {
+    "id": "BEsv",
+    "name": "复仇之魂",
+    "tip": "复仇之魂",
+    "description": "复仇之魂暴怒中。"
+  },
+  {
+    "id": "BFig",
+    "name": "召唤出来的物品",
+    "tip": "召唤出来的物品",
+    "description": "对于驱逐魔法，召唤出来的单位将受到额外的伤害。"
+  },
+  {
+    "id": "BHab",
+    "name": "辉煌光环",
+    "tip": "辉煌光环",
+    "description": "该单位处于辉煌光环之下，因此其魔法恢复速度将加快。"
+  },
+  {
+    "id": "BHad",
+    "name": "专注光环",
+    "tip": "专注光环",
+    "description": "该单位处于专注光环的作用之下，因此提高了护甲。"
+  },
+  {
+    "id": "BHav",
+    "name": "天神下凡",
+    "tip": "天神下凡",
+    "description": "该单位处于天神下凡的状态之中，因此其生命值、攻击力、护甲都得到了加强。而且还会魔法免疫。"
+  },
+  {
+    "id": "BHca",
+    "name": "冰冻冷箭",
+    "tip": "冰冻冷箭",
+    "description": "该单位被冰冻冷箭给击中了，其攻击速度和移动速度都会减慢。"
+  },
+  {
+    "id": "BHds",
+    "name": "神圣护甲",
+    "tip": "神圣护甲",
+    "description": "该单位处于神圣护甲的保护之下，因此是无敌的。"
+  },
+  {
+    "id": "BHfs",
+    "name": "烈焰风暴",
+    "tip": "烈焰风暴",
+    "description": "该单位处于烈焰风暴的攻击之中，因此会在一定时间内持续受到伤害。"
+  },
+  {
+    "id": "BHtb",
+    "name": "风暴之锤",
+    "tip": "风暴之锤",
+    "description": "该单位遭到了风暴之锤的攻击，因此不能移动，攻击或者施放魔法。"
+  },
+  {
+    "id": "BHtc",
+    "name": "雷霆一击",
+    "tip": "雷霆一击",
+    "description": "该单位受到了雷霆一击的攻击，其移动速度和攻击速度都会减慢。"
+  },
+  {
+    "id": "BHwe",
+    "name": "支援单位",
+    "tip": "支援单位",
+    "description": "召唤出来的单位容易遭到驱散。"
+  },
+  {
+    "id": "BIcf",
+    "name": "火焰风衣",
+    "tip": "火焰风衣",
+    "description": "该单位拥有火焰风衣，周围的地面单位会受到持续的伤害。"
+  },
+  {
+    "id": "BIil",
+    "name": "幻象物品",
+    "tip": "幻象物品",
+    "description": "该单位是一个幻象，因此将从敌人那里得到额外的伤害。"
+  },
+  {
+    "id": "BIpb",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "BIpd",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "BIrg",
+    "name": "生命恢复",
+    "tip": "生命恢复",
+    "description": "该单位将会逐渐恢复生命值和魔力值。"
+  },
+  {
+    "id": "BIrl",
+    "name": "再生物品",
+    "tip": "再生物品",
+    "description": "该单位身上带有再生物品，因此其生命值将会持续地恢复。"
+  },
+  {
+    "id": "BIrm",
+    "name": "净化药水",
+    "tip": "净化药水",
+    "description": "该单位使用了净化药水，因此其魔法值会持续地恢复。"
+  },
+  {
+    "id": "BNab",
+    "name": "酸性炸弹",
+    "tip": "酸性炸弹",
+    "description": "这个单位遭到了酸性炸弹的攻击。 它的护甲被减弱，并会持续地受到伤害。"
+  },
+  {
+    "id": "BNba",
+    "name": "黑暗之箭",
+    "tip": "黑暗之箭",
+    "description": "该单位受到了黑暗之箭的攻击，如果其死亡的话，那么就会变成一个骷髅兵。"
+  },
+  {
+    "id": "BNbf",
+    "name": "火焰呼吸",
+    "tip": "火焰呼吸",
+    "description": "该单位受到了火焰呼吸的攻击，因此它会持续地受到火焰的伤害。"
+  },
+  {
+    "id": "BNcs",
+    "name": "火箭群",
+    "tip": "火箭群",
+    "description": "火箭群"
+  },
+  {
+    "id": "BNdc",
+    "name": "幽灵船",
+    "tip": "幽灵船",
+    "description": "这个单位受到了黑色幽灵号的攻击，因此会变成一艘幽灵船。"
+  },
+  {
+    "id": "BNdm",
+    "name": "黑暗之奴",
+    "tip": "黑暗之奴",
+    "description": "召唤出来的单位会受到驱逐魔法的伤害。"
+  },
+  {
+    "id": "BNhs",
+    "name": "医疗气雾",
+    "tip": "医疗气雾",
+    "description": "这个单位正在接受医疗气雾的治疗。"
+  },
+  {
+    "id": "BNht",
+    "name": "恐怖嚎叫",
+    "tip": "恐怖嚎叫",
+    "description": "这个单位被恐怖嚎叫震住了；它已经丢失了魔法效果，并将持续一段时间减弱攻击。"
+  },
+  {
+    "id": "BNin",
+    "name": "地狱火",
+    "tip": "地狱火",
+    "description": "这个地狱火是大型的。"
+  },
+  {
+    "id": "BNms",
+    "name": "能量护盾",
+    "tip": "能量护盾",
+    "description": "这个单位身上有着能量护盾，所以他暂时对物理攻击和负面魔法有着一定的抵抗能力。"
+  },
+  {
+    "id": "BNpa",
+    "name": "寄生虫",
+    "tip": "寄生虫",
+    "description": "这个单位已被寄生虫侵扰，它将随着时间逝去而受伤害，如果在它死时仍然在被折磨，一个单位将会从它的尸体上诞生。"
+  },
+  {
+    "id": "BNpi",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "BNpm",
+    "name": "寄生虫",
+    "tip": "寄生虫",
+    "description": "这个单位已被寄生虫侵扰，它将随着时间逝去而受伤害，如果在它死时仍然在被折磨，一个单位将会从它的尸体上诞生。"
+  },
+  {
+    "id": "BNrd",
+    "name": "火焰雨",
+    "tip": "火焰雨",
+    "description": "该单位受到火焰雨的攻击，它将不断受到伤害。"
+  },
+  {
+    "id": "BNrf",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "BNsi",
+    "name": "沉默魔法",
+    "tip": "沉默魔法",
+    "description": "该单位受到了沉默魔法的攻击，因此其不能施放任何魔法。"
+  },
+  {
+    "id": "BNso",
+    "name": "混乱",
+    "tip": "混乱",
+    "description": "该单位受到了混乱的作用。无法施放技能，攻击力会减小，并在一定时间内会持续受到伤害。"
+  },
+  {
+    "id": "BNss",
+    "name": "魔法护盾",
+    "tip": "魔法护盾",
+    "description": "一种可以阻挡法师的防护之盾。"
+  },
+  {
+    "id": "BNto",
+    "name": "龙卷风",
+    "tip": "龙卷风",
+    "description": ""
+  },
+  {
+    "id": "BNwm",
+    "name": "水奴",
+    "tip": "水奴",
+    "description": "召唤出来的单位会受到驱逐魔法的伤害。"
+  },
+  {
+    "id": "BOac",
+    "name": "船长火炮",
+    "tip": "船长火炮",
+    "description": "这个单位被船长火炮击中"
+  },
+  {
+    "id": "BOae",
+    "name": "加固型船体",
+    "tip": "加固型船体",
+    "description": "这个单位有加固型船体"
+  },
+  {
+    "id": "BOea",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "BOeq",
+    "name": "地震",
+    "tip": "地震",
+    "description": "该单位处于地震的作用之下，因此其移动速度被减慢了。"
+  },
+  {
+    "id": "BOhx",
+    "name": "妖术",
+    "tip": "妖术",
+    "description": "该单位受到了妖术的作用，因此其变成了一只小动物。"
+  },
+  {
+    "id": "BOsf",
+    "name": "伙伴",
+    "tip": "伙伴",
+    "description": "召唤出来的单位会受到驱逐魔法的伤害。"
+  },
+  {
+    "id": "BOsh",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "BOvc",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "BOvd",
+    "name": "舰队防御",
+    "tip": "舰队防御",
+    "description": "该单位处在指挥舰的指挥之下"
+  },
+  {
+    "id": "BOwd",
+    "name": "守卫",
+    "tip": "守卫",
+    "description": "召唤出来的单位会受到驱逐魔法的伤害。"
+  },
+  {
+    "id": "BOwk",
+    "name": "潜行状态",
+    "tip": "潜行状态",
+    "description": "潜行状态下是隐身的，移动力也增加"
+  },
+  {
+    "id": "BPSE",
+    "name": "被重创",
+    "tip": "被重创",
+    "description": "该单位遭到重创"
+  },
+  {
+    "id": "BSTN",
+    "name": "被重创",
+    "tip": "被重创",
+    "description": "该单位遭到重创"
+  },
+  {
+    "id": "BUan",
+    "name": "操纵死尸",
+    "tip": "操纵死尸",
+    "description": "召唤出来的单位会受到驱逐魔法的伤害。"
+  },
+  {
+    "id": "BUau",
+    "name": "邪恶光环",
+    "tip": "邪恶光环",
+    "description": "该单位处在邪恶光环的作用之下; 因此它的移动速度和生命值恢复速度都加快了。"
+  },
+  {
+    "id": "BUav",
+    "name": "吸血光环",
+    "tip": "吸血光环",
+    "description": "该单位处在吸血光环的作用之下，因此它对敌人的攻击会恢复自己的生命值。"
+  },
+  {
+    "id": "BUcs",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "BUfa",
+    "name": "霜冻护甲",
+    "tip": "霜冻护甲",
+    "description": "该单位有着霜冻护甲; 因此其护甲加强了，攻击它的近战单位也会被在短时间内减速。"
+  },
+  {
+    "id": "BUim",
+    "name": "穿刺",
+    "tip": "穿刺",
+    "description": "该单位被穿刺攻击了，因此在短时间内会被抛在空中。"
+  },
+  {
+    "id": "BUts",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Bakb",
+    "name": "战鼓",
+    "tip": "战鼓",
+    "description": "该单位受到了战鼓的作用，因此攻击力得到了加强。"
+  },
+  {
+    "id": "Bam2",
+    "name": "反魔法外壳",
+    "tip": "反魔法外壳",
+    "description": "这个单位具有反魔法外壳，攻击魔法对于该单位的伤害效果将减少。"
+  },
+  {
+    "id": "Bams",
+    "name": "反魔法外壳",
+    "tip": "反魔法外壳",
+    "description": "该单位具有反魔法外壳，因此对魔法免疫，反魔法外壳可以被驱逐掉。"
+  },
+  {
+    "id": "Bapl",
+    "name": "疾病",
+    "tip": "疾病",
+    "description": "该单位受到了疾病云雾的攻击，因此会在短时间内持续地受到伤害。"
+  },
+  {
+    "id": "Barm",
+    "name": "魔法恢复光环",
+    "tip": "魔法恢复光环",
+    "description": "该单位处于魔法恢复光环的作用之下，因此其魔法恢复速度得到了加快。"
+  },
+  {
+    "id": "Basl",
+    "name": "龙卷风",
+    "tip": "龙卷风",
+    "description": "该单位受到了龙卷风的袭击，它的移动速度被暂时降低了。"
+  },
+  {
+    "id": "Bblo",
+    "name": "嗜血术",
+    "tip": "嗜血术",
+    "description": "该单位具有嗜血术，因此其攻击速度和移动速度都加快了。"
+  },
+  {
+    "id": "Bbof",
+    "name": "燃烧之油",
+    "tip": "燃烧之油",
+    "description": "此单位已被燃烧之油烧着，它将不断的受到伤害。"
+  },
+  {
+    "id": "Bclf",
+    "name": "乌云技能",
+    "tip": "乌云技能",
+    "description": "该建筑物中了乌云技能，所以丧失了远程攻击的能力。"
+  },
+  {
+    "id": "Bcri",
+    "name": "减速",
+    "tip": "减速",
+    "description": "该单位受到了减速技能的作用，因此其移动速度和攻击速度都减慢了，攻击力也被削弱了许多。"
+  },
+  {
+    "id": "Bcrs",
+    "name": "诅咒",
+    "tip": "诅咒",
+    "description": "该单位受到了诅咒的作用，因此在攻击的时候会有一定的概率击空。"
+  },
+  {
+    "id": "Bcsd",
+    "name": "冰冻冷箭",
+    "tip": "冰冻冷箭",
+    "description": "该单位被冰冻冷箭给击中了，其攻击速度和移动速度都会减慢。"
+  },
+  {
+    "id": "Bcsi",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Bcy2",
+    "name": "飓风",
+    "tip": "飓风",
+    "description": "该单位处在飓风的作用之下，因此其不能移动，攻击和施放魔法。"
+  },
+  {
+    "id": "Bcyc",
+    "name": "飓风",
+    "tip": "飓风",
+    "description": "该单位处在飓风的作用之下，因此其不能移动，攻击和施放魔法。"
+  },
+  {
+    "id": "Bdbb",
+    "name": "吸取生命值和魔法值",
+    "tip": "吸取生命值和魔法值",
+    "description": "这个单位具有额外的生命值和魔法值。但是这个额外的值会消失得很快。"
+  },
+  {
+    "id": "Bdbl",
+    "name": "吸取生命",
+    "tip": "吸取生命",
+    "description": "这个单位具有额外的生命值。但是这个额外的值会消失得很快。"
+  },
+  {
+    "id": "Bdbm",
+    "name": "吸取魔法",
+    "tip": "吸取魔法",
+    "description": "这个单位具有额外的魔法值。但是这个额外的值会消失得很快。"
+  },
+  {
+    "id": "Bdcb",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Bdcl",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Bdcm",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Bdet",
+    "name": "被探测到",
+    "tip": "被探测到",
+    "description": "该单位被探测到了，这就意味着敌人可以看见你的单位。"
+  },
+  {
+    "id": "Bdig",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Bdtb",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Bdtl",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Bdtm",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Bdvv",
+    "name": "吞噬",
+    "tip": "吞噬",
+    "description": "该单位被吞噬了，因此会持续地受到伤害。"
+  },
+  {
+    "id": "Beat",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Bena",
+    "name": "诱捕",
+    "tip": "诱捕",
+    "description": "该单位被诱捕了，因此其不能移动和飞行。"
+  },
+  {
+    "id": "Beng",
+    "name": "诱捕",
+    "tip": "诱捕",
+    "description": "该单位被诱捕了，因此其不能移动和飞行。"
+  },
+  {
+    "id": "Beye",
+    "name": "探测器",
+    "tip": "探测器",
+    "description": "召唤出来的单位会受到驱逐魔法的伤害。"
+  },
+  {
+    "id": "Bfae",
+    "name": "影随行",
+    "tip": "影随行",
+    "description": "该单位被影子追踪了"
+  },
+  {
+    "id": "Bfro",
+    "name": "被减速的",
+    "tip": "被减速的",
+    "description": "该单位速度被减慢了，所以移动起来要比其他一般的单位要慢。"
+  },
+  {
+    "id": "Bfrz",
+    "name": "冰冻喷吐",
+    "tip": "冰冻喷吐",
+    "description": "该单位被冻住了，因此失去了原有的功效并不能被修理。"
+  },
+  {
+    "id": "Bgra",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Bhwd",
+    "name": "治疗守卫",
+    "tip": "治疗守卫",
+    "description": "这个守卫能恢复周围单位的生命值。"
+  },
+  {
+    "id": "Binv",
+    "name": "隐形",
+    "tip": "隐形",
+    "description": "该单位处于隐形状态中"
+  },
+  {
+    "id": "Blsa",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Blsh",
+    "name": "闪电护盾",
+    "tip": "闪电护盾",
+    "description": "该单位处在闪电护盾的作用之下，因此周围所有的单位都会受到一定的伤害。"
+  },
+  {
+    "id": "Bmfa",
+    "name": "魔力之焰",
+    "tip": "魔力之焰",
+    "description": "该单位身上有魔力之焰的作用;周围任何敌方单位施放魔法都会受到伤害。"
+  },
+  {
+    "id": "Bmfl",
+    "name": "魔力之焰",
+    "tip": "魔力之焰",
+    "description": "该单位身上有魔力之焰的作用;周围任何敌方单位施放魔法都会受到伤害。"
+  },
+  {
+    "id": "Bmlc",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Bmlt",
+    "name": "登船作战",
+    "tip": "登船作战",
+    "description": "该单位被敌人登船后不受控制并持续受伤一段时间"
+  },
+  {
+    "id": "Boar",
+    "name": "治疗守卫光环",
+    "tip": "治疗守卫光环",
+    "description": "加快生命值恢复速度。"
+  },
+  {
+    "id": "Bplg",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Bpoi",
+    "name": "腐蚀液",
+    "tip": "腐蚀液",
+    "description": "该单位被腐蚀液攻击了"
+  },
+  {
+    "id": "Bprg",
+    "name": "电磁炮攻击",
+    "tip": "电磁炮攻击",
+    "description": "该单位受到了电磁炮攻击; 因此其移动速度被减慢了，而且身上所有的魔法效果都消失了。"
+  },
+  {
+    "id": "Bpsd",
+    "name": "腐蚀液",
+    "tip": "腐蚀液",
+    "description": "该单位被腐蚀液攻击了"
+  },
+  {
+    "id": "Bpsh",
+    "name": "变相移动",
+    "tip": "变相移动",
+    "description": "该单位处于消失的状态中，因此在短时间内不会受到任何的伤害。"
+  },
+  {
+    "id": "Bpxf",
+    "name": "被破坏的",
+    "tip": "被破坏的",
+    "description": "这个单位遭到攻击被破坏"
+  },
+  {
+    "id": "Brej",
+    "name": "生命恢复",
+    "tip": "生命恢复",
+    "description": "该单位具有生命恢复技能，因此其能持续地恢复自己的生命值。"
+  },
+  {
+    "id": "Broa",
+    "name": "咆哮",
+    "tip": "咆哮",
+    "description": "该单位具有咆哮技能，因此其攻击力得到了加强。"
+  },
+  {
+    "id": "Brpl",
+    "name": "战场支援",
+    "tip": "战场支援",
+    "description": "此单位正在接受战场支援"
+  },
+  {
+    "id": "Brpm",
+    "name": "能量恢复",
+    "tip": "能量恢复",
+    "description": "这个单位正在能量恢复中。"
+  },
+  {
+    "id": "Bsha",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Bshs",
+    "name": "影子权杖",
+    "tip": "影子权杖",
+    "description": "该单位受到了影子权杖的作用; 因此其将暴露在敌人的视野之下。"
+  },
+  {
+    "id": "Bslo",
+    "name": "减速",
+    "tip": "减速",
+    "description": "该单位被减速了，其移动速度和攻击速度都会下降。"
+  },
+  {
+    "id": "Bspe",
+    "name": "顺风顺水",
+    "tip": "顺风顺水",
+    "description": "受顺风顺水影响"
+  },
+  {
+    "id": "Bspo",
+    "name": "燃烧",
+    "tip": "燃烧",
+    "description": "该单位受到了炮火攻击在燃烧"
+  },
+  {
+    "id": "Bssd",
+    "name": "燃烧",
+    "tip": "燃烧",
+    "description": "该单位受到了炮火攻击在燃烧"
+  },
+  {
+    "id": "Bstt",
+    "name": "震荡雷",
+    "tip": "震荡雷",
+    "description": "这个震荡雷被激活的话会击晕周围敌方的地面单位。"
+  },
+  {
+    "id": "Btdg",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Btlf",
+    "name": "定时的生命",
+    "tip": "定时的生命",
+    "description": "召唤出来的单位会受到驱逐魔法的伤害。"
+  },
+  {
+    "id": "Btrv",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Bult",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Bvng",
+    "name": "复仇之魂",
+    "tip": "复仇之魂",
+    "description": "复仇之魂在此。"
+  },
+  {
+    "id": "Bvul",
+    "name": "无敌的",
+    "tip": "无敌的",
+    "description": "该单位是无敌的，所以任何的攻击和魔法都对其无效。"
+  },
+  {
+    "id": "XErf",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "XEsf",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "XEtq",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "XIct",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "XNcs",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "XNhs",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "XNvc",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "XOre",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xbdt",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xbli",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xbof",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xclf",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xdis",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xesn",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xfhl",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xfhm",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xfhs",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xfla",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xfnl",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xfnm",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xfns",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xfol",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xfom",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xfos",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xful",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xfum",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "Xfus",
+    "name": "",
+    "tip": "",
+    "description": ""
+  },
+  {
+    "id": "B000",
+    "name": "燃料加速",
+    "tip": "燃料加速",
+    "description": "这个单位使用氮气燃料加快了航行速度"
+  },
+  {
+    "id": "B001",
+    "name": "紧急修理",
+    "tip": "紧急修理",
+    "description": "该单位正在被修理"
+  },
+  {
+    "id": "B004",
+    "name": "渔网",
+    "tip": "渔网",
+    "description": "该单位被渔网网住无法移动"
+  },
+  {
+    "id": "B005",
+    "name": "隐藏",
+    "tip": "隐藏",
+    "description": "该单位处于隐形状态，敌人看不到它"
+  },
+  {
+    "id": "B006",
+    "name": "撕帆者",
+    "tip": "撕帆者",
+    "description": "该单位被撕帆者加农炮击中船速变慢"
+  },
+  {
+    "id": "B007",
+    "name": "防护罩",
+    "tip": "防护罩",
+    "description": "可以阻挡所有攻击的防护罩"
+  },
+  {
+    "id": "B009",
+    "name": "加固型船体",
+    "tip": "加固型船体",
+    "description": "这个单位有加固型船体"
+  },
+  {
+    "id": "B00A",
+    "name": "加固型船体",
+    "tip": "加固型船体",
+    "description": "这个单位有加固型船体"
+  },
+  {
+    "id": "B00B",
+    "name": "超级加固型船体",
+    "tip": "超级加固型船体",
+    "description": "这个单位有加固型船体"
+  },
+  {
+    "id": "B00E",
+    "name": "海怪",
+    "tip": "海怪",
+    "description": "召唤出来的单位会受到驱逐魔法的伤害。"
+  },
+  {
+    "id": "B00H",
+    "name": "物品：钛合金装甲",
+    "tip": "物品：钛合金装甲",
+    "description": "该单位装备有钛合金装甲船体，降低了航速"
+  },
+  {
+    "id": "B00I",
+    "name": "烟雾弹",
+    "tip": "烟雾弹",
+    "description": "这个单位在烟雾笼罩之下; 敌军看不到它"
+  },
+  {
+    "id": "B00J",
+    "name": "减速光环",
+    "tip": "减速光环",
+    "description": "该单位在减速光环范围内减低了航行速度"
+  },
+  {
+    "id": "B00K",
+    "name": "信号干扰",
+    "tip": "信号干扰",
+    "description": "该单位受到干扰信号攻击不能施放任何技能"
+  },
+  {
+    "id": "B00L",
+    "name": "电磁脉冲",
+    "tip": "电磁脉冲",
+    "description": "这个单位被电磁脉冲击中;速度降低"
+  },
+  {
+    "id": "B00M",
+    "name": "间谍",
+    "tip": "间谍",
+    "description": "该单位被间谍渗入而暴露在敌人的视线中"
+  },
+  {
+    "id": "B00R",
+    "name": "冻结",
+    "tip": "冻结",
+    "description": "该单位不能移动。"
+  },
+  {
+    "id": "B00T",
+    "name": "假目标",
+    "tip": "假目标",
+    "description": "诱饵是船只释放来迷惑敌人的幻影"
+  },
+  {
+    "id": "B00U",
+    "name": "改良型船帆",
+    "tip": "改良型船帆",
+    "description": "该单位的船帆经过改良，航速提高了"
+  },
+  {
+    "id": "B00V",
+    "name": "物品：石甲船体",
+    "tip": "物品：石甲船体",
+    "description": "该单位装备有石甲船体，降低了航速"
+  },
+  {
+    "id": "B00W",
+    "name": "物品：钢甲船体",
+    "tip": "物品：钢甲船体",
+    "description": "该单位装备有钢甲船体，降低了航速"
+  },
+  {
+    "id": "B00X",
+    "name": "物品：金甲船体",
+    "tip": "物品：金甲船体",
+    "description": "该单位装备有金甲船体，降低了航速"
+  },
+  {
+    "id": "B00Y",
+    "name": "物品：三角帆",
+    "tip": "物品：三角帆",
+    "description": "该单位装备有三角帆，加快了航速"
+  },
+  {
+    "id": "B00Z",
+    "name": "物品：中国帆",
+    "tip": "物品：中国帆",
+    "description": "该单位装备有中国帆，加快了航速"
+  },
+  {
+    "id": "B010",
+    "name": "物品：精灵帆",
+    "tip": "物品：精灵帆",
+    "description": "该单位装备有精灵帆，提升了航速"
+  },
+  {
+    "id": "B011",
+    "name": "物品：生物装甲外壳",
+    "tip": "物品：生物装甲外壳",
+    "description": "该单位装备有生物装甲外壳，能够抵挡攻击和自我修复"
+  },
+  {
+    "id": "B012",
+    "name": "灵魂控制",
+    "tip": "灵魂控制",
+    "description": "这个单位被灵魂控制暂时转变了阵营"
+  },
+  {
+    "id": "B013",
+    "name": "战争号角",
+    "tip": "战争号角",
+    "description": "受战争号角影响，攻击力得到加强。"
+  },
+  {
+    "id": "B014",
+    "name": "天赋-操舵术",
+    "tip": "天赋-操舵术",
+    "description": "船长天赋，可加快航速10%"
+  },
+  {
+    "id": "B015",
+    "name": "天赋-生财术",
+    "tip": "天赋-生财术",
+    "description": "船长天赋，可增加收入"
+  },
+  {
+    "id": "B016",
+    "name": "天赋-防御术",
+    "tip": "天赋-防御术",
+    "description": "船长天赋，可增加船只耐久"
+  },
+  {
+    "id": "B017",
+    "name": "火力全开",
+    "tip": "火力全开",
+    "description": "全船火炮持续射击周围敌方单位"
+  },
+  {
+    "id": "B018",
+    "name": "精准炮击",
+    "tip": "精准炮击",
+    "description": "开始精确射击状态"
+  },
+  {
+    "id": "B019",
+    "name": "船精灵",
+    "tip": "船精灵",
+    "description": "船精灵对黄金梅丽号紧急修理"
+  },
+  {
+    "id": "B01B",
+    "name": "渔网",
+    "tip": "渔网",
+    "description": "该单位受到了龙卷风的袭击，它的移动速度被暂时降低了。"
+  },
+  {
+    "id": "B01C",
+    "name": "涡流",
+    "tip": "涡流",
+    "description": "虎鲸搅动海水让附近渔船的航速得到提高"
+  },
+  {
+    "id": "B01D",
+    "name": "信任",
+    "tip": "信任",
+    "description": "在渔船附近"
+  },
+  {
+    "id": "B01E",
+    "name": "物品：精灵观察员",
+    "tip": "物品：精灵观察员",
+    "description": "该单位装备有精灵观察员，加快了航速"
+  },
+  {
+    "id": "B01F",
+    "name": "巨大化",
+    "tip": "巨大化",
+    "description": "该单位被巨大化，其攻击速度加快了。"
+  }
+]

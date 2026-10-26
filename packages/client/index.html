@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BOOM 海战</title>
+    <style>
+      html, body { margin: 0; height: 100%; background: #0b1d2a; overflow: hidden; }
+      #app { position: fixed; inset: 0; }
+      #hud {
+        position: fixed; left: 12px; top: 10px;
+        font: 13px/1.5 system-ui, sans-serif; color: #e6f1f7;
+        text-shadow: 0 1px 2px #000a; pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id="hud"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

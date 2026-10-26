@@ -1,0 +1,13 @@
+{
+  "width": 512,
+  "height": 512,
+  "cellSize": 32,
+  "flags": {
+    "noWalk": 2,
+    "noFly": 4,
+    "noBuild": 8,
+    "blight": 32,
+    "noWater": 64,
+    "unknown": 128
+  }
+}

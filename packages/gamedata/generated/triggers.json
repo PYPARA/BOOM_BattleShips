@@ -1,0 +1,6938 @@
+[
+  {
+    "name": "Initial",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_InitialActions"
+    ],
+    "references": [
+      "A06H",
+      "A06N",
+      "A06O",
+      "H000",
+      "hhou"
+    ],
+    "abilities": [],
+    "lines": [
+      2386,
+      2538
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Buy_Hero",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SELL)"
+    ],
+    "conditionFunctions": [
+      "Trig_Buy_HeroConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Buy_HeroActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      2539,
+      2567
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Change_Ship",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Change_ShipActions"
+    ],
+    "references": [
+      "A03V",
+      "A06G",
+      "A06J",
+      "A06K",
+      "A090",
+      "H00C",
+      "H00J",
+      "H021"
+    ],
+    "abilities": [],
+    "lines": [
+      2568,
+      2664
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Buy_NPC",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SELL)"
+    ],
+    "conditionFunctions": [
+      "Trig_Buy_NPCConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Buy_NPCActions"
+    ],
+    "references": [
+      "h00F",
+      "h00G",
+      "h010",
+      "h013"
+    ],
+    "abilities": [],
+    "lines": [
+      2665,
+      2688
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Win",
+    "events": [
+      "TriggerRegisterUnitEvent(gg_unit_n000_0018,EVENT_UNIT_DEATH)",
+      "TriggerRegisterUnitEvent(gg_unit_n000_0020,EVENT_UNIT_DEATH)"
+    ],
+    "conditionFunctions": [
+      "Trig_WinConditions"
+    ],
+    "actionFunctions": [
+      "Trig_WinActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      2689,
+      2768
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Kills_ChuanChang",
+    "events": [
+      "TriggerRegisterUnitEvent(gg_unit_n003_0016,EVENT_UNIT_DEATH)",
+      "TriggerRegisterUnitEvent(gg_unit_n003_0017,EVENT_UNIT_DEATH)",
+      "TriggerRegisterUnitEvent(gg_unit_n003_0024,EVENT_UNIT_DEATH)",
+      "TriggerRegisterUnitEvent(gg_unit_n003_0025,EVENT_UNIT_DEATH)"
+    ],
+    "conditionFunctions": [
+      "Trig_Kills_ChuanChangConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Kills_ChuanChangActions"
+    ],
+    "references": [
+      "A08E"
+    ],
+    "abilities": [],
+    "lines": [
+      2769,
+      2800
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "ShowText",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(618.)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_ShowTextActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      2801,
+      2811
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "ShowText2",
+    "events": [
+      "TriggerRegisterPlayerSelectionEventBJ(Player(2),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(3),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(4),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(5),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(6),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(7),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(8),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(9),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(10),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(11),true)"
+    ],
+    "conditionFunctions": [
+      "Trig_ShowText2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_ShowText2Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      2812,
+      2862
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "ShowText3",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SELL_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_ShowText3Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_ShowText3Actions"
+    ],
+    "references": [
+      "H016",
+      "H01B",
+      "I01T",
+      "I01V",
+      "I01W"
+    ],
+    "abilities": [],
+    "lines": [
+      2863,
+      2882
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "ShowTips",
+    "events": [],
+    "conditionFunctions": [
+      "Trig_ShowTipsConditions"
+    ],
+    "actionFunctions": [
+      "Trig_ShowTipsActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      2883,
+      2938
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "ShowDonghua",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SELL_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_ShowDonghuaConditions"
+    ],
+    "actionFunctions": [
+      "Trig_ShowDonghuaActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      2939,
+      2973
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "gameTime_60s",
+    "events": [
+      "TriggerRegisterTimerEventSingle(60.)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_gameTime_60sActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      2974,
+      2990
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Off_Kick",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-off\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-off\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-off\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-off\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-off\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-off\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-off\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-off\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-off\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-off\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Off_KickActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      2991,
+      3010
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "PK_in",
+    "events": [],
+    "conditionFunctions": [
+      "Trig_PK_inConditions"
+    ],
+    "actionFunctions": [
+      "Trig_PK_inActions"
+    ],
+    "references": [
+      "H024"
+    ],
+    "abilities": [],
+    "lines": [
+      3011,
+      3067
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "PK_kill",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_DEATH)"
+    ],
+    "conditionFunctions": [
+      "Trig_PK_killConditions"
+    ],
+    "actionFunctions": [
+      "Trig_PK_killActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      3068,
+      3096
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "PK_out",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_PK_outActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      3097,
+      3154
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "pk_9",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-PK\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_pk_9Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      3155,
+      3171
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Player_Out",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-testout\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-testout\",true)",
+      "TriggerRegisterPlayerEventLeave(Player(2))",
+      "TriggerRegisterPlayerEventLeave(Player(3))",
+      "TriggerRegisterPlayerEventLeave(Player(4))",
+      "TriggerRegisterPlayerEventLeave(Player(5))",
+      "TriggerRegisterPlayerEventLeave(Player(6))",
+      "TriggerRegisterPlayerEventLeave(Player(7))",
+      "TriggerRegisterPlayerEventLeave(Player(8))",
+      "TriggerRegisterPlayerEventLeave(Player(9))",
+      "TriggerRegisterPlayerEventLeave(Player(10))",
+      "TriggerRegisterPlayerEventLeave(Player(11))"
+    ],
+    "conditionFunctions": [
+      "Trig_Player_OutConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Player_OutActions"
+    ],
+    "references": [
+      "H00C",
+      "H021",
+      "hhou"
+    ],
+    "abilities": [],
+    "lines": [
+      3172,
+      3290
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i0",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i0\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i0Actions"
+    ],
+    "references": [
+      "A07G"
+    ],
+    "abilities": [],
+    "lines": [
+      3291,
+      3302
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "AI_Start",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_AI_StartActions"
+    ],
+    "references": [
+      "A01A",
+      "A01Y",
+      "A06H",
+      "A08C",
+      "ANab",
+      "ANhs",
+      "Acri",
+      "Asta",
+      "H001",
+      "I002",
+      "I004",
+      "I009",
+      "I017",
+      "I02A",
+      "I04K",
+      "I05L"
+    ],
+    "abilities": [],
+    "lines": [
+      3303,
+      3409
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "AI_Buy",
+    "events": [
+      "YDWETriggerRegisterLeaveRectSimpleNull(gg_rct_Repair_Out_South)",
+      "YDWETriggerRegisterLeaveRectSimpleNull(gg_rct_Repair_Out_North)"
+    ],
+    "conditionFunctions": [
+      "Trig_AI_BuyConditions"
+    ],
+    "actionFunctions": [
+      "Trig_AI_BuyActions"
+    ],
+    "references": [
+      "H001",
+      "H003",
+      "H004",
+      "H008",
+      "H00C",
+      "I001",
+      "I002",
+      "I004",
+      "I007",
+      "I008",
+      "I009",
+      "I00C",
+      "I00D",
+      "I00E",
+      "I00O",
+      "I017",
+      "I019",
+      "I01A",
+      "I01H",
+      "I01L",
+      "I01M",
+      "I01Y",
+      "I02W",
+      "I033",
+      "I03B",
+      "I03T",
+      "I03Y",
+      "I03Z",
+      "I046",
+      "I048",
+      "I04G",
+      "I04K",
+      "I04N",
+      "I04P",
+      "I04R",
+      "I04S",
+      "I04Y",
+      "I050",
+      "I052",
+      "I054",
+      "I05B",
+      "I05L",
+      "I05M",
+      "rsps",
+      "tin2",
+      "tint"
+    ],
+    "abilities": [],
+    "lines": [
+      3410,
+      3654
+    ],
+    "initiallyEnabled": false
+  },
+  {
+    "name": "AI_BuyShip",
+    "events": [],
+    "conditionFunctions": [
+      "Trig_AI_BuyShipConditions"
+    ],
+    "actionFunctions": [
+      "Trig_AI_BuyShipActions"
+    ],
+    "references": [
+      "A06G",
+      "A08C",
+      "AIfg",
+      "ANab",
+      "AUls",
+      "Acri",
+      "Asta",
+      "H000",
+      "H001",
+      "H003",
+      "H004",
+      "H006",
+      "H008",
+      "H00C",
+      "H00R",
+      "H015",
+      "H019"
+    ],
+    "abilities": [],
+    "lines": [
+      3655,
+      3810
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "AI_line",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(1.)"
+    ],
+    "conditionFunctions": [
+      "Trig_AI_lineConditions"
+    ],
+    "actionFunctions": [
+      "Trig_AI_lineActions"
+    ],
+    "references": [
+      "H003"
+    ],
+    "abilities": [],
+    "lines": [
+      3811,
+      3842
+    ],
+    "initiallyEnabled": false
+  },
+  {
+    "name": "AI_line_1",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_AI_line_1Actions"
+    ],
+    "references": [
+      "H00R"
+    ],
+    "abilities": [],
+    "lines": [
+      3843,
+      3880
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "AI_line_2",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_AI_line_2Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      3881,
+      3900
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "AI_line_3",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_AI_line_3Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      3901,
+      3994
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "AI_line_Battle",
+    "events": [],
+    "conditionFunctions": [
+      "Trig_AI_line_BattleConditions"
+    ],
+    "actionFunctions": [
+      "Trig_AI_line_BattleActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      3995,
+      4043
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "AI_line_Battle_QianJin",
+    "events": [],
+    "conditionFunctions": [
+      "Trig_AI_line_Battle_QianJinConditions"
+    ],
+    "actionFunctions": [
+      "Trig_AI_line_Battle_QianJinActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4044,
+      4056
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "AI_line_Battle2_JianZhu",
+    "events": [],
+    "conditionFunctions": [
+      "Trig_AI_line_Battle2_JianZhuConditions"
+    ],
+    "actionFunctions": [
+      "Trig_AI_line_Battle2_JianZhuActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4057,
+      4084
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "AI_line_Battle_ZhiYuan",
+    "events": [],
+    "conditionFunctions": [
+      "Trig_AI_line_Battle_ZhiYuanConditions"
+    ],
+    "actionFunctions": [
+      "Trig_AI_line_Battle_ZhiYuanActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4085,
+      4109
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "AI_line_Repair",
+    "events": [
+      "YDWETriggerRegisterLeaveRectSimpleNull(gg_rct_Repair_Station_South)",
+      "YDWETriggerRegisterLeaveRectSimpleNull(gg_rct_Repair_Station_North)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_AI_line_RepairActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4110,
+      4145
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "AI_line_Timer",
+    "events": [
+      "TriggerRegisterTimerExpireEvent(udg_aiAction_Timer[3])",
+      "TriggerRegisterTimerExpireEvent(udg_aiAction_Timer[4])",
+      "TriggerRegisterTimerExpireEvent(udg_aiAction_Timer[5])",
+      "TriggerRegisterTimerExpireEvent(udg_aiAction_Timer[6])",
+      "TriggerRegisterTimerExpireEvent(udg_aiAction_Timer[7])",
+      "TriggerRegisterTimerExpireEvent(udg_aiAction_Timer[8])",
+      "TriggerRegisterTimerExpireEvent(udg_aiAction_Timer[9])",
+      "TriggerRegisterTimerExpireEvent(udg_aiAction_Timer[10])",
+      "TriggerRegisterTimerExpireEvent(udg_aiAction_Timer[11])",
+      "TriggerRegisterTimerExpireEvent(udg_aiAction_Timer[12])"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_AI_line_TimerActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4146,
+      4168
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "AI_set_UnitAbi",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_AI_set_UnitAbiActions"
+    ],
+    "references": [
+      "A00J",
+      "A00N",
+      "A00Y",
+      "A01A",
+      "A01E",
+      "A01Y",
+      "A02D",
+      "A02Z",
+      "A031",
+      "A037",
+      "A03M",
+      "A03W",
+      "A051",
+      "A058",
+      "A061",
+      "A062",
+      "A06E",
+      "A071",
+      "A07L",
+      "A07P",
+      "A07U",
+      "A07V",
+      "A07W",
+      "AEtq",
+      "AOcl",
+      "AOsh"
+    ],
+    "abilities": [],
+    "lines": [
+      4169,
+      4357
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "AI_LVup",
+    "events": [
+      "TriggerRegisterPlayerUnitEventSimple(Player(2),EVENT_PLAYER_HERO_LEVEL)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(3),EVENT_PLAYER_HERO_LEVEL)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(4),EVENT_PLAYER_HERO_LEVEL)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(5),EVENT_PLAYER_HERO_LEVEL)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(6),EVENT_PLAYER_HERO_LEVEL)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(7),EVENT_PLAYER_HERO_LEVEL)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(8),EVENT_PLAYER_HERO_LEVEL)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(9),EVENT_PLAYER_HERO_LEVEL)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(10),EVENT_PLAYER_HERO_LEVEL)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(11),EVENT_PLAYER_HERO_LEVEL)"
+    ],
+    "conditionFunctions": [
+      "Trig_AI_LVupConditions"
+    ],
+    "actionFunctions": [
+      "Trig_AI_LVupActions"
+    ],
+    "references": [
+      "AIfg",
+      "H000",
+      "H001",
+      "H003",
+      "H004",
+      "H006",
+      "H008",
+      "H00C",
+      "H00R",
+      "H015",
+      "H019"
+    ],
+    "abilities": [],
+    "lines": [
+      4358,
+      4426
+    ],
+    "initiallyEnabled": false
+  },
+  {
+    "name": "AI_Ability",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_CAST)"
+    ],
+    "conditionFunctions": [
+      "Trig_AI_AbilityConditions"
+    ],
+    "actionFunctions": [
+      "Trig_AI_AbilityActions"
+    ],
+    "references": [
+      "A00Y",
+      "A01A",
+      "A035",
+      "A03M",
+      "A062",
+      "AEtq",
+      "ANhs"
+    ],
+    "abilities": [
+      "A00Y",
+      "A01A",
+      "A035",
+      "A03M",
+      "A062",
+      "AEtq",
+      "ANhs"
+    ],
+    "lines": [
+      4427,
+      4448
+    ],
+    "initiallyEnabled": false
+  },
+  {
+    "name": "AI_Ability2",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_AI_Ability2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_AI_Ability2Actions"
+    ],
+    "references": [
+      "A01A",
+      "A08C",
+      "H001",
+      "H008"
+    ],
+    "abilities": [
+      "A08C"
+    ],
+    "lines": [
+      4449,
+      4493
+    ],
+    "initiallyEnabled": false
+  },
+  {
+    "name": "AI_Ability3",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(.25)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_AI_Ability3Actions"
+    ],
+    "references": [
+      "A01A",
+      "H001",
+      "H008"
+    ],
+    "abilities": [],
+    "lines": [
+      4494,
+      4545
+    ],
+    "initiallyEnabled": false
+  },
+  {
+    "name": "ShowDamage1",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-D1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-D1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-D1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-D1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-D1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-D1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-D1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-D1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-D1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-D1\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_ShowDamage1Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4546,
+      4563
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "ShowDamage2",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-D2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-D2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-D2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-D2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-D2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-D2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-D2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-D2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-D2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-D2\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_ShowDamage2Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4564,
+      4581
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "showTips",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-tips\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-tips\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-tips\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-tips\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-tips\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-tips\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-tips\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-tips\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-tips\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-tips\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_showTipsActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4582,
+      4604
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "iMH",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-mh\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-mh\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-mh\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-mh\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-mh\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-mh\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-mh\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-mh\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-mh\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-mh\",true)"
+    ],
+    "conditionFunctions": [
+      "Trig_iMHConditions"
+    ],
+    "actionFunctions": [
+      "Trig_iMHActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4605,
+      4629
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i1",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-i1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-i1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-i1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-i1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-i1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-i1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-i1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-i1\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i1Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4630,
+      4658
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i2",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-i2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-i2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-i2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-i2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-i2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-i2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-i2\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-i2\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i2Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4659,
+      4694
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i3",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i3\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-i3\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-i3\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-i3\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-i3\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i3\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-i3\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-i3\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-i3\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-i3\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i3Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4695,
+      4729
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i4",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i4\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-i4\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-i4\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-i4\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-i4\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i4\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-i4\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-i4\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-i4\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-i4\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i4Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4730,
+      4755
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i5",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i5\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-i5\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-i5\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-i5\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-i5\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i5\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-i5\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-i5\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-i5\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-i5\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i5Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4756,
+      4780
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i7",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i7\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-i7\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-i7\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-i7\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-i7\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i7\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-i7\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-i7\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-i7\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-i7\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i7Actions"
+    ],
+    "references": [
+      "h00N",
+      "h00O",
+      "h00P"
+    ],
+    "abilities": [],
+    "lines": [
+      4781,
+      4832
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i8",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i8\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-i8\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-i8\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-i8\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-i8\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i8\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-i8\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-i8\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-i8\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-i8\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i8Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4833,
+      4855
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i9",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i9\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-i9\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-i9\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-i9\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-i9\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i9\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-i9\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-i9\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-i9\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-i9\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i9Actions"
+    ],
+    "references": [
+      "R005"
+    ],
+    "abilities": [],
+    "lines": [
+      4856,
+      4879
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i10",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i10\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-i10\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i10\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i10Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4880,
+      4923
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i11",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i11\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i11\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i11Actions"
+    ],
+    "references": [
+      "Bapl"
+    ],
+    "abilities": [],
+    "lines": [
+      4924,
+      4936
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i12",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i12\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i12\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i12Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4937,
+      4948
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i13",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i13\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i13\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i13Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4949,
+      4960
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i14",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i14\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i14\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i14Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4961,
+      4975
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i15",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i15\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i15\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i15Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4976,
+      4990
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i16",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i16\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i16\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i16Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      4991,
+      5005
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i17",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i17\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i17\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i17Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      5006,
+      5017
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i18",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i18\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i18\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i18Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      5018,
+      5032
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i19",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i19\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-i19\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i19Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      5033,
+      5047
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i20",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i20\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i20Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      5048,
+      5058
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i21",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i21\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i21Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      5059,
+      5072
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i22",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i22\",true)"
+    ],
+    "conditionFunctions": [
+      "Trig_i22Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_i22Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      5073,
+      5101
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i24",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i24\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i24Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      5102,
+      5115
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i31",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i31\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i31Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      5116,
+      5127
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i98",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i98\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i98Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      5128,
+      5141
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i99",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-i99\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_i99Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      5142,
+      5155
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "i_ZhuGong1",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"``\",false)"
+    ],
+    "conditionFunctions": [
+      "Trig_i_ZhuGong1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_i_ZhuGong1Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      5156,
+      5182
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "mode_No3",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_PICKUP_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_mode_No3Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_mode_No3Actions"
+    ],
+    "references": [
+      "I01X",
+      "I03E"
+    ],
+    "abilities": [],
+    "lines": [
+      5183,
+      5197
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "lock_Item",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_PICKUP_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_lock_ItemConditions"
+    ],
+    "actionFunctions": [
+      "Trig_lock_ItemActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      5198,
+      5218
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "weapon_11",
+    "events": [],
+    "conditionFunctions": [
+      "Trig_weapon_11Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_weapon_11Actions"
+    ],
+    "references": [
+      "H00J",
+      "H00U",
+      "H025",
+      "I031",
+      "I05J",
+      "I068",
+      "h01I",
+      "h01J",
+      "h01W"
+    ],
+    "abilities": [],
+    "lines": [
+      5219,
+      5243
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "weapon_12",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_HERO_REVIVE_FINISH)"
+    ],
+    "conditionFunctions": [
+      "Trig_weapon_12Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_weapon_12Actions"
+    ],
+    "references": [
+      "H00U",
+      "H025",
+      "I031",
+      "I05J",
+      "I068",
+      "h01I",
+      "h01J",
+      "h01W"
+    ],
+    "abilities": [],
+    "lines": [
+      5244,
+      5269
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "weapon_13",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SUMMON)"
+    ],
+    "conditionFunctions": [
+      "Trig_weapon_13Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_weapon_13Actions"
+    ],
+    "references": [
+      "H00J",
+      "H00U",
+      "H025",
+      "I031",
+      "I05J",
+      "I068",
+      "h01I",
+      "h01J",
+      "h01W"
+    ],
+    "abilities": [],
+    "lines": [
+      5270,
+      5298
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "weapon_14",
+    "events": [],
+    "conditionFunctions": [
+      "Trig_weapon_14Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_weapon_14Actions"
+    ],
+    "references": [
+      "H00U",
+      "H025",
+      "I031",
+      "I05J",
+      "I068",
+      "h01I",
+      "h01J",
+      "h01W"
+    ],
+    "abilities": [],
+    "lines": [
+      5299,
+      5323
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "weapon_18",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_DEATH)"
+    ],
+    "conditionFunctions": [
+      "Trig_weapon_18Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_weapon_18Actions"
+    ],
+    "references": [
+      "I031",
+      "I05J",
+      "I068"
+    ],
+    "abilities": [],
+    "lines": [
+      5324,
+      5342
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "weapon_19",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_DROP_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_weapon_19Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_weapon_19Actions"
+    ],
+    "references": [
+      "H00J",
+      "I031",
+      "I05J",
+      "I068"
+    ],
+    "abilities": [],
+    "lines": [
+      5343,
+      5360
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "weapon_10",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(.5)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_weapon_10Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      5361,
+      5383
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Only_One_Weap",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_PICKUP_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_Only_One_WeapConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Only_One_WeapActions"
+    ],
+    "references": [
+      "I031",
+      "I05J",
+      "I068"
+    ],
+    "abilities": [],
+    "lines": [
+      5384,
+      5414
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Only_One_Sail",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_PICKUP_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_Only_One_SailConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Only_One_SailActions"
+    ],
+    "references": [
+      "I007",
+      "I008",
+      "I01A",
+      "I04Q",
+      "I04Y"
+    ],
+    "abilities": [],
+    "lines": [
+      5415,
+      5444
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Only_One_Hull",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_PICKUP_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_Only_One_HullConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Only_One_HullActions"
+    ],
+    "references": [
+      "I009",
+      "I00A",
+      "I016",
+      "I03Z",
+      "I040",
+      "I052",
+      "I06C"
+    ],
+    "abilities": [],
+    "lines": [
+      5445,
+      5474
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Only_One_Head",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_PICKUP_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_Only_One_HeadConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Only_One_HeadActions"
+    ],
+    "references": [
+      "I01K",
+      "I034",
+      "I03T",
+      "I045",
+      "I04L",
+      "I04M",
+      "I04N",
+      "I04O",
+      "I04Q",
+      "I04Y",
+      "I04Z",
+      "I06H"
+    ],
+    "abilities": [],
+    "lines": [
+      5475,
+      5504
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Item_HaiDao",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_PICKUP_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_Item_HaiDaoConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Item_HaiDaoActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      5505,
+      5518
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Items_Not_Buyable",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SELL_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_Items_Not_BuyableConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Items_Not_BuyableActions"
+    ],
+    "references": [
+      "I007",
+      "I008",
+      "I009",
+      "I00A",
+      "I016",
+      "I01A",
+      "I01K",
+      "I01X",
+      "I034",
+      "I03E",
+      "I03T",
+      "I03Z",
+      "I040",
+      "I045",
+      "I04L",
+      "I04M",
+      "I04N",
+      "I04O",
+      "I04Q",
+      "I04Y",
+      "I04Z",
+      "I052",
+      "I06C",
+      "I06H",
+      "n00Q"
+    ],
+    "abilities": [],
+    "lines": [
+      5519,
+      5557
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "cannon_WuXiang_1",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_USE_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_cannon_WuXiang_1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_cannon_WuXiang_1Actions"
+    ],
+    "references": [
+      "I05F",
+      "I05G"
+    ],
+    "abilities": [],
+    "lines": [
+      5558,
+      5580
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "cannon_WuXiang_2",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_USE_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_cannon_WuXiang_2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_cannon_WuXiang_2Actions"
+    ],
+    "references": [
+      "I05F",
+      "I05G"
+    ],
+    "abilities": [],
+    "lines": [
+      5581,
+      5603
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "ShengWuJia",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_ShengWuJiaActions"
+    ],
+    "references": [
+      "A06L"
+    ],
+    "abilities": [],
+    "lines": [
+      5604,
+      5612
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "cannon_HMBB_A",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_USE_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_cannon_HMBB_AConditions"
+    ],
+    "actionFunctions": [
+      "Trig_cannon_HMBB_AActions"
+    ],
+    "references": [
+      "I064",
+      "I067"
+    ],
+    "abilities": [],
+    "lines": [
+      5613,
+      5626
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "cannon_HMBB_B",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_USE_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_cannon_HMBB_BConditions"
+    ],
+    "actionFunctions": [
+      "Trig_cannon_HMBB_BActions"
+    ],
+    "references": [
+      "I064",
+      "I067"
+    ],
+    "abilities": [],
+    "lines": [
+      5627,
+      5640
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "cannon_HMBB_1A",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_USE_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_cannon_HMBB_1AConditions"
+    ],
+    "actionFunctions": [
+      "Trig_cannon_HMBB_1AActions"
+    ],
+    "references": [
+      "I06J",
+      "I06K"
+    ],
+    "abilities": [],
+    "lines": [
+      5641,
+      5654
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "cannon_HMBB_1B",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_USE_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_cannon_HMBB_1BConditions"
+    ],
+    "actionFunctions": [
+      "Trig_cannon_HMBB_1BActions"
+    ],
+    "references": [
+      "I06J",
+      "I06K"
+    ],
+    "abilities": [],
+    "lines": [
+      5655,
+      5668
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "NuSheng_1",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_USE_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_NuSheng_1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_NuSheng_1Actions"
+    ],
+    "references": [
+      "I04Z",
+      "I06H"
+    ],
+    "abilities": [],
+    "lines": [
+      5669,
+      5682
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "NuSheng_2",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_USE_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_NuSheng_2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_NuSheng_2Actions"
+    ],
+    "references": [
+      "I04Z",
+      "I06H"
+    ],
+    "abilities": [],
+    "lines": [
+      5683,
+      5696
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "iFanShangJia",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_USE_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_iFanShangJiaConditions"
+    ],
+    "actionFunctions": [
+      "Trig_iFanShangJiaActions"
+    ],
+    "references": [
+      "A08F",
+      "I06S"
+    ],
+    "abilities": [],
+    "lines": [
+      5697,
+      5711
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Huan_Pao",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SELL)"
+    ],
+    "conditionFunctions": [
+      "Trig_Huan_PaoConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Huan_PaoActions"
+    ],
+    "references": [
+      "I00Y",
+      "I01M",
+      "I02C",
+      "I03B",
+      "I03W",
+      "I048",
+      "I04S",
+      "I054",
+      "I056",
+      "I059",
+      "I05B",
+      "I05M",
+      "h01U"
+    ],
+    "abilities": [],
+    "lines": [
+      5712,
+      5792
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "dead_unitFuZhu",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_DEATH)"
+    ],
+    "conditionFunctions": [
+      "Trig_dead_unitFuZhuConditions"
+    ],
+    "actionFunctions": [
+      "Trig_dead_unitFuZhuActions"
+    ],
+    "references": [
+      "h01M",
+      "hfoo",
+      "n00M",
+      "n00N"
+    ],
+    "abilities": [],
+    "lines": [
+      5793,
+      5804
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "HaiGuai",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SUMMON)"
+    ],
+    "conditionFunctions": [
+      "Trig_HaiGuaiConditions"
+    ],
+    "actionFunctions": [
+      "Trig_HaiGuaiActions"
+    ],
+    "references": [
+      "A06L",
+      "n00L",
+      "n017"
+    ],
+    "abilities": [],
+    "lines": [
+      5805,
+      5825
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "HaiGuai2",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_DEATH)"
+    ],
+    "conditionFunctions": [
+      "Trig_HaiGuai2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_HaiGuai2Actions"
+    ],
+    "references": [
+      "A06F",
+      "u002"
+    ],
+    "abilities": [],
+    "lines": [
+      5826,
+      5841
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "mine_1",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SUMMON)"
+    ],
+    "conditionFunctions": [
+      "Trig_mine_1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_mine_1Actions"
+    ],
+    "references": [
+      "n00G",
+      "n00S",
+      "n00T",
+      "n010"
+    ],
+    "abilities": [],
+    "lines": [
+      5842,
+      5854
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "mine_2",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_CAST)"
+    ],
+    "conditionFunctions": [
+      "Trig_mine_2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_mine_2Actions"
+    ],
+    "references": [
+      "A01I",
+      "A01S",
+      "A039",
+      "A04K"
+    ],
+    "abilities": [
+      "A01I",
+      "A01S",
+      "A039",
+      "A04K"
+    ],
+    "lines": [
+      5855,
+      5866
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "LingZhu_JianDie",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_LingZhu_JianDieConditions"
+    ],
+    "actionFunctions": [
+      "Trig_LingZhu_JianDieActions"
+    ],
+    "references": [
+      "A02Z",
+      "A098"
+    ],
+    "abilities": [
+      "A02Z"
+    ],
+    "lines": [
+      5867,
+      5887
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "LingZhu_JianDie2",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_LingZhu_JianDie2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_LingZhu_JianDie2Actions"
+    ],
+    "references": [
+      "A02Z",
+      "A09B",
+      "B00M"
+    ],
+    "abilities": [
+      "A09B"
+    ],
+    "lines": [
+      5888,
+      5907
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "goingmerry_Fei1",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_goingmerry_Fei1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_goingmerry_Fei1Actions"
+    ],
+    "references": [
+      "A090",
+      "A091",
+      "A093",
+      "A096",
+      "H021"
+    ],
+    "abilities": [
+      "A090"
+    ],
+    "lines": [
+      5908,
+      5935
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "goingmerry_Fei2",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_goingmerry_Fei2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_goingmerry_Fei2Actions"
+    ],
+    "references": [
+      "A090",
+      "A091",
+      "A093",
+      "A096",
+      "H021",
+      "H025"
+    ],
+    "abilities": [
+      "A090"
+    ],
+    "lines": [
+      5936,
+      5971
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "goingmerry_Tiao0",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_CAST)"
+    ],
+    "conditionFunctions": [
+      "Trig_goingmerry_Tiao0Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_goingmerry_Tiao0Actions"
+    ],
+    "references": [
+      "A091"
+    ],
+    "abilities": [
+      "A091"
+    ],
+    "lines": [
+      5972,
+      5985
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "goingmerry_Tiao",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_goingmerry_TiaoConditions"
+    ],
+    "actionFunctions": [
+      "Trig_goingmerry_TiaoActions"
+    ],
+    "references": [
+      "A01D",
+      "A091",
+      "h026"
+    ],
+    "abilities": [
+      "A091"
+    ],
+    "lines": [
+      5986,
+      6009
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "goingmerry_Tiao2",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(.05)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_goingmerry_Tiao2Actions"
+    ],
+    "references": [
+      "A01D",
+      "A091",
+      "A092",
+      "A097",
+      "BHwe",
+      "hfoo"
+    ],
+    "abilities": [],
+    "lines": [
+      6010,
+      6051
+    ],
+    "initiallyEnabled": false
+  },
+  {
+    "name": "goingmerry_E",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_goingmerry_EConditions"
+    ],
+    "actionFunctions": [
+      "Trig_goingmerry_EActions"
+    ],
+    "references": [
+      "A095",
+      "A096"
+    ],
+    "abilities": [
+      "A096"
+    ],
+    "lines": [
+      6052,
+      6066
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "goingmerry_XX",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_goingmerry_XXConditions"
+    ],
+    "actionFunctions": [
+      "Trig_goingmerry_XXActions"
+    ],
+    "references": [
+      "A081",
+      "A089"
+    ],
+    "abilities": [
+      "A081"
+    ],
+    "lines": [
+      6067,
+      6082
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "JiShenChong1",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_JiShenChong1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_JiShenChong1Actions"
+    ],
+    "references": [
+      "A065"
+    ],
+    "abilities": [
+      "A065"
+    ],
+    "lines": [
+      6083,
+      6098
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "QianShui_down",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_QianShui_downConditions"
+    ],
+    "actionFunctions": [
+      "Trig_QianShui_downActions"
+    ],
+    "references": [
+      "A02Y",
+      "A046",
+      "H005"
+    ],
+    "abilities": [
+      "A046"
+    ],
+    "lines": [
+      6099,
+      6123
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "QianShui_up",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_QianShui_upConditions"
+    ],
+    "actionFunctions": [
+      "Trig_QianShui_upActions"
+    ],
+    "references": [
+      "A02Y",
+      "A046",
+      "H00U"
+    ],
+    "abilities": [
+      "A046"
+    ],
+    "lines": [
+      6124,
+      6148
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Repair_ship",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_Repair_shipConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Repair_shipActions"
+    ],
+    "references": [
+      "A01E",
+      "A05M",
+      "AImb",
+      "BHwe",
+      "hfoo"
+    ],
+    "abilities": [
+      "A01E"
+    ],
+    "lines": [
+      6149,
+      6173
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Repair_ship2",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_Repair_ship2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_Repair_ship2Actions"
+    ],
+    "references": [
+      "A07L",
+      "AImb"
+    ],
+    "abilities": [
+      "A07L"
+    ],
+    "lines": [
+      6174,
+      6185
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "LanJieZhe",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_LanJieZheConditions"
+    ],
+    "actionFunctions": [
+      "Trig_LanJieZheActions"
+    ],
+    "references": [
+      "A00N",
+      "A07N",
+      "A07P",
+      "BHwe",
+      "hfoo"
+    ],
+    "abilities": [
+      "A00N"
+    ],
+    "lines": [
+      6186,
+      6201
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "KaiHuaDan",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_KaiHuaDanConditions"
+    ],
+    "actionFunctions": [
+      "Trig_KaiHuaDanActions"
+    ],
+    "references": [
+      "A07M",
+      "A07O",
+      "BTLF",
+      "hfoo"
+    ],
+    "abilities": [
+      "A07O"
+    ],
+    "lines": [
+      6202,
+      6218
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "feiYu1",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_CAST)"
+    ],
+    "conditionFunctions": [
+      "Trig_feiYu1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_feiYu1Actions"
+    ],
+    "references": [
+      "A05D",
+      "ACst",
+      "BTLF",
+      "hfoo"
+    ],
+    "abilities": [
+      "A05D"
+    ],
+    "lines": [
+      6219,
+      6252
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "feiYu2",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_CAST)"
+    ],
+    "conditionFunctions": [
+      "Trig_feiYu2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_feiYu2Actions"
+    ],
+    "references": [
+      "A07K",
+      "H01B"
+    ],
+    "abilities": [
+      "A07K"
+    ],
+    "lines": [
+      6253,
+      6266
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "QianXin",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_QianXinConditions"
+    ],
+    "actionFunctions": [
+      "Trig_QianXinActions"
+    ],
+    "references": [
+      "A064",
+      "Aivs",
+      "BTLF",
+      "hfoo"
+    ],
+    "abilities": [
+      "A064"
+    ],
+    "lines": [
+      6267,
+      6283
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Ship_Gold",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_DEATH)"
+    ],
+    "conditionFunctions": [
+      "Trig_Ship_GoldConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Ship_GoldActions"
+    ],
+    "references": [
+      "H01C"
+    ],
+    "abilities": [],
+    "lines": [
+      6284,
+      6301
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Ship_shitou",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_Ship_shitouConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Ship_shitouActions"
+    ],
+    "references": [
+      "A02V",
+      "BTLF",
+      "n00M",
+      "n00N"
+    ],
+    "abilities": [
+      "A02V"
+    ],
+    "lines": [
+      6302,
+      6328
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "ZhuFu",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_ZhuFuConditions"
+    ],
+    "actionFunctions": [
+      "Trig_ZhuFuActions"
+    ],
+    "references": [
+      "A057",
+      "Bapl",
+      "Bplg"
+    ],
+    "abilities": [
+      "A057"
+    ],
+    "lines": [
+      6329,
+      6342
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "a_YuWang",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_a_YuWangConditions"
+    ],
+    "actionFunctions": [
+      "Trig_a_YuWangActions"
+    ],
+    "references": [
+      "A08O",
+      "A08R",
+      "BHwe",
+      "n01F"
+    ],
+    "abilities": [
+      "A08O"
+    ],
+    "lines": [
+      6343,
+      6368
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "a_YuWang2",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_a_YuWang2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_a_YuWang2Actions"
+    ],
+    "references": [
+      "A08O",
+      "A08R",
+      "BHwe",
+      "rhe1"
+    ],
+    "abilities": [
+      "A08R"
+    ],
+    "lines": [
+      6369,
+      6389
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "a_East1",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SUMMON)"
+    ],
+    "conditionFunctions": [
+      "Trig_a_East1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_a_East1Actions"
+    ],
+    "references": [
+      "A08I",
+      "A08U",
+      "n01C",
+      "n01D",
+      "n01E",
+      "n01G"
+    ],
+    "abilities": [],
+    "lines": [
+      6390,
+      6402
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "a_East2",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_DEATH)"
+    ],
+    "conditionFunctions": [
+      "Trig_a_East2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_a_East2Actions"
+    ],
+    "references": [
+      "A08I",
+      "A08U",
+      "H01A",
+      "n01C",
+      "n01D",
+      "n01E",
+      "n01G"
+    ],
+    "abilities": [],
+    "lines": [
+      6403,
+      6423
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "a_East3",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_a_East3Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_a_East3Actions"
+    ],
+    "references": [
+      "A08T",
+      "rhe1",
+      "rhe2"
+    ],
+    "abilities": [
+      "A08T"
+    ],
+    "lines": [
+      6424,
+      6460
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "JiShenChong",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SUMMON)"
+    ],
+    "conditionFunctions": [
+      "Trig_JiShenChongConditions"
+    ],
+    "actionFunctions": [
+      "Trig_JiShenChongActions"
+    ],
+    "references": [
+      "A028",
+      "A02B",
+      "A065",
+      "A070",
+      "BTLF",
+      "e005",
+      "h00W",
+      "u004"
+    ],
+    "abilities": [],
+    "lines": [
+      6461,
+      6494
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Ship_WangZhe",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_DEATH)"
+    ],
+    "conditionFunctions": [
+      "Trig_Ship_WangZheConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Ship_WangZheActions"
+    ],
+    "references": [
+      "H01O"
+    ],
+    "abilities": [],
+    "lines": [
+      6495,
+      6508
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "LingHunKongZhi",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_LingHunKongZhiConditions"
+    ],
+    "actionFunctions": [
+      "Trig_LingHunKongZhiActions"
+    ],
+    "references": [
+      "A067"
+    ],
+    "abilities": [
+      "A067"
+    ],
+    "lines": [
+      6509,
+      6613
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "ZhanZhenHaoJiao",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_ZhanZhenHaoJiaoConditions"
+    ],
+    "actionFunctions": [
+      "Trig_ZhanZhenHaoJiaoActions"
+    ],
+    "references": [
+      "A06C"
+    ],
+    "abilities": [
+      "A06C"
+    ],
+    "lines": [
+      6614,
+      6635
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "a_XinYue_ChuanCi",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_a_XinYue_ChuanCiConditions"
+    ],
+    "actionFunctions": [
+      "Trig_a_XinYue_ChuanCiActions"
+    ],
+    "references": [
+      "A063",
+      "ACmp",
+      "BTLF",
+      "h01M",
+      "hfoo"
+    ],
+    "abilities": [
+      "A063"
+    ],
+    "lines": [
+      6636,
+      6655
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "a_XinYue_TongHua",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_a_XinYue_TongHuaConditions"
+    ],
+    "actionFunctions": [
+      "Trig_a_XinYue_TongHuaActions"
+    ],
+    "references": [
+      "A021",
+      "ANch"
+    ],
+    "abilities": [
+      "ANch"
+    ],
+    "lines": [
+      6656,
+      6670
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "a_XinYue_KuangRe",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_a_XinYue_KuangReConditions"
+    ],
+    "actionFunctions": [
+      "Trig_a_XinYue_KuangReActions"
+    ],
+    "references": [
+      "A09C",
+      "A09E",
+      "BHwe",
+      "hfoo"
+    ],
+    "abilities": [
+      "A09E"
+    ],
+    "lines": [
+      6671,
+      6687
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "YaoSaiPao",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_YaoSaiPaoConditions"
+    ],
+    "actionFunctions": [
+      "Trig_YaoSaiPaoActions"
+    ],
+    "references": [
+      "A068",
+      "A06B"
+    ],
+    "abilities": [
+      "A068"
+    ],
+    "lines": [
+      6688,
+      6722
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "YaoSaiPao1",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_ENDCAST)"
+    ],
+    "conditionFunctions": [
+      "Trig_YaoSaiPao1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_YaoSaiPao1Actions"
+    ],
+    "references": [
+      "A068",
+      "A06B",
+      "A06D",
+      "ANc1",
+      "ANc2",
+      "BTLF",
+      "hfoo"
+    ],
+    "abilities": [
+      "A068"
+    ],
+    "lines": [
+      6723,
+      6761
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "YaoSaiPao2",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_CAST)"
+    ],
+    "conditionFunctions": [
+      "Trig_YaoSaiPao2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_YaoSaiPao2Actions"
+    ],
+    "references": [
+      "A06B"
+    ],
+    "abilities": [
+      "A06B"
+    ],
+    "lines": [
+      6762,
+      6773
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "YaoSaiPao3",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_YaoSaiPao3Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_YaoSaiPao3Actions"
+    ],
+    "references": [
+      "A06D",
+      "ANc1",
+      "ANc2"
+    ],
+    "abilities": [
+      "A06D",
+      "ANc1",
+      "ANc2"
+    ],
+    "lines": [
+      6774,
+      6793
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "TianFu_ChuanZhang",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_TianFu_ChuanZhangConditions"
+    ],
+    "actionFunctions": [
+      "Trig_TianFu_ChuanZhangActions"
+    ],
+    "references": [
+      "A06G",
+      "A06H",
+      "A06J",
+      "A06K",
+      "A06L",
+      "A06N",
+      "A06O"
+    ],
+    "abilities": [
+      "A06H",
+      "A06N",
+      "A06O"
+    ],
+    "lines": [
+      6794,
+      6829
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "TianFu_Change_Ship",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_TianFu_Change_ShipActions"
+    ],
+    "references": [
+      "A06H",
+      "A06N",
+      "A06O"
+    ],
+    "abilities": [],
+    "lines": [
+      6830,
+      6838
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "TianFu_add_HP",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_TianFu_add_HPActions"
+    ],
+    "references": [
+      "A06L"
+    ],
+    "abilities": [],
+    "lines": [
+      6839,
+      6883
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "LaoShu_ZhenHunQu",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_DEATH)"
+    ],
+    "conditionFunctions": [
+      "Trig_LaoShu_ZhenHunQuConditions"
+    ],
+    "actionFunctions": [
+      "Trig_LaoShu_ZhenHunQuActions"
+    ],
+    "references": [
+      "A06W",
+      "A06X",
+      "BTLF",
+      "H01V",
+      "hfoo"
+    ],
+    "abilities": [],
+    "lines": [
+      6884,
+      6908
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "LaoShu_HuoLiQuanKai",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_LaoShu_HuoLiQuanKaiConditions"
+    ],
+    "actionFunctions": [
+      "Trig_LaoShu_HuoLiQuanKaiActions"
+    ],
+    "references": [
+      "A06V",
+      "A06Y"
+    ],
+    "abilities": [
+      "A06Y"
+    ],
+    "lines": [
+      6909,
+      6923
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "ShengZhan_ZiSha",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_ShengZhan_ZiShaConditions"
+    ],
+    "actionFunctions": [
+      "Trig_ShengZhan_ZiShaActions"
+    ],
+    "references": [
+      "A01A"
+    ],
+    "abilities": [
+      "A01A"
+    ],
+    "lines": [
+      6924,
+      6935
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "aTS_ZhanGu",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_HERO_SKILL)"
+    ],
+    "conditionFunctions": [
+      "Trig_aTS_ZhanGuConditions"
+    ],
+    "actionFunctions": [
+      "Trig_aTS_ZhanGuActions"
+    ],
+    "references": [
+      "A07J",
+      "A08X",
+      "A08Y"
+    ],
+    "abilities": [],
+    "lines": [
+      6936,
+      6955
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Abi_Timer",
+    "events": [
+      "TriggerRegisterTimerExpireEvent(udg_Abi_Timer[3])",
+      "TriggerRegisterTimerExpireEvent(udg_Abi_Timer[4])",
+      "TriggerRegisterTimerExpireEvent(udg_Abi_Timer[5])",
+      "TriggerRegisterTimerExpireEvent(udg_Abi_Timer[6])",
+      "TriggerRegisterTimerExpireEvent(udg_Abi_Timer[7])",
+      "TriggerRegisterTimerExpireEvent(udg_Abi_Timer[8])",
+      "TriggerRegisterTimerExpireEvent(udg_Abi_Timer[9])",
+      "TriggerRegisterTimerExpireEvent(udg_Abi_Timer[10])",
+      "TriggerRegisterTimerExpireEvent(udg_Abi_Timer[11])",
+      "TriggerRegisterTimerExpireEvent(udg_Abi_Timer[12])"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Abi_TimerActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      6956,
+      6978
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "KDA_PlayerAbi",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_KDA_PlayerAbiConditions"
+    ],
+    "actionFunctions": [
+      "Trig_KDA_PlayerAbiActions"
+    ],
+    "references": [
+      "A03J"
+    ],
+    "abilities": [],
+    "lines": [
+      6979,
+      6994
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Kills_Respawn",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_DEATH)"
+    ],
+    "conditionFunctions": [
+      "Trig_Kills_RespawnConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Kills_RespawnActions"
+    ],
+    "references": [
+      "H005",
+      "H00U",
+      "n00G",
+      "n00S",
+      "n00T",
+      "n010"
+    ],
+    "abilities": [],
+    "lines": [
+      6995,
+      7084
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Set_KillsTitle",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Set_KillsTitleActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      7085,
+      7104
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "KillsTitle_Rest",
+    "events": [],
+    "conditionFunctions": [
+      "Trig_KillsTitle_RestConditions"
+    ],
+    "actionFunctions": [
+      "Trig_KillsTitle_RestActions"
+    ],
+    "references": [
+      "H021"
+    ],
+    "abilities": [],
+    "lines": [
+      7105,
+      7146
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "KillsTitle",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_KillsTitleActions"
+    ],
+    "references": [
+      "H021"
+    ],
+    "abilities": [],
+    "lines": [
+      7147,
+      7190
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Kills_TD",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_DEATH)"
+    ],
+    "conditionFunctions": [
+      "Trig_Kills_TDConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Kills_TDActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      7191,
+      7202
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Dead_Timer",
+    "events": [
+      "TriggerRegisterTimerExpireEvent(udg_DeadTimer[3])",
+      "TriggerRegisterTimerExpireEvent(udg_DeadTimer[4])",
+      "TriggerRegisterTimerExpireEvent(udg_DeadTimer[5])",
+      "TriggerRegisterTimerExpireEvent(udg_DeadTimer[6])",
+      "TriggerRegisterTimerExpireEvent(udg_DeadTimer[7])",
+      "TriggerRegisterTimerExpireEvent(udg_DeadTimer[8])",
+      "TriggerRegisterTimerExpireEvent(udg_DeadTimer[9])",
+      "TriggerRegisterTimerExpireEvent(udg_DeadTimer[10])",
+      "TriggerRegisterTimerExpireEvent(udg_DeadTimer[11])",
+      "TriggerRegisterTimerExpireEvent(udg_DeadTimer[12])"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Dead_TimerActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      7203,
+      7230
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Revive",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_HERO_REVIVE_FINISH)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_ReviveActions"
+    ],
+    "references": [
+      "H005",
+      "H021"
+    ],
+    "abilities": [],
+    "lines": [
+      7231,
+      7274
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "GameMode_SuperShip",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-ss\",false)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_GameMode_SuperShipActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      7275,
+      7288
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "GameMode_QianShuiTin",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-QST\",false)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_GameMode_QianShuiTinActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      7289,
+      7301
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "GameMode_MapStyle",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-map1\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-map2\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-map3\",false)"
+    ],
+    "conditionFunctions": [
+      "Trig_GameMode_MapStyleConditions"
+    ],
+    "actionFunctions": [
+      "Trig_GameMode_MapStyleActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      7302,
+      7333
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "GameMode_MapStyleCreate",
+    "events": [],
+    "conditionFunctions": [
+      "Trig_GameMode_MapStyleCreateConditions"
+    ],
+    "actionFunctions": [
+      "Trig_GameMode_MapStyleCreateActions"
+    ],
+    "references": [
+      "ATtr",
+      "Adrd",
+      "Agrd",
+      "Alvd",
+      "Avin",
+      "BTtc",
+      "BTtw",
+      "DTsh",
+      "Dgrs",
+      "Dlav",
+      "Dlvc",
+      "GTsh",
+      "ITtc",
+      "ITtw",
+      "LTlt",
+      "OTtw",
+      "WTst",
+      "WTtw",
+      "Wgrs",
+      "Wrok",
+      "Wsng",
+      "Wsnw",
+      "ZTtc",
+      "ZTtw"
+    ],
+    "abilities": [],
+    "lines": [
+      7334,
+      7492
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Mode_Vote_Menu",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Mode_Vote_MenuActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      7493,
+      7579
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Mode_Vote_Cast",
+    "events": [
+      "TriggerRegisterDialogEvent(udg_VoteDialog)"
+    ],
+    "conditionFunctions": [
+      "Trig_Mode_Vote_CastConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Mode_Vote_CastActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      7580,
+      7624
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Mode_Vote_Done_Check",
+    "events": [],
+    "conditionFunctions": [
+      "Trig_Mode_Vote_Done_CheckConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Mode_Vote_Done_CheckActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      7625,
+      7671
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "GameMode_Set",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-m1\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-m2\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-m3\",false)"
+    ],
+    "conditionFunctions": [
+      "Trig_GameMode_SetConditions"
+    ],
+    "actionFunctions": [
+      "Trig_GameMode_SetActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      7672,
+      7711
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "GameMode_Timer",
+    "events": [
+      "TriggerRegisterTimerExpireEvent(udg_GameModeTimer)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_GameMode_TimerActions"
+    ],
+    "references": [
+      "H000",
+      "H001",
+      "H003",
+      "H004",
+      "H005",
+      "H006",
+      "H007",
+      "H008",
+      "H009",
+      "H00C",
+      "H00D",
+      "H00R",
+      "H00T",
+      "H00V",
+      "n00B"
+    ],
+    "abilities": [],
+    "lines": [
+      7712,
+      7868
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Multiboard",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_MultiboardActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      7869,
+      7946
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Overboard",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-mb2\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_OverboardActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      7947,
+      8117
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Path_1",
+    "events": [
+      "TriggerRegisterPlayerUnitEventSimple(Player(2),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(3),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(4),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(5),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(6),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(7),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(8),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(9),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(10),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(11),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)"
+    ],
+    "conditionFunctions": [
+      "Trig_Path_1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_Path_1Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      8118,
+      8147
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Path_2",
+    "events": [
+      "TriggerRegisterPlayerUnitEventSimple(Player(2),EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(3),EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(4),EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(5),EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(6),EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(7),EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(8),EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(9),EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(10),EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(11),EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)"
+    ],
+    "conditionFunctions": [
+      "Trig_Path_2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_Path_2Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      8148,
+      8177
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Path_Left",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_Left_Path)"
+    ],
+    "conditionFunctions": [
+      "Trig_Path_LeftConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Path_LeftActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      8178,
+      8190
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Path_HaiDao",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct________Haidao)"
+    ],
+    "conditionFunctions": [
+      "Trig_Path_HaiDaoConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Path_HaiDaoActions"
+    ],
+    "references": [
+      "I02D"
+    ],
+    "abilities": [],
+    "lines": [
+      8191,
+      8208
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "MH_Zone_1",
+    "events": [
+      "TriggerRegisterPlayerUnitEventSimple(Player(2),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(3),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(4),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(5),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(6),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(7),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(8),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(9),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(10),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)",
+      "TriggerRegisterPlayerUnitEventSimple(Player(11),EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)"
+    ],
+    "conditionFunctions": [
+      "Trig_MH_Zone_1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_MH_Zone_1Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      8209,
+      8230
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "MH_Zone_3",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_MH_check)"
+    ],
+    "conditionFunctions": [
+      "Trig_MH_Zone_3Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_MH_Zone_3Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      8231,
+      8243
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Unit_Gold",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_DEATH)"
+    ],
+    "conditionFunctions": [
+      "Trig_Unit_GoldConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Unit_GoldActions"
+    ],
+    "references": [
+      "gold"
+    ],
+    "abilities": [],
+    "lines": [
+      8244,
+      8273
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "ZhuGong",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_ZhuGongActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      8274,
+      8423
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "ZhuGong_Abi",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_ZhuGong_AbiConditions"
+    ],
+    "actionFunctions": [
+      "Trig_ZhuGong_AbiActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      8424,
+      8553
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Damage_Hero",
+    "events": [],
+    "conditionFunctions": [
+      "Trig_Damage_HeroConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Damage_HeroActions"
+    ],
+    "references": [
+      "A08F",
+      "Avul",
+      "B007",
+      "BHds",
+      "BOvd",
+      "I06P",
+      "h01I",
+      "h01J",
+      "h01W",
+      "h023",
+      "hfoo",
+      "hhou"
+    ],
+    "abilities": [],
+    "lines": [
+      8554,
+      8661
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Damage_JianZhu",
+    "events": [
+      "TriggerRegisterUnitEvent(gg_unit_h00K_0001,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00K_0002,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00K_0003,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00K_0004,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00K_0026,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00K_0027,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00K_0028,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00K_0029,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00K_0030,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00K_0031,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00K_0032,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00K_0033,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00K_0034,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00K_0035,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00K_0036,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00K_0037,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00M_0059,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00M_0060,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00M_0061,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h00M_0062,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_n003_0016,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_n003_0017,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_n003_0024,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_n003_0025,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_n000_0018,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_n000_0020,EVENT_UNIT_DAMAGED)"
+    ],
+    "conditionFunctions": [
+      "Trig_Damage_JianZhuConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Damage_JianZhuActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      8662,
+      8699
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Times_seconds",
+    "events": [
+      "TriggerRegisterTimerExpireEvent(udg_SecTimer)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Times_secondsActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      8700,
+      8734
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Kick_Menu_Show",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-kick\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-kick\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-kick\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-kick\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-kick\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-kick\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-kick\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-kick\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-kick\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-kick\",true)"
+    ],
+    "conditionFunctions": [
+      "Trig_Kick_Menu_ShowConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Kick_Menu_ShowActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      8735,
+      8756
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Kick_Menu_Choice",
+    "events": [
+      "TriggerRegisterDialogEvent(udg_KickDialogMenu)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Kick_Menu_ChoiceActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      8757,
+      8852
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Kick_Vote_Choice",
+    "events": [
+      "TriggerRegisterDialogEvent(udg_KickDialogVote)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Kick_Vote_ChoiceActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      8853,
+      8882
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Kick_Vote_DoneCheck",
+    "events": [],
+    "conditionFunctions": [
+      "Trig_Kick_Vote_DoneCheckConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Kick_Vote_DoneCheckActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      8883,
+      8950
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Second_Gold",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(7.)"
+    ],
+    "conditionFunctions": [
+      "Trig_Second_GoldConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Second_GoldActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      8951,
+      8979
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Empire_Gold",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(180.)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Empire_GoldActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      8980,
+      9014
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "set_HeroGold",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_set_HeroGoldActions"
+    ],
+    "references": [
+      "H00D"
+    ],
+    "abilities": [],
+    "lines": [
+      9015,
+      9056
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "JiangLi",
+    "events": [
+      "TriggerRegisterTimerEventSingle(300.)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_JiangLiActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9057,
+      9098
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "JiangLi1",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"刀锋战士\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"刀锋战士\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"刀锋战士\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"刀锋战士\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"刀锋战士\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"刀锋战士\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"刀锋战士\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"刀锋战士\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"刀锋战士\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"刀锋战士\",true)"
+    ],
+    "conditionFunctions": [
+      "Trig_JiangLi1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_JiangLi1Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9099,
+      9122
+    ],
+    "initiallyEnabled": false
+  },
+  {
+    "name": "JiangLi2",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"百度贴吧\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"百度贴吧\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"百度贴吧\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"百度贴吧\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"百度贴吧\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"百度贴吧\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"百度贴吧\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"百度贴吧\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"百度贴吧\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"百度贴吧\",false)"
+    ],
+    "conditionFunctions": [
+      "Trig_JiangLi2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_JiangLi2Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9123,
+      9146
+    ],
+    "initiallyEnabled": false
+  },
+  {
+    "name": "JiangLi3",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"8\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"8\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"8\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"8\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"8\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"8\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"8\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"8\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"8\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"8\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(2),\"八\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"八\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"八\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"八\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"八\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"八\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"八\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"八\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"八\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"八\",false)"
+    ],
+    "conditionFunctions": [
+      "Trig_JiangLi3Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_JiangLi3Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9147,
+      9180
+    ],
+    "initiallyEnabled": false
+  },
+  {
+    "name": "JiangLi4",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"2005\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"2005\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"2005\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"2005\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"2005\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"2005\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"2005\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"2005\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"2005\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"2005\",false)"
+    ],
+    "conditionFunctions": [
+      "Trig_JiangLi4Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_JiangLi4Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9181,
+      9204
+    ],
+    "initiallyEnabled": false
+  },
+  {
+    "name": "FWG",
+    "events": [
+      "TriggerRegisterPlayerUnitEvent(Player(i),EVENT_PLAYER_UNIT_SELECTED,null)",
+      "TriggerRegisterPlayerUnitEvent(Player(i),EVENT_PLAYER_UNIT_DESELECTED,null)",
+      "TriggerRegisterTimerEvent(t,TRUE)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "FWG_Seek",
+      "FWG_Core"
+    ],
+    "references": [
+      "ewsp"
+    ],
+    "abilities": [],
+    "lines": [
+      9246,
+      9263
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Dont_Attack_Friends",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_ATTACKED)"
+    ],
+    "conditionFunctions": [
+      "Trig_Dont_Attack_FriendsConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Dont_Attack_FriendsActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9264,
+      9275
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Times_Sec",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(1.)"
+    ],
+    "conditionFunctions": [
+      "Trig_Times_SecConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Times_SecActions"
+    ],
+    "references": [
+      "A086",
+      "A088",
+      "A090",
+      "BHwe",
+      "H00U",
+      "H021",
+      "hfoo"
+    ],
+    "abilities": [],
+    "lines": [
+      9276,
+      9321
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Times",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(60.)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_TimesActions"
+    ],
+    "references": [
+      "I06C"
+    ],
+    "abilities": [],
+    "lines": [
+      9322,
+      9338
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Cam_Lock",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-cl\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-cl\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-cl\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-cl\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-cl\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-cl\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-cl\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-cl\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-cl\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-cl\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Cam_LockActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9339,
+      9364
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Cam_high",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"++\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"++\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"++\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"++\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"++\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"++\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"++\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"++\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"++\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"++\",false)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Cam_highActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9365,
+      9391
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Cam_low",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"--\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"--\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"--\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"--\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"--\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"--\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"--\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"--\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"--\",false)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"--\",false)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Cam_lowActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9392,
+      9418
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "speed",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-speed\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-speed\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-speed\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-speed\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-speed\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-speed\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-speed\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-speed\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-speed\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-speed\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-s\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-s\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-s\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-s\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-s\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-s\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-s\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-s\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-s\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-s\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_speedActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9419,
+      9449
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Music_Play",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SELL_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_Music_PlayConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Music_PlayActions"
+    ],
+    "references": [
+      "I04T",
+      "I04U",
+      "I04V",
+      "I04W"
+    ],
+    "abilities": [],
+    "lines": [
+      9450,
+      9513
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Weather",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(GetRandomReal(50.,100.))"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_WeatherActions"
+    ],
+    "references": [
+      "LRaa",
+      "RLhr",
+      "RLlr",
+      "SNls"
+    ],
+    "abilities": [],
+    "lines": [
+      9514,
+      9581
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Seagull_Sounds",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(GetRandomReal(60.,120.))"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Seagull_SoundsActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9582,
+      9602
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Regrow_Trees",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Regrow_TreesActions"
+    ],
+    "references": [
+      "ATtc",
+      "BTtc",
+      "BTtw",
+      "ITtc",
+      "YTst",
+      "ZTtc",
+      "ZTtw"
+    ],
+    "abilities": [],
+    "lines": [
+      9603,
+      9624
+    ],
+    "initiallyEnabled": false
+  },
+  {
+    "name": "Shore_Leave_Begin",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_Shore_Leave_BeginConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Shore_Leave_BeginActions"
+    ],
+    "references": [
+      "A01D",
+      "A03V",
+      "H00J"
+    ],
+    "abilities": [
+      "A01D"
+    ],
+    "lines": [
+      9625,
+      9653
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Shore_Leave_Quit",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_Shore_Leave_QuitConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Shore_Leave_QuitActions"
+    ],
+    "references": [
+      "A01D",
+      "A03V"
+    ],
+    "abilities": [
+      "A03V"
+    ],
+    "lines": [
+      9654,
+      9683
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Shore_Leave_Timer",
+    "events": [
+      "TriggerRegisterTimerExpireEvent(udg_ShoreLeave_Timer[3])",
+      "TriggerRegisterTimerExpireEvent(udg_ShoreLeave_Timer[4])",
+      "TriggerRegisterTimerExpireEvent(udg_ShoreLeave_Timer[5])",
+      "TriggerRegisterTimerExpireEvent(udg_ShoreLeave_Timer[6])",
+      "TriggerRegisterTimerExpireEvent(udg_ShoreLeave_Timer[7])",
+      "TriggerRegisterTimerExpireEvent(udg_ShoreLeave_Timer[8])",
+      "TriggerRegisterTimerExpireEvent(udg_ShoreLeave_Timer[9])",
+      "TriggerRegisterTimerExpireEvent(udg_ShoreLeave_Timer[10])",
+      "TriggerRegisterTimerExpireEvent(udg_ShoreLeave_Timer[11])",
+      "TriggerRegisterTimerExpireEvent(udg_ShoreLeave_Timer[12])"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Shore_Leave_TimerActions"
+    ],
+    "references": [
+      "A01D"
+    ],
+    "abilities": [],
+    "lines": [
+      9684,
+      9707
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "help",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-help\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-help\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-help\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-help\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-help\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-help\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-help\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-help\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-help\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-help\",true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_helpActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9708,
+      9730
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "lock_UnitGongxiang",
+    "events": [
+      "TriggerRegisterPlayerAllianceChange(Player(2),ALLIANCE_SHARED_CONTROL)",
+      "TriggerRegisterPlayerAllianceChange(Player(3),ALLIANCE_SHARED_CONTROL)",
+      "TriggerRegisterPlayerAllianceChange(Player(4),ALLIANCE_SHARED_CONTROL)",
+      "TriggerRegisterPlayerAllianceChange(Player(5),ALLIANCE_SHARED_CONTROL)",
+      "TriggerRegisterPlayerAllianceChange(Player(6),ALLIANCE_SHARED_CONTROL)",
+      "TriggerRegisterPlayerAllianceChange(Player(7),ALLIANCE_SHARED_CONTROL)",
+      "TriggerRegisterPlayerAllianceChange(Player(8),ALLIANCE_SHARED_CONTROL)",
+      "TriggerRegisterPlayerAllianceChange(Player(9),ALLIANCE_SHARED_CONTROL)",
+      "TriggerRegisterPlayerAllianceChange(Player(10),ALLIANCE_SHARED_CONTROL)",
+      "TriggerRegisterPlayerAllianceChange(Player(11),ALLIANCE_SHARED_CONTROL)"
+    ],
+    "conditionFunctions": [
+      "Trig_lock_UnitGongxiangConditions"
+    ],
+    "actionFunctions": [
+      "Trig_lock_UnitGongxiangActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9731,
+      9770
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "SelectUnit",
+    "events": [
+      "TriggerRegisterPlayerSelectionEventBJ(Player(2),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(3),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(4),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(5),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(6),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(7),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(8),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(9),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(10),true)",
+      "TriggerRegisterPlayerSelectionEventBJ(Player(11),true)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_SelectUnitActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9771,
+      9787
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Not_Zao_TD",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_CONSTRUCT_START)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Not_Zao_TDActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9788,
+      9800
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Rowboat_Spawn",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(35.)"
+    ],
+    "conditionFunctions": [
+      "Trig_Rowboat_SpawnConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Rowboat_SpawnActions"
+    ],
+    "references": [
+      "h00E",
+      "h00I"
+    ],
+    "abilities": [],
+    "lines": [
+      9801,
+      9815
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Battle_Ship_Spawn",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(60.)"
+    ],
+    "conditionFunctions": [
+      "Trig_Battle_Ship_SpawnConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Battle_Ship_SpawnActions"
+    ],
+    "references": [
+      "h00B",
+      "h00F"
+    ],
+    "abilities": [],
+    "lines": [
+      9816,
+      9831
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Cruiser_Spawn",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(170.)"
+    ],
+    "conditionFunctions": [
+      "Trig_Cruiser_SpawnConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Cruiser_SpawnActions"
+    ],
+    "references": [
+      "h00G",
+      "h00H"
+    ],
+    "abilities": [],
+    "lines": [
+      9832,
+      9847
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "SuperShip_Spawn",
+    "events": [
+      "TriggerRegisterTimerExpireEvent(udg_SuperShip)"
+    ],
+    "conditionFunctions": [
+      "Trig_SuperShip_SpawnConditions"
+    ],
+    "actionFunctions": [
+      "Trig_SuperShip_SpawnActions"
+    ],
+    "references": [
+      "h018"
+    ],
+    "abilities": [],
+    "lines": [
+      9848,
+      9884
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Spawn_Ships",
+    "events": [],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Spawn_ShipsActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9885,
+      9970
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Continue_Attacking_South",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_Harbour1_North)",
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_Harbour2_North)"
+    ],
+    "conditionFunctions": [
+      "Trig_Continue_Attacking_SouthConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Continue_Attacking_SouthActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9971,
+      9983
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Continue_Attacking_North",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_Harbour1_South)",
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_Harbour2_South)"
+    ],
+    "conditionFunctions": [
+      "Trig_Continue_Attacking_NorthConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Continue_Attacking_NorthActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      9984,
+      9996
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "AI_UP",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_DEATH)"
+    ],
+    "conditionFunctions": [
+      "Trig_AI_UPConditions"
+    ],
+    "actionFunctions": [
+      "Trig_AI_UPActions"
+    ],
+    "references": [
+      "A00I",
+      "A06F",
+      "A06L",
+      "AIsx",
+      "n000",
+      "n003",
+      "u002"
+    ],
+    "abilities": [],
+    "lines": [
+      9997,
+      10022
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Shua_YeGuai",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(99.)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Shua_YeGuaiActions"
+    ],
+    "references": [
+      "n016",
+      "nbzd",
+      "ndrv",
+      "nmyr",
+      "nsel",
+      "nsgb",
+      "ntka",
+      "ntkf",
+      "ntrd",
+      "ntrt",
+      "nwna",
+      "nwns"
+    ],
+    "abilities": [],
+    "lines": [
+      10023,
+      10108
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Shua_YeGuai5",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_YeGuai_5)"
+    ],
+    "conditionFunctions": [
+      "Trig_Shua_YeGuai5Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_Shua_YeGuai5Actions"
+    ],
+    "references": [
+      "nahy",
+      "nlkl",
+      "nnrg",
+      "nsc3",
+      "nslv",
+      "nsnp"
+    ],
+    "abilities": [],
+    "lines": [
+      10109,
+      10147
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Shua_YeGuai6",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(41.)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Shua_YeGuai6Actions"
+    ],
+    "references": [
+      "nahy",
+      "ndrd",
+      "ndrh",
+      "ndrm",
+      "ndrp",
+      "ndrs",
+      "ndrw",
+      "nmbg",
+      "nmrr",
+      "nmsc",
+      "nmsn",
+      "nmtw",
+      "nnrg"
+    ],
+    "abilities": [],
+    "lines": [
+      10148,
+      10226
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "xiao_BOSS",
+    "events": [
+      "TriggerRegisterUnitEvent(gg_unit_nmh1_0130,EVENT_UNIT_DEATH)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_xiao_BOSSActions"
+    ],
+    "references": [
+      "nmmu"
+    ],
+    "abilities": [],
+    "lines": [
+      10227,
+      10234
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "BossTime1",
+    "events": [
+      "TriggerRegisterPlayerUnitEventSimple(Player(PLAYER_NEUTRAL_AGGRESSIVE),EVENT_PLAYER_UNIT_DEATH)"
+    ],
+    "conditionFunctions": [
+      "Trig_BossTime1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_BossTime1Actions"
+    ],
+    "references": [
+      "A06L",
+      "I05W",
+      "I05X",
+      "h01T"
+    ],
+    "abilities": [],
+    "lines": [
+      10235,
+      10272
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "BossTime2",
+    "events": [
+      "TriggerRegisterTimerExpireEvent(udg_BossTimer)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_BossTime2Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      10273,
+      10280
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "PathLeft_On",
+    "events": [],
+    "conditionFunctions": [
+      "Trig_PathLeft_OnConditions"
+    ],
+    "actionFunctions": [
+      "Trig_PathLeft_OnActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      10281,
+      10304
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Boss_VIP_message",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_USE_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_Boss_VIP_messageConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Boss_VIP_messageActions"
+    ],
+    "references": [
+      "I062",
+      "I063"
+    ],
+    "abilities": [],
+    "lines": [
+      10305,
+      10316
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Not_Ability",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_CAST)"
+    ],
+    "conditionFunctions": [
+      "Trig_Not_AbilityConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Not_AbilityActions"
+    ],
+    "references": [
+      "A035",
+      "A04N",
+      "A04V"
+    ],
+    "abilities": [
+      "A035",
+      "A04N",
+      "A04V"
+    ],
+    "lines": [
+      10317,
+      10329
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Open_door",
+    "events": [
+      "TriggerRegisterUnitEvent(gg_unit_h01S_0125,EVENT_UNIT_DAMAGED)",
+      "TriggerRegisterUnitEvent(gg_unit_h01S_0121,EVENT_UNIT_DAMAGED)"
+    ],
+    "conditionFunctions": [
+      "Trig_Open_doorConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Open_doorActions"
+    ],
+    "references": [
+      "A070"
+    ],
+    "abilities": [],
+    "lines": [
+      10330,
+      10371
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Open_door_A_in",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_doorA)"
+    ],
+    "conditionFunctions": [
+      "Trig_Open_door_A_inConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Open_door_A_inActions"
+    ],
+    "references": [
+      "h01S"
+    ],
+    "abilities": [],
+    "lines": [
+      10372,
+      10399
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Open_door_B_in",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_doorB)"
+    ],
+    "conditionFunctions": [
+      "Trig_Open_door_B_inConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Open_door_B_inActions"
+    ],
+    "references": [
+      "h01S"
+    ],
+    "abilities": [],
+    "lines": [
+      10400,
+      10427
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Repair_Start_South",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_Repair_Station_South)"
+    ],
+    "conditionFunctions": [
+      "Trig_Repair_Start_SouthConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Repair_Start_SouthActions"
+    ],
+    "references": [
+      "H00J",
+      "h002"
+    ],
+    "abilities": [],
+    "lines": [
+      10428,
+      10483
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Repair_Start_North",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_Repair_Station_North)"
+    ],
+    "conditionFunctions": [
+      "Trig_Repair_Start_NorthConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Repair_Start_NorthActions"
+    ],
+    "references": [
+      "H00J",
+      "h002"
+    ],
+    "abilities": [],
+    "lines": [
+      10484,
+      10539
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Repair_South_Fix",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-out\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-out\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-out\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-out\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-out\",true)",
+      "TriggerRegisterPlayerEventEndCinematic(Player(2))",
+      "TriggerRegisterPlayerEventEndCinematic(Player(3))",
+      "TriggerRegisterPlayerEventEndCinematic(Player(4))",
+      "TriggerRegisterPlayerEventEndCinematic(Player(5))",
+      "TriggerRegisterPlayerEventEndCinematic(Player(6))"
+    ],
+    "conditionFunctions": [
+      "Trig_Repair_South_FixConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Repair_South_FixActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      10540,
+      10576
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Repair_North_Fix",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-out\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-out\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-out\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-out\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-out\",true)",
+      "TriggerRegisterPlayerEventEndCinematic(Player(7))",
+      "TriggerRegisterPlayerEventEndCinematic(Player(8))",
+      "TriggerRegisterPlayerEventEndCinematic(Player(9))",
+      "TriggerRegisterPlayerEventEndCinematic(Player(10))",
+      "TriggerRegisterPlayerEventEndCinematic(Player(11))"
+    ],
+    "conditionFunctions": [
+      "Trig_Repair_North_FixConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Repair_North_FixActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      10577,
+      10613
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "out1",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"-out1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"-out1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"-out1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"-out1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"-out1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"-out1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"-out1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"-out1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"-out1\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"-out1\",true)"
+    ],
+    "conditionFunctions": [
+      "Trig_out1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_out1Actions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      10614,
+      10636
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Repair_Leaves_Goingmerry",
+    "events": [
+      "YDWETriggerRegisterLeaveRectSimpleNull(gg_rct_Repair_Station_North)",
+      "YDWETriggerRegisterLeaveRectSimpleNull(gg_rct_Repair_Station_South)"
+    ],
+    "conditionFunctions": [
+      "Trig_Repair_Leaves_GoingmerryConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Repair_Leaves_GoingmerryActions"
+    ],
+    "references": [
+      "A090",
+      "H021"
+    ],
+    "abilities": [],
+    "lines": [
+      10637,
+      10653
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Hull_1_Fix",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_HERO_SKILL)"
+    ],
+    "conditionFunctions": [
+      "Trig_Hull_1_FixConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Hull_1_FixActions"
+    ],
+    "references": [
+      "A007",
+      "A00Q",
+      "A00R",
+      "A00S",
+      "A00T",
+      "A00U",
+      "A00V",
+      "A02I"
+    ],
+    "abilities": [],
+    "lines": [
+      10654,
+      10705
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Hull_2_Fix",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_HERO_SKILL)"
+    ],
+    "conditionFunctions": [
+      "Trig_Hull_2_FixConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Hull_2_FixActions"
+    ],
+    "references": [
+      "A00Z",
+      "A020",
+      "A021",
+      "A022",
+      "A023",
+      "A024",
+      "A025",
+      "A02J"
+    ],
+    "abilities": [],
+    "lines": [
+      10706,
+      10757
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Hull_3_Fix",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_HERO_SKILL)"
+    ],
+    "conditionFunctions": [
+      "Trig_Hull_3_FixConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Hull_3_FixActions"
+    ],
+    "references": [
+      "A01Z",
+      "A026",
+      "A027",
+      "A028",
+      "A029",
+      "A02A",
+      "A02B",
+      "A02K"
+    ],
+    "abilities": [],
+    "lines": [
+      10758,
+      10809
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Boarding",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_CAST)"
+    ],
+    "conditionFunctions": [
+      "Trig_BoardingConditions"
+    ],
+    "actionFunctions": [
+      "Trig_BoardingActions"
+    ],
+    "references": [
+      "A01R"
+    ],
+    "abilities": [
+      "A01R"
+    ],
+    "lines": [
+      10810,
+      10822
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Fire_Missiles",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_CAST)"
+    ],
+    "conditionFunctions": [
+      "Trig_Fire_MissilesConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Fire_MissilesActions"
+    ],
+    "references": [
+      "A032",
+      "I01N",
+      "I01O",
+      "I01P",
+      "I01Q",
+      "h00N",
+      "h00O",
+      "h00P",
+      "n00D"
+    ],
+    "abilities": [
+      "A032"
+    ],
+    "lines": [
+      10823,
+      11012
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Buggfix",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(33.)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_BuggfixActions"
+    ],
+    "references": [
+      "Avul",
+      "h00N",
+      "h00O",
+      "h00P"
+    ],
+    "abilities": [],
+    "lines": [
+      11013,
+      11065
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Buying_Mission_Item",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SELL_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_Buying_Mission_ItemConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Buying_Mission_ItemActions"
+    ],
+    "references": [
+      "I003",
+      "I00M",
+      "I00Q",
+      "I00S",
+      "I00U",
+      "I00W",
+      "I012",
+      "I013",
+      "I01E",
+      "I01I",
+      "I01U",
+      "I01Z",
+      "I02E",
+      "I02N",
+      "I02P",
+      "I02Q",
+      "I02R",
+      "I02T",
+      "I02U"
+    ],
+    "abilities": [],
+    "lines": [
+      11066,
+      11190
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Destroy_Drops",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_DROP_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_Destroy_DropsConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Destroy_DropsActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      11191,
+      11206
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Barrel_of_Ale",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_AleFactory)"
+    ],
+    "conditionFunctions": [
+      "Trig_Barrel_of_AleConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Barrel_of_AleActions"
+    ],
+    "references": [
+      "H00D",
+      "I00J",
+      "I00K"
+    ],
+    "abilities": [],
+    "lines": [
+      11207,
+      11219
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Captain_Chopping_Wood",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_EFFECT)"
+    ],
+    "conditionFunctions": [
+      "Trig_Captain_Chopping_WoodConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Captain_Chopping_WoodActions"
+    ],
+    "references": [
+      "A03K",
+      "I01N"
+    ],
+    "abilities": [
+      "A03K"
+    ],
+    "lines": [
+      11220,
+      11233
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Bomb_1",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_GoblinShop)"
+    ],
+    "conditionFunctions": [
+      "Trig_Bomb_1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_Bomb_1Actions"
+    ],
+    "references": [
+      "H001",
+      "I01E",
+      "I01F",
+      "I01G"
+    ],
+    "abilities": [],
+    "lines": [
+      11234,
+      11246
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Bomb_2_South",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_SouthReward)"
+    ],
+    "conditionFunctions": [
+      "Trig_Bomb_2_SouthConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Bomb_2_SouthActions"
+    ],
+    "references": [
+      "H001",
+      "I01E",
+      "I01F",
+      "I01G"
+    ],
+    "abilities": [],
+    "lines": [
+      11247,
+      11260
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Bomb_2_North",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_NorthReward)"
+    ],
+    "conditionFunctions": [
+      "Trig_Bomb_2_NorthConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Bomb_2_NorthActions"
+    ],
+    "references": [
+      "H001",
+      "I01E",
+      "I01F",
+      "I01G"
+    ],
+    "abilities": [],
+    "lines": [
+      11261,
+      11274
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Bomb_3_South_Reward",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_North_Main)"
+    ],
+    "conditionFunctions": [
+      "Trig_Bomb_3_South_RewardConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Bomb_3_South_RewardActions"
+    ],
+    "references": [
+      "H001",
+      "I01E",
+      "I01G"
+    ],
+    "abilities": [],
+    "lines": [
+      11275,
+      11306
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Bomb_3_North_Reward",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_South_Main)"
+    ],
+    "conditionFunctions": [
+      "Trig_Bomb_3_North_RewardConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Bomb_3_North_RewardActions"
+    ],
+    "references": [
+      "H001",
+      "I01E",
+      "I01G"
+    ],
+    "abilities": [],
+    "lines": [
+      11307,
+      11338
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Swedish_Raw_Wood",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_SwedeLumberMill)"
+    ],
+    "conditionFunctions": [
+      "Trig_Swedish_Raw_WoodConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Swedish_Raw_WoodActions"
+    ],
+    "references": [
+      "H00D",
+      "I003",
+      "I00S",
+      "I01U"
+    ],
+    "abilities": [],
+    "lines": [
+      11339,
+      11351
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Repair_Mission",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_GoblinShop)"
+    ],
+    "conditionFunctions": [
+      "Trig_Repair_MissionConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Repair_MissionActions"
+    ],
+    "references": [
+      "I01I",
+      "I01J"
+    ],
+    "abilities": [],
+    "lines": [
+      11352,
+      11364
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Repair_Mission_part2_Reward",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_USE_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_Repair_Mission_part2_RewardConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Repair_Mission_part2_RewardActions"
+    ],
+    "references": [
+      "I01J"
+    ],
+    "abilities": [],
+    "lines": [
+      11365,
+      11385
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Fat_Pig",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_PigShop)"
+    ],
+    "conditionFunctions": [
+      "Trig_Fat_PigConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Fat_PigActions"
+    ],
+    "references": [
+      "H00D",
+      "I00V",
+      "I00W"
+    ],
+    "abilities": [],
+    "lines": [
+      11386,
+      11398
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Goblin_Potion",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_PotionShop)"
+    ],
+    "conditionFunctions": [
+      "Trig_Goblin_PotionConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Goblin_PotionActions"
+    ],
+    "references": [
+      "H00D",
+      "I00M",
+      "I00N"
+    ],
+    "abilities": [],
+    "lines": [
+      11399,
+      11411
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Box",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_GhostShip)"
+    ],
+    "conditionFunctions": [
+      "Trig_BoxConditions"
+    ],
+    "actionFunctions": [
+      "Trig_BoxActions"
+    ],
+    "references": [
+      "H00D",
+      "I00Q",
+      "I00R"
+    ],
+    "abilities": [],
+    "lines": [
+      11412,
+      11424
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Elven_Book",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_Book)"
+    ],
+    "conditionFunctions": [
+      "Trig_Elven_BookConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Elven_BookActions"
+    ],
+    "references": [
+      "H00D",
+      "I00T",
+      "I00U"
+    ],
+    "abilities": [],
+    "lines": [
+      11425,
+      11437
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Captain_Rewards",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_SouthReward)",
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_NorthReward)"
+    ],
+    "conditionFunctions": [
+      "Trig_Captain_RewardsConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Captain_RewardsActions"
+    ],
+    "references": [
+      "H00J",
+      "I01N",
+      "I01R"
+    ],
+    "abilities": [],
+    "lines": [
+      11438,
+      11477
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "North_Captive",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_North_Main)"
+    ],
+    "conditionFunctions": [
+      "Trig_North_CaptiveConditions"
+    ],
+    "actionFunctions": [
+      "Trig_North_CaptiveActions"
+    ],
+    "references": [
+      "H00D",
+      "I013",
+      "I014"
+    ],
+    "abilities": [],
+    "lines": [
+      11478,
+      11490
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "North_Rewards",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_NorthReward)"
+    ],
+    "conditionFunctions": [
+      "Trig_North_RewardsConditions"
+    ],
+    "actionFunctions": [
+      "Trig_North_RewardsActions"
+    ],
+    "references": [
+      "H00D",
+      "I003",
+      "I00J",
+      "I00K",
+      "I00M",
+      "I00N",
+      "I00S",
+      "I00T",
+      "I00U",
+      "I012",
+      "I015",
+      "h010"
+    ],
+    "abilities": [],
+    "lines": [
+      11491,
+      11567
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "South_Captive",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_South_Main)"
+    ],
+    "conditionFunctions": [
+      "Trig_South_CaptiveConditions"
+    ],
+    "actionFunctions": [
+      "Trig_South_CaptiveActions"
+    ],
+    "references": [
+      "H00D",
+      "I012",
+      "I015"
+    ],
+    "abilities": [],
+    "lines": [
+      11568,
+      11580
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "South_Rewards",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_SouthReward)"
+    ],
+    "conditionFunctions": [
+      "Trig_South_RewardsConditions"
+    ],
+    "actionFunctions": [
+      "Trig_South_RewardsActions"
+    ],
+    "references": [
+      "H00D",
+      "I003",
+      "I00J",
+      "I00K",
+      "I00Q",
+      "I00R",
+      "I00S",
+      "I00V",
+      "I00W",
+      "I013",
+      "I014",
+      "h010"
+    ],
+    "abilities": [],
+    "lines": [
+      11581,
+      11659
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "dfzs",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct________Dfzs)"
+    ],
+    "conditionFunctions": [
+      "Trig_dfzsConditions"
+    ],
+    "actionFunctions": [
+      "Trig_dfzsActions"
+    ],
+    "references": [
+      "I02H",
+      "I02O"
+    ],
+    "abilities": [],
+    "lines": [
+      11660,
+      11678
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "FaShi",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct________FaShi_1)"
+    ],
+    "conditionFunctions": [
+      "Trig_FaShiConditions"
+    ],
+    "actionFunctions": [
+      "Trig_FaShiActions"
+    ],
+    "references": [
+      "H00D",
+      "I021",
+      "I022",
+      "I02K",
+      "I02M",
+      "I02O",
+      "I02R",
+      "I02S",
+      "nmdm"
+    ],
+    "abilities": [],
+    "lines": [
+      11679,
+      11750
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "FaShi_1",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_PotionShop)"
+    ],
+    "conditionFunctions": [
+      "Trig_FaShi_1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_FaShi_1Actions"
+    ],
+    "references": [
+      "H00D",
+      "I02R",
+      "I02S"
+    ],
+    "abilities": [],
+    "lines": [
+      11751,
+      11763
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "FaShi_2",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_Book)"
+    ],
+    "conditionFunctions": [
+      "Trig_FaShi_2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_FaShi_2Actions"
+    ],
+    "references": [
+      "H00D",
+      "I021",
+      "I022"
+    ],
+    "abilities": [],
+    "lines": [
+      11764,
+      11777
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "FaShi_3",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_PotionShop)"
+    ],
+    "conditionFunctions": [
+      "Trig_FaShi_3Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_FaShi_3Actions"
+    ],
+    "references": [
+      "H00D",
+      "I02K",
+      "I02M"
+    ],
+    "abilities": [],
+    "lines": [
+      11778,
+      11791
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Gold1",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct________Gold)"
+    ],
+    "conditionFunctions": [
+      "Trig_Gold1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_Gold1Actions"
+    ],
+    "references": [
+      "H00D",
+      "I01Z",
+      "I024"
+    ],
+    "abilities": [],
+    "lines": [
+      11792,
+      11804
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Gold2",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_NorthReward)"
+    ],
+    "conditionFunctions": [
+      "Trig_Gold2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_Gold2Actions"
+    ],
+    "references": [
+      "H00D",
+      "I01Z",
+      "I024",
+      "I02B"
+    ],
+    "abilities": [],
+    "lines": [
+      11805,
+      11818
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Gold3",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_SouthReward)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Gold3Actions"
+    ],
+    "references": [
+      "H00D",
+      "I01Z",
+      "I02B"
+    ],
+    "abilities": [],
+    "lines": [
+      11819,
+      11842
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Nuli_1",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_PigShop)"
+    ],
+    "conditionFunctions": [
+      "Trig_Nuli_1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_Nuli_1Actions"
+    ],
+    "references": [
+      "H00D",
+      "I02L",
+      "I02N"
+    ],
+    "abilities": [],
+    "lines": [
+      11843,
+      11855
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Nuli_2",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct________Gold)"
+    ],
+    "conditionFunctions": [
+      "Trig_Nuli_2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_Nuli_2Actions"
+    ],
+    "references": [
+      "H00D",
+      "I02L",
+      "I02N"
+    ],
+    "abilities": [],
+    "lines": [
+      11856,
+      11876
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "YaPian1",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_PigShop)"
+    ],
+    "conditionFunctions": [
+      "Trig_YaPian1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_YaPian1Actions"
+    ],
+    "references": [
+      "H00D",
+      "I02E",
+      "I02F"
+    ],
+    "abilities": [],
+    "lines": [
+      11877,
+      11889
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "YaPian2",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_SouthReward)"
+    ],
+    "conditionFunctions": [
+      "Trig_YaPian2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_YaPian2Actions"
+    ],
+    "references": [
+      "H00D",
+      "I02E",
+      "I02F",
+      "I02G"
+    ],
+    "abilities": [],
+    "lines": [
+      11890,
+      11903
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "YaPian3",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_NorthReward)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_YaPian3Actions"
+    ],
+    "references": [
+      "H00D",
+      "I02E",
+      "I02G"
+    ],
+    "abilities": [],
+    "lines": [
+      11904,
+      11927
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "HaiDao_1",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_Book)"
+    ],
+    "conditionFunctions": [
+      "Trig_HaiDao_1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_HaiDao_1Actions"
+    ],
+    "references": [
+      "I02D",
+      "I02H"
+    ],
+    "abilities": [],
+    "lines": [
+      11928,
+      11944
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "HaiDao_in",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct________HaiDao1)"
+    ],
+    "conditionFunctions": [
+      "Trig_HaiDao_inConditions"
+    ],
+    "actionFunctions": [
+      "Trig_HaiDao_inActions"
+    ],
+    "references": [
+      "I02D"
+    ],
+    "abilities": [],
+    "lines": [
+      11945,
+      11962
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "HaiDao_out",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct________HaiDao3)"
+    ],
+    "conditionFunctions": [
+      "Trig_HaiDao_outConditions"
+    ],
+    "actionFunctions": [
+      "Trig_HaiDao_outActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      11963,
+      11976
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "x_1",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_GoblinShop)"
+    ],
+    "conditionFunctions": [
+      "Trig_x_1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_x_1Actions"
+    ],
+    "references": [
+      "H00D",
+      "I003",
+      "I01U"
+    ],
+    "abilities": [],
+    "lines": [
+      11977,
+      11996
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "x_2",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_SwedeLumberMill)"
+    ],
+    "conditionFunctions": [
+      "Trig_x_2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_x_2Actions"
+    ],
+    "references": [
+      "H00D",
+      "I02P",
+      "I02Q"
+    ],
+    "abilities": [],
+    "lines": [
+      11997,
+      12015
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Mission_333",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct________33333333)"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_Mission_333Actions"
+    ],
+    "references": [
+      "I02T",
+      "I02U"
+    ],
+    "abilities": [],
+    "lines": [
+      12016,
+      12060
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Buy_Goingmerry1",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_PotionShop)"
+    ],
+    "conditionFunctions": [
+      "Trig_Buy_Goingmerry1Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_Buy_Goingmerry1Actions"
+    ],
+    "references": [
+      "I06M",
+      "I06N"
+    ],
+    "abilities": [],
+    "lines": [
+      12061,
+      12074
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Buy_Goingmerry2",
+    "events": [
+      "YDWETriggerRegisterEnterRectSimpleNull(gg_rct_AleFactory)"
+    ],
+    "conditionFunctions": [
+      "Trig_Buy_Goingmerry2Conditions"
+    ],
+    "actionFunctions": [
+      "Trig_Buy_Goingmerry2Actions"
+    ],
+    "references": [
+      "BHwe",
+      "I06N",
+      "n018"
+    ],
+    "abilities": [],
+    "lines": [
+      12075,
+      12090
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Buy_Goingmerry",
+    "events": [
+      "TriggerRegisterPlayerChatEvent(Player(2),\"我要成为海贼王的男人\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(3),\"我要成为海贼王的男人\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(4),\"我要成为海贼王的男人\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(5),\"我要成为海贼王的男人\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(6),\"我要成为海贼王的男人\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(7),\"我要成为海贼王的男人\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(8),\"我要成为海贼王的男人\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(9),\"我要成为海贼王的男人\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(10),\"我要成为海贼王的男人\",true)",
+      "TriggerRegisterPlayerChatEvent(Player(11),\"我要成为海贼王的男人\",true)"
+    ],
+    "conditionFunctions": [
+      "Trig_Buy_GoingmerryConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Buy_GoingmerryActions"
+    ],
+    "references": [
+      "BHwe",
+      "n018"
+    ],
+    "abilities": [],
+    "lines": [
+      12091,
+      12118
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "GuaJi_PAct",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SPELL_CAST)"
+    ],
+    "conditionFunctions": [
+      "Trig_GuaJi_PActConditions"
+    ],
+    "actionFunctions": [
+      "Trig_GuaJi_PActActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      12119,
+      12130
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "GuaJi_Timer",
+    "events": [
+      "TriggerRegisterTimerExpireEvent(udg_GuaJi_Timer[3])",
+      "TriggerRegisterTimerExpireEvent(udg_GuaJi_Timer[4])",
+      "TriggerRegisterTimerExpireEvent(udg_GuaJi_Timer[5])",
+      "TriggerRegisterTimerExpireEvent(udg_GuaJi_Timer[6])",
+      "TriggerRegisterTimerExpireEvent(udg_GuaJi_Timer[7])",
+      "TriggerRegisterTimerExpireEvent(udg_GuaJi_Timer[8])",
+      "TriggerRegisterTimerExpireEvent(udg_GuaJi_Timer[9])",
+      "TriggerRegisterTimerExpireEvent(udg_GuaJi_Timer[10])",
+      "TriggerRegisterTimerExpireEvent(udg_GuaJi_Timer[11])",
+      "TriggerRegisterTimerExpireEvent(udg_GuaJi_Timer[12])"
+    ],
+    "conditionFunctions": [],
+    "actionFunctions": [
+      "Trig_GuaJi_TimerActions"
+    ],
+    "references": [],
+    "abilities": [],
+    "lines": [
+      12131,
+      12154
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Tech_Auto_UP",
+    "events": [
+      "TriggerRegisterTimerEventPeriodic(900.)"
+    ],
+    "conditionFunctions": [
+      "Trig_Tech_Auto_UPConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Tech_Auto_UPActions"
+    ],
+    "references": [
+      "R001",
+      "R003",
+      "R004",
+      "R005"
+    ],
+    "abilities": [],
+    "lines": [
+      12155,
+      12178
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Tech_PlayerUP",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_RESEARCH_FINISH)"
+    ],
+    "conditionFunctions": [
+      "Trig_Tech_PlayerUPConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Tech_PlayerUPActions"
+    ],
+    "references": [
+      "R000",
+      "R001",
+      "R002",
+      "R003",
+      "R004",
+      "R005"
+    ],
+    "abilities": [],
+    "lines": [
+      12179,
+      12253
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "UP_Item",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SELL_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_UP_ItemConditions"
+    ],
+    "actionFunctions": [
+      "Trig_UP_ItemActions"
+    ],
+    "references": [
+      "I000",
+      "I001",
+      "I002",
+      "I004",
+      "I005",
+      "I006",
+      "I00G",
+      "I00H",
+      "I00L",
+      "I00O",
+      "I018",
+      "I019",
+      "I027",
+      "I029",
+      "I02C",
+      "I02V",
+      "I02W",
+      "I02X",
+      "I02Y",
+      "I02Z",
+      "I030",
+      "I032",
+      "I033",
+      "I035",
+      "I036",
+      "I037",
+      "I03B",
+      "I03C",
+      "I03E",
+      "I03F",
+      "I03G",
+      "I03H",
+      "I03K",
+      "I03N",
+      "I03O",
+      "I03U",
+      "I03W",
+      "I03X",
+      "I04G",
+      "I04I",
+      "I054",
+      "I055",
+      "I057",
+      "I059",
+      "I05A",
+      "I05B",
+      "I05C",
+      "I05D",
+      "I05E",
+      "I05K",
+      "I05N",
+      "I05O",
+      "I05P",
+      "I064",
+      "I069",
+      "I06A",
+      "I06B",
+      "I06I",
+      "I06J",
+      "I06L"
+    ],
+    "abilities": [],
+    "lines": [
+      12254,
+      12540
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "UP_Unit",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SELL_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_UP_UnitConditions"
+    ],
+    "actionFunctions": [
+      "Trig_UP_UnitActions"
+    ],
+    "references": [
+      "A02Y",
+      "A093",
+      "H000",
+      "H001",
+      "H003",
+      "H004",
+      "H005",
+      "H006",
+      "H007",
+      "H008",
+      "H009",
+      "H00C",
+      "H00R",
+      "H00T",
+      "H00V",
+      "H00X",
+      "H015",
+      "H016",
+      "H019",
+      "H01A",
+      "H01B",
+      "H01C",
+      "H01D",
+      "H01H",
+      "H01K",
+      "H01L",
+      "H01N",
+      "H01O",
+      "H01P",
+      "H01V",
+      "H021",
+      "I038",
+      "I039",
+      "I03A",
+      "I03D",
+      "I03P",
+      "rsps",
+      "tdex",
+      "tdx2",
+      "tin2",
+      "tint"
+    ],
+    "abilities": [],
+    "lines": [
+      12541,
+      12624
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Buy_QianShui_Item",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SELL_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_Buy_QianShui_ItemConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Buy_QianShui_ItemActions"
+    ],
+    "references": [
+      "A02H",
+      "A036",
+      "H005",
+      "H00U",
+      "I03I",
+      "I03J",
+      "I03L",
+      "I03M",
+      "I03Q",
+      "I03R",
+      "I03S",
+      "I04B",
+      "I04C",
+      "I04J",
+      "Rhfc",
+      "Rhfl",
+      "Rhhb",
+      "Rhme",
+      "Rhpm",
+      "Rhri",
+      "Rhss"
+    ],
+    "abilities": [],
+    "lines": [
+      12625,
+      12788
+    ],
+    "initiallyEnabled": true
+  },
+  {
+    "name": "Buy_Abi",
+    "events": [
+      "TriggerRegisterAnyUnitEventBJ(EVENT_PLAYER_UNIT_SELL_ITEM)"
+    ],
+    "conditionFunctions": [
+      "Trig_Buy_AbiConditions"
+    ],
+    "actionFunctions": [
+      "Trig_Buy_AbiActions"
+    ],
+    "references": [
+      "A03I",
+      "ANab",
+      "ANhs",
+      "AUls",
+      "Acri",
+      "Asta",
+      "H000",
+      "H003",
+      "H004",
+      "H00C",
+      "H01A",
+      "H01K",
+      "I042",
+      "I043",
+      "I044",
+      "I04A",
+      "I04E",
+      "I04F",
+      "I05U"
+    ],
+    "abilities": [],
+    "lines": [
+      12789,
+      12936
+    ],
+    "initiallyEnabled": true
+  }
+]

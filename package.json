@@ -1,0 +1,14 @@
+{
+  "name": "boom-battleships",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.9.0",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "dev": "pnpm --filter @boom/client dev",
+    "build": "pnpm --filter @boom/client build",
+    "extract": "pnpm --filter @boom/extract extract",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test"
+  }
+}

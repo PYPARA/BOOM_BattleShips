@@ -1,0 +1,760 @@
+[
+  {
+    "id": "H000",
+    "name": "水手",
+    "hullClass": "小艇",
+    "size": "小型",
+    "price": 200,
+    "hp": 200,
+    "armor": 0.01,
+    "speed": 180,
+    "turnRate": 1,
+    "regenHp": 0.5,
+    "collision": 5,
+    "skills": [
+      "A01Y",
+      "A07U",
+      "A03W"
+    ],
+    "soldAt": [
+      "n00Y"
+    ],
+    "recommendedWeapons": "射程在1200-1800之间的武器.",
+    "description": "经济灵活的小船"
+  },
+  {
+    "id": "H00D",
+    "name": "巴拿马",
+    "hullClass": "商船",
+    "size": "小型",
+    "price": 400,
+    "hp": 75,
+    "armor": 0.01,
+    "speed": 250,
+    "turnRate": 0.75,
+    "regenHp": 0,
+    "collision": 5,
+    "skills": [
+      "A01V",
+      "A07U",
+      "A03W",
+      "A00A",
+      "A03U"
+    ],
+    "soldAt": [
+      "n00E",
+      "n00F"
+    ],
+    "recommendedWeapons": "",
+    "description": "唯一可用于进行贸易的船.擅长在敌人眼皮子底下从事运输走私等秘密活动"
+  },
+  {
+    "id": "H001",
+    "name": "圣战者",
+    "hullClass": "小艇",
+    "size": "小型",
+    "price": 500,
+    "hp": 400,
+    "armor": 1.01,
+    "speed": 200,
+    "turnRate": 0.8,
+    "regenHp": 0.5,
+    "collision": 7.5,
+    "skills": [
+      "A01A",
+      "A00Y",
+      "A07U",
+      "A03W"
+    ],
+    "soldAt": [
+      "n000"
+    ],
+    "recommendedWeapons": "适合各种武器,根据个人爱好",
+    "description": "一艘改良的小型战斗船只,拥有不错的耐久和速度"
+  },
+  {
+    "id": "H01A",
+    "name": "渔船",
+    "hullClass": "渔船",
+    "size": "小型",
+    "price": 900,
+    "hp": 600,
+    "armor": 1.01,
+    "speed": 170,
+    "turnRate": 0.6,
+    "regenHp": 1,
+    "collision": 8,
+    "skills": [
+      "A08I",
+      "A07V",
+      "A03W",
+      "A08T"
+    ],
+    "soldAt": [
+      "n000"
+    ],
+    "recommendedWeapons": "射程在800-1400之间的武器.",
+    "description": "在很久很久以前有一艘渔船救起了一只被困的小虎鲸...."
+  },
+  {
+    "id": "H01B",
+    "name": "飞鱼",
+    "hullClass": "汽艇",
+    "size": "小型",
+    "price": 1000,
+    "hp": 500,
+    "armor": 6.01,
+    "speed": 210,
+    "turnRate": 0.7,
+    "regenHp": 0.5,
+    "collision": 7.5,
+    "skills": [
+      "A05D",
+      "A07K",
+      "A07U",
+      "A03W"
+    ],
+    "soldAt": [
+      "n014"
+    ],
+    "recommendedWeapons": "射程在1200-1800之间的武器.",
+    "description": "快速而结实的小型战斗船只,战斗力和生存能力都不错"
+  },
+  {
+    "id": "H003",
+    "name": "拦截者",
+    "hullClass": "护卫舰",
+    "size": "中型",
+    "price": 1100,
+    "hp": 600,
+    "armor": 2.01,
+    "speed": 230,
+    "turnRate": 0.6,
+    "regenHp": 2.5,
+    "collision": 10,
+    "skills": [
+      "A00N",
+      "A07V",
+      "A03W",
+      "A07P"
+    ],
+    "soldAt": [
+      "n00Y"
+    ],
+    "recommendedWeapons": "射程在1200-1800之间的武器.",
+    "description": "海军中最常见的战斗船只.他所拥有的高速使得作战非常灵活."
+  },
+  {
+    "id": "H004",
+    "name": "守护者",
+    "hullClass": "工程舰",
+    "size": "中型",
+    "price": 1300,
+    "hp": 1100,
+    "armor": 3.01,
+    "speed": 170,
+    "turnRate": 0.6,
+    "regenHp": 1.5,
+    "collision": 10,
+    "skills": [
+      "A01E",
+      "A07V",
+      "A03W",
+      "A07L"
+    ],
+    "soldAt": [
+      "n00Y"
+    ],
+    "recommendedWeapons": "射程在1200-1800之间的武器.",
+    "description": "可以在海上修理船只. 航速缓慢综合能力较强"
+  },
+  {
+    "id": "H01K",
+    "name": "执法者",
+    "hullClass": "皇家炮艇",
+    "size": "中型",
+    "price": 1600,
+    "hp": 1200,
+    "armor": 7.01,
+    "speed": 200,
+    "turnRate": 0.8,
+    "regenHp": 5,
+    "collision": 10,
+    "skills": [
+      "A07O",
+      "A07V",
+      "A03W",
+      "ANso"
+    ],
+    "soldAt": [
+      "n00Y"
+    ],
+    "recommendedWeapons": "射程在1200-1800之间的武器.",
+    "description": "性能优异的多用途战斗舰."
+  },
+  {
+    "id": "H016",
+    "name": "龟船",
+    "hullClass": "朝鲜战船",
+    "size": "中型",
+    "price": 1800,
+    "hp": 1200,
+    "armor": 10.01,
+    "speed": 210,
+    "turnRate": 0.6,
+    "regenHp": 1.5,
+    "collision": 10,
+    "skills": [
+      "AEfk",
+      "A07V",
+      "A03W",
+      "A053"
+    ],
+    "soldAt": [
+      "n005"
+    ],
+    "recommendedWeapons": "射程在300-800之间的武器.",
+    "description": "朝鲜特有的龟船.16世纪末李舜臣用他屡败日本倭寇"
+  },
+  {
+    "id": "H007",
+    "name": "破坏者",
+    "hullClass": "巡洋舰",
+    "size": "中型",
+    "price": 2200,
+    "hp": 2000,
+    "armor": 5.01,
+    "speed": 170,
+    "turnRate": 0.4,
+    "regenHp": 1.5,
+    "collision": 12.5,
+    "skills": [
+      "A01R",
+      "A07V",
+      "A03W",
+      "ANrf",
+      "A038"
+    ],
+    "soldAt": [
+      "n000"
+    ],
+    "recommendedWeapons": "适合各种武器,根据个人爱好",
+    "description": "看起来象船的残骸,有着神秘的外型.可以轻松对敌船造成混乱"
+  },
+  {
+    "id": "H006",
+    "name": "支配者",
+    "hullClass": "巡洋舰",
+    "size": "中型",
+    "price": 2400,
+    "hp": 1750,
+    "armor": 5.01,
+    "speed": 180,
+    "turnRate": 0.4,
+    "regenHp": 1.5,
+    "collision": 12.5,
+    "skills": [
+      "A037",
+      "A07V",
+      "A03W",
+      "A02D"
+    ],
+    "soldAt": [
+      "n000"
+    ],
+    "recommendedWeapons": "射程在1200-1800之间的武器.",
+    "description": "实用的中型巡洋舰"
+  },
+  {
+    "id": "H01C",
+    "name": "私掠者",
+    "hullClass": "袭击舰",
+    "size": "中型",
+    "price": 2600,
+    "hp": 1600,
+    "armor": 2.01,
+    "speed": 200,
+    "turnRate": 0.8,
+    "regenHp": 5,
+    "collision": 10,
+    "skills": [
+      "A05T",
+      "A07V",
+      "A03W",
+      "A05S"
+    ],
+    "soldAt": [
+      "n014"
+    ],
+    "recommendedWeapons": "适合各种武器,根据个人爱好",
+    "description": "该船战斗性能不俗.又能从敌船上挣来大量金钱"
+  },
+  {
+    "id": "H01D",
+    "name": "影子战舰",
+    "hullClass": "小型战舰",
+    "size": "中型",
+    "price": 3000,
+    "hp": 1300,
+    "armor": 7.01,
+    "speed": 220,
+    "turnRate": 0.6,
+    "regenHp": 10,
+    "collision": 11,
+    "skills": [
+      "A02S",
+      "A07V",
+      "A03W",
+      "A02T",
+      "A094"
+    ],
+    "soldAt": [
+      "n008",
+      "n014"
+    ],
+    "recommendedWeapons": "射程在700-1800之间的武器.",
+    "description": "亮闪闪的奇特战舰.能成倍提升战斗力"
+  },
+  {
+    "id": "H01H",
+    "name": "元素战舰",
+    "hullClass": "中型战舰",
+    "size": "中型",
+    "price": 4000,
+    "hp": 3500,
+    "armor": 2.01,
+    "speed": 210,
+    "turnRate": 0.5,
+    "regenHp": 10,
+    "collision": 13,
+    "skills": [
+      "Arsw",
+      "A07V",
+      "A03W",
+      "ANto",
+      "A02V"
+    ],
+    "soldAt": [
+      "n014"
+    ],
+    "recommendedWeapons": "射程在700-1200之间的武器.",
+    "description": "拥有强大自然力量的战舰"
+  },
+  {
+    "id": "H01V",
+    "name": "田鼠",
+    "hullClass": "中型战舰",
+    "size": "中型",
+    "price": 4000,
+    "hp": 3500,
+    "armor": 15.01,
+    "speed": 220,
+    "turnRate": 0.5,
+    "regenHp": 1.5,
+    "collision": 13,
+    "skills": [
+      "A06Y",
+      "A07V",
+      "A03W",
+      "A06X"
+    ],
+    "soldAt": [
+      "n005"
+    ],
+    "recommendedWeapons": "射程在700-1000之间的武器.",
+    "description": "这艘不算大的船,拥有强大火力和厚重的装甲,速度也是一流"
+  },
+  {
+    "id": "H009",
+    "name": "主宰者",
+    "hullClass": "战列舰",
+    "size": "巨大",
+    "price": 5000,
+    "hp": 5500,
+    "armor": 10.01,
+    "speed": 160,
+    "turnRate": 0.25,
+    "regenHp": 10,
+    "collision": 15,
+    "skills": [
+      "A02L",
+      "A07W",
+      "A03W",
+      "A03N"
+    ],
+    "soldAt": [
+      "n000"
+    ],
+    "recommendedWeapons": "射程在300-900间能拆建筑武器.",
+    "description": "大排水量,厚重的装甲和很高的耐久度.就是这个强大的海上移动要塞."
+  },
+  {
+    "id": "H01O",
+    "name": "掘墓人",
+    "hullClass": "战列舰",
+    "size": "巨大",
+    "price": 5000,
+    "hp": 4500,
+    "armor": 8.01,
+    "speed": 170,
+    "turnRate": 0.25,
+    "regenHp": 10,
+    "collision": 15,
+    "skills": [
+      "ANvc",
+      "A07W",
+      "A03W",
+      "A02O",
+      "A065"
+    ],
+    "soldAt": [
+      "n014"
+    ],
+    "recommendedWeapons": "射程在300-800之间的武器.",
+    "description": "不知道这是船还是船的残骸. 不管怎么样它载着死去船员的灵魂漂浮在海上没有沉没.任何船遇见它都会躲得远远的"
+  },
+  {
+    "id": "H01L",
+    "name": "月光",
+    "hullClass": "大型战舰",
+    "size": "大",
+    "price": 5700,
+    "hp": 4500,
+    "armor": 10.01,
+    "speed": 190,
+    "turnRate": 0.25,
+    "regenHp": 0.25,
+    "collision": 15,
+    "skills": [
+      "A063",
+      "A07W",
+      "A03W",
+      "ANch",
+      "A09E"
+    ],
+    "soldAt": [
+      "n014"
+    ],
+    "recommendedWeapons": "射程在700-1200之间的武器.",
+    "description": "这是一艘来自东方的古代魔法战舰"
+  },
+  {
+    "id": "H005",
+    "name": "鹦鹉螺",
+    "hullClass": "潜水艇",
+    "size": "中型",
+    "price": 6000,
+    "hp": 1800,
+    "armor": 5.01,
+    "speed": 180,
+    "turnRate": 0.5,
+    "regenHp": 10,
+    "collision": 10,
+    "skills": [
+      "AOcr",
+      "A04N"
+    ],
+    "soldAt": [
+      "n00U"
+    ],
+    "recommendedWeapons": "",
+    "description": "能在水下航行和作战的新型舰只.行动隐蔽,战术灵活.适用于封锁海洋"
+  },
+  {
+    "id": "H008",
+    "name": "领主",
+    "hullClass": "战列舰",
+    "size": "巨大",
+    "price": 6000,
+    "hp": 4500,
+    "armor": 8.01,
+    "speed": 180,
+    "turnRate": 0.25,
+    "regenHp": 2.5,
+    "collision": 15,
+    "skills": [
+      "A03M",
+      "A07W",
+      "A03W",
+      "A02Z",
+      "A09B"
+    ],
+    "soldAt": [
+      "n000"
+    ],
+    "recommendedWeapons": "射程在700-1200之间的武器.",
+    "description": "这艘战舰是令人生畏的海上霸王.它的出现让敌船不敢靠近"
+  },
+  {
+    "id": "H00X",
+    "name": "腓尼基",
+    "hullClass": "远古战船",
+    "size": "大型",
+    "price": 6000,
+    "hp": 3500,
+    "armor": 10.01,
+    "speed": 170,
+    "turnRate": 0.5,
+    "regenHp": 2.5,
+    "collision": 10,
+    "skills": [
+      "AEer",
+      "ANms",
+      "A04A",
+      "A03W",
+      "AEim"
+    ],
+    "soldAt": [
+      "n014"
+    ],
+    "recommendedWeapons": "射程在300-800之间的武器.",
+    "description": "被烈火包围的古代战船."
+  },
+  {
+    "id": "H019",
+    "name": "邓子龙",
+    "hullClass": "战列舰",
+    "size": "巨大",
+    "price": 6000,
+    "hp": 5000,
+    "armor": 10.01,
+    "speed": 190,
+    "turnRate": 0.3,
+    "regenHp": 15,
+    "collision": 15,
+    "skills": [
+      "A062",
+      "A07W",
+      "A03W",
+      "A061",
+      "A058"
+    ],
+    "soldAt": [
+      "n005"
+    ],
+    "recommendedWeapons": "射程在700-1200之间的武器.",
+    "description": "在16世纪中国人曾建造了巨大的战船拥有无敌的舰队"
+  },
+  {
+    "id": "H01P",
+    "name": "伊谢尔伦",
+    "hullClass": "移动炮台",
+    "size": "巨大",
+    "price": 6000,
+    "hp": 6800,
+    "armor": 15.01,
+    "speed": 130,
+    "turnRate": 0.25,
+    "regenHp": 10,
+    "collision": 17,
+    "skills": [
+      "A068",
+      "A07W",
+      "A069",
+      "A06A",
+      "ANhs"
+    ],
+    "soldAt": [
+      "n014"
+    ],
+    "recommendedWeapons": "射程在1200-1800之间的武器.",
+    "description": "可以缓慢移动的自走炮台"
+  },
+  {
+    "id": "H00V",
+    "name": "大天使",
+    "hullClass": "战列舰",
+    "size": "大型",
+    "price": 6200,
+    "hp": 5000,
+    "armor": 10.01,
+    "speed": 160,
+    "turnRate": 0.6,
+    "regenHp": 0.25,
+    "collision": 14,
+    "skills": [
+      "AOvd",
+      "A08X",
+      "A03W",
+      "AEsf",
+      "AHwe"
+    ],
+    "soldAt": [
+      "n000"
+    ],
+    "recommendedWeapons": "射程在1200-1800之间的武器.",
+    "description": "虽然自身没有强大的火力和防御,但他能使周围舰只战斗力提高并不受攻击"
+  },
+  {
+    "id": "H021",
+    "name": "黄金美丽",
+    "hullClass": "小型帆船",
+    "size": "小型",
+    "price": 6500,
+    "hp": 3000,
+    "armor": 3.01,
+    "speed": 230,
+    "turnRate": 0.8,
+    "regenHp": 10,
+    "collision": 11,
+    "skills": [
+      "A091",
+      "A07V",
+      "A03W",
+      "A086",
+      "A096"
+    ],
+    "soldAt": [
+      "n018"
+    ],
+    "recommendedWeapons": "射程在500-1500之间的武器.",
+    "description": "草帽海贼团的第一艘船，同时也是最重要的伙伴之一。在经历无数冒险后拥有了自我意识。由西罗布村的梅利设计建造"
+  },
+  {
+    "id": "H00R",
+    "name": "麦哲伦",
+    "hullClass": "战列舰",
+    "size": "巨大",
+    "price": 7000,
+    "hp": 6000,
+    "armor": 12.01,
+    "speed": 170,
+    "turnRate": 0.5,
+    "regenHp": 2.5,
+    "collision": 15,
+    "skills": [
+      "AOsh",
+      "A07W",
+      "A03W",
+      "A06E",
+      "A031"
+    ],
+    "soldAt": [
+      "n000"
+    ],
+    "recommendedWeapons": "射程在700-1200之间的武器.",
+    "description": "大舰巨炮主义的产物"
+  },
+  {
+    "id": "H015",
+    "name": "定远",
+    "hullClass": "战列舰",
+    "size": "巨大",
+    "price": 7000,
+    "hp": 5500,
+    "armor": 20.01,
+    "speed": 260,
+    "turnRate": 0.2,
+    "regenHp": 2.5,
+    "collision": 16,
+    "skills": [
+      "A051",
+      "A07W",
+      "AOcl",
+      "AEtq"
+    ],
+    "soldAt": [
+      "n014"
+    ],
+    "recommendedWeapons": "射程在700-1200之间的武器.",
+    "description": "德国人为大清国建造的铁甲战舰, 是19世纪最强的战舰"
+  },
+  {
+    "id": "H01N",
+    "name": "飞行的荷兰人",
+    "hullClass": "中型战舰",
+    "size": "中型",
+    "price": 7000,
+    "hp": 4000,
+    "armor": 5.01,
+    "speed": 200,
+    "turnRate": 0.6,
+    "regenHp": 2.5,
+    "collision": 12.5,
+    "skills": [
+      "ANfl",
+      "A07W",
+      "A03W",
+      "A064",
+      "A067"
+    ],
+    "soldAt": [
+      "n000"
+    ],
+    "recommendedWeapons": "射程在300-800之间的武器.",
+    "description": "在水手中流传着一个飞行荷兰人的传说"
+  },
+  {
+    "id": "H00T",
+    "name": "死神",
+    "hullClass": "桨帆战船",
+    "size": "大型",
+    "price": 7700,
+    "hp": 3500,
+    "armor": 15.01,
+    "speed": 290,
+    "turnRate": 0.6,
+    "regenHp": 10,
+    "collision": 10,
+    "skills": [
+      "A018",
+      "A07W",
+      "A03W",
+      "ANdr",
+      "A05N"
+    ],
+    "soldAt": [
+      "n005"
+    ],
+    "recommendedWeapons": "射程在300-800之间的武器.",
+    "description": "恐怖的高速划桨战舰.同时还具有很强的生存力"
+  },
+  {
+    "id": "H011",
+    "name": "黑色幽灵",
+    "hullClass": "高速战舰",
+    "size": "大型",
+    "price": 8500,
+    "hp": 1700,
+    "armor": 4.01,
+    "speed": 500,
+    "turnRate": 0.6,
+    "regenHp": 0.25,
+    "collision": 10,
+    "skills": [
+      "A011",
+      "A07W",
+      "A04V",
+      "A04T"
+    ],
+    "soldAt": [
+      "n005"
+    ],
+    "recommendedWeapons": "适合各种武器,根据个人爱好",
+    "description": "神出鬼没的高航速幽灵战舰."
+  },
+  {
+    "id": "H00C",
+    "name": "黑珍珠",
+    "hullClass": "海盗船",
+    "size": "巨大",
+    "price": 16000,
+    "hp": 9000,
+    "armor": 20.01,
+    "speed": 250,
+    "turnRate": 0.3,
+    "regenHp": 2.5,
+    "collision": 17,
+    "skills": [
+      "A00J",
+      "A07W",
+      "A03W",
+      "A071"
+    ],
+    "soldAt": [
+      "n005"
+    ],
+    "recommendedWeapons": "射程在300-800之间的武器.",
+    "description": "* 仅有一艘*"
+  }
+]

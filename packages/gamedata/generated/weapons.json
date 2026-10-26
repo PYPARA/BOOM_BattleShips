@@ -1,0 +1,1623 @@
+[
+  {
+    "id": "I002",
+    "mode": "auto",
+    "abilityId": "A002",
+    "extraAbilities": [],
+    "name": "冲天炮",
+    "price": 140,
+    "damage": 6,
+    "range": 1800,
+    "cooldown": 1,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n001"
+    ],
+    "description": "攻击对象: 船只\n\n破坏力: 6 \n射程: 1800 \n间隔: 1 秒"
+  },
+  {
+    "id": "I000",
+    "mode": "auto",
+    "abilityId": "A001",
+    "extraAbilities": [],
+    "name": "箭弩",
+    "price": 165,
+    "damage": 8,
+    "range": 500,
+    "cooldown": 0.4,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n001"
+    ],
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 8 \n射程: 500 \n间隔: 0.4 秒"
+  },
+  {
+    "id": "I001",
+    "mode": "auto",
+    "abilityId": "A000",
+    "extraAbilities": [],
+    "name": "小炮",
+    "price": 200,
+    "damage": 20,
+    "range": 700,
+    "cooldown": 1.5,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n001"
+    ],
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 20 \n射程: 700 \n间隔: 1.5 秒"
+  },
+  {
+    "id": "I004",
+    "mode": "auto",
+    "abilityId": "A004",
+    "extraAbilities": [],
+    "name": "护卫舰炮",
+    "price": 430,
+    "damage": 30,
+    "range": 900,
+    "cooldown": 1.5,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n001"
+    ],
+    "description": "攻击对象: 船只、建筑\n可升级\n破坏力: 30 \n射程: 900 \n间隔: 1.5 秒"
+  },
+  {
+    "id": "I04K",
+    "mode": "auto",
+    "abilityId": "A04S",
+    "extraAbilities": [],
+    "name": "巴尔干炮",
+    "price": 440,
+    "damage": 24,
+    "range": 1300,
+    "cooldown": 1.6,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n001"
+    ],
+    "description": "攻击对象: 船只\n\n破坏力: 24 \n射程: 1300 \n间隔: 1.6 秒"
+  },
+  {
+    "id": "I05L",
+    "mode": "auto",
+    "abilityId": "A05Q",
+    "extraAbilities": [],
+    "name": "飞斧大炮",
+    "price": 470,
+    "damage": 12,
+    "range": 1100,
+    "cooldown": 0.6,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n001"
+    ],
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 12 \n射程: 1100 \n间隔: 0.6 秒"
+  },
+  {
+    "id": "I00G",
+    "mode": "auto",
+    "abilityId": "A00O",
+    "extraAbilities": [],
+    "name": "轻型火箭炮",
+    "price": 650,
+    "damage": 18,
+    "range": 600,
+    "cooldown": 0.5,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n001"
+    ],
+    "description": "攻击对象: 船只\n可升级\n破坏力: 18 \n射程: 600 \n间隔: 0.5 秒"
+  },
+  {
+    "id": "I029",
+    "mode": "auto",
+    "abilityId": "A04P",
+    "extraAbilities": [],
+    "name": "捕鲸炮",
+    "price": 800,
+    "damage": 80,
+    "range": 800,
+    "cooldown": 2.5,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n001"
+    ],
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 80\n射程: 800\n间隔: 2.5 秒"
+  },
+  {
+    "id": "I01B",
+    "mode": "auto",
+    "abilityId": "A01O",
+    "extraAbilities": [],
+    "name": "连弩炮",
+    "price": 990,
+    "damage": 8,
+    "range": 720,
+    "cooldown": 0.2,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n001"
+    ],
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 8 \n射程: 720 \n间隔: 0.2 秒"
+  },
+  {
+    "id": "I006",
+    "mode": "auto",
+    "abilityId": "A00B",
+    "extraAbilities": [],
+    "name": "火焰喷射装置 (I型)",
+    "price": 1000,
+    "damage": 6,
+    "range": 400,
+    "cooldown": 0.1,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n001"
+    ],
+    "description": "攻击对象: 船只、建筑\n可升级 (南方图书馆特有)\n破坏力: 6 \n射程: 400\n间隔: 0.1 秒"
+  },
+  {
+    "id": "I00H",
+    "mode": "auto",
+    "abilityId": "A00P",
+    "extraAbilities": [],
+    "name": "机关炮",
+    "price": 1450,
+    "damage": 10,
+    "range": 450,
+    "cooldown": 0.15,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n001"
+    ],
+    "description": "攻击对象: 船只、建筑、空中\n可升级 (北方农场特有)\n破坏力: 10 \n射程: 450 \n间隔: 0.15 秒"
+  },
+  {
+    "id": "I03E",
+    "mode": "auto",
+    "abilityId": "A00D",
+    "extraAbilities": [],
+    "name": "深水炸弹",
+    "price": 1500,
+    "damage": 75,
+    "range": 600,
+    "cooldown": 1,
+    "targets": [
+      "vulnerable",
+      "ward",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n007"
+    ],
+    "description": "攻击对象: 水雷、潜水艇\n可升级\n破坏力: 75 \n范围: 600 \n间隔: 1 秒"
+  },
+  {
+    "id": "I005",
+    "mode": "auto",
+    "abilityId": "A006",
+    "extraAbilities": [
+      "AIob"
+    ],
+    "name": "冷冻炮",
+    "price": 1750,
+    "damage": 45,
+    "range": 750,
+    "cooldown": 1,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只、建筑、空中\n可升级\n破坏力: 45 \n射程: 750 \n间隔: 1 秒\n具有冰冻特效 携带后船会自动攻击"
+  },
+  {
+    "id": "I00O",
+    "mode": "auto",
+    "abilityId": "A003",
+    "extraAbilities": [],
+    "name": "轰击大炮",
+    "price": 1850,
+    "damage": 35,
+    "range": 1800,
+    "cooldown": 1,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n001"
+    ],
+    "description": "攻击对象: 船只\n可升级\n破坏力: 35 \n射程: 1800 \n间隔: 1 秒"
+  },
+  {
+    "id": "I010",
+    "mode": "auto",
+    "abilityId": "A01C",
+    "extraAbilities": [],
+    "name": "巨石大炮",
+    "price": 1850,
+    "damage": 100,
+    "range": 800,
+    "cooldown": 1.7,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n00Z"
+    ],
+    "description": "攻击对象: 船只\n\n破坏力: 100 \n范围: 800 \n间隔: 1.7 秒"
+  },
+  {
+    "id": "I00I",
+    "mode": "auto",
+    "abilityId": "A01H",
+    "extraAbilities": [],
+    "name": "火焰箭",
+    "price": 2200,
+    "damage": 35,
+    "range": 800,
+    "cooldown": 0.5,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n00Z"
+    ],
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 35 \n射程: 800 \n间隔: 0.5 秒"
+  },
+  {
+    "id": "I00Z",
+    "mode": "auto",
+    "abilityId": "A01N",
+    "extraAbilities": [],
+    "name": "旋风加农炮",
+    "price": 3100,
+    "damage": 33,
+    "range": 650,
+    "cooldown": 0.3,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n00Z"
+    ],
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 33 \n射程: 650 \n间隔: 0.3 秒"
+  },
+  {
+    "id": "I03K",
+    "mode": "auto",
+    "abilityId": "A00D",
+    "extraAbilities": [
+      "A016"
+    ],
+    "name": "双联装深水炸弹",
+    "price": 3500,
+    "damage": 75,
+    "range": 600,
+    "cooldown": 1,
+    "targets": [
+      "vulnerable",
+      "ward",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 水雷、潜水艇\n\n破坏力: 75 x2 \n范围: 600 \n间隔: 1 秒"
+  },
+  {
+    "id": "I00P",
+    "mode": "auto",
+    "abilityId": "A01L",
+    "extraAbilities": [],
+    "name": "攻城大炮",
+    "price": 4000,
+    "damage": 430,
+    "range": 750,
+    "cooldown": 2,
+    "targets": [
+      "vulnerable",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n007"
+    ],
+    "description": "攻击对象: 建筑物\n\n破坏力: 430 \n射程: 750 \n间隔: 2 秒"
+  },
+  {
+    "id": "I00L",
+    "mode": "auto",
+    "abilityId": "A01J",
+    "extraAbilities": [],
+    "name": "阔剑投掷器",
+    "price": 4100,
+    "damage": 260,
+    "range": 750,
+    "cooldown": 2.5,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n00Z"
+    ],
+    "description": "攻击对象: 船只、建筑、空中\n可升级 (中立港)\n破坏力: 260 \n射程: 750 \n间隔: 2.5 秒"
+  },
+  {
+    "id": "I01C",
+    "mode": "auto",
+    "abilityId": "A01U",
+    "extraAbilities": [],
+    "name": "飞锤加农炮",
+    "price": 4100,
+    "damage": 160,
+    "range": 800,
+    "cooldown": 1.3,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n00Z"
+    ],
+    "description": "攻击对象: 船只\n\n破坏力: 160 \n射程: 800 \n间隔: 1.3 秒"
+  },
+  {
+    "id": "I03G",
+    "mode": "auto",
+    "abilityId": "A043",
+    "extraAbilities": [],
+    "name": "重型火箭炮",
+    "price": 4100,
+    "damage": 50,
+    "range": 1000,
+    "cooldown": 0.5,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只\n可升级\n破坏力: 50 \n射程: 1000 \n间隔: 0.5 秒"
+  },
+  {
+    "id": "I033",
+    "mode": "auto",
+    "abilityId": "A019",
+    "extraAbilities": [],
+    "name": "无轨迹炮",
+    "price": 4700,
+    "damage": 77,
+    "range": 1800,
+    "cooldown": 1.2,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n00Z"
+    ],
+    "description": "攻击对象: 船只、建筑\n可升级 (中立港) \n破坏力: 77 \n范围: 1800 \n间隔: 1.2 秒"
+  },
+  {
+    "id": "I04R",
+    "mode": "auto",
+    "abilityId": "A04W",
+    "extraAbilities": [],
+    "name": "红衣大炮",
+    "price": 4700,
+    "damage": 55,
+    "range": 900,
+    "cooldown": 0.5,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n00Z"
+    ],
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 55 \n范围: 900 \n间隔: 0.5 秒"
+  },
+  {
+    "id": "I02W",
+    "mode": "auto",
+    "abilityId": "A02C",
+    "extraAbilities": [],
+    "name": "巡洋舰炮",
+    "price": 4800,
+    "damage": 88,
+    "range": 1200,
+    "cooldown": 1.1,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只、建筑\n可升级\n破坏力: 88 \n射程: 1200 \n间隔: 1.1 秒"
+  },
+  {
+    "id": "I069",
+    "mode": "auto",
+    "abilityId": "A076",
+    "extraAbilities": [
+      "A078"
+    ],
+    "name": "红箭大炮",
+    "price": 4800,
+    "damage": 57,
+    "range": 700,
+    "cooldown": 1.1,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "可升级\n攻击对象: 船只、建筑  破坏力: 57 \n射程:  700  每秒破坏力: 115\n射程: 1300  每秒破坏力: 63\n距离越近,攻击间隔越短,每秒破坏越强"
+  },
+  {
+    "id": "I050",
+    "mode": "auto",
+    "abilityId": "A050",
+    "extraAbilities": [],
+    "name": "EX怒火大炮",
+    "price": 4900,
+    "damage": 160,
+    "range": 1600,
+    "cooldown": 2,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n00Z"
+    ],
+    "description": "攻击对象: 船只\n\n破坏力: 160\n范围: 1600\n间隔: 2 秒"
+  },
+  {
+    "id": "I01X",
+    "mode": "salvo",
+    "abilityId": "A02E",
+    "extraAbilities": [],
+    "name": "反潜火箭",
+    "price": 5000,
+    "damage": 130,
+    "range": 1100,
+    "cooldown": 10,
+    "targets": [
+      "vulnerable",
+      "ward",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n007"
+    ],
+    "description": "携带深水炸弹弹头的反潜火箭 (需要手动控制齐射)\n攻击对象: 潜水艇、水雷\n\n破坏力: 130 x10\n射程: 1100\n间隔: 10 秒"
+  },
+  {
+    "id": "I027",
+    "mode": "auto",
+    "abilityId": "A00C",
+    "extraAbilities": [],
+    "name": "火焰喷射装置 (II型)",
+    "price": 5000,
+    "damage": 18,
+    "range": 440,
+    "cooldown": 0.1,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只、建筑\n可升级 (南方图书馆特有)\n破坏力: 18 \n射程: 440\n间隔: 0.1 秒"
+  },
+  {
+    "id": "I05N",
+    "mode": "auto",
+    "abilityId": "A05W",
+    "extraAbilities": [
+      "A05X"
+    ],
+    "name": "天星大炮",
+    "price": 5000,
+    "damage": 80,
+    "range": 800,
+    "cooldown": 0.7,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n00H"
+    ],
+    "description": "可升级\n破坏力: 80  攻击对象: 敌方单位\n破坏力: 80  攻击对象: 建筑\n射程: 800 \n间隔: 0.7秒\n同时攻击建筑,单位的二合一特殊武器"
+  },
+  {
+    "id": "I064",
+    "mode": "auto",
+    "abilityId": "A072",
+    "extraAbilities": [
+      "A075"
+    ],
+    "name": "海绵宝宝炮",
+    "price": 5000,
+    "damage": 48,
+    "range": 1200,
+    "cooldown": 0.6,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n00A"
+    ],
+    "description": "可升级\n攻击对象: 船只、建筑、空中\n(点击可换成修复友军模式)\n破坏力: 48\n范围: 1200 \n间隔: 0.6 秒\n由异世界的炮姐设计"
+  },
+  {
+    "id": "I067",
+    "mode": "auto",
+    "abilityId": "A073",
+    "extraAbilities": [
+      "A075"
+    ],
+    "name": "海绵宝宝炮B",
+    "price": 5000,
+    "damage": -45,
+    "range": 800,
+    "cooldown": 0.6,
+    "targets": [
+      "ground",
+      "friend",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "修复对象: 友军单位\n(点击可换成战斗攻击模式)\n修复力: 45\n范围: 800 \n间隔: 0.6 秒\n由异世界的炮姐设计"
+  },
+  {
+    "id": "I046",
+    "mode": "auto",
+    "abilityId": "A04Q",
+    "extraAbilities": [],
+    "name": "声波炮",
+    "price": 5200,
+    "damage": 50,
+    "range": 1100,
+    "cooldown": 0.5,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n00Z"
+    ],
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 50 \n范围: 1100 \n间隔: 0.5 秒"
+  },
+  {
+    "id": "I018",
+    "mode": "auto",
+    "abilityId": "A01P",
+    "extraAbilities": [
+      "AIll"
+    ],
+    "name": "电磁炮",
+    "price": 5500,
+    "damage": 100,
+    "range": 880,
+    "cooldown": 0.8,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只、建筑、空中\n可升级\n破坏力: 100 \n射程: 880 \n间隔: 0.8 秒\n具有电击特效 携带后船会自动攻击"
+  },
+  {
+    "id": "I03N",
+    "mode": "auto",
+    "abilityId": "A01B",
+    "extraAbilities": [],
+    "name": "密集阵-6管20毫米近防炮",
+    "price": 5500,
+    "damage": 30,
+    "range": 490,
+    "cooldown": 0.15,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只、空中\n可升级 (北方农场特有)\n破坏力: 30 \n范围: 490 \n间隔: 0.15 秒"
+  },
+  {
+    "id": "I02Z",
+    "mode": "auto",
+    "abilityId": "A02M",
+    "extraAbilities": [
+      "AIob",
+      "AIsx"
+    ],
+    "name": "强力冷冻炮",
+    "price": 5700,
+    "damage": 150,
+    "range": 770,
+    "cooldown": 1,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只、建筑、空中\n顶级\n破坏力: 150 \n射程: 770 \n间隔: 1 秒\n具有冰冻特效 携带后船会自动攻击"
+  },
+  {
+    "id": "I04P",
+    "mode": "auto",
+    "abilityId": "A02N",
+    "extraAbilities": [],
+    "name": "格林箭",
+    "price": 5800,
+    "damage": 127,
+    "range": 1300,
+    "cooldown": 1.2,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n00Z"
+    ],
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 127 \n范围: 1300 \n间隔: 1.2 秒"
+  },
+  {
+    "id": "I01D",
+    "mode": "auto",
+    "abilityId": "A01X",
+    "extraAbilities": [],
+    "name": "混乱大炮",
+    "price": 6000,
+    "damage": 88,
+    "range": 800,
+    "cooldown": 0.6,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n00Z"
+    ],
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 88 \n射程: 800 \n间隔: 0.6 秒"
+  },
+  {
+    "id": "I057",
+    "mode": "auto",
+    "abilityId": "A056",
+    "extraAbilities": [
+      "A05V"
+    ],
+    "name": "精灵大炮",
+    "price": 6000,
+    "damage": 130,
+    "range": 1100,
+    "cooldown": 1.5,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "hero",
+      "nonancient"
+    ],
+    "soldAt": [
+      "h01T",
+      "n00H"
+    ],
+    "description": "可升级\n破坏力: 130  攻击对象: 英雄\n破坏力: 130  攻击对象: 普通单位\n射程: 1100 \n间隔: 1.5秒\n同时攻击英雄,普通单位的二合一特殊武器"
+  },
+  {
+    "id": "I00X",
+    "mode": "auto",
+    "abilityId": "A01K",
+    "extraAbilities": [],
+    "name": "燃烧弹加农炮",
+    "price": 6300,
+    "damage": 350,
+    "range": 700,
+    "cooldown": 2,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n00Z"
+    ],
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 350 \n射程: 700 \n间隔: 2 秒"
+  },
+  {
+    "id": "I019",
+    "mode": "auto",
+    "abilityId": "A01Q",
+    "extraAbilities": [],
+    "name": "雷神大炮",
+    "price": 7200,
+    "damage": 180,
+    "range": 1000,
+    "cooldown": 1.1,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n007"
+    ],
+    "description": "攻击对象: 船只\n可升级\n破坏力: 180 \n射程: 1000 \n间隔: 1.1 秒"
+  },
+  {
+    "id": "I04G",
+    "mode": "auto",
+    "abilityId": "A04L",
+    "extraAbilities": [],
+    "name": "轰击大炮 +改",
+    "price": 8000,
+    "damage": 90,
+    "range": 1800,
+    "cooldown": 0.8,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只\n\n破坏力: 90 \n射程: 1800 \n间隔: 0.8 秒"
+  },
+  {
+    "id": "I03F",
+    "mode": "salvo",
+    "abilityId": "A02F",
+    "extraAbilities": [
+      "A048",
+      "A042"
+    ],
+    "name": "反舰火箭",
+    "price": 8500,
+    "damage": 200,
+    "range": 1800,
+    "cooldown": 10,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "h01T"
+    ],
+    "description": "反舰火箭，可自动单发，可手动控制齐射\n攻击对象: 船只  (齐射时小心误伤！)\n降低携带者自身速度20%\n\n破坏力: 200\n射程: 1800\n间隔: 10 秒"
+  },
+  {
+    "id": "I03Y",
+    "mode": "auto",
+    "abilityId": "A04H",
+    "extraAbilities": [],
+    "name": "缩退炮",
+    "price": 8800,
+    "damage": 180,
+    "range": 1700,
+    "cooldown": 1.5,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n007"
+    ],
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 180 \n范围: 1700 \n间隔: 1.5 秒"
+  },
+  {
+    "id": "I00Y",
+    "mode": "auto",
+    "abilityId": "A01M",
+    "extraAbilities": [],
+    "name": "激光炮",
+    "price": 11000,
+    "damage": 60,
+    "range": 650,
+    "cooldown": 0.2,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n007"
+    ],
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 60 \n射程: 650 \n间隔: 0.2 秒"
+  },
+  {
+    "id": "I02C",
+    "mode": "auto",
+    "abilityId": "A012",
+    "extraAbilities": [],
+    "name": "火焰喷射装置 (III型)",
+    "price": 11000,
+    "damage": 45,
+    "range": 490,
+    "cooldown": 0.12,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只、建筑\n顶级\n破坏力: 45 \n射程: 490\n间隔: 0.12 秒"
+  },
+  {
+    "id": "I03W",
+    "mode": "auto",
+    "abilityId": "A017",
+    "extraAbilities": [],
+    "name": "火神炮",
+    "price": 11000,
+    "damage": 52,
+    "range": 540,
+    "cooldown": 0.15,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 52\n范围: 540\n间隔: 0.15 秒"
+  },
+  {
+    "id": "I01M",
+    "mode": "auto",
+    "abilityId": "A03C",
+    "extraAbilities": [],
+    "name": "碎火加农炮",
+    "price": 11500,
+    "damage": 180,
+    "range": 1400,
+    "cooldown": 1,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n007"
+    ],
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 180 \n射程: 1400 \n间隔: 1 秒"
+  },
+  {
+    "id": "I03B",
+    "mode": "auto",
+    "abilityId": "A03H",
+    "extraAbilities": [],
+    "name": "战列舰炮",
+    "price": 11500,
+    "damage": 230,
+    "range": 1500,
+    "cooldown": 1.4,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只、建筑\n顶级\n破坏力: 230 \n射程: 1500 \n间隔: 1.4 秒"
+  },
+  {
+    "id": "I048",
+    "mode": "auto",
+    "abilityId": "A04E",
+    "extraAbilities": [],
+    "name": "压缩空间炮",
+    "price": 11500,
+    "damage": 160,
+    "range": 1000,
+    "cooldown": 0.7,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n007"
+    ],
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 160 \n范围: 1000 \n间隔: 0.7 秒"
+  },
+  {
+    "id": "I04S",
+    "mode": "auto",
+    "abilityId": "A04X",
+    "extraAbilities": [],
+    "name": "蓝色光束炮",
+    "price": 11500,
+    "damage": 200,
+    "range": 1200,
+    "cooldown": 1,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n007"
+    ],
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 200 \n范围: 1200 \n间隔: 1 秒"
+  },
+  {
+    "id": "I056",
+    "mode": "auto",
+    "abilityId": "A055",
+    "extraAbilities": [],
+    "name": "灭日大炮",
+    "price": 11500,
+    "damage": 104,
+    "range": 800,
+    "cooldown": 0.4,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n007"
+    ],
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 104 \n范围: 800 \n间隔: 0.4 秒"
+  },
+  {
+    "id": "I05M",
+    "mode": "auto",
+    "abilityId": "A05R",
+    "extraAbilities": [],
+    "name": "死黑大炮",
+    "price": 11500,
+    "damage": 107,
+    "range": 1100,
+    "cooldown": 0.5,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n008"
+    ],
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 107 \n范围: 1100 \n间隔: 0.5 秒\n(来自EX世界的武器)"
+  },
+  {
+    "id": "I05O",
+    "mode": "auto",
+    "abilityId": "A060",
+    "extraAbilities": [
+      "A05Z"
+    ],
+    "name": "超级天星大炮",
+    "price": 11500,
+    "damage": 150,
+    "range": 800,
+    "cooldown": 0.7,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "顶级\n破坏力: 150  攻击对象: 敌方单位\n破坏力: 150  攻击对象: 建筑\n射程: 800 \n间隔: 0.7秒\n同时攻击建筑,单位的二合一特殊武器"
+  },
+  {
+    "id": "I031",
+    "mode": "scripted",
+    "extraAbilities": [],
+    "name": "腐蚀大炮",
+    "price": 12000,
+    "damage": "110",
+    "range": 950,
+    "cooldown": 0.4,
+    "targets": [
+      "船只",
+      "建筑",
+      "空中"
+    ],
+    "soldAt": [
+      "n00H"
+    ],
+    "description": "攻击对象: 船只、建筑、空中\n特殊武器,只能携带一个\n破坏力: 110 \n射程: 950 \n间隔: 0.4 秒\n目标移动速度下降，持续10秒，每秒30伤害\n攻击时会暴露使用者\n最终伤害受护甲影响, 但无视船甲减伤"
+  },
+  {
+    "id": "I03H",
+    "mode": "salvo",
+    "abilityId": "A045",
+    "extraAbilities": [
+      "A049"
+    ],
+    "name": "对地导弹",
+    "price": 12000,
+    "damage": 300,
+    "range": 1800,
+    "cooldown": 10,
+    "targets": [
+      "vulnerable",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "h01T"
+    ],
+    "description": "对地导弹，可自动单发，可手动控制齐射\n攻击对象: 建筑物\n\n破坏力: 300\n射程: 1800\n间隔: 10 秒"
+  },
+  {
+    "id": "I049",
+    "mode": "auto",
+    "abilityId": "A04J",
+    "extraAbilities": [],
+    "name": "废墟大炮",
+    "price": 12000,
+    "damage": 450,
+    "range": 800,
+    "cooldown": 1,
+    "targets": [
+      "vulnerable",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n007"
+    ],
+    "description": "攻击对象: 建筑物\n\n破坏力: 450 \n射程: 800 \n间隔: 1 秒"
+  },
+  {
+    "id": "I054",
+    "mode": "auto",
+    "abilityId": "A054",
+    "extraAbilities": [],
+    "name": "雷神大炮增强型",
+    "price": 12000,
+    "damage": 310,
+    "range": 1000,
+    "cooldown": 1.3,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只\n顶级\n破坏力: 310 \n射程: 1000 \n间隔: 1.3 秒"
+  },
+  {
+    "id": "I059",
+    "mode": "auto",
+    "abilityId": "A05B",
+    "extraAbilities": [],
+    "name": "高速阔剑投掷器",
+    "price": 12000,
+    "damage": 260,
+    "range": 750,
+    "cooldown": 1,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只、建筑、空中\n顶级\n破坏力: 260 \n射程: 750 \n间隔: 1 秒"
+  },
+  {
+    "id": "I05B",
+    "mode": "auto",
+    "abilityId": "A05E",
+    "extraAbilities": [],
+    "name": "无轨迹炮改",
+    "price": 12000,
+    "damage": 115,
+    "range": 1800,
+    "cooldown": 0.8,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只、建筑\n顶级\n破坏力: 115 \n范围: 1800 \n间隔: 0.8 秒"
+  },
+  {
+    "id": "I05D",
+    "mode": "auto",
+    "abilityId": "A05F",
+    "extraAbilities": [
+      "A05Y"
+    ],
+    "name": "终级精灵大炮",
+    "price": 12000,
+    "damage": 140,
+    "range": 1100,
+    "cooldown": 0.9,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "hero",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "顶级\n破坏力: 140  攻击对象: 英雄\n破坏力: 140  攻击对象: 普通单位\n射程: 1100 \n间隔: 0.9秒\n同时攻击英雄,普通单位的二合一特殊武器"
+  },
+  {
+    "id": "I05J",
+    "mode": "scripted",
+    "extraAbilities": [],
+    "name": "真·燃烧弹加榴炮",
+    "price": 12000,
+    "damage": "450",
+    "range": 700,
+    "cooldown": 2,
+    "targets": [
+      "船只",
+      "建筑"
+    ],
+    "soldAt": [
+      "n00H"
+    ],
+    "description": "攻击对象: 船只、建筑\n特殊武器,只能携带一个\n破坏力: 450 \n范围: 700 \n间隔: 2 秒\n造成范围燃烧，持续5秒，每秒100伤害\n攻击时会暴露使用者\n最终伤害受护甲影响, 但无视船甲减伤"
+  },
+  {
+    "id": "I05K",
+    "mode": "auto",
+    "abilityId": "A02P",
+    "extraAbilities": [
+      "AIll"
+    ],
+    "name": "高能电磁炮",
+    "price": 12000,
+    "damage": 222,
+    "range": 880,
+    "cooldown": 0.8,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只、建筑、空中\n顶级\n破坏力: 222 \n射程: 880 \n间隔: 0.8 秒\n具有电击特效 携带后船会自动攻击"
+  },
+  {
+    "id": "I065",
+    "mode": "auto",
+    "abilityId": "A054",
+    "extraAbilities": [],
+    "name": "22222",
+    "price": 12000,
+    "damage": 310,
+    "range": 1000,
+    "cooldown": 1.3,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只\n顶级\n破坏力: 300 \n射程: 1000 \n间隔: 1.3 秒"
+  },
+  {
+    "id": "I066",
+    "mode": "auto",
+    "abilityId": "A054",
+    "extraAbilities": [],
+    "name": "33333",
+    "price": 12000,
+    "damage": 310,
+    "range": 1000,
+    "cooldown": 1.3,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只\n顶级\n破坏力: 300 \n射程: 1000 \n间隔: 1.3 秒"
+  },
+  {
+    "id": "I06A",
+    "mode": "auto",
+    "abilityId": "A07A",
+    "extraAbilities": [
+      "A07B"
+    ],
+    "name": "真红之箭",
+    "price": 12000,
+    "damage": 125,
+    "range": 700,
+    "cooldown": 1.1,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "顶级\n攻击对象: 船只、建筑  破坏力: 125 \n射程:  700  每秒破坏力: 253\n射程: 1300  每秒破坏力: 139\n距离越近,攻击间隔越短,每秒破坏越强"
+  },
+  {
+    "id": "I06J",
+    "mode": "auto",
+    "abilityId": "A07S",
+    "extraAbilities": [
+      "A075"
+    ],
+    "name": "大大海绵宝宝炮",
+    "price": 12000,
+    "damage": 95,
+    "range": 1200,
+    "cooldown": 0.6,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "顶级\n攻击对象: 船只、建筑、空中\n(点击可换成修复友军模式)\n破坏力: 95\n范围: 1200 \n间隔: 0.6 秒\n由异世界的炮姐设计"
+  },
+  {
+    "id": "I06K",
+    "mode": "auto",
+    "abilityId": "A07R",
+    "extraAbilities": [
+      "A075"
+    ],
+    "name": "大大海绵宝宝炮B",
+    "price": 12000,
+    "damage": -90,
+    "range": 800,
+    "cooldown": 0.6,
+    "targets": [
+      "ground",
+      "friend",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "顶级\n修复对象: 友军单位\n(点击可换成战斗攻击模式)\n修复力: 90\n范围: 800 \n间隔: 0.6 秒\n由异世界的炮姐设计"
+  },
+  {
+    "id": "I01Y",
+    "mode": "auto",
+    "abilityId": "A010",
+    "extraAbilities": [],
+    "name": "慧星大炮",
+    "price": 13000,
+    "damage": 220,
+    "range": 1600,
+    "cooldown": 1.1,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n007"
+    ],
+    "description": "攻击对象: 船只\n\n破坏力: 220 \n射程: 1600 \n间隔: 1.1 秒"
+  },
+  {
+    "id": "I05F",
+    "mode": "auto",
+    "abilityId": "A04I",
+    "extraAbilities": [
+      "AIpz"
+    ],
+    "name": "无相大炮",
+    "price": 13000,
+    "damage": 233,
+    "range": 800,
+    "cooldown": 0.8,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [
+      "n00A"
+    ],
+    "description": "攻击对象: 船只\n(点击可换成攻击建筑模式)\n破坏力: 233 \n范围: 800 \n间隔: 0.8 秒"
+  },
+  {
+    "id": "I05G",
+    "mode": "auto",
+    "abilityId": "A059",
+    "extraAbilities": [
+      "AIpz"
+    ],
+    "name": "无相大炮 (反建筑模式)",
+    "price": 13000,
+    "damage": 233,
+    "range": 800,
+    "cooldown": 0.8,
+    "targets": [
+      "vulnerable",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 建筑\n(点击可换成攻击船只模式)\n破坏力: 233 \n范围: 800 \n间隔: 0.8 秒"
+  },
+  {
+    "id": "I068",
+    "mode": "scripted",
+    "extraAbilities": [],
+    "name": "霹雳大炮",
+    "price": 13000,
+    "damage": "240",
+    "range": 900,
+    "cooldown": 1.3,
+    "targets": [
+      "船只",
+      "建筑"
+    ],
+    "soldAt": [
+      "n00H"
+    ],
+    "description": "攻击对象: 船只、建筑\n特殊武器,只能携带一个\n破坏力: 240 \n射程: 900 \n间隔: 1.3 秒\n命中目标后会弹射,最多攻击3个目标\n攻击时会暴露使用者\n最终伤害受护甲影响, 但无视船甲减伤"
+  },
+  {
+    "id": "I05W",
+    "mode": "auto",
+    "abilityId": "A06R",
+    "extraAbilities": [
+      "A06S"
+    ],
+    "name": "真巨石大炮",
+    "price": 16000,
+    "damage": 130,
+    "range": 900,
+    "cooldown": 0.5,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 130 \n范围: 900 \n间隔: 0.5 秒\n点击可对指定目标投出巨石,造成200伤害并砸晕2秒\n这门炮由地精打造,注入了古代泰坦的神力"
+  },
+  {
+    "id": "I05X",
+    "mode": "auto",
+    "abilityId": "A05I",
+    "extraAbilities": [],
+    "name": "土豪大炮",
+    "price": 16000,
+    "damage": 160,
+    "range": 700,
+    "cooldown": 0.4,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "nonancient"
+    ],
+    "soldAt": [],
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 160 \n范围: 700 \n间隔: 0.4 秒\n一般人买不起啊买不起, 想和我做朋友吗?"
+  },
+  {
+    "id": "I06Q",
+    "mode": "auto",
+    "abilityId": "A08D",
+    "extraAbilities": [],
+    "name": "炮姐大炮",
+    "price": 20000,
+    "damage": 200,
+    "range": 1200,
+    "cooldown": 0.5,
+    "targets": [
+      "vulnerable",
+      "ground",
+      "structure",
+      "enemies",
+      "air",
+      "nonancient"
+    ],
+    "soldAt": [
+      "h01T"
+    ],
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 200 \n范围: 1200 \n间隔: 0.5 秒\n由炮姐设计制造的最终兵器"
+  }
+]

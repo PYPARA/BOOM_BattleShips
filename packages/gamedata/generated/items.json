@@ -1,0 +1,6403 @@
+[
+  {
+    "id": "afac",
+    "name": "阿利亚之笛",
+    "goldCost": 400,
+    "abilities": [
+      "AIar"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AEar",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买阿利亚之笛",
+    "description": "增加附近远程攻击型单位 10%的攻击力。\n不能和强击光环同时使用。",
+    "soldAt": []
+  },
+  {
+    "id": "ajen",
+    "name": "古之忍耐姜歌",
+    "goldCost": 500,
+    "abilities": [
+      "AIae"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AOae",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买古之忍耐姜歌",
+    "description": "增加英雄和附近单位的攻击速度和移动速度。\n不能和耐久光环同时使用。",
+    "soldAt": []
+  },
+  {
+    "id": "ankh",
+    "name": "重生十字章",
+    "goldCost": 800,
+    "abilities": [
+      "AIrc"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIrc",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买重生十字章(A)",
+    "description": "在英雄死后自动让其复活，并让其拥有500点的生命值。",
+    "soldAt": []
+  },
+  {
+    "id": "belv",
+    "name": "奎尔萨拉斯之靴 +6",
+    "goldCost": 500,
+    "abilities": [
+      "AIa6"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIa6",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买奎尔萨拉斯之靴(E)",
+    "description": "能增加英雄6点的敏捷度。",
+    "soldAt": []
+  },
+  {
+    "id": "bgst",
+    "name": "巨人力量腰带+6",
+    "goldCost": 500,
+    "abilities": [
+      "AIs6"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIs6",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买巨人力量腰带(B)",
+    "description": "能增加英雄6点的力量。",
+    "soldAt": []
+  },
+  {
+    "id": "brac",
+    "name": "神秘腰带",
+    "goldCost": 400,
+    "abilities": [
+      "AIsr"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIsr",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买神秘腰带(R)",
+    "description": "减少33%英雄受到的魔法伤害。",
+    "soldAt": []
+  },
+  {
+    "id": "bspd",
+    "name": "速度之靴",
+    "goldCost": 150,
+    "abilities": [
+      "AIms"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIms",
+    "stockMax": 1,
+    "stockRegen": 60,
+    "tip": "购买速度之靴(S)",
+    "description": "能增加英雄的移动速度。",
+    "soldAt": []
+  },
+  {
+    "id": "ciri",
+    "name": "法师长袍 +6",
+    "goldCost": 500,
+    "abilities": [
+      "AIi6"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIi6",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买法师长袍(R)",
+    "description": "增加英雄6点的智力。",
+    "soldAt": []
+  },
+  {
+    "id": "ckng",
+    "name": "国王之冠 +5",
+    "goldCost": 1000,
+    "abilities": [
+      "AIx5"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIx5",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买国王之冠(K)",
+    "description": "能增加英雄5点的力量，智力和敏捷度。",
+    "soldAt": []
+  },
+  {
+    "id": "clfm",
+    "name": "火焰风衣",
+    "goldCost": 600,
+    "abilities": [
+      "AIcf"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIcf",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "火焰风衣",
+    "description": "使得英雄处于火焰的包围之中，每秒对周围的地面单位造成  10 点的伤害。\n不能和献祭一起使用。",
+    "soldAt": []
+  },
+  {
+    "id": "clsd",
+    "name": "影子风衣",
+    "goldCost": 100,
+    "abilities": [
+      "Ashm"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Ashm",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买影子风衣( C)",
+    "description": "能在夜间让英雄隐形， 但是当英雄移动，攻击或者使用某种技能的话，隐形效果就会消失。",
+    "soldAt": []
+  },
+  {
+    "id": "cnob",
+    "name": "贵族圆环",
+    "goldCost": 175,
+    "abilities": [
+      "AIx2"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIx2",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买贵族圆环(C)",
+    "description": "增加英雄2点的智力，敏捷度和力量。",
+    "soldAt": []
+  },
+  {
+    "id": "crys",
+    "name": "水晶球",
+    "goldCost": 500,
+    "abilities": [
+      "AIta"
+    ],
+    "itemClass": "Permanent",
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIta",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买水晶球(C)",
+    "description": "驱散一定区域内的战争迷雾，也能看到隐形单位。\n持续10秒。",
+    "soldAt": []
+  },
+  {
+    "id": "desc",
+    "name": "科勒恩的逃脱匕首",
+    "goldCost": 400,
+    "abilities": [
+      "AIbk"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIbk",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买逃脱匕首(E)",
+    "description": "允许英雄传送一小段距离。",
+    "soldAt": []
+  },
+  {
+    "id": "dust",
+    "name": "尘土之影",
+    "goldCost": 75,
+    "abilities": [
+      "AItb"
+    ],
+    "itemClass": "Miscellaneous",
+    "uses": 2,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AItb",
+    "stockMax": 1,
+    "stockRegen": 60,
+    "tip": "购买尘土之影(D)",
+    "description": "显示英雄周围的隐形单位。\n一共可以使用2次。\n持续20秒。",
+    "soldAt": []
+  },
+  {
+    "id": "evtl",
+    "name": "闪避护符",
+    "goldCost": 400,
+    "abilities": [
+      "AIev"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AEev",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买闪避护符",
+    "description": "能让英雄有15% 的概率躲避掉敌人的攻击。\n不能和闪避以及醉拳技能一起使用。",
+    "soldAt": []
+  },
+  {
+    "id": "fgdg",
+    "name": "恶魔雕像",
+    "goldCost": 750,
+    "abilities": [
+      "AIfu"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIfu",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买恶魔雕像",
+    "description": "召唤出一毁灭守卫来为你战斗。\n持续180秒。",
+    "soldAt": []
+  },
+  {
+    "id": "fgfh",
+    "name": "长钉衣领",
+    "goldCost": 450,
+    "abilities": [
+      "AIfh"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIfh",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买长钉衣领",
+    "description": "召唤一名邪恶漫步者为你作战。\n持续180秒。",
+    "soldAt": []
+  },
+  {
+    "id": "fgrd",
+    "name": "红龙之卵",
+    "goldCost": 450,
+    "abilities": [
+      "AIfd"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIfd",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买红龙之卵(E)",
+    "description": "召唤强大的红龙来为你战斗。\n持续180秒。",
+    "soldAt": []
+  },
+  {
+    "id": "fgrg",
+    "name": "岩石印记",
+    "goldCost": 450,
+    "abilities": [
+      "AIfr"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIfr",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买岩石印记",
+    "description": "召唤岩石傀儡来为你战斗。\n持续180秒。",
+    "soldAt": []
+  },
+  {
+    "id": "fgsk",
+    "name": "死亡之书",
+    "goldCost": 450,
+    "abilities": [
+      "AIfs"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIfs",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买死亡之书",
+    "description": "召唤出 4个骷髅战士和4个骷髅弓箭手。\n持续120秒。",
+    "soldAt": []
+  },
+  {
+    "id": "gcel",
+    "name": "加速手套",
+    "goldCost": 100,
+    "abilities": [
+      "AIsx"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIas",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买加速手套",
+    "description": "增加英雄15%的攻击速度。",
+    "soldAt": []
+  },
+  {
+    "id": "gold",
+    "name": "沉船财宝",
+    "goldCost": 150,
+    "abilities": [
+      "AIgo"
+    ],
+    "itemClass": "PowerUp",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIgo",
+    "stockMax": 3,
+    "stockRegen": 120,
+    "tip": "购买金币",
+    "description": "给予玩家100个单位的黄金。",
+    "soldAt": []
+  },
+  {
+    "id": "hcun",
+    "name": "灵巧头巾",
+    "goldCost": 500,
+    "abilities": [
+      "AIa4",
+      "AIi4"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIa4",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买灵巧头巾",
+    "description": "增加英雄4点的敏捷度和智力。",
+    "soldAt": []
+  },
+  {
+    "id": "hlst",
+    "name": "医疗石",
+    "goldCost": 450,
+    "abilities": [
+      "AIh2",
+      "Arll"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIhe",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买医疗石",
+    "description": "提高英雄每秒1点的生命值恢复速度。也能一次性地使用掉从而增加500点的生命值。",
+    "soldAt": []
+  },
+  {
+    "id": "hval",
+    "name": "英勇面具",
+    "goldCost": 500,
+    "abilities": [
+      "AIs4",
+      "AIa4"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIs4",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买英勇面具",
+    "description": "增加英雄4点的力量和敏捷度。",
+    "soldAt": []
+  },
+  {
+    "id": "infs",
+    "name": "恶魔岩石",
+    "goldCost": 750,
+    "abilities": [
+      "AIin"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIin",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买恶魔岩石",
+    "description": "召唤一个地狱火从天而降，造成50点的伤害，并让敌方地面单位在4秒内处于昏晕状态。地狱火持续180秒。",
+    "soldAt": []
+  },
+  {
+    "id": "kpin",
+    "name": "卡嘉长萧",
+    "goldCost": 500,
+    "abilities": [
+      "AIba"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AHab",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买卡嘉长萧",
+    "description": "使得英雄和周围单位的魔法值恢复速度加快 。\n不能和辉煌光环同时使用。",
+    "soldAt": []
+  },
+  {
+    "id": "lgdh",
+    "name": "毁灭之角",
+    "goldCost": 400,
+    "abilities": [
+      "AIau"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AUau",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买毁灭之角",
+    "description": "增加英雄和附近单位的生命值恢复速度和移动速度。\n不能和邪恶光环同时使用。",
+    "soldAt": []
+  },
+  {
+    "id": "lhst",
+    "name": "风暴狮角",
+    "goldCost": 400,
+    "abilities": [
+      "AIad"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AHad",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买风暴狮角",
+    "description": "使得英雄和周围的单位增加1点的护甲。\n不能和专注光环同时使用。",
+    "soldAt": []
+  },
+  {
+    "id": "manh",
+    "name": "生命手册",
+    "goldCost": 200,
+    "abilities": [
+      "AImh"
+    ],
+    "itemClass": "PowerUp",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AImi",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买生命手册",
+    "description": "增加英雄50点的生命值。",
+    "soldAt": []
+  },
+  {
+    "id": "mcou",
+    "name": "勇气勋章",
+    "goldCost": 500,
+    "abilities": [
+      "AIs4",
+      "AIi4"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIs4",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买勇气勋章",
+    "description": "增加英雄4点力量和智力。",
+    "soldAt": []
+  },
+  {
+    "id": "mnst",
+    "name": "魔法石",
+    "goldCost": 450,
+    "abilities": [
+      "AIm2",
+      "AIrn"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIma",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买魔法石",
+    "description": "加快英雄25%的魔法恢复速度。也可以一次使用掉来增加300点的魔法。",
+    "soldAt": []
+  },
+  {
+    "id": "modt",
+    "name": "死亡面罩",
+    "goldCost": 1000,
+    "abilities": [
+      "AIva"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIva",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买死亡面罩",
+    "description": "能使英雄的攻击将50%对敌人造成的伤害转换成自己的生命值。",
+    "soldAt": []
+  },
+  {
+    "id": "moon",
+    "name": "月亮石",
+    "goldCost": 50,
+    "abilities": [
+      "AIct"
+    ],
+    "itemClass": "Purchasable",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIct",
+    "stockMax": 1,
+    "stockRegen": 90,
+    "tip": "购买月亮石(N)",
+    "description": "制造日蚀，阻挡阳光，以创造人造夜晚。\n持续30秒。",
+    "soldAt": []
+  },
+  {
+    "id": "odef",
+    "name": "黑暗之球",
+    "goldCost": 500,
+    "abilities": [
+      "AIdf"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIdf",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买黑暗之球(B)",
+    "description": "增加英雄6点的攻击力。英雄的攻击也会在攻击空中单位的时候具有远程能力，而且如果一下子就杀死敌方某个单位的话，那么还会出现一个为你作战的黑暗之奴。黑暗之奴持续80秒。",
+    "soldAt": []
+  },
+  {
+    "id": "ofro",
+    "name": "霜冻之球",
+    "goldCost": 800,
+    "abilities": [
+      "AIob"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIob",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买霜冻之球(R)",
+    "description": "能让英雄的攻击带有6点的冷冻伤害。而且这种攻击在攻击空中单位的时候会变成远程攻击，还能在3秒内减慢敌人的进攻和移动速度。",
+    "soldAt": []
+  },
+  {
+    "id": "oven",
+    "name": "毒液之球",
+    "goldCost": 400,
+    "abilities": [
+      "AIpb",
+      "Apo2"
+    ],
+    "itemClass": "Miscellaneous",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIpb",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买毒液之球(V)",
+    "description": "增加英雄5点的攻击力。英雄的攻击也会在攻击空中单位的时候具有远程能力并能在8秒内对目标造成中毒效果。",
+    "soldAt": []
+  },
+  {
+    "id": "pams",
+    "name": "抗体药水",
+    "goldCost": 100,
+    "abilities": [
+      "AIxs"
+    ],
+    "itemClass": "Miscellaneous",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "Aami",
+    "stockMax": 2,
+    "stockRegen": 120,
+    "tip": "购买抗体药水(A)",
+    "description": "使英雄在15秒内对所有的魔法免疫。",
+    "soldAt": []
+  },
+  {
+    "id": "pdiv",
+    "name": "神圣药水",
+    "goldCost": 600,
+    "abilities": [
+      "AIdv"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AHds",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买神圣药水(D)",
+    "description": "在25秒内让英雄变为无敌。",
+    "soldAt": []
+  },
+  {
+    "id": "penr",
+    "name": "能量垂饰",
+    "goldCost": 400,
+    "abilities": [
+      "AImb"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AImm",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买能量垂饰",
+    "description": "增加英雄1点的魔法最大值。",
+    "soldAt": []
+  },
+  {
+    "id": "pghe",
+    "name": "大生命药水",
+    "goldCost": 400,
+    "abilities": [
+      "AIh2"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIhe",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买大生命药水(R)",
+    "description": "能恢复500 点的生命值。",
+    "soldAt": []
+  },
+  {
+    "id": "pgma",
+    "name": "大魔法药水",
+    "goldCost": 400,
+    "abilities": [
+      "AIm2"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIma",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买大魔法药水(M)",
+    "description": "恢复300点的魔法值。",
+    "soldAt": []
+  },
+  {
+    "id": "phea",
+    "name": "生命药水",
+    "goldCost": 150,
+    "abilities": [
+      "AIh1"
+    ],
+    "itemClass": "Purchasable",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIhe",
+    "stockMax": 3,
+    "stockRegen": 120,
+    "tip": "购买生命药水(P)",
+    "description": "恢复250点的生命值。",
+    "soldAt": []
+  },
+  {
+    "id": "plcl",
+    "name": "小净化药水",
+    "goldCost": 70,
+    "abilities": [
+      "AIpl"
+    ],
+    "itemClass": "Purchasable",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIpr",
+    "stockMax": 2,
+    "stockRegen": 30,
+    "tip": "购买小净化药水(C)",
+    "description": "非战斗类一次性物品\n在30秒内恢复英雄100点的魔法值。",
+    "soldAt": []
+  },
+  {
+    "id": "pman",
+    "name": "魔法药水",
+    "goldCost": 200,
+    "abilities": [
+      "AIm1"
+    ],
+    "itemClass": "Purchasable",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIma",
+    "stockMax": 2,
+    "stockRegen": 120,
+    "tip": "购买魔法药水(M)",
+    "description": "恢复150点的魔法值。",
+    "soldAt": []
+  },
+  {
+    "id": "pmna",
+    "name": "魔法垂饰",
+    "goldCost": 500,
+    "abilities": [
+      "AIbm"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AImm",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买魔法垂饰",
+    "description": "增加250点的魔法最大值。",
+    "soldAt": []
+  },
+  {
+    "id": "pnvl",
+    "name": "较小的无敌药水",
+    "goldCost": 150,
+    "abilities": [
+      "AIvl"
+    ],
+    "itemClass": "Purchasable",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIvu",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买较小的无敌药水(N)",
+    "description": "在7秒内使得英雄无敌。任何魔法都不能攻击一个处于无敌状态的英雄。",
+    "soldAt": []
+  },
+  {
+    "id": "pnvu",
+    "name": "无敌药水",
+    "goldCost": 400,
+    "abilities": [
+      "AIvu"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIvu",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买无敌药水(I)",
+    "description": "在8秒内使得英雄无敌。任何魔法都不能攻击一个处于无敌状态的英雄。",
+    "soldAt": []
+  },
+  {
+    "id": "pomn",
+    "name": "全知药水",
+    "goldCost": 400,
+    "abilities": [
+      "AIrv"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIrv",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买全知药水(O)",
+    "description": "使用后显示整个地图<Alrv,Dur1>秒。",
+    "soldAt": []
+  },
+  {
+    "id": "pres",
+    "name": "恢复药水",
+    "goldCost": 600,
+    "abilities": [
+      "AIre"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIre",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买恢复药水(R)",
+    "description": "能恢复500点生命值和200点的魔法值。",
+    "soldAt": []
+  },
+  {
+    "id": "prvt",
+    "name": "生命护身符",
+    "goldCost": 350,
+    "abilities": [
+      "AIlf"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIml",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买生命护身符(V)",
+    "description": "增加英雄150点的生命值。",
+    "soldAt": []
+  },
+  {
+    "id": "rag1",
+    "name": "敏捷便鞋  +3",
+    "goldCost": 100,
+    "abilities": [
+      "AIa3"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIa3",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买敏捷便鞋 +3(A)",
+    "description": "增加英雄3点的敏捷度。",
+    "soldAt": []
+  },
+  {
+    "id": "rat6",
+    "name": "攻击之爪 +6",
+    "goldCost": 100,
+    "abilities": [
+      "AIt6"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIat",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买攻击之爪 +6",
+    "description": "能增加英雄6点的攻击力。",
+    "soldAt": []
+  },
+  {
+    "id": "rat9",
+    "name": "攻击之爪 +9",
+    "goldCost": 400,
+    "abilities": [
+      "AIt9"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIat",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买攻击之爪 +9(C)",
+    "description": "增加英雄9点的攻击力。",
+    "soldAt": []
+  },
+  {
+    "id": "ratc",
+    "name": "攻击之爪 +12",
+    "goldCost": 500,
+    "abilities": [
+      "AItc"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIat",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买攻击之爪 +12",
+    "description": "增加英雄12点的攻击力。",
+    "soldAt": []
+  },
+  {
+    "id": "ratf",
+    "name": "攻击之爪 +15",
+    "goldCost": 800,
+    "abilities": [
+      "AItf"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIat",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买攻击之爪 +15",
+    "description": "增加英雄15点的攻击力。",
+    "soldAt": []
+  },
+  {
+    "id": "rde1",
+    "name": "守护指环 +2",
+    "goldCost": 150,
+    "abilities": [
+      "AId2"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIde",
+    "stockMax": 1,
+    "stockRegen": 90,
+    "tip": "购买守护指环 +(2)",
+    "description": "增加英雄2点的护甲。",
+    "soldAt": []
+  },
+  {
+    "id": "rde2",
+    "name": "守护指环 +3",
+    "goldCost": 400,
+    "abilities": [
+      "AId3"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIde",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买守护指环 +(3)",
+    "description": "增加英雄3点的护甲。",
+    "soldAt": []
+  },
+  {
+    "id": "rde3",
+    "name": "守护指环 +4",
+    "goldCost": 500,
+    "abilities": [
+      "AId4"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIde",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买守护指环 +(4)",
+    "description": "增加英雄4点的护甲。",
+    "soldAt": []
+  },
+  {
+    "id": "rde4",
+    "name": "守护指环 +5",
+    "goldCost": 800,
+    "abilities": [
+      "AId5"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIde",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买守护指环 +(5)",
+    "description": "能增加英雄5点的护甲",
+    "soldAt": []
+  },
+  {
+    "id": "rej3",
+    "name": "恢复药水",
+    "goldCost": 400,
+    "abilities": [
+      "AIp3"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIrg",
+    "stockRegen": 120,
+    "tip": "购买恢复药水(R)",
+    "description": "非战斗类一次性物品\n在30秒内恢复英雄200点的生命值和75点的魔法值。",
+    "soldAt": []
+  },
+  {
+    "id": "rhe1",
+    "name": "治疗神符125",
+    "goldCost": 100,
+    "abilities": [
+      "APh1"
+    ],
+    "itemClass": "PowerUp",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIha",
+    "stockMax": 1,
+    "stockRegen": 90,
+    "tip": "购买小型治疗神符(H)",
+    "description": "治疗所有附近友方非机械单位125点生命值。",
+    "soldAt": []
+  },
+  {
+    "id": "rhe2",
+    "name": "治疗神符250",
+    "goldCost": 200,
+    "abilities": [
+      "APh2"
+    ],
+    "itemClass": "PowerUp",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIha",
+    "stockMax": 1,
+    "stockRegen": 90,
+    "tip": "购买治疗神符(H)",
+    "description": "治疗所有附近友方非机械单位0点生命值。",
+    "soldAt": []
+  },
+  {
+    "id": "rhth",
+    "name": "卡嘉医疗宝石",
+    "goldCost": 500,
+    "abilities": [
+      "AIl2"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIml",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买卡嘉医疗宝石(H)",
+    "description": "增加300点的生命值。",
+    "soldAt": []
+  },
+  {
+    "id": "rin1",
+    "name": "智力斗篷 +3",
+    "goldCost": 100,
+    "abilities": [
+      "AIi3"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIi3",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买智力斗篷 +3(I)",
+    "description": "增加英雄3点的智力。",
+    "soldAt": []
+  },
+  {
+    "id": "rlif",
+    "name": "恢复指环",
+    "goldCost": 200,
+    "abilities": [
+      "Arel"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Arel",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买恢复指环(R)",
+    "description": "提高英雄每秒 2 点的生命值恢复速度。",
+    "soldAt": []
+  },
+  {
+    "id": "rsps",
+    "name": "修理舰加血",
+    "goldCost": 300,
+    "abilities": [
+      "A03E"
+    ],
+    "itemClass": "PowerUp",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "ANse",
+    "stockMax": 1,
+    "stockRegen": 180,
+    "tip": "购买护盾神符(S)",
+    "description": "给附近友军单位一个魔法护盾，能够抵御下一次敌人施在他们身上的负面魔法。",
+    "soldAt": []
+  },
+  {
+    "id": "rst1",
+    "name": "食人鬼手套 +3",
+    "goldCost": 100,
+    "abilities": [
+      "AIs3"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIs3",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买食人鬼手套 +3(S)",
+    "description": "增加英雄3点的力量。",
+    "soldAt": []
+  },
+  {
+    "id": "rwiz",
+    "name": "艺人面罩",
+    "goldCost": 400,
+    "abilities": [
+      "AIrm"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIrm",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买艺人面罩(B)",
+    "description": "提高英雄 50% 的魔法值恢复速度。",
+    "soldAt": []
+  },
+  {
+    "id": "sand",
+    "name": "操作死尸卷轴",
+    "goldCost": 750,
+    "abilities": [
+      "AIan"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIan",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买操作死尸卷轴",
+    "description": "复活周围6个单位来为你战斗。持续时间为40秒。",
+    "soldAt": []
+  },
+  {
+    "id": "sbch",
+    "name": "天灾骨钟",
+    "goldCost": 450,
+    "abilities": [
+      "AIav"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AUav",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买天灾骨钟",
+    "description": "使得近战型英雄和附近的近战型单位能将他们自己15%的攻击力转换成生命值。\n不能和吸血光环同时使用。",
+    "soldAt": []
+  },
+  {
+    "id": "shar",
+    "name": "冰冻碎片",
+    "goldCost": 750,
+    "abilities": [
+      "AIir"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIir",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买冰冻碎片",
+    "description": "召唤出一个冰冻幽灵。冰冻幽灵持续180秒。",
+    "soldAt": []
+  },
+  {
+    "id": "spre",
+    "name": "保存权杖",
+    "goldCost": 200,
+    "abilities": [
+      "ANpr"
+    ],
+    "itemClass": "Miscellaneous",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "ANpr",
+    "stockMax": 2,
+    "stockRegen": 120,
+    "tip": "购买保存权杖(E)",
+    "description": "将一个目标单位传送到最高等级的主基地。",
+    "soldAt": []
+  },
+  {
+    "id": "spsh",
+    "name": "魔法护盾护身符",
+    "goldCost": 400,
+    "abilities": [
+      "ANss"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "ANss",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "魔法盾护身符(A)",
+    "description": "每隔40秒就阻止敌人向自己的英雄施放魔法。",
+    "soldAt": []
+  },
+  {
+    "id": "sres",
+    "name": "恢复卷轴",
+    "goldCost": 750,
+    "abilities": [
+      "AIra"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIra",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买恢复卷轴(R)",
+    "description": "能恢复英雄周围非机械单位300点的生命值和150点的魔法值。",
+    "soldAt": []
+  },
+  {
+    "id": "sror",
+    "name": "野兽卷轴",
+    "goldCost": 400,
+    "abilities": [
+      "AIrr"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "Aroa",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买野兽卷轴",
+    "description": "在45秒内提高附近友军单位25%的攻击力。",
+    "soldAt": []
+  },
+  {
+    "id": "srrc",
+    "name": "复活卷轴",
+    "goldCost": 750,
+    "abilities": [
+      "AIrs"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIrs",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买复活卷轴",
+    "description": "能复活你6个死去的单位。",
+    "soldAt": []
+  },
+  {
+    "id": "ssil",
+    "name": "沉默权杖",
+    "goldCost": 500,
+    "abilities": [
+      "AIse"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "ANsi",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买沉默权杖(E)",
+    "description": "阻止一定区域内所有敌人施放魔法。",
+    "soldAt": []
+  },
+  {
+    "id": "stwp",
+    "name": "回城卷轴",
+    "goldCost": 350,
+    "abilities": [
+      "AItp"
+    ],
+    "itemClass": "Purchasable",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AItp",
+    "stockMax": 2,
+    "stockRegen": 120,
+    "tip": "购买回城卷轴(T)",
+    "description": "将英雄和英雄周围的单位传送到指定的一个己方或者友军城镇。",
+    "soldAt": []
+  },
+  {
+    "id": "tdex",
+    "name": "护卫舰加血",
+    "goldCost": 150,
+    "abilities": [
+      "A052"
+    ],
+    "itemClass": "PowerUp",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIam",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买敏捷之书(A)",
+    "description": "永久性地提高英雄1点的敏捷度。",
+    "soldAt": []
+  },
+  {
+    "id": "tdx2",
+    "name": "巡洋舰加血",
+    "goldCost": 300,
+    "abilities": [
+      "A03F"
+    ],
+    "itemClass": "PowerUp",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIgm",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买敏捷之书+2",
+    "description": "能永久地增加英雄2点的敏捷度。",
+    "soldAt": []
+  },
+  {
+    "id": "texp",
+    "name": "经验之书",
+    "goldCost": 500,
+    "abilities": [
+      "AIem"
+    ],
+    "itemClass": "PowerUp",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIem",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买经验之书(E)",
+    "description": "给予英雄 150点的经验值。",
+    "soldAt": []
+  },
+  {
+    "id": "tin2",
+    "name": "小艇加血",
+    "goldCost": 300,
+    "abilities": [
+      "A047"
+    ],
+    "itemClass": "PowerUp",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AItm",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买智力之书 +2",
+    "description": "能永久地增加英雄2点的智力。",
+    "soldAt": []
+  },
+  {
+    "id": "tint",
+    "name": "战列舰加血",
+    "goldCost": 150,
+    "abilities": [
+      "A03G"
+    ],
+    "itemClass": "PowerUp",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIim",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买智力之书(T)",
+    "description": "能永久地增加英雄1点的智力。",
+    "soldAt": []
+  },
+  {
+    "id": "tkno",
+    "name": "能量之书",
+    "goldCost": 1250,
+    "abilities": [
+      "AIlm"
+    ],
+    "itemClass": "Artifact",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIlm",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买能量之书(P)",
+    "description": "能提高英雄1个等级。",
+    "soldAt": []
+  },
+  {
+    "id": "totw",
+    "name": "野性护符",
+    "goldCost": 450,
+    "abilities": [
+      "AIff"
+    ],
+    "itemClass": "Charged",
+    "uses": 3,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIff",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买野性护符",
+    "description": "这块神秘的石头能召唤出一两栖鱼人来为你战斗。\n一共可以召唤3次。\n持续180秒。",
+    "soldAt": []
+  },
+  {
+    "id": "tpow",
+    "name": "知识之书",
+    "goldCost": 300,
+    "abilities": [
+      "AIxm"
+    ],
+    "itemClass": "PowerUp",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIxm",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买知识之书",
+    "description": "增加英雄1点的智力，敏捷度和力量。",
+    "soldAt": []
+  },
+  {
+    "id": "tst2",
+    "name": "力量之书 +2",
+    "goldCost": 300,
+    "abilities": [
+      "AInm"
+    ],
+    "itemClass": "PowerUp",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AInm",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买力量之书 +2",
+    "description": "增加2点的力量。",
+    "soldAt": []
+  },
+  {
+    "id": "tstr",
+    "name": "力量之书",
+    "goldCost": 150,
+    "abilities": [
+      "AIsm"
+    ],
+    "itemClass": "PowerUp",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIsm",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买力量之书(S)",
+    "description": "能永久性地提高英雄1点的力量。",
+    "soldAt": []
+  },
+  {
+    "id": "ward",
+    "name": "战歌之鼓",
+    "goldCost": 500,
+    "abilities": [
+      "AIcd"
+    ],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AOac",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买战歌之鼓(W)",
+    "description": "能增加周围单位 10%的攻击力。\n不能和命令光环同时使用。",
+    "soldAt": []
+  },
+  {
+    "id": "wcyc",
+    "name": "飓风权杖",
+    "goldCost": 450,
+    "abilities": [
+      "AIcy"
+    ],
+    "itemClass": "Charged",
+    "uses": 3,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "Acyc",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买飓风权杖",
+    "description": "允许英雄施放飓风。飓风将目标单位投掷到空中，使其不能移动，攻击和施放任何的魔法技能。而且其他单位也不能在这期间攻击它。\n持续<Alcy,Dur1>秒。",
+    "soldAt": []
+  },
+  {
+    "id": "whwd",
+    "name": "治疗守卫",
+    "goldCost": 600,
+    "abilities": [
+      "AIhw"
+    ],
+    "itemClass": "Charged",
+    "uses": 3,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "Ahwd",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买治疗守卫",
+    "description": "放置一个守卫来治疗周围的单位持续时间为 30秒。\n一共可以使用3次。",
+    "soldAt": []
+  },
+  {
+    "id": "wild",
+    "name": "野性护身符",
+    "goldCost": 750,
+    "abilities": [
+      "AIuw"
+    ],
+    "itemClass": "Charged",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIuw",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买野性护身符",
+    "description": "召唤出一个熊怪战士。熊怪持续180秒。",
+    "soldAt": []
+  },
+  {
+    "id": "will",
+    "name": "幻象权杖",
+    "goldCost": 150,
+    "abilities": [
+      "AIil"
+    ],
+    "itemClass": "Charged",
+    "uses": 3,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIil",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买幻象权杖(I)",
+    "description": "能制造目标单位的一个幻象。幻象不具备任何的攻击力，遭受敌人进攻的伤害值也会翻成原有的1 倍。在20秒之后或者生命值达到零之后幻象会自动消失。\n一共可以使用3 次。",
+    "soldAt": []
+  },
+  {
+    "id": "wlsd",
+    "name": "闪电护盾权杖",
+    "goldCost": 150,
+    "abilities": [
+      "AIls"
+    ],
+    "itemClass": "Charged",
+    "uses": 3,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "Alsh",
+    "stockMax": 1,
+    "stockRegen": 90,
+    "tip": "购买闪电护盾权杖",
+    "description": "使得英雄能在某个单位身上施放闪电护盾魔法，围绕在该单位身上的护盾能对周围的单位造成每秒20的伤害。\n一共可以使用3次。\n持续20秒。",
+    "soldAt": []
+  },
+  {
+    "id": "woms",
+    "name": "魔法盗取权杖",
+    "goldCost": 400,
+    "abilities": [
+      "Aste"
+    ],
+    "itemClass": "Charged",
+    "uses": 2,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "Aste",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买魔法盗取权杖(W)",
+    "description": "盗取目标单位身上的魔法值。\n一共可以使用2次。",
+    "soldAt": []
+  },
+  {
+    "id": "wshs",
+    "name": "影子权杖",
+    "goldCost": 150,
+    "abilities": [
+      "Ashs"
+    ],
+    "itemClass": "Charged",
+    "uses": 2,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "Ashs",
+    "stockMax": 2,
+    "stockRegen": 60,
+    "tip": "购买影子权杖(W)",
+    "description": "能让玩家拥有敌方目标单位的视野直到该单位身上的魔法被驱逐。\n可使用2次。",
+    "soldAt": []
+  },
+  {
+    "id": "wswd",
+    "name": "岗哨守卫",
+    "goldCost": 150,
+    "abilities": [
+      "AIsw"
+    ],
+    "itemClass": "Charged",
+    "uses": 3,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "Ayeye",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买岗哨守卫",
+    "description": "在180秒内放置一个哨兵守卫来监视一定的区域。\n一共可以使用3次。",
+    "soldAt": []
+  },
+  {
+    "id": "I000",
+    "name": "箭弩",
+    "goldCost": 165,
+    "abilities": [
+      "A001"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买箭弩 (B) $165",
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 8 \n射程: 500 \n间隔: 0.4 秒",
+    "soldAt": [
+      "n001"
+    ]
+  },
+  {
+    "id": "I001",
+    "name": "小炮",
+    "goldCost": 200,
+    "abilities": [
+      "A000"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买小炮 (C) $200",
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 20 \n射程: 700 \n间隔: 1.5 秒",
+    "soldAt": [
+      "n001"
+    ]
+  },
+  {
+    "id": "I002",
+    "name": "冲天炮",
+    "goldCost": 140,
+    "abilities": [
+      "A002"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买冲天炮 (A) $140",
+    "description": "攻击对象: 船只\n\n破坏力: 6 \n射程: 1800 \n间隔: 1 秒",
+    "soldAt": [
+      "n001"
+    ]
+  },
+  {
+    "id": "I003",
+    "name": "瑞典天然原木",
+    "goldCost": 500,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买一捆天然原木",
+    "description": "贸易物品 \n不可重叠 \n  \n瑞典产的天然原木.",
+    "soldAt": []
+  },
+  {
+    "id": "I004",
+    "name": "护卫舰炮",
+    "goldCost": 430,
+    "abilities": [
+      "A004"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买护卫舰炮 (D) $430",
+    "description": "攻击对象: 船只、建筑\n可升级\n破坏力: 30 \n射程: 900 \n间隔: 1.5 秒",
+    "soldAt": [
+      "n001"
+    ]
+  },
+  {
+    "id": "I005",
+    "name": "冷冻炮",
+    "goldCost": 1750,
+    "abilities": [
+      "A006",
+      "AIob"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 16,
+    "tip": "购买冰冻炮 (E) $1750",
+    "description": "攻击对象: 船只、建筑、空中\n可升级\n破坏力: 45 \n射程: 750 \n间隔: 1 秒\n具有冰冻特效 携带后船会自动攻击",
+    "soldAt": []
+  },
+  {
+    "id": "I006",
+    "name": "火焰喷射装置 (I型)",
+    "goldCost": 1000,
+    "abilities": [
+      "A00B"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买火焰喷射装置 (J) $1000",
+    "description": "攻击对象: 船只、建筑\n可升级 (南方图书馆特有)\n破坏力: 6 \n射程: 400\n间隔: 0.1 秒",
+    "soldAt": [
+      "n001"
+    ]
+  },
+  {
+    "id": "I007",
+    "name": "三角帆",
+    "goldCost": 400,
+    "abilities": [
+      "A03X"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买三角帆 (E) $400",
+    "description": "只能带一个帆\n\n最简单可靠，并且使用最广泛的船帆\n- 提高航速：30%",
+    "soldAt": [
+      "n002"
+    ]
+  },
+  {
+    "id": "I008",
+    "name": "中国帆",
+    "goldCost": 700,
+    "abilities": [
+      "A03Y"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买中国帆 (F) $700",
+    "description": "只能带一个帆\n\n中国人很早就发明了用于海上航行的帆, 独特的梯形中国斜帆能够最大效果的利用风力,并且操作十分方便.这使他优于世界上其他的帆\n- 提高航速：40%",
+    "soldAt": [
+      "n002"
+    ]
+  },
+  {
+    "id": "I009",
+    "name": "|cffFFFF00石甲船体|r",
+    "goldCost": 250,
+    "abilities": [
+      "A00E",
+      "A07I",
+      "A040"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买石甲船体 (I) $250",
+    "description": "只能带一个船甲\n增加船只生命,并且能够减少船体受到的损伤，但它的重量会让船的航行速度变慢.\n\n- 增加生命：150 \n- 损伤降低：10% \n- 船速减慢：5%",
+    "soldAt": [
+      "n002"
+    ]
+  },
+  {
+    "id": "I00A",
+    "name": "|cffFFFF00金甲船体|r",
+    "goldCost": 2500,
+    "abilities": [
+      "A00H",
+      "A07G",
+      "A042"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 30,
+    "tip": "购买金甲船体 (K) $2500",
+    "description": "只能带一个船甲\n增加船只生命,并且能够减少船体受到的损伤.但它的重量会让船的航行速度变慢.\n\n- 增加生命：700 \n- 损伤降低：30% \n- 船速减慢：20%",
+    "soldAt": [
+      "n002"
+    ]
+  },
+  {
+    "id": "I00B",
+    "name": "高级维修队",
+    "goldCost": 800,
+    "abilities": [
+      "A00I"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买高级维修队 (D) $800",
+    "description": "在海上航行时自动修理你的船. \n\n- 自动修复：15 /秒",
+    "soldAt": [
+      "n002"
+    ]
+  },
+  {
+    "id": "I00C",
+    "name": "小型修理木",
+    "goldCost": 175,
+    "abilities": [
+      "A00K"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A00K",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买小型修理木 (A) $175",
+    "description": "用来修复小型船只\n\n- 生命恢复：400\n- 冷却时间：60\n- 使用次数：无穷",
+    "soldAt": [
+      "n002"
+    ]
+  },
+  {
+    "id": "I00D",
+    "name": "普通修理木",
+    "goldCost": 650,
+    "abilities": [
+      "A00L"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A00K",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买普通修理木 (B) $650",
+    "description": "用来修船的普通木材\n\n- 生命恢复：1500\n- 冷却时间：80\n- 使用次数：无穷",
+    "soldAt": [
+      "n002"
+    ]
+  },
+  {
+    "id": "I00E",
+    "name": "瑞典修理木",
+    "goldCost": 2900,
+    "abilities": [
+      "A00M"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A00K",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买瑞典修理木 (B) $2900",
+    "description": "高品质的船只修理材料\n\n- 生命恢复：4000\n- 冷却时间：100\n- 使用次数：无穷",
+    "soldAt": [
+      "n00A"
+    ]
+  },
+  {
+    "id": "I00F",
+    "name": "资深观察员",
+    "goldCost": 1000,
+    "abilities": [
+      "Adt1"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Adet",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买资深观察员 (G) $1000",
+    "description": "让你的船能够侦测到视野范围内的隐形单位",
+    "soldAt": [
+      "n002"
+    ]
+  },
+  {
+    "id": "I00G",
+    "name": "轻型火箭炮",
+    "goldCost": 650,
+    "abilities": [
+      "A00O"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买轻型火箭炮 (G) $650",
+    "description": "攻击对象: 船只\n可升级\n破坏力: 18 \n射程: 600 \n间隔: 0.5 秒",
+    "soldAt": [
+      "n001"
+    ]
+  },
+  {
+    "id": "I00H",
+    "name": "机关炮",
+    "goldCost": 1450,
+    "abilities": [
+      "A00P"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买机关炮 (K) $1450",
+    "description": "攻击对象: 船只、建筑、空中\n可升级 (北方农场特有)\n破坏力: 10 \n射程: 450 \n间隔: 0.15 秒",
+    "soldAt": [
+      "n001"
+    ]
+  },
+  {
+    "id": "I00I",
+    "name": "火焰箭",
+    "goldCost": 2200,
+    "abilities": [
+      "A01H"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买火焰箭 (B) $2200",
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 35 \n射程: 800 \n间隔: 0.5 秒",
+    "soldAt": [
+      "n00Z"
+    ]
+  },
+  {
+    "id": "I00J",
+    "name": "啤酒桶",
+    "goldCost": 2,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买一桶啤酒",
+    "description": "贸易物品 \n不可重叠 \n  \n一个装满啤酒的酒桶",
+    "soldAt": []
+  },
+  {
+    "id": "I00K",
+    "name": "|cff66FF66啤酒贸易合同|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "签订 啤酒贸易合同 (0声望)",
+    "description": "贸易物品 \n无法叠加的 \n  \n用来交易啤酒. \n\n需求: 商船 & 对应的合同书.\n交易描述: 去东边的啤酒厂里装载一桶啤酒.\n然后带回你的贸易主这里.\n\n酬劳: 80 经验. 400 金币. 1 声望",
+    "soldAt": [
+      "n00E",
+      "n00F"
+    ]
+  },
+  {
+    "id": "I00L",
+    "name": "阔剑投掷器",
+    "goldCost": 4100,
+    "abilities": [
+      "A01J"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买阔剑投掷器 (E) $4100",
+    "description": "攻击对象: 船只、建筑、空中\n可升级 (中立港)\n破坏力: 260 \n射程: 750 \n间隔: 2.5 秒",
+    "soldAt": [
+      "n00Z"
+    ]
+  },
+  {
+    "id": "I00M",
+    "name": "|cff66FF66药剂贸易合同|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "签订 药剂贸易合同 (10声望)",
+    "description": "贸易物品\n无法叠加的\n\n用来贸易印度神油药剂\n\n需要: 商船和对应的合同书\n 交易描述: 去西南岛上的药剂坊取得印度神油药剂. 然后带回你的贸易主这里\n\n酬劳: 300 经验. 1300 金币. 5 声望",
+    "soldAt": [
+      "n00F"
+    ]
+  },
+  {
+    "id": "I00N",
+    "name": "印度神油",
+    "goldCost": 2,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买印度神油",
+    "description": "贸易物品 \n不可重叠 \n  \n一瓶非常奇怪的药剂(?不知道有什么作用)",
+    "soldAt": []
+  },
+  {
+    "id": "I00O",
+    "name": "轰击大炮",
+    "goldCost": 1850,
+    "abilities": [
+      "A003"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买轰击大炮 (L) $1850",
+    "description": "攻击对象: 船只\n可升级\n破坏力: 35 \n射程: 1800 \n间隔: 1 秒",
+    "soldAt": [
+      "n001"
+    ]
+  },
+  {
+    "id": "I00P",
+    "name": ".攻城大炮",
+    "goldCost": 4000,
+    "abilities": [
+      "A01L"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1800,
+    "tip": "购买 攻城大炮 (K) $4000",
+    "description": "攻击对象: 建筑物\n\n破坏力: 430 \n射程: 750 \n间隔: 2 秒",
+    "soldAt": [
+      "n007"
+    ]
+  },
+  {
+    "id": "I00Q",
+    "name": "|cff66FF66箱子打捞合同|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "签订 箱子打捞合同 (25声望)",
+    "description": "任务物品\n无法叠加的\n\n盒子贸易\n\n需要: 商船和对应的合同书\n交易描述: 去东北岛上的沉船里取得一个箱子. 然后交给贸易主\n\n酬劳: 450 经验. 2000 金币. 6 声望",
+    "soldAt": [
+      "n00E"
+    ]
+  },
+  {
+    "id": "I00R",
+    "name": "箱子",
+    "goldCost": 2,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "买盒子",
+    "description": "贸易项目 \n不可重叠 \n \n1个来自沉船上的神秘箱子.(奇怪的是怎么也打不开)",
+    "soldAt": []
+  },
+  {
+    "id": "I00S",
+    "name": "|cff66FF66瑞典天然原木贸易合同|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "签订 瑞典天然原木贸易合同 (4声望)",
+    "description": "贸易物品\n无法叠加的\n\n木材贸易\n\n需要: 商船和对应的合同书\n 交易描述: 去西边岛上的木材厂运一捆瑞典天然原木，然后交给贸易主\n\n酬劳: 130 经验. 600 金币. 2 声望",
+    "soldAt": [
+      "n00E",
+      "n00F"
+    ]
+  },
+  {
+    "id": "I00T",
+    "name": "书",
+    "goldCost": 2,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买精灵书",
+    "description": "贸易物品\n不可重叠\n\n一本让人看了血脉愤张的美女图鉴",
+    "soldAt": []
+  },
+  {
+    "id": "I00U",
+    "name": "|cff66FF66书籍贸易合同|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "签订 书籍贸易合同 (25声望)",
+    "description": "贸易物品 \n无法叠加的 \n  \n书籍贸易. \n\n需要: 商船和对应的合同书.\n交易描述: 去东南岛上的精灵图书馆运一本书.然后交给贸易主.\n\n酬劳: 450 经验. 2000 金币. 6 声望",
+    "soldAt": [
+      "n00F"
+    ]
+  },
+  {
+    "id": "I00V",
+    "name": "猪",
+    "goldCost": 2,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "买猪",
+    "description": "贸易项目 \n不可重叠 \n \n一头满身长膘的大肥猪.(没有喂过饲料的)",
+    "soldAt": []
+  },
+  {
+    "id": "I00W",
+    "name": "|cff66FF66贩猪贸易合同|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "签订 贩猪贸易合同 (10声望)",
+    "description": "贸易物品\n无法叠加的\n\n用来拉猪\n\n需要: 商船和对应的合同书\n交易描述: 去西北岛上的农场运一头猪.然后交给贸易主\n\n酬劳: 300 经验. 1300 金币. 5 声望",
+    "soldAt": [
+      "n00E"
+    ]
+  },
+  {
+    "id": "I00X",
+    "name": "燃烧弹加农炮",
+    "goldCost": 6300,
+    "abilities": [
+      "A01K"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 3,
+    "tip": "购买燃烧弹加农炮 (L) $6300",
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 350 \n射程: 700 \n间隔: 2 秒",
+    "soldAt": [
+      "n00Z"
+    ]
+  },
+  {
+    "id": "I00Y",
+    "name": "激光炮",
+    "goldCost": 11000,
+    "abilities": [
+      "A01M"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买激光炮 (A) $11000",
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 60 \n射程: 650 \n间隔: 0.2 秒",
+    "soldAt": [
+      "n007"
+    ]
+  },
+  {
+    "id": "I00Z",
+    "name": "旋风加农炮",
+    "goldCost": 3100,
+    "abilities": [
+      "A01N"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买旋风加农炮 (C) $3100",
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 33 \n射程: 650 \n间隔: 0.3 秒",
+    "soldAt": [
+      "n00Z"
+    ]
+  },
+  {
+    "id": "I010",
+    "name": "巨石大炮",
+    "goldCost": 1850,
+    "abilities": [
+      "A01C"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买巨石大炮 (A) $1850",
+    "description": "攻击对象: 船只\n\n破坏力: 100 \n范围: 800 \n间隔: 1.7 秒",
+    "soldAt": [
+      "n00Z"
+    ]
+  },
+  {
+    "id": "I011",
+    "name": "瑞典维修队",
+    "goldCost": 2620,
+    "abilities": [
+      "A03T"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买瑞典维修队 (A) $2620",
+    "description": "在海上航行时自动修理你的船. \n\n- 自动修复：30 /秒",
+    "soldAt": [
+      "n00A"
+    ]
+  },
+  {
+    "id": "I012",
+    "name": "|cffFFcc99南方俘虏任务|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "接受 拯救南方俘虏任务 (50声望)",
+    "description": "任务委托书\n无法叠加的\n\n需要: 商船和对应的任务委托书\n任务描述: 去敌方主基地营救一个俘虏,然后交给贸易主\n联盟可获得两艘超级巡洋舰\n\n酬劳: 850 经验. 4000 金币. 10 声望",
+    "soldAt": [
+      "n00F"
+    ]
+  },
+  {
+    "id": "I013",
+    "name": "|cffFFcc99北方俘虏任务|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "接受 拯救北方俘虏任务 (50声望)",
+    "description": "任务委托书\n无法叠加的\n\n需要: 商船和对应的任务委托书\n任务描述: 去敌方主基地营救一个俘虏,然后交给贸易主\n联盟可获得两艘超级巡洋舰\n\n酬劳: 850 经验. 4000 金币. 10 声望",
+    "soldAt": [
+      "n00E"
+    ]
+  },
+  {
+    "id": "I014",
+    "name": "俘虏",
+    "goldCost": 2,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "来自北方基地的俘虏",
+    "description": "贸易物品 \n不可重叠 \n  \n从北方监狱救出来的俘虏.",
+    "soldAt": []
+  },
+  {
+    "id": "I015",
+    "name": "俘虏",
+    "goldCost": 2,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "自南方基地的俘虏",
+    "description": "贸易物品 \n不可重叠 \n  \n从南方监狱救出来的俘虏.",
+    "soldAt": []
+  },
+  {
+    "id": "I016",
+    "name": "|cffFFFF00钢甲船体|r",
+    "goldCost": 1000,
+    "abilities": [
+      "A00F",
+      "A07D",
+      "A041"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买钢甲船体 (J) $1000",
+    "description": "只能带一个船甲\n增加船只生命，并且能够减少船体受到的损伤.但它的重量会让船的航行速度变慢\n\n- 增加生命：350 \n- 损伤降低：20% \n- 船速减慢：10%",
+    "soldAt": [
+      "n002"
+    ]
+  },
+  {
+    "id": "I017",
+    "name": "维修队",
+    "goldCost": 180,
+    "abilities": [
+      "A00G"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买维修队 (C) $180",
+    "description": "在海上航行时自动修理你的船. \n\n- 自动修复：5 /秒",
+    "soldAt": [
+      "n002"
+    ]
+  },
+  {
+    "id": "I018",
+    "name": "电磁炮",
+    "goldCost": 5500,
+    "abilities": [
+      "A01P",
+      "AIll"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买电磁炮 (F) $5500",
+    "description": "攻击对象: 船只、建筑、空中\n可升级\n破坏力: 100 \n射程: 880 \n间隔: 0.8 秒\n具有电击特效 携带后船会自动攻击",
+    "soldAt": []
+  },
+  {
+    "id": "I019",
+    "name": "雷神大炮",
+    "goldCost": 7200,
+    "abilities": [
+      "A01Q"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买雷神大炮 (H) $7200",
+    "description": "攻击对象: 船只\n可升级\n破坏力: 180 \n射程: 1000 \n间隔: 1.1 秒",
+    "soldAt": [
+      "n007"
+    ]
+  },
+  {
+    "id": "I01A",
+    "name": "精灵帆",
+    "goldCost": 1380,
+    "abilities": [
+      "A03Z"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买精灵帆 (B) $1380",
+    "description": "只能带一个帆\n\n获得精灵祝福的帆.可以大大加快航行速度.\n- 提高航速：50%",
+    "soldAt": [
+      "n00H"
+    ]
+  },
+  {
+    "id": "I01B",
+    "name": "连弩炮",
+    "goldCost": 990,
+    "abilities": [
+      "A01O"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买连弩炮 (I) $990",
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 8 \n射程: 720 \n间隔: 0.2 秒",
+    "soldAt": [
+      "n001"
+    ]
+  },
+  {
+    "id": "I01C",
+    "name": "飞锤加农炮",
+    "goldCost": 4100,
+    "abilities": [
+      "A01U"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买飞锤加农炮 (D) $4100",
+    "description": "攻击对象: 船只\n\n破坏力: 160 \n射程: 800 \n间隔: 1.3 秒",
+    "soldAt": [
+      "n00Z"
+    ]
+  },
+  {
+    "id": "I01D",
+    "name": "混乱大炮",
+    "goldCost": 6000,
+    "abilities": [
+      "A01X"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买混乱大炮 (K) $6000",
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 88 \n射程: 800 \n间隔: 0.6 秒",
+    "soldAt": [
+      "n00Z"
+    ]
+  },
+  {
+    "id": "I01E",
+    "name": "|cffFF6666自杀攻击任务|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "接受 自杀攻击任务 (10声望)",
+    "description": "任务委托书\n无法叠加的\n\n需要: 圣战者 和对应的任务委托书\n任务描述: 去东边的精灵商店(在中立港附近)带回一桶火药来交给贸易主。最后,用做成的炸药去敌方主海港造成1000伤害\n\n酬劳: 800 经验. 1500 金币. 5 声望",
+    "soldAt": [
+      "n00E",
+      "n00F"
+    ]
+  },
+  {
+    "id": "I01F",
+    "name": "火药桶",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买火药桶",
+    "description": "贸易物品 \n无法叠加的 \n  \n一个装满火药的桶.\n可以制成炸药",
+    "soldAt": []
+  },
+  {
+    "id": "I01G",
+    "name": "炸药桶",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买炸药桶",
+    "description": "贸易物品 \n无法叠加的 \n  \n一个装满炸药的桶. \n随时准备爆炸的!",
+    "soldAt": []
+  },
+  {
+    "id": "I01H",
+    "name": "精灵修理木",
+    "goldCost": 5500,
+    "abilities": [
+      "A033"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A00K",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买精灵修理木 (C) $5500",
+    "description": "完美的船只修理材料\n\n- 生命恢复：完全修复\n- 冷却时间：120\n- 使用次数：无穷",
+    "soldAt": [
+      "n00H"
+    ]
+  },
+  {
+    "id": "I01I",
+    "name": "|cffFF6666修理建筑物任务|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "接受 建筑物修理任务 (8声望)",
+    "description": "任务委托书\n无法叠加的\n\n需要: 船只和对应的任务委托书\n任务描述: 去精灵商店带回一个精灵修理工来 (在中立港附近). 然后让他修理己方的一个建筑2500点生命\n\n酬劳: 300 经验. 700 金币. 3 声望",
+    "soldAt": [
+      "n00E",
+      "n00F"
+    ]
+  },
+  {
+    "id": "I01J",
+    "name": "小精灵修理工",
+    "goldCost": 2,
+    "abilities": [
+      "AIrl"
+    ],
+    "itemClass": "Campaign",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买小精灵修理工",
+    "description": "贸易物品 \n不可重叠 \n  \n一个值得信赖的小精灵修理工, 可以在20秒内修复一个建筑2500点生命",
+    "soldAt": []
+  },
+  {
+    "id": "I01K",
+    "name": "船首像-烟雾",
+    "goldCost": 2600,
+    "abilities": [
+      "A034",
+      "A00I"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A034",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买烟雾船首像 (L) $2600",
+    "description": "只能带一个船首相\n可喷出隐身烟雾让本船隐身\n\n有效时间: 10秒\n恢复耐久: 15/秒",
+    "soldAt": [
+      "n01H"
+    ]
+  },
+  {
+    "id": "I01L",
+    "name": "传送器",
+    "goldCost": 700,
+    "abilities": [
+      "A035"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A035",
+    "stockMax": 1,
+    "stockRegen": 30,
+    "tip": "购买传送器 (H) $700",
+    "description": "只能以浅水为目标\n用来传送一小段距离. \n\n范围: 1200 \n冷却时间: 50 \n使用次数: 无穷的",
+    "soldAt": [
+      "n002"
+    ]
+  },
+  {
+    "id": "I01M",
+    "name": "碎火加农炮",
+    "goldCost": 11500,
+    "abilities": [
+      "A03C"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买碎火加农炮 (E) $11500",
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 180 \n射程: 1400 \n间隔: 1 秒",
+    "soldAt": [
+      "n007"
+    ]
+  },
+  {
+    "id": "I01N",
+    "name": "木材",
+    "goldCost": 100,
+    "abilities": [],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIlu",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "砍伐树木后得到的木材 (D) $100",
+    "description": "木材可用来完成伐木任务和发射导弹",
+    "soldAt": [
+      "n00Q"
+    ]
+  },
+  {
+    "id": "I01O",
+    "name": "小型对地导弹",
+    "goldCost": 100,
+    "abilities": [],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买小型导弹 (A) $100",
+    "description": "导弹\n由导弹井发射. \n目标: 随机攻击敌方建筑物\n: \n破坏力: 500",
+    "soldAt": [
+      "n00Q"
+    ]
+  },
+  {
+    "id": "I01P",
+    "name": "中型对地导弹",
+    "goldCost": 400,
+    "abilities": [],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买中型导弹 (B) $400",
+    "description": "导弹\n由导弹井发射. \n目标: 随机攻击敌方建筑物\n: \n破坏力: 1000",
+    "soldAt": [
+      "n00Q"
+    ]
+  },
+  {
+    "id": "I01Q",
+    "name": "大型对地导弹",
+    "goldCost": 1000,
+    "abilities": [],
+    "itemClass": "Permanent",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买大型导弹 (C) $1000",
+    "description": "导弹\n由导弹井发射. \n目标: 随机攻击敌方建筑物\n: \n破坏力: 2000",
+    "soldAt": [
+      "n00Q"
+    ]
+  },
+  {
+    "id": "I01R",
+    "name": "|cff6666FF船长伐木合同|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "签订 船长伐木合同 (0声望)",
+    "description": "贸易物品 \n无法叠加的 \n  \n木材贸易. \n\n任务要求: 下船的船长 & 合同书.\n交易描述: \n去砍下5棵树,然后全部给你的贸易主.\n\n酬劳: 80 经验. 300 金币. 1 声望",
+    "soldAt": [
+      "n00E",
+      "n00F"
+    ]
+  },
+  {
+    "id": "I01S",
+    "name": "世界之石碎片",
+    "goldCost": 800,
+    "abilities": [
+      "AIob"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIob",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买世界之石碎片(R)",
+    "description": "能让使用者的攻击带有6点的冷冻伤害。而且这种攻击在攻击空中单位的时候会变成远程攻击，还能在3秒内减慢敌人的进攻和移动速度。",
+    "soldAt": []
+  },
+  {
+    "id": "I01T",
+    "name": "水雷 (大型)",
+    "goldCost": 600,
+    "abilities": [
+      "A01G"
+    ],
+    "itemClass": "Permanent",
+    "uses": 3,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A01G",
+    "stockMax": 1,
+    "stockRegen": 210,
+    "tip": "购买 大型水雷 (K) $600",
+    "description": "消耗品,携带数量3颗水雷\n水雷会对附近的大面积敌人单位造成伤害。\n中心270范围内所有单位造成1000点伤害\n附近500范围内所有单位造成400点伤害。",
+    "soldAt": []
+  },
+  {
+    "id": "I01U",
+    "name": "|cff66FF66运送瑞典天然原木合同|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "签订 运送瑞典天然原木合同 (60声望)",
+    "description": "贸易物品\n无法叠加的\n\n需要: 商船和对应的合同书\n 交易描述: 请你帮忙运送瑞典天然原木交给小精灵商店，用来制作精灵修理木，小精灵商店会付给你酬劳的\n\n酬劳: 400 经验. 2000 金币. 3 声望",
+    "soldAt": [
+      "n00A"
+    ]
+  },
+  {
+    "id": "I01V",
+    "name": "水雷 (小型)",
+    "goldCost": 100,
+    "abilities": [
+      "A03O"
+    ],
+    "itemClass": "Permanent",
+    "uses": 3,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A03O",
+    "stockMax": 1,
+    "stockRegen": 210,
+    "tip": "购买 小型水雷 (J) $100",
+    "description": "消耗品,携带数量3颗水雷\n水雷会对附近的大面积敌人单位造成伤害。\n中心230范围内所有单位造成250点伤害\n附近400范围内所有单位造成100点伤害。",
+    "soldAt": []
+  },
+  {
+    "id": "I01W",
+    "name": "水雷 (中型)",
+    "goldCost": 270,
+    "abilities": [
+      "A01W"
+    ],
+    "itemClass": "Permanent",
+    "uses": 3,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A01W",
+    "stockMax": 1,
+    "stockRegen": 210,
+    "tip": "购买 中型水雷 (J) $270",
+    "description": "消耗品,携带数量3颗水雷\n水雷会对附近的大面积敌人单位造成伤害。\n中心250范围内所有单位造成500点伤害\n附近450范围内所有单位造成200点伤害。",
+    "soldAt": []
+  },
+  {
+    "id": "I01X",
+    "name": ".反潜火箭",
+    "goldCost": 5000,
+    "abilities": [
+      "A02E"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "Asla",
+    "stockMax": 2,
+    "stockRegen": 600,
+    "tip": "购买 反潜火箭 (J) $5000",
+    "description": "携带深水炸弹弹头的反潜火箭 (需要手动控制齐射)\n攻击对象: 潜水艇、水雷\n\n破坏力: 130 x10\n射程: 1100\n间隔: 10 秒",
+    "soldAt": [
+      "n007"
+    ]
+  },
+  {
+    "id": "I01Y",
+    "name": "慧星大炮",
+    "goldCost": 13000,
+    "abilities": [
+      "A010"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买慧星大炮 (F) $13000",
+    "description": "攻击对象: 船只\n\n破坏力: 220 \n射程: 1600 \n间隔: 1.1 秒",
+    "soldAt": [
+      "n007"
+    ]
+  },
+  {
+    "id": "I01Z",
+    "name": "|cffFFcc99假黄金输送任务|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "签订 假黄金输送任务 (80声望)",
+    "description": "贸易物品\n无法叠加的\n\n需要: 商船和对应的合同书\n贸易描述: 去西南的金矿运一些金矿回基地制作成假黄金，然后运到敌方商人处扰乱他们的经济\n每个南方玩家损失200金币\n\n酬劳: 1800 经验. 9000 金币. 10声望",
+    "soldAt": [
+      "n00F"
+    ]
+  },
+  {
+    "id": "I020",
+    "name": "|cff66FF66拯救海上生还者任务|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "接受 拯救海上生还者任务 (20声望)",
+    "description": "任务委托书\n无法叠加的\n\n拯救海上生还者\n\n需要: 任务委托书\n 任务描述: 去西边岛上的木材厂运一捆木头.然后交给贸易主\n\n酬劳: 8000 经验. 1000 金币. 20 声望",
+    "soldAt": []
+  },
+  {
+    "id": "I021",
+    "name": "|cff66FF66魔法书任务|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "接受 魔法书任务 (30声望)",
+    "description": "任务委托书\n无法叠加的\n\n需要: 商船和对应的任务委托书\n任务描述: 去东南岛上的精灵图书馆取得一本魔法书.然后交给黑魔法师\n\n酬劳: 我没钱了",
+    "soldAt": []
+  },
+  {
+    "id": "I022",
+    "name": "魔法书",
+    "goldCost": 300,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "Aret",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买魔法书",
+    "description": "任务物品 \n不可重叠 \n  \n一本魔法书，上面写着奇怪的文字。\n*它被魔法封印了！",
+    "soldAt": []
+  },
+  {
+    "id": "I023",
+    "name": "|cff66FF66备用合同|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "签订 瑞典天然原木贸易合同 (4声望)",
+    "description": "贸易物品\n无法叠加的\n\n木材贸易\n\n需要: 商船和对应的合同书\n 交易描述: 去西边岛上的木材厂运一捆木头.然后交给贸易主\n\n酬劳: 125 经验. 400 金币. 2 声望",
+    "soldAt": []
+  },
+  {
+    "id": "I024",
+    "name": "金块",
+    "goldCost": 400,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": true,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "ANss",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "金块",
+    "description": "从金矿里开采出来的黄金块",
+    "soldAt": []
+  },
+  {
+    "id": "I025",
+    "name": "|cffffbb77波塞敦的项链|r",
+    "goldCost": 10000,
+    "abilities": [
+      "AIil",
+      "A04B",
+      "Aegr"
+    ],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIil",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买 波塞敦的项链",
+    "description": "古代神器\n携带单位有 30% 的概率躲避敌人的攻击。\n点击使用还能制造一个目标单位的幻影。",
+    "soldAt": []
+  },
+  {
+    "id": "I026",
+    "name": "|cffffbb77雅典娜之盾|r",
+    "goldCost": 12000,
+    "abilities": [
+      "AIvu",
+      "A009",
+      "Aegr"
+    ],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIvu",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买 雅典娜之盾",
+    "description": "古代神器\n使得自身和周围单位增加20点的护甲。\n且携带者自身可以减少30伤害\n\n点击使用在8秒内让得携带单位无敌。",
+    "soldAt": []
+  },
+  {
+    "id": "I027",
+    "name": "火焰喷射装置 (II型)",
+    "goldCost": 5000,
+    "abilities": [
+      "A00C"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买火焰喷射装置 (J) $5000",
+    "description": "攻击对象: 船只、建筑\n可升级 (南方图书馆特有)\n破坏力: 18 \n射程: 440\n间隔: 0.1 秒",
+    "soldAt": []
+  },
+  {
+    "id": "I028",
+    "name": "探测火箭",
+    "goldCost": 400,
+    "abilities": [
+      "AIrv"
+    ],
+    "itemClass": "Purchasable",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIrv",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买探测火箭 (L) $400",
+    "description": "使用后显示整个地图10秒。",
+    "soldAt": []
+  },
+  {
+    "id": "I029",
+    "name": "捕鲸炮",
+    "goldCost": 800,
+    "abilities": [
+      "A04P"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买捕鲸炮 (H) $800",
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 80\n射程: 800\n间隔: 2.5 秒",
+    "soldAt": [
+      "n001"
+    ]
+  },
+  {
+    "id": "I02A",
+    "name": "新手指南",
+    "goldCost": 100,
+    "abilities": [
+      "A00L"
+    ],
+    "itemClass": "Campaign",
+    "uses": 1,
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "购买 新手指南",
+    "description": "常用指令集:\n\n*指令++提高视野\n*指令--降低视野\n*指令-s查看单位航速与距离\n*指令-tips 新手提示 关闭\n\n第一位置玩家在游戏1分钟内可用指令:\n*指令-QST 潜水艇 不可用",
+    "soldAt": [
+      "n003"
+    ]
+  },
+  {
+    "id": "I02B",
+    "name": "假黄金",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIgo",
+    "stockMax": 3,
+    "stockRegen": 120,
+    "tip": "购买假黄金",
+    "description": "伪造的假黄金\n里面是重金属。外面包裹了厚厚的一层黄金\n看起来跟真的金子一模一样。",
+    "soldAt": []
+  },
+  {
+    "id": "I02C",
+    "name": "火焰喷射装置 (III型)",
+    "goldCost": 11000,
+    "abilities": [
+      "A012"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买火焰喷射装置 (J) $11000",
+    "description": "攻击对象: 船只、建筑\n顶级\n破坏力: 45 \n射程: 490\n间隔: 0.12 秒",
+    "soldAt": []
+  },
+  {
+    "id": "I02D",
+    "name": "海盗宝藏钥匙",
+    "goldCost": 2000,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买海盗宝藏钥匙",
+    "description": "据说这是能打开海盗藏宝之处的钥匙",
+    "soldAt": []
+  },
+  {
+    "id": "I02E",
+    "name": "|cffFFcc99贩卖鸦片合同|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "签订 贩卖鸦片合同 (80声望)",
+    "description": "贸易物品\n无法叠加的\n\n需要: 商船和对应的合同书\n贸易描述: 去西北的农场取得一些罂粟，运回基地制作成鸦片，再卖给敌方的商人\n每个北方玩家船只耐久减少1/4\n\n酬劳: 1800 经验. 9000 金币. 10声望",
+    "soldAt": [
+      "n00E"
+    ]
+  },
+  {
+    "id": "I02F",
+    "name": "罂粟",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "ANss",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "罂粟",
+    "description": "罂粟是很美丽的花，它的乳汁可以制作成鸦片",
+    "soldAt": []
+  },
+  {
+    "id": "I02G",
+    "name": "鸦片",
+    "goldCost": 1000,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": true,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "ANss",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "鸦片",
+    "description": "罂粟汁制成的鸦片，吸食起来很爽。\n不过会严重危害人体健康。还会上瘾",
+    "soldAt": []
+  },
+  {
+    "id": "I02H",
+    "name": "|cffFF9900藏宝图|r",
+    "goldCost": 200,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "翻译过的藏宝图",
+    "description": "一幅藏宝图 上面的奇怪文字已经由刀锋翻译过了。\n图上标记着在最东北方穿过一条狭窄水道有一个山洞，那里就是藏宝地。\n打开藏宝山洞的钥匙埋藏在精灵图书馆的墙角下。",
+    "soldAt": []
+  },
+  {
+    "id": "I02I",
+    "name": "探测器",
+    "goldCost": 600,
+    "abilities": [
+      "A00W"
+    ],
+    "itemClass": "Purchasable",
+    "uses": 3,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "Ayeye",
+    "stockMax": 1,
+    "tip": "购买探测器 (L) $600",
+    "description": "放置一个探测器用于提供视野监视附近敌人\n- 能够发现自身视野范围内的隐形单位\n- 使用次数：3\n- 持续时间：200 秒\n- 视野范围：800",
+    "soldAt": [
+      "n002"
+    ]
+  },
+  {
+    "id": "I02J",
+    "name": "|cffffbb77海之权杖|r",
+    "goldCost": 10000,
+    "abilities": [
+      "A013",
+      "A02X"
+    ],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A013",
+    "stockMax": 1,
+    "stockRegen": 180,
+    "tip": "购买海之权杖(R)",
+    "description": "古代神器\n能召唤2个海妖来为你战斗。\n同时能增加船只10节航速",
+    "soldAt": []
+  },
+  {
+    "id": "I02K",
+    "name": "魔法药水",
+    "goldCost": 2,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买魔法药水",
+    "description": "任务物品 \n不可重叠 \n  \n一瓶可以恢复和加强魔法力量的魔法药水",
+    "soldAt": []
+  },
+  {
+    "id": "I02L",
+    "name": "奴隶",
+    "goldCost": 2,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "uses": 99,
+    "perishable": true,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买奴隶",
+    "description": "贸易物品\n不可重叠\n\n这群穷苦和愚昧的奴隶是最廉价的劳动力",
+    "soldAt": []
+  },
+  {
+    "id": "I02M",
+    "name": "|cff66FF66魔法药水任务|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "接受 魔法药水任务 (30声望)",
+    "description": "任务委托书\n无法叠加的\n\n需要: 商船和对应的任务委托书\n任务描述: 去西南的药剂厂取得一瓶魔法药水.然后交给黑魔法师\n\n酬劳: 我没钱了",
+    "soldAt": []
+  },
+  {
+    "id": "I02N",
+    "name": "|cff66FF66贩运奴隶合同|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "签订 贩运奴隶贸易 (30声望)",
+    "description": "贸易物品\n无法叠加的\n\n需要: 商船和对应的合同书\n贸易描述: 本地的金矿需要大量劳动力\n去西北的农场贩运一批劳动力回金矿做苦工\n\n酬劳: 经验 +500. 金币 +4500. 声望-3\n签定合同将 -声望2点",
+    "soldAt": [
+      "h00S"
+    ]
+  },
+  {
+    "id": "I02O",
+    "name": "|cffFF9900地图|r",
+    "goldCost": 200,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买看不懂的地图",
+    "description": "一幅地图 上面写着看不懂的奇怪文字。\n或许应该到西方农场附近找地图制作者看看",
+    "soldAt": []
+  },
+  {
+    "id": "I02P",
+    "name": "|cff66FF66小精灵运送任务|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "签订 小精灵运送任务合同 (60声望)",
+    "description": "贸易物品\n无法叠加的\n\n需要: 商船和对应的合同书\n 交易描述: 请你帮忙运送小精灵到瑞典人的作坊，到达之后会付给你报酬\n\n酬劳: 400 经验. 2000 金币. 3 声望",
+    "soldAt": [
+      "n00H"
+    ]
+  },
+  {
+    "id": "I02Q",
+    "name": "小精灵",
+    "goldCost": 2,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": true,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买小精灵",
+    "description": "贸易物品 \n不可重叠\n\n来自森林里的小精灵",
+    "soldAt": []
+  },
+  {
+    "id": "I02R",
+    "name": "|cff66FF66拯救黑魔法师|r",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "接受 拯救黑魔法师任务 (30声望)",
+    "description": "任务委托书\n无法叠加的\n\n需要: 商船和对应的任务委托书\n任务描述: 黑魔法师快要死了...拜托去西南的药剂厂取得一瓶生命药水.用来拯救黑魔法师\n\n酬劳是我所有的金币:\n金币 +1951. 经验 +650 . 声望 +7",
+    "soldAt": [
+      "n004"
+    ]
+  },
+  {
+    "id": "I02S",
+    "name": "生命药水",
+    "goldCost": 150,
+    "abilities": [
+      "AIh1"
+    ],
+    "itemClass": "Campaign",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIhe",
+    "stockMax": 3,
+    "stockRegen": 120,
+    "tip": "购买生命药水(P)",
+    "description": "恢复250点的生命值。",
+    "soldAt": []
+  },
+  {
+    "id": "I02T",
+    "name": "南方旗帜",
+    "goldCost": 0,
+    "abilities": [
+      "AIfn"
+    ],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "ANss",
+    "stockMax": 1,
+    "stockRegen": 30,
+    "tip": "接受南方旗帜任务 (6声望)",
+    "description": "任务物品\n无法叠加的\n\n任务描述: 将此旗帜插在东边的中立港土地上,\n连续数次之后中立港将变成我方的领土\n\n酬劳: 300 经验. 500 金币. 3 声望",
+    "soldAt": [
+      "n00E"
+    ]
+  },
+  {
+    "id": "I02U",
+    "name": "北方旗帜",
+    "goldCost": 0,
+    "abilities": [
+      "AIfm"
+    ],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "ANss",
+    "stockMax": 1,
+    "stockRegen": 30,
+    "tip": "接受北方旗帜任务 (6声望)",
+    "description": "任务物品\n无法叠加的\n\n任务描述: 将此旗帜插在东边的中立港土地上,\n连续数次之后中立港将变成我方的领土\n\n酬劳: 300 经验. 500 金币. 3 声望",
+    "soldAt": [
+      "n00F"
+    ]
+  },
+  {
+    "id": "I02V",
+    "name": "设计图-巡洋舰炮",
+    "goldCost": 4400,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 巡洋舰炮设计图纸 (A) $4400",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 护卫舰炮 改造为 巡洋舰炮\n\n攻击对象: 船只 & 建筑\n破坏力: 88 \n射程: 1200 \n间隔: 1.1 秒",
+    "soldAt": [
+      "ncp2",
+      "n011",
+      "n013"
+    ]
+  },
+  {
+    "id": "I02W",
+    "name": "巡洋舰炮",
+    "goldCost": 4800,
+    "abilities": [
+      "A02C"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 3,
+    "tip": "购买巡洋舰炮 (E) $4800",
+    "description": "攻击对象: 船只、建筑\n可升级\n破坏力: 88 \n射程: 1200 \n间隔: 1.1 秒",
+    "soldAt": []
+  },
+  {
+    "id": "I02X",
+    "name": "设计图-II型火焰喷射装置",
+    "goldCost": 4400,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 II型火焰喷射装置设计图纸 (C) $4400",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 I型火焰喷射装置 改造为 II型\n\n攻击对象: 船只 & 建筑\n破坏力: 18 \n射程: 440\n间隔: 0.1 秒",
+    "soldAt": [
+      "n00B",
+      "n011"
+    ]
+  },
+  {
+    "id": "I02Y",
+    "name": "设计图-III型火焰喷射装置",
+    "goldCost": 6200,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 III型火焰喷射装置设计图纸 (G) $6200",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 II型火焰喷射装置 改造为 III型\n\n攻击对象: 船只 & 建筑\n破坏力: 45 \n射程: 490\n间隔: 0.12 秒",
+    "soldAt": [
+      "n00B",
+      "n011"
+    ]
+  },
+  {
+    "id": "I02Z",
+    "name": "强力冷冻炮",
+    "goldCost": 5700,
+    "abilities": [
+      "A02M",
+      "AIob",
+      "AIsx"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买强力冰冻炮 (B) $5700",
+    "description": "攻击对象: 船只、建筑、空中\n顶级\n破坏力: 150 \n射程: 770 \n间隔: 1 秒\n具有冰冻特效 携带后船会自动攻击",
+    "soldAt": []
+  },
+  {
+    "id": "I030",
+    "name": "设计图-强力冷冻炮",
+    "goldCost": 3950,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 强力冷冻炮设计图纸 (D) $3950",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 冷冻炮 改造为 强力冷冻炮\n\n攻击对象: 单位、建筑、空中\n破坏力: 150 \n射程: 770 \n间隔: 1 秒\n具有冰冻特效",
+    "soldAt": [
+      "ncp2",
+      "n00B",
+      "n00C",
+      "n011",
+      "n013"
+    ]
+  },
+  {
+    "id": "I031",
+    "name": "|cffFF0000腐蚀大炮|r",
+    "goldCost": 12000,
+    "abilities": [],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买腐蚀大炮 (F) $12000",
+    "description": "攻击对象: 船只、建筑、空中\n特殊武器,只能携带一个\n破坏力: 110 \n射程: 950 \n间隔: 0.4 秒\n目标移动速度下降，持续10秒，每秒30伤害\n攻击时会暴露使用者\n最终伤害受护甲影响, 但无视船甲减伤",
+    "soldAt": [
+      "n00H"
+    ]
+  },
+  {
+    "id": "I032",
+    "name": "设计图-高能电磁炮",
+    "goldCost": 6500,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 高能电磁炮设计图纸 (H) $6500",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 电磁炮 改造为 高能电磁炮\n\n攻击对象: 船只、建筑、空中\n破坏力: 222 \n射程: 880 \n间隔: 0.8 秒\n具有电击特效",
+    "soldAt": [
+      "ncp2",
+      "n00B",
+      "n00C",
+      "n011",
+      "n013"
+    ]
+  },
+  {
+    "id": "I033",
+    "name": "无轨迹炮",
+    "goldCost": 4700,
+    "abilities": [
+      "A019"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 3,
+    "tip": "购买无轨迹炮 (G) $4700",
+    "description": "攻击对象: 船只、建筑\n可升级 (中立港) \n破坏力: 77 \n范围: 1800 \n间隔: 1.2 秒",
+    "soldAt": [
+      "n00Z"
+    ]
+  },
+  {
+    "id": "I034",
+    "name": "船首像-鹰",
+    "goldCost": 2800,
+    "abilities": [
+      "A04R",
+      "A04O"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A04R",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买鹰船首像 (G) $3500",
+    "description": "只能带一个船首相\n加快航速: 4节\n召唤战鹰",
+    "soldAt": []
+  },
+  {
+    "id": "I035",
+    "name": "设计图-重型火箭炮",
+    "goldCost": 3600,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 重型火箭炮设计图纸 (B) $3600",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 轻型火箭炮 改造为 重型火箭炮\n\n攻击对象: 船只\n破坏力: 50 \n射程: 1000 \n间隔: 0.5 秒",
+    "soldAt": [
+      "ncp2",
+      "n00B",
+      "n00C",
+      "n011",
+      "n013"
+    ]
+  },
+  {
+    "id": "I036",
+    "name": "设计图-反舰火箭",
+    "goldCost": 4600,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 3600,
+    "tip": "购买 反舰火箭设计图纸 (F) $4600",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 重型火箭炮 改造为 反舰火箭   (特殊武器)\n\n反舰火箭，可自动单发，可手动控制齐射\n攻击对象: 船只  (齐射时小心误伤！)\n降低携带者自身速度20%\n破坏力: 200\n射程: 2000\n间隔: 10 秒",
+    "soldAt": []
+  },
+  {
+    "id": "I037",
+    "name": "设计图-对地导弹",
+    "goldCost": 8200,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 3600,
+    "tip": "购买 对地导弹设计图纸 (J) $8200",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 重型火箭炮 改造为 对地导弹   (特殊武器)\n\n对地导弹，可自动单发，可手动控制齐射\n攻击对象: 建筑物\n破坏力: 300\n射程: 2000\n间隔: 10 秒",
+    "soldAt": [
+      "n00B",
+      "n00C",
+      "n011",
+      "n013"
+    ]
+  },
+  {
+    "id": "I038",
+    "name": "船体强化设计图 - 巡洋舰",
+    "goldCost": 1700,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买 巡洋舰强化设计图 (G) $1700",
+    "description": "舰体改造设计图纸\n\n用更先进的制造工艺和中国人发明的水密隔舱技术来大大加强船只强度和抗沉性\n每艘船只能升级一次！\n使用本图纸可提高 巡洋舰 耐久度1500\n   影子战舰 耐久度1100\n适用船:破坏,支配,影子,私掠,元素,鼠式,黄金梅丽",
+    "soldAt": [
+      "n005"
+    ]
+  },
+  {
+    "id": "I039",
+    "name": "船体强化设计图 - 护卫舰",
+    "goldCost": 1000,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买 护卫舰强化设计图 (F) $1000",
+    "description": "舰体改造设计图纸\n\n用更先进的制造工艺和中国人发明的水密隔舱技术来大大加强船只强度和抗沉性\n每艘船只能升级一次！\n使用本图纸可提高 护卫舰耐久度 900\n   工程舰、龟船、执法者耐久度1100\n适用船:拦截,龟船,守护,执法者",
+    "soldAt": [
+      "n005"
+    ]
+  },
+  {
+    "id": "I03A",
+    "name": "船体强化设计图 - 战列舰",
+    "goldCost": 4000,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买 战列舰强化设计图 (H) $4000",
+    "description": "舰体改造设计图纸\n\n用更先进的制造工艺和中国人发明的水密隔舱技术来大大加强船只强度和抗沉性\n每艘船只能升级一次！\n使用本图纸可提高 战列舰 的耐久度2000\n适用船:领主,主宰,俾斯麦,大天使,远古战船,铁甲舰,宝船,亡者,移动要塞,新月",
+    "soldAt": [
+      "n005"
+    ]
+  },
+  {
+    "id": "I03B",
+    "name": "战列舰炮",
+    "goldCost": 11500,
+    "abilities": [
+      "A03H"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买战列舰炮 (E) $11500",
+    "description": "攻击对象: 船只、建筑\n顶级\n破坏力: 230 \n射程: 1500 \n间隔: 1.4 秒",
+    "soldAt": []
+  },
+  {
+    "id": "I03C",
+    "name": "设计图-战列舰炮",
+    "goldCost": 6800,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 战列舰炮设计图纸 (E) $6800",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 巡洋舰炮 改造为 战列舰炮\n\n攻击对象: 船只 & 建筑\n破坏力: 230 \n射程: 1500 \n间隔: 1.4 秒",
+    "soldAt": [
+      "ncp2",
+      "n011",
+      "n013"
+    ]
+  },
+  {
+    "id": "I03D",
+    "name": "船体强化设计图 - 小艇类",
+    "goldCost": 500,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买 小艇类 强化设计图 (E) $500",
+    "description": "船体改造设计图纸\n\n用更先进的制造工艺和中国人发明的水密隔舱技术来大大加强船只强度和抗沉性\n每艘船只能升级一次！\n使用本图纸可提高 小艇类 耐久度500\n\n适用船:水手,圣战,飞鱼,渔船",
+    "soldAt": [
+      "n005"
+    ]
+  },
+  {
+    "id": "I03E",
+    "name": ".深水炸弹",
+    "goldCost": 1500,
+    "abilities": [
+      "A00D"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买深水炸弹 (I) $1500",
+    "description": "攻击对象: 水雷、潜水艇\n可升级\n破坏力: 75 \n范围: 600 \n间隔: 1 秒",
+    "soldAt": [
+      "n007"
+    ]
+  },
+  {
+    "id": "I03F",
+    "name": ".反舰火箭",
+    "goldCost": 8500,
+    "abilities": [
+      "A02F",
+      "A048",
+      "A042"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AHad",
+    "stockMax": 1,
+    "stockRegen": 3600,
+    "tip": "购买 反舰火箭 (G) $8500",
+    "description": "反舰火箭，可自动单发，可手动控制齐射\n攻击对象: 船只  (齐射时小心误伤！)\n降低携带者自身速度20%\n\n破坏力: 200\n射程: 1800\n间隔: 10 秒",
+    "soldAt": [
+      "h01T"
+    ]
+  },
+  {
+    "id": "I03G",
+    "name": "重型火箭炮",
+    "goldCost": 4100,
+    "abilities": [
+      "A043"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买 重型火箭炮 (G) $4100",
+    "description": "攻击对象: 船只\n可升级\n破坏力: 50 \n射程: 1000 \n间隔: 0.5 秒",
+    "soldAt": []
+  },
+  {
+    "id": "I03H",
+    "name": ".对地导弹",
+    "goldCost": 12000,
+    "abilities": [
+      "A045",
+      "A049"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "Apxf",
+    "stockMax": 1,
+    "stockRegen": 3600,
+    "tip": "购买 对地导弹 (H) $12000",
+    "description": "对地导弹，可自动单发，可手动控制齐射\n攻击对象: 建筑物\n\n破坏力: 300\n射程: 1800\n间隔: 10 秒",
+    "soldAt": [
+      "h01T"
+    ]
+  },
+  {
+    "id": "I03I",
+    "name": "中型水雷布放装置",
+    "goldCost": 1000,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买 潜艇 中型水雷布放装置 (I) $1000",
+    "description": "潜艇专用设备\n\n购买后你的潜水艇能够布放中型水雷",
+    "soldAt": [
+      "n00U"
+    ]
+  },
+  {
+    "id": "I03J",
+    "name": "大型水雷布放装置",
+    "goldCost": 2000,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买 潜艇 大型水雷布放装置 (J) $2000",
+    "description": "潜艇专用设备\n\n购买后你的潜水艇能够布放大型水雷",
+    "soldAt": [
+      "n00U"
+    ]
+  },
+  {
+    "id": "I03K",
+    "name": ".双联装深水炸弹",
+    "goldCost": 3500,
+    "abilities": [
+      "A00D",
+      "A016"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买 双联装深水炸弹 (E) $3500",
+    "description": "攻击对象: 水雷、潜水艇\n\n破坏力: 75 x2 \n范围: 600 \n间隔: 1 秒",
+    "soldAt": []
+  },
+  {
+    "id": "I03L",
+    "name": "高爆弹头",
+    "goldCost": 5000,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买 高爆弹头 (E) $5000",
+    "description": "潜艇专用设备\n\n高爆弹头具有更大的破坏力,+100\n装备后将大大提升潜水艇的水下作战能力",
+    "soldAt": [
+      "n00U"
+    ]
+  },
+  {
+    "id": "I03M",
+    "name": "潜射巡航导弹装置",
+    "goldCost": 13000,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买 潜射巡航导弹装置 (H) $13000",
+    "description": "潜艇专用设备  [共有 2级]\n\n购买后可以使你的潜艇能够发射巡航导弹 (需要手动控制发射)\n攻击对象: 水面地面单位 & 建筑物\n\n破坏力: 200 x10\n射程: 2000\n间隔: 1级 10秒\n        2级  5秒",
+    "soldAt": [
+      "n00U"
+    ]
+  },
+  {
+    "id": "I03N",
+    "name": "密集阵-6管20毫米近防炮",
+    "goldCost": 5500,
+    "abilities": [
+      "A01B"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买 密集阵近防炮 (K) $5500",
+    "description": "攻击对象: 船只、空中\n可升级 (北方农场特有)\n破坏力: 30 \n范围: 490 \n间隔: 0.15 秒",
+    "soldAt": []
+  },
+  {
+    "id": "I03O",
+    "name": "设计图-密集阵近防炮",
+    "goldCost": 4600,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 密集阵近防炮设计图纸 (C) $4600",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 机关炮 改造为 密集阵近防炮\n\n攻击对象: 船只 & 空中单位\n破坏力: 30 \n范围: 490 \n间隔: 0.15 秒",
+    "soldAt": [
+      "n00C",
+      "n013"
+    ]
+  },
+  {
+    "id": "I03P",
+    "name": "船体强化设计图 - 特殊船",
+    "goldCost": 6000,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买 特殊船强化设计图 (I) $6000",
+    "description": "舰体改造设计图纸\n\n用更先进的制造工艺和中国人发明的水密隔舱技术来大大加强船只强度和抗沉性\n每艘船只能升级一次！\n使用本图纸可提高 特殊船 的耐久度2000\n适用船:死神号，黑珍珠号，潜水艇，荷兰人",
+    "soldAt": [
+      "n005"
+    ]
+  },
+  {
+    "id": "I03Q",
+    "name": "新型鱼雷燃料",
+    "goldCost": 3000,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买 新型鱼雷燃料 (F) $3000",
+    "description": "潜艇专用设备\n\n新型鱼雷燃料 能够增加潜水艇鱼雷的射程 +300",
+    "soldAt": [
+      "n00U"
+    ]
+  },
+  {
+    "id": "I03R",
+    "name": "新型潜艇推进器",
+    "goldCost": 2000,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买 新型潜艇推进器 (D) $2000",
+    "description": "潜艇专用设备\n\n能够提高潜水艇的航行速度 +10节",
+    "soldAt": [
+      "n00U"
+    ]
+  },
+  {
+    "id": "I03S",
+    "name": "新型声纳装置",
+    "goldCost": 900,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买 新型声纳装置 (C) $900",
+    "description": "潜艇专用设备\n\n新型声纳装置使潜水艇能够在水下探测到隐形单位",
+    "soldAt": [
+      "n00U"
+    ]
+  },
+  {
+    "id": "I03T",
+    "name": "船首像-夜精灵",
+    "goldCost": 2600,
+    "abilities": [
+      "AIuv",
+      "A00I",
+      "A04Y"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIx5",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买夜精灵船首像 (E) $2600",
+    "description": "只能带一个船首相\n受到祝福的神像\n\n提高夜视能力\n恢复耐久: 15/秒\n加快航速: 3节",
+    "soldAt": [
+      "n01H"
+    ]
+  },
+  {
+    "id": "I03U",
+    "name": "设计图-双联装深水炸弹",
+    "goldCost": 2000,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 双联装深水炸弹设计图纸 (L) $2000",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 深水炸弹 改造为 双联装深水炸弹\n\n攻击对象: 水雷 & 潜水艇\n破坏力: 75 x2 \n范围: 600 \n间隔: 1 秒",
+    "soldAt": [
+      "ncp2",
+      "n00B",
+      "n00C",
+      "n011",
+      "n013"
+    ]
+  },
+  {
+    "id": "I03V",
+    "name": "精灵维修队",
+    "goldCost": 5300,
+    "abilities": [
+      "A015"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买精灵维修队 (D) $5300",
+    "description": "在海上航行时自动修理你的船. \n\n- 自动修复：50 /秒",
+    "soldAt": [
+      "n00H"
+    ]
+  },
+  {
+    "id": "I03W",
+    "name": "火神炮",
+    "goldCost": 11000,
+    "abilities": [
+      "A017"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买 火神炮 (K) $11000",
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 52\n范围: 540\n间隔: 0.15 秒",
+    "soldAt": []
+  },
+  {
+    "id": "I03X",
+    "name": "设计图-火神炮",
+    "goldCost": 5600,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 火神炮设计图纸 (G) $5600",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 密集阵近防炮 改造为 火神炮\n\n攻击对象: 船只&建筑&空中单位\n破坏力: 52\n范围: 540\n间隔: 0.15 秒",
+    "soldAt": [
+      "n00C",
+      "n013"
+    ]
+  },
+  {
+    "id": "I03Y",
+    "name": "缩退炮",
+    "goldCost": 8800,
+    "abilities": [
+      "A04H"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买缩退炮 (G) $8800",
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 180 \n范围: 1700 \n间隔: 1.5 秒",
+    "soldAt": [
+      "n007"
+    ]
+  },
+  {
+    "id": "I03Z",
+    "name": "|cffFFFF00钛合金装甲船体|r",
+    "goldCost": 6000,
+    "abilities": [
+      "A044",
+      "A07H",
+      "A04D"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 30,
+    "tip": "购买钛合金装甲船体 (C) $6000",
+    "description": "只能带一个船甲\n使用强度高,重量轻,耐腐蚀的钛合金材料\n增加船只生命,并且能够减少船体受到的损伤.但它的重量会让船的航行速度变慢. \n\n- 增加生命：1000 \n- 损伤降低：40% \n- 船速减慢：20%",
+    "soldAt": [
+      "n00A"
+    ]
+  },
+  {
+    "id": "I040",
+    "name": "|cffFFFF00树脂复合装甲船体|r",
+    "goldCost": 7800,
+    "abilities": [
+      "A02U",
+      "A07G",
+      "A04Y"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 30,
+    "tip": "购买树脂复合装甲船体 (D) $7800",
+    "description": "只能带一个船甲\n使用重量轻高强度的塑脂复合材料装甲\n能够增加船只生命，减少船体受到的损伤，增加航速\n\n- 增加生命：500 \n- 损伤降低：30% \n- 加快航速：3 节",
+    "soldAt": [
+      "n00A"
+    ]
+  },
+  {
+    "id": "I041",
+    "name": "战鹰",
+    "goldCost": 400,
+    "abilities": [
+      "A04F"
+    ],
+    "itemClass": "Permanent",
+    "uses": 3,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIin",
+    "stockMax": 3,
+    "stockRegen": 120,
+    "tip": "训练 战鹰 (K) $400",
+    "description": "消耗品,携带数量3只战鹰\n派出战鹰可以侦察附近范围内的敌人。",
+    "soldAt": [
+      "n00A"
+    ]
+  },
+  {
+    "id": "I042",
+    "name": "船只特殊能力-舰载直升机",
+    "goldCost": 200,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 3,
+    "tip": "安装舰载直升机 (E) $200",
+    "description": "船只特殊能力  [最高等级 3]\n适用船型:拦截者,守护者\n\n舰载飞行器，可以用来侦察和攻击敌人目标\n等级 1 - 侦察反隐形，无攻击力\n等级 2 - 可对地对空攻击\n等级 3 - 可攻击潜水艇、水雷、探测器",
+    "soldAt": [
+      "n00Y"
+    ]
+  },
+  {
+    "id": "I043",
+    "name": "船只特殊能力-震荡雷",
+    "goldCost": 200,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "安装震荡雷 (B) $200",
+    "description": "船只特殊能力  [只有 1级]\n适用船型:水手,拦截,守护,渔船,黑珍珠\n\n释放一个固定隐形的震荡雷。当有敌方单位靠近震荡雷的时候会自动引爆\n只能放在浅水区\n有效时间150秒。\n眩晕效果8秒。",
+    "soldAt": [
+      "n00Y"
+    ]
+  },
+  {
+    "id": "I044",
+    "name": "船只特殊能力-照明弹",
+    "goldCost": 150,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "安装照明弹 (A) $150",
+    "description": "船只特殊能力  [只有 1级]\n适用船型:水手,拦截,守护,执法,渔船,黑珍珠\n\n发射一颗照明弹，探测 1200 区域 7 秒",
+    "soldAt": [
+      "n00Y"
+    ]
+  },
+  {
+    "id": "I045",
+    "name": "船首像-暗夜闪灵",
+    "goldCost": 2500,
+    "abilities": [
+      "A035",
+      "AIuv",
+      "A00G"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A035",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买暗夜闪灵船首像 (B) $2500",
+    "description": "只能带一个船首相\n受到祝福的神像\n\n1200范围传送能力\n冷却时间: 50秒\n夜间额外视野\n恢复耐久: 5/秒",
+    "soldAt": [
+      "n01H"
+    ]
+  },
+  {
+    "id": "I046",
+    "name": "声波炮",
+    "goldCost": 5200,
+    "abilities": [
+      "A04Q"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 4,
+    "tip": "购买声波炮 (I) $5200",
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 50 \n范围: 1100 \n间隔: 0.5 秒",
+    "soldAt": [
+      "n00Z"
+    ]
+  },
+  {
+    "id": "I047",
+    "name": "船只特殊能力-5",
+    "goldCost": 150,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买xxx (D) $150",
+    "description": "船只特殊能力  [只有 1级]\n适用船型:水手,拦截者,守护者,黑珍珠\n\n新型声纳装置使潜水艇能够在水下探测到隐形单位",
+    "soldAt": []
+  },
+  {
+    "id": "I048",
+    "name": "压缩空间炮",
+    "goldCost": 11500,
+    "abilities": [
+      "A04E"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买压缩空间炮 (C) $11500",
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 160 \n范围: 1000 \n间隔: 0.7 秒",
+    "soldAt": [
+      "n007"
+    ]
+  },
+  {
+    "id": "I049",
+    "name": ".废墟大炮",
+    "goldCost": 12000,
+    "abilities": [
+      "A04J"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 1800,
+    "tip": "购买 废墟大炮 (L) $12000",
+    "description": "攻击对象: 建筑物\n\n破坏力: 450 \n射程: 800 \n间隔: 1 秒",
+    "soldAt": [
+      "n007"
+    ]
+  },
+  {
+    "id": "I04A",
+    "name": "船只特殊能力-减速",
+    "goldCost": 250,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "安装减速 (C) $250",
+    "description": "船只特殊能力  [只有 1级]\n适用船型:水手,拦截,守护,执法,渔船,黑珍珠\n\n减慢目标单位50%的移动和攻击速度\n持续30秒",
+    "soldAt": [
+      "n00Y"
+    ]
+  },
+  {
+    "id": "I04B",
+    "name": "双联装鱼雷发射管",
+    "goldCost": 5000,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买 双联装鱼雷发射管 (G) $5000",
+    "description": "潜艇专用设备\n\n能够提高潜水艇鱼雷发射速度 一倍",
+    "soldAt": [
+      "n00U"
+    ]
+  },
+  {
+    "id": "I04C",
+    "name": "超大型水雷布放装置",
+    "goldCost": 4000,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买 潜艇 超大型水雷布放装置 (K) $4000",
+    "description": "潜艇专用设备\n\n购买后你的潜水艇能够布放超大型水雷",
+    "soldAt": [
+      "n00U"
+    ]
+  },
+  {
+    "id": "I04D",
+    "name": "船只特殊能力-6",
+    "goldCost": 150,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买xxx (H) $150",
+    "description": "船只特殊能力  [只有 1级]\n适用船型:水手,拦截者,守护者,黑珍珠\n\n新型声纳装置使潜水艇能够在水下探测到隐形单位",
+    "soldAt": []
+  },
+  {
+    "id": "I04E",
+    "name": "船只特殊能力-灭火剂",
+    "goldCost": 150,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "安装灭火剂 (F) $150",
+    "description": "船只特殊能力  [最高等级 3]\n适用船型:水手,拦截,守护,执法,渔船,黑珍珠\n\n喷出灭火剂对一定区域的单位进行修复。\n等级 1 - 6阵气雾,每阵修复  50点损坏\n等级 2 - 7阵气雾,每阵修复  80点损坏\n等级 3 - 8阵气雾,每阵修复 100点损坏,冷却时间减少20秒",
+    "soldAt": [
+      "n00Y"
+    ]
+  },
+  {
+    "id": "I04F",
+    "name": "船只特殊能力-酸毒炸弹",
+    "goldCost": 250,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "安装酸毒炸弹 (G) $250",
+    "description": "船只特殊能力  [最高等级 3]\n可安装船型:水手,拦截,守护,执法,渔船,黑珍珠\n\n酸毒炸弹对周围的敌人造成持续 15秒伤害\n等级 1 - 每秒 10点伤害，减少15点护甲\n等级 2 - 每秒 20点伤害，减少25点护甲\n等级 3 - 每秒 30点伤害，减少35点护甲",
+    "soldAt": [
+      "n00Y"
+    ]
+  },
+  {
+    "id": "I04G",
+    "name": "轰击大炮 +改",
+    "goldCost": 8000,
+    "abilities": [
+      "A04L"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买轰击大炮 +改 (L) $8000",
+    "description": "攻击对象: 船只\n\n破坏力: 90 \n射程: 1800 \n间隔: 0.8 秒",
+    "soldAt": []
+  },
+  {
+    "id": "I04H",
+    "name": "船只特殊能力-缠绕触手",
+    "goldCost": 500,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 300,
+    "tip": "研究缠绕触手 (L) $500",
+    "description": "船只特殊能力  [最高等级 2]\n适用船型:水手,拦截,守护,黑珍珠\n\n从水下伸出触手将目标缠绕住，并造成持续伤害。\n等级 1 - 15伤害/秒，持续 5秒。\n等级 2 - 25伤害/秒，持续 7秒。",
+    "soldAt": []
+  },
+  {
+    "id": "I04I",
+    "name": "设计图-轰击炮改",
+    "goldCost": 6150,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 轰击炮改设计图纸 (K) $6150",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 轰击大炮 改造为 轰击炮改\n\n攻击对象: 船只\n破坏力: 90 \n射程: 1800 \n间隔: 0.8 秒",
+    "soldAt": [
+      "ncp2",
+      "n00B",
+      "n00C",
+      "n011",
+      "n013"
+    ]
+  },
+  {
+    "id": "I04J",
+    "name": "假目标装置",
+    "goldCost": 4000,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买 假目标装置 (B) $4000",
+    "description": "潜艇专用设备\n\n假目标装置使潜水艇能释放诱饵吸引敌人,\n从而使自身有机会逃脱攻击",
+    "soldAt": [
+      "n00U"
+    ]
+  },
+  {
+    "id": "I04K",
+    "name": "巴尔干炮",
+    "goldCost": 440,
+    "abilities": [
+      "A04S"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买巴尔干炮 (E) $440",
+    "description": "攻击对象: 船只\n\n破坏力: 24 \n射程: 1300 \n间隔: 1.6 秒",
+    "soldAt": [
+      "n001"
+    ]
+  },
+  {
+    "id": "I04L",
+    "name": "船首像-巨石人",
+    "goldCost": 2800,
+    "abilities": [
+      "A07D",
+      "A00I"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIx5",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买巨石人船首像 (F) $2800",
+    "description": "只能带一个船首相\n受到庇佑的神像\n\n损伤降低: 20%\n恢复耐久: 15/秒",
+    "soldAt": [
+      "n01H"
+    ]
+  },
+  {
+    "id": "I04M",
+    "name": "船首像-红龙",
+    "goldCost": 2800,
+    "abilities": [
+      "A07D",
+      "A04O"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIx5",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买红龙船首像 (G) $2800",
+    "description": "只能带一个船首相\n受到庇佑的神像\n\n损伤降低: 20%\n加快航速: 4节",
+    "soldAt": [
+      "n01H"
+    ]
+  },
+  {
+    "id": "I04N",
+    "name": "船首像-闪灵",
+    "goldCost": 2500,
+    "abilities": [
+      "A035",
+      "A04Y"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A035",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买闪灵船首像 (A) $2500",
+    "description": "只能带一个船首相\n受到祝福的神像\n\n1200范围传送能力\n冷却时间: 50秒\n加快航速: 3节",
+    "soldAt": [
+      "n01H"
+    ]
+  },
+  {
+    "id": "I04O",
+    "name": "船首像-黑龙",
+    "goldCost": 2600,
+    "abilities": [
+      "A00I",
+      "A04O"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIx5",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买黑龙船首像 (H) $2600",
+    "description": "只能带一个船首相\n受到祝福的神像\n\n恢复耐久: 15/秒\n加快航速: 4节",
+    "soldAt": [
+      "n01H"
+    ]
+  },
+  {
+    "id": "I04P",
+    "name": "格林箭",
+    "goldCost": 5800,
+    "abilities": [
+      "A02N"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买格林箭 (J) $5800",
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 127 \n范围: 1300 \n间隔: 1.2 秒",
+    "soldAt": [
+      "n00Z"
+    ]
+  },
+  {
+    "id": "I04Q",
+    "name": "船首像-风神 (东风)",
+    "goldCost": 2500,
+    "abilities": [
+      "A02X",
+      "A00G"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIx5",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买东风之神船首像 (I) $2500",
+    "description": "只能带一个船首相\n不能和帆同时携带\n受到祝福的神像\n\n航速增加: 8节\n恢复耐久: 5/秒",
+    "soldAt": [
+      "n01H"
+    ]
+  },
+  {
+    "id": "I04R",
+    "name": "红衣大炮",
+    "goldCost": 4700,
+    "abilities": [
+      "A04W"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买红衣大炮 (F) $4700",
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 55 \n范围: 900 \n间隔: 0.5 秒",
+    "soldAt": [
+      "n00Z"
+    ]
+  },
+  {
+    "id": "I04S",
+    "name": "蓝色光束炮",
+    "goldCost": 11500,
+    "abilities": [
+      "A04X"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买蓝色光束炮 (D) $11500",
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 200 \n范围: 1200 \n间隔: 1 秒",
+    "soldAt": [
+      "n007"
+    ]
+  },
+  {
+    "id": "I04T",
+    "name": "音乐1",
+    "goldCost": 10,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "播放音乐: 刀锋的摇滚乐",
+    "description": "播放一段音乐: 刀锋的摇滚乐",
+    "soldAt": [
+      "N00R"
+    ]
+  },
+  {
+    "id": "I04U",
+    "name": "音乐2",
+    "goldCost": 10,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "播放音乐: 船长进行曲",
+    "description": "播放一段音乐: 船长进行曲",
+    "soldAt": [
+      "N00R"
+    ]
+  },
+  {
+    "id": "I04V",
+    "name": "音乐3",
+    "goldCost": 10,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "播放音乐: 乡下生活",
+    "description": "播放一段音乐: 乡下生活",
+    "soldAt": [
+      "N00R"
+    ]
+  },
+  {
+    "id": "I04W",
+    "name": "音乐4",
+    "goldCost": 10,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "播放音乐: 大战前夕",
+    "description": "播放一段音乐: 大战前夕",
+    "soldAt": [
+      "N00R"
+    ]
+  },
+  {
+    "id": "I04X",
+    "name": "音乐播放说明",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "音乐播放说明",
+    "description": "各方来客:\n\n你点播的音乐大家都能听到.价格也很便宜\n来段小曲吧?",
+    "soldAt": [
+      "N00R"
+    ]
+  },
+  {
+    "id": "I04Y",
+    "name": "船首像-风神 (南风)",
+    "goldCost": 2700,
+    "abilities": [
+      "A02X",
+      "A07I"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIx5",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买南风之神船首像 (J) $2700",
+    "description": "只能带一个船首相\n不能和帆同时携带\n受到祝福的神像\n\n航速增加: 8节\n损伤降低: 10%",
+    "soldAt": [
+      "n01H"
+    ]
+  },
+  {
+    "id": "I04Z",
+    "name": "船首像-雅典娜女神",
+    "goldCost": 2900,
+    "abilities": [
+      "A07Q",
+      "Aoar",
+      "A04Y"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIx5",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买雅典娜女神船首像 (D) $2900",
+    "description": "只能带一个船首相\n受到祝福的神像\n(点击可换成恢复模式)\n\n900范围内友军单位恢复生命每秒10点\n加快航速: 3节",
+    "soldAt": [
+      "n01H"
+    ]
+  },
+  {
+    "id": "I050",
+    "name": "EX怒火大炮",
+    "goldCost": 4900,
+    "abilities": [
+      "A050"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买EX怒火大炮 (H) $4900",
+    "description": "攻击对象: 船只\n\n破坏力: 160\n范围: 1600\n间隔: 2 秒",
+    "soldAt": [
+      "n00Z"
+    ]
+  },
+  {
+    "id": "I051",
+    "name": "新手指南 2",
+    "goldCost": 100,
+    "abilities": [
+      "A00L"
+    ],
+    "itemClass": "Campaign",
+    "uses": 1,
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "购买 新手指南2",
+    "description": "主基地旁有个机器人,可以给部分船选加一样新技能\n\n所有船只可以升级,增加生命上限,在右边中部的中立港\n\n武器升级,在基地的武器研发中心购买升级武器对应的设计图.\n\n很多高级物品和船只在野外出售\n集中在地图中部的 左边和 右边",
+    "soldAt": [
+      "n003"
+    ]
+  },
+  {
+    "id": "I052",
+    "name": "|cffFFFF00生物装甲外壳|r",
+    "goldCost": 7800,
+    "abilities": [
+      "A02U",
+      "A07G",
+      "A00I"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 30,
+    "tip": "购买生物装甲外壳 (H) $7800",
+    "description": "只能带一个船甲\n在船体外繁殖一层生物细胞作为装甲\n能够增加船只生命，减少船体受到的损伤，并且进行自我修复\n\n- 增加生命：500 \n- 损伤降低：30% \n- 恢复耐久：15 / 秒",
+    "soldAt": [
+      "n00A"
+    ]
+  },
+  {
+    "id": "I053",
+    "name": "感谢信",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "购买 感谢信",
+    "description": "感谢所有支持本地图的朋友\n特别感谢：(游戏ID) majia、不死鸟、T-H、SWAT、wsdddsl、XWB!、宝贝、CK、墨鱼、孤独、大波、雨中的流星、沧月、战神悟空、魔族战队、舞月群等许多朋友长久以来对本图的支持和贡献! 还有所有喷子的鞭策-_-!!!",
+    "soldAt": [
+      "n003"
+    ]
+  },
+  {
+    "id": "I054",
+    "name": "雷神大炮增强型",
+    "goldCost": 12000,
+    "abilities": [
+      "A054"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买雷神大炮 (H) $12000",
+    "description": "攻击对象: 船只\n顶级\n破坏力: 310 \n射程: 1000 \n间隔: 1.3 秒",
+    "soldAt": []
+  },
+  {
+    "id": "I055",
+    "name": "设计图-雷神大炮增强型",
+    "goldCost": 5000,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 雷神大炮增强型设计图纸 (I) $5000",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 雷神大炮 改造为 雷神大炮增强型\n\n攻击对象: 船只\n破坏力: 310 \n射程: 1000 \n间隔: 1.3 秒",
+    "soldAt": [
+      "n00B",
+      "n00C",
+      "n011",
+      "n013"
+    ]
+  },
+  {
+    "id": "I056",
+    "name": "灭日大炮",
+    "goldCost": 11500,
+    "abilities": [
+      "A055"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买灭日大炮 (B) $11500",
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 104 \n范围: 800 \n间隔: 0.4 秒",
+    "soldAt": [
+      "n007"
+    ]
+  },
+  {
+    "id": "I057",
+    "name": "精灵大炮",
+    "goldCost": 6000,
+    "abilities": [
+      "A056",
+      "A05V"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 3,
+    "tip": "购买精灵大炮 (E) $6000",
+    "description": "可升级\n破坏力: 130  攻击对象: 英雄\n破坏力: 130  攻击对象: 普通单位\n射程: 1100 \n间隔: 1.5秒\n同时攻击英雄,普通单位的二合一特殊武器",
+    "soldAt": [
+      "h01T",
+      "n00H"
+    ]
+  },
+  {
+    "id": "I058",
+    "name": "精灵观察员",
+    "goldCost": 2200,
+    "abilities": [
+      "Adt1",
+      "AIuv",
+      "A08V"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Adet",
+    "stockMax": 1,
+    "stockRegen": 1,
+    "tip": "购买精灵观察员 (A) $2200",
+    "description": "- 能够侦测到自己视野范围内的隐形单位\n- 在夜间获得和白天相同的视野\n- 提高航速：20%",
+    "soldAt": [
+      "n00H"
+    ]
+  },
+  {
+    "id": "I059",
+    "name": "高速阔剑投掷器",
+    "goldCost": 12000,
+    "abilities": [
+      "A05B"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买 高速阔剑投掷器 (D) $12000",
+    "description": "攻击对象: 船只、建筑、空中\n顶级\n破坏力: 260 \n射程: 750 \n间隔: 1 秒",
+    "soldAt": []
+  },
+  {
+    "id": "I05A",
+    "name": "设计图-高速阔剑投掷器",
+    "goldCost": 7200,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 高速阔剑投掷器设计图纸 (C) $7200",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 阔剑投掷器 改造为 高速阔剑投掷器\n\n攻击对象: 船只、建筑、空中\n破坏力: 260 \n射程: 750 \n间隔: 1秒",
+    "soldAt": [
+      "ncp2"
+    ]
+  },
+  {
+    "id": "I05B",
+    "name": "无轨迹炮改",
+    "goldCost": 12000,
+    "abilities": [
+      "A05E"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买无轨迹炮改 (G) $12000",
+    "description": "攻击对象: 船只、建筑\n顶级\n破坏力: 115 \n范围: 1800 \n间隔: 0.8 秒",
+    "soldAt": []
+  },
+  {
+    "id": "I05C",
+    "name": "设计图-无轨迹炮改",
+    "goldCost": 6400,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 无轨迹炮改设计图纸 (G) $6400",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 无轨迹炮 改造为 无轨迹炮改\n\n攻击对象: 船只 & 建筑\n破坏力: 115 \n射程: 1800 \n间隔: 0.8秒",
+    "soldAt": [
+      "ncp2"
+    ]
+  },
+  {
+    "id": "I05D",
+    "name": "终级精灵大炮",
+    "goldCost": 12000,
+    "abilities": [
+      "A05F",
+      "A05Y"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 3,
+    "tip": "购买终级精灵大炮 (E) $12000",
+    "description": "顶级\n破坏力: 140  攻击对象: 英雄\n破坏力: 140  攻击对象: 普通单位\n射程: 1100 \n间隔: 0.9秒\n同时攻击英雄,普通单位的二合一特殊武器",
+    "soldAt": []
+  },
+  {
+    "id": "I05E",
+    "name": "设计图-终级精灵大炮",
+    "goldCost": 6300,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 终级精灵大炮设计图纸 (I) $6300",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 精灵大炮 改造为 终级精灵大炮\n\n破坏力: 140  攻击对象: 英雄\n破坏力: 140  攻击对象: 普通单位\n射程: 1100 \n间隔: 0.9秒",
+    "soldAt": [
+      "ncp2"
+    ]
+  },
+  {
+    "id": "I05F",
+    "name": "无相大炮",
+    "goldCost": 13000,
+    "abilities": [
+      "AIpz",
+      "A04I"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIx5",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买无相大炮 (G) $13000",
+    "description": "攻击对象: 船只\n(点击可换成攻击建筑模式)\n破坏力: 233 \n范围: 800 \n间隔: 0.8 秒",
+    "soldAt": [
+      "n00A"
+    ]
+  },
+  {
+    "id": "I05G",
+    "name": "无相大炮 (反建筑模式)",
+    "goldCost": 13000,
+    "abilities": [
+      "AIpz",
+      "A059"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIx5",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买无相大炮 (G) $13000",
+    "description": "攻击对象: 建筑\n(点击可换成攻击船只模式)\n破坏力: 233 \n范围: 800 \n间隔: 0.8 秒",
+    "soldAt": []
+  },
+  {
+    "id": "I05H",
+    "name": "第一届BOOM海战战队联赛",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "购买 第一届BOOM海战战队联赛",
+    "description": "参赛队伍：\n\nEX联合战队、ERG战队、DPG战队、饮料军团、Meking战队、天涯战队、舞月轩",
+    "soldAt": [
+      "h00K"
+    ]
+  },
+  {
+    "id": "I05I",
+    "name": "第二届BOOM海战战队联赛",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "购买 第二届BOOM海战战队联赛",
+    "description": "参赛队伍：\n\nME[king]战队、[H.G]战队、[CZ]战队、[Risker]战队队、特混舰队(SMF)、13-225战队、独宰者、c_herish战队、[E.R.G]新生力量、鬼者TC战队、极限战队、德芙巧克力战队、W^S战队、L-战队、CF乘风战队、恶徒战队、影子战队、《海战_生存》战队、S.H战队、SC战队、BLOOD.血战联盟队",
+    "soldAt": [
+      "h00K"
+    ]
+  },
+  {
+    "id": "I05J",
+    "name": "|cffFF0000真·燃烧弹加榴炮|r",
+    "goldCost": 12000,
+    "abilities": [],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 真·燃烧弹加榴炮 (H) $12000",
+    "description": "攻击对象: 船只、建筑\n特殊武器,只能携带一个\n破坏力: 450 \n范围: 700 \n间隔: 2 秒\n造成范围燃烧，持续5秒，每秒100伤害\n攻击时会暴露使用者\n最终伤害受护甲影响, 但无视船甲减伤",
+    "soldAt": [
+      "n00H"
+    ]
+  },
+  {
+    "id": "I05K",
+    "name": "高能电磁炮",
+    "goldCost": 12000,
+    "abilities": [
+      "A02P",
+      "AIll"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买高能电磁炮 (F) $12000",
+    "description": "攻击对象: 船只、建筑、空中\n顶级\n破坏力: 222 \n射程: 880 \n间隔: 0.8 秒\n具有电击特效 携带后船会自动攻击",
+    "soldAt": []
+  },
+  {
+    "id": "I05L",
+    "name": "飞斧大炮",
+    "goldCost": 470,
+    "abilities": [
+      "A05Q"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买飞斧大炮 (F) $470",
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 12 \n射程: 1100 \n间隔: 0.6 秒",
+    "soldAt": [
+      "n001"
+    ]
+  },
+  {
+    "id": "I05M",
+    "name": "死黑大炮",
+    "goldCost": 11500,
+    "abilities": [
+      "A05R"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买死黑大炮 (G) $11500",
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 107 \n范围: 1100 \n间隔: 0.5 秒\n(来自EX世界的武器)",
+    "soldAt": [
+      "n008"
+    ]
+  },
+  {
+    "id": "I05N",
+    "name": "天星大炮",
+    "goldCost": 5000,
+    "abilities": [
+      "A05W",
+      "A05X"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买天星大炮 (K) $5000",
+    "description": "可升级\n破坏力: 80  攻击对象: 敌方单位\n破坏力: 80  攻击对象: 建筑\n射程: 800 \n间隔: 0.7秒\n同时攻击建筑,单位的二合一特殊武器",
+    "soldAt": [
+      "n00H"
+    ]
+  },
+  {
+    "id": "I05O",
+    "name": "超级天星大炮",
+    "goldCost": 11500,
+    "abilities": [
+      "A060",
+      "A05Z"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买天星大炮 (K) $11500",
+    "description": "顶级\n破坏力: 150  攻击对象: 敌方单位\n破坏力: 150  攻击对象: 建筑\n射程: 800 \n间隔: 0.7秒\n同时攻击建筑,单位的二合一特殊武器",
+    "soldAt": []
+  },
+  {
+    "id": "I05P",
+    "name": "设计图-超级天星大炮",
+    "goldCost": 6500,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 超级天星大炮设计图纸 (F) $6500",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 天星大炮 改造为 超级天星大炮\n\n破坏力: 150  攻击对象: 单位\n破坏力: 150  攻击对象: 建筑\n射程: 800 \n间隔: 0.7秒",
+    "soldAt": [
+      "ncp2"
+    ]
+  },
+  {
+    "id": "I05Q",
+    "name": "第三届BOOM海战战队联赛",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "购买 第三届BOOM海战战队联赛",
+    "description": "参赛队伍：\n\nLCZ战队,  PIMP战队,  SILENT战队,  ERG战队,  AV战队,  WS战队,  CZ战队,  德芙巧克力战队,  NO9战队,  GS战队,  EX[king]战队,  ME[king]战队",
+    "soldAt": [
+      "h00K"
+    ]
+  },
+  {
+    "id": "I05R",
+    "name": "第四届BOOM海战战队联赛",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "购买 第四届BOOM海战战队联赛",
+    "description": "参赛队伍：\n\nU.V战队、 Magic魔术战队、 LCZ战队、 REM战队、诅咒战队、 Rider战队、 [J=X]极限战队",
+    "soldAt": [
+      "h00K"
+    ]
+  },
+  {
+    "id": "I05S",
+    "name": "第五届BOOM海战战队联赛",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "购买 第五届BOOM海战战队联赛",
+    "description": "参赛队伍：\n\n神之战队, 小老虎队, GSNO1战队, T.E战队, 当当大队, 佛魔神仙鬼公会, 禽兽不如战队, 海战拼音班,星河战队, RY战队, Rebirth战队, LK昔日同盟海战, =SEA=海之战队",
+    "soldAt": [
+      "h00K"
+    ]
+  },
+  {
+    "id": "I05T",
+    "name": "第六届BOOM海战战队联赛",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "购买 第六届BOOM海战战队联赛",
+    "description": "参赛队伍：\n\n魔术战队, Rider圣骑, 终极战队, 海客炎龙,海客枭鹰, 黑人1队,黑人2队, FreedomCorps,无字军蛋疼队,无字军酱油队, GM战队,宣战战队, lost战队, 神之战队",
+    "soldAt": [
+      "h00K"
+    ]
+  },
+  {
+    "id": "I05U",
+    "name": "船只特殊能力-重设技能",
+    "goldCost": 2,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 30,
+    "tip": "重设技能",
+    "description": "船只特殊能力\n适用船型:所有\n\n重新分配船只的技能",
+    "soldAt": [
+      "n00Y"
+    ]
+  },
+  {
+    "id": "I05V",
+    "name": "第七届BOOM海战战队联赛",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "购买 第七届BOOM海战战队联赛",
+    "description": "参赛队伍：\n\n老师学园、船长之家梦想队、船长之家电信网通特混队、海客炎龙队、海客鹰队、Magic魔术、Fraternal海战盟、晓战队、天空战队、恋空战队、荣耀军团、横扫BOOM大队",
+    "soldAt": [
+      "h00K"
+    ]
+  },
+  {
+    "id": "I05W",
+    "name": "|cffFF00FF真巨石大炮|r",
+    "goldCost": 16000,
+    "abilities": [
+      "A06S",
+      "A06R"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A06S",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买真巨石大炮 (A) $16000",
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 130 \n范围: 900 \n间隔: 0.5 秒\n点击可对指定目标投出巨石,造成200伤害并砸晕2秒\n这门炮由地精打造,注入了古代泰坦的神力",
+    "soldAt": []
+  },
+  {
+    "id": "I05X",
+    "name": "|cffFF00FF土豪大炮|r",
+    "goldCost": 16000,
+    "abilities": [
+      "A05I"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIx5",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买土豪大炮 (A) $16000",
+    "description": "攻击对象: 船只、建筑\n\n破坏力: 160 \n范围: 700 \n间隔: 0.4 秒\n一般人买不起啊买不起, 想和我做朋友吗?",
+    "soldAt": []
+  },
+  {
+    "id": "I05Z",
+    "name": "工程师",
+    "goldCost": 4500,
+    "abilities": [
+      "A00L",
+      "A03T"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A00K",
+    "stockMax": 1,
+    "stockRegen": 50,
+    "tip": "购买 工程师 (B) $4500",
+    "description": "点击使用\n万能的工程师既能每秒自动修复，也可每过一段时间大量修复受损船体\n\n- 自动修复：30/秒\n- 生命恢复：1500\n- 冷却时间：80 秒",
+    "soldAt": [
+      "h01T",
+      "n00A"
+    ]
+  },
+  {
+    "id": "I060",
+    "name": "书攻击力+50",
+    "goldCost": 200,
+    "abilities": [
+      "A06Z"
+    ],
+    "itemClass": "PowerUp",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AImi",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买攻击力+50",
+    "description": "增加攻击力+50",
+    "soldAt": []
+  },
+  {
+    "id": "I061",
+    "name": "书攻击力+100",
+    "goldCost": 200,
+    "abilities": [
+      "AIaa"
+    ],
+    "itemClass": "PowerUp",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AImi",
+    "stockMax": 1,
+    "stockRegen": 120,
+    "tip": "购买攻击力+100",
+    "description": "增加攻击力+100",
+    "soldAt": []
+  },
+  {
+    "id": "I062",
+    "name": "|cffFFcc99一个月VIP奖励|r",
+    "goldCost": 100,
+    "abilities": [
+      "AImh"
+    ],
+    "itemClass": "Permanent",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AItm",
+    "stockMax": 1,
+    "stockRegen": 210,
+    "tip": "一个月VIP奖励",
+    "description": "1.船只携带本物品状态下截图.\n2.游戏结束后注意保存游戏录像.\n3.将截图和录像发至海战官方论坛领奖\n活动截止日期： 2014-9-1\n(截图完成后点击使用本物品增加船只血量)",
+    "soldAt": []
+  },
+  {
+    "id": "I063",
+    "name": "|cffFFcc99三个月VIP奖励|r",
+    "goldCost": 100,
+    "abilities": [
+      "AImh"
+    ],
+    "itemClass": "Permanent",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AItm",
+    "stockMax": 1,
+    "stockRegen": 210,
+    "tip": "三个月VIP奖励",
+    "description": "1.船只携带本物品状态下截图.\n2.游戏结束后注意保存游戏录像.\n3.将截图和录像发至海战官方论坛领奖\n活动截止日期： 2014-9-1\n(截图完成后点击使用本物品增加船只血量)",
+    "soldAt": []
+  },
+  {
+    "id": "I064",
+    "name": "海绵宝宝炮",
+    "goldCost": 5000,
+    "abilities": [
+      "A075",
+      "A072"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A03K",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买海绵宝宝炮 (F) $5000",
+    "description": "可升级\n攻击对象: 船只、建筑、空中\n(点击可换成修复友军模式)\n破坏力: 48\n范围: 1200 \n间隔: 0.6 秒\n由异世界的炮姐设计",
+    "soldAt": [
+      "n00A"
+    ]
+  },
+  {
+    "id": "I065",
+    "name": "22222",
+    "goldCost": 12000,
+    "abilities": [
+      "A054"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买雷神大炮 (H) $12000",
+    "description": "攻击对象: 船只\n顶级\n破坏力: 300 \n射程: 1000 \n间隔: 1.3 秒",
+    "soldAt": []
+  },
+  {
+    "id": "I066",
+    "name": "33333",
+    "goldCost": 12000,
+    "abilities": [
+      "A054"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买雷神大炮 (H) $12000",
+    "description": "攻击对象: 船只\n顶级\n破坏力: 300 \n射程: 1000 \n间隔: 1.3 秒",
+    "soldAt": []
+  },
+  {
+    "id": "I067",
+    "name": "海绵宝宝炮B",
+    "goldCost": 5000,
+    "abilities": [
+      "A075",
+      "A073"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A03K",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买海绵宝宝炮 (F) $5000",
+    "description": "修复对象: 友军单位\n(点击可换成战斗攻击模式)\n修复力: 45\n范围: 800 \n间隔: 0.6 秒\n由异世界的炮姐设计",
+    "soldAt": []
+  },
+  {
+    "id": "I068",
+    "name": "|cffFF0000霹雳大炮|r",
+    "goldCost": 13000,
+    "abilities": [],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买霹雳大炮 (G) $13000",
+    "description": "攻击对象: 船只、建筑\n特殊武器,只能携带一个\n破坏力: 240 \n射程: 900 \n间隔: 1.3 秒\n命中目标后会弹射,最多攻击3个目标\n攻击时会暴露使用者\n最终伤害受护甲影响, 但无视船甲减伤",
+    "soldAt": [
+      "n00H"
+    ]
+  },
+  {
+    "id": "I069",
+    "name": "红箭大炮",
+    "goldCost": 4800,
+    "abilities": [
+      "A076",
+      "A078"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买红箭大炮 (E) $4800",
+    "description": "可升级\n攻击对象: 船只、建筑  破坏力: 57 \n射程:  700  每秒破坏力: 115\n射程: 1300  每秒破坏力: 63\n距离越近,攻击间隔越短,每秒破坏越强",
+    "soldAt": []
+  },
+  {
+    "id": "I06A",
+    "name": "真红之箭",
+    "goldCost": 12000,
+    "abilities": [
+      "A07A",
+      "A07B"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买真红之箭 (E) $12000",
+    "description": "顶级\n攻击对象: 船只、建筑  破坏力: 125 \n射程:  700  每秒破坏力: 253\n射程: 1300  每秒破坏力: 139\n距离越近,攻击间隔越短,每秒破坏越强",
+    "soldAt": []
+  },
+  {
+    "id": "I06B",
+    "name": "设计图-真红之箭",
+    "goldCost": 7200,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 真红之箭设计图纸 (J) $7200",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 红箭 改造为 真红之箭\n\n攻击对象: 单位、建筑\n破坏力: 由 57 提高为 125",
+    "soldAt": [
+      "ncp2"
+    ]
+  },
+  {
+    "id": "I06C",
+    "name": "|cffFFFF00晶体装甲船体|r",
+    "goldCost": 4000,
+    "abilities": [
+      "A08H",
+      "A07G"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": false,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 30,
+    "tip": "购买晶体装甲船体 (L) $4000",
+    "description": "只能带一个船甲\n船体装备后每过1分钟增加生命 10\n换船后重新生长\n\n- 增加生命：200\n- 每分钟增加生命：10\n- 损伤降低：30%",
+    "soldAt": [
+      "n00A"
+    ]
+  },
+  {
+    "id": "I06D",
+    "name": "岸防哨塔",
+    "goldCost": 2500,
+    "abilities": [
+      "AIbt"
+    ],
+    "itemClass": "Permanent",
+    "uses": 1,
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIbl",
+    "stockMax": 1,
+    "stockRegen": 300,
+    "tip": "购买岸防哨塔  $2500",
+    "description": "在指定的区域建造一座岸防哨塔",
+    "soldAt": [
+      "h01T"
+    ]
+  },
+  {
+    "id": "I06E",
+    "name": "中型水雷发生器",
+    "goldCost": 1700,
+    "abilities": [
+      "A01W"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A01W",
+    "stockMax": 1,
+    "stockRegen": 300,
+    "tip": "购买中型水雷发生器 (L) $1700",
+    "description": "水雷爆炸对一定半径内的敌人单位造成伤害\n使用次数: 无限\n冷却时间: 40秒\n中心范围: 250,单体伤害: 500\n波及范围: 450,单体伤害: 200",
+    "soldAt": []
+  },
+  {
+    "id": "I06F",
+    "name": "火油罐-小",
+    "goldCost": 800,
+    "abilities": [
+      "A07Y"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A07C",
+    "stockMax": 1,
+    "stockRegen": 60,
+    "tip": "购买火油罐-小 (K) $800",
+    "description": "使用次数: 无限\n作用范围: 400\n每秒威力: 34\n持续时间: 8秒\n冷却时间: 40秒",
+    "soldAt": []
+  },
+  {
+    "id": "I06G",
+    "name": "火油罐-大",
+    "goldCost": 6000,
+    "abilities": [
+      "A080"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": true,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A07C",
+    "stockMax": 1,
+    "stockRegen": 600,
+    "tip": "购买火油罐-大 (K) $6000",
+    "description": "使用次数: 无限\n作用范围: 400\n每秒威力: 140\n持续时间: 8秒\n冷却时间: 40秒",
+    "soldAt": []
+  },
+  {
+    "id": "I06H",
+    "name": "船首像-雅典娜女神2",
+    "goldCost": 2900,
+    "abilities": [
+      "A07Q",
+      "Aoar",
+      "A00I"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "AIx5",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买雅典娜女神船首像 (D) $2900",
+    "description": "只能带一个船首相\n受到祝福的神像\n(点击可换成加速模式)\n\n900范围内友军单位恢复生命每秒10点\n恢复耐久: 15/秒",
+    "soldAt": []
+  },
+  {
+    "id": "I06I",
+    "name": "合成图-红箭大炮",
+    "goldCost": 3495,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 红箭大炮合成图纸 (F) $3495",
+    "description": "物品合成图纸\n\n使用本图纸可合成：红箭大炮\n所需物品：冲天炮、小箭、小炮 、捕鲸炮\n攻击对象: 船只、建筑  破坏力: 57 \n射程:  700  每秒破坏力: 115\n射程: 1300  每秒破坏力: 63\n距离越近,攻击间隔越短,每秒破坏越强",
+    "soldAt": [
+      "n011",
+      "n013"
+    ]
+  },
+  {
+    "id": "I06J",
+    "name": "大大海绵宝宝炮",
+    "goldCost": 12000,
+    "abilities": [
+      "A075",
+      "A07S"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A03K",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买大大海绵宝宝炮 (F) $12000",
+    "description": "顶级\n攻击对象: 船只、建筑、空中\n(点击可换成修复友军模式)\n破坏力: 95\n范围: 1200 \n间隔: 0.6 秒\n由异世界的炮姐设计",
+    "soldAt": []
+  },
+  {
+    "id": "I06K",
+    "name": "大大海绵宝宝炮B",
+    "goldCost": 12000,
+    "abilities": [
+      "A075",
+      "A07R"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "A03K",
+    "stockMax": 1,
+    "stockRegen": 10,
+    "tip": "购买大大海绵宝宝炮 (F) $12000",
+    "description": "顶级\n修复对象: 友军单位\n(点击可换成战斗攻击模式)\n修复力: 90\n范围: 800 \n间隔: 0.6 秒\n由异世界的炮姐设计",
+    "soldAt": []
+  },
+  {
+    "id": "I06L",
+    "name": "设计图-大大海绵宝宝炮",
+    "goldCost": 7000,
+    "abilities": [],
+    "itemClass": "PowerUp",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 2,
+    "tip": "购买 大大海绵宝宝炮设计图纸 (F) $7000",
+    "description": "物品升级设计图纸\n\n使用本图纸可以将 海绵大炮 改造为 大大海绵宝宝炮\n\n攻击对象: 单位、建筑、空中\n破坏力: 由 48 提高为 95",
+    "soldAt": [
+      "n00B",
+      "n00C"
+    ]
+  },
+  {
+    "id": "I06M",
+    "name": "|cffFF9999一顶草帽|r",
+    "goldCost": 500,
+    "abilities": [
+      "AImh"
+    ],
+    "itemClass": "Permanent",
+    "perishable": true,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AItm",
+    "stockMax": 1,
+    "stockRegen": 3600,
+    "tip": "一顶草帽",
+    "description": "一顶普通的草帽",
+    "soldAt": []
+  },
+  {
+    "id": "I06N",
+    "name": "|cffFF9999红发的草帽|r",
+    "goldCost": 500,
+    "abilities": [
+      "AImh"
+    ],
+    "itemClass": "Permanent",
+    "perishable": true,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AItm",
+    "stockMax": 1,
+    "stockRegen": 3600,
+    "tip": "一顶草帽",
+    "description": "据说是红发戴过的草帽。戴上它头发会变红吗？",
+    "soldAt": []
+  },
+  {
+    "id": "I06P",
+    "name": "吸血物品",
+    "goldCost": 2000,
+    "abilities": [
+      "A00F"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 20,
+    "tip": "购买吸血物品 (J) $2000",
+    "description": "此物品效果无法累加\n可以在对敌人造成伤害的同时恢复自身生命\n\n耐久增加: 350 \n生命恢复: 50%",
+    "soldAt": []
+  },
+  {
+    "id": "I06Q",
+    "name": "|cffFF00FF炮姐大炮|r",
+    "goldCost": 20000,
+    "abilities": [
+      "A08D"
+    ],
+    "itemClass": "Artifact",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "AIx5",
+    "stockMax": 1,
+    "stockRegen": 5,
+    "tip": "购买炮姐大炮 (A) $20000",
+    "description": "攻击对象: 船只、建筑、空中\n\n破坏力: 200 \n范围: 1200 \n间隔: 0.5 秒\n由炮姐设计制造的最终兵器",
+    "soldAt": [
+      "h01T"
+    ]
+  },
+  {
+    "id": "I06R",
+    "name": "第八届BOOM海战战队联赛",
+    "goldCost": 0,
+    "abilities": [],
+    "itemClass": "Campaign",
+    "perishable": false,
+    "usable": false,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "tip": "购买 第八届BOOM海战战队联赛",
+    "description": "参赛队伍：\n\n战神1队、XX战队、十字真神队、战神2队、海战村战队、黑人集中营、海神队、古董队",
+    "soldAt": [
+      "h00K"
+    ]
+  },
+  {
+    "id": "I06S",
+    "name": "|cffFFFF00能量反噬器|r",
+    "goldCost": 5400,
+    "abilities": [
+      "A08G",
+      "A044"
+    ],
+    "itemClass": "Purchasable",
+    "perishable": false,
+    "usable": true,
+    "droppable": true,
+    "cooldownGroup": "Aslo",
+    "stockMax": 1,
+    "stockRegen": 30,
+    "tip": "购买能量反噬器 (D) $5400",
+    "description": "具有独特效果\n启动后一段时间内让攻击自己的单位受到同等伤害\n\n- 增加生命：1000 \n- 持续时间：10 秒\n- 冷却时间：40 秒",
+    "soldAt": []
+  }
+]
