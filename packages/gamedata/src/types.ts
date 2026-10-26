@@ -219,7 +219,10 @@ export interface Terrain {
 }
 
 export interface PathingInfo {
-  /** pathing.bin holds `width × height` bytes, 32 world units per cell, row-major from the top-left. */
+  /**
+   * pathing.bin holds `width × height` bytes, 32 world units per cell, row-major from the
+   * bottom-left, aligned with the terrain origin. Ships can sail where `noWater` is clear.
+   */
   width: number;
   height: number;
   cellSize: number;

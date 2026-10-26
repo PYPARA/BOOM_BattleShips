@@ -5,18 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BOOM 海战</title>
     <style>
-      html, body { margin: 0; height: 100%; background: #0b1d2a; overflow: hidden; }
+      html, body { margin: 0; height: 100%; background: #0b1d2a; overflow: hidden; user-select: none; }
       #app { position: fixed; inset: 0; }
-      #hud {
-        position: fixed; left: 12px; top: 10px;
-        font: 13px/1.5 system-ui, sans-serif; color: #e6f1f7;
-        text-shadow: 0 1px 2px #000a; pointer-events: none;
+      .panel {
+        position: fixed; font: 13px/1.5 system-ui, sans-serif; color: #e6f1f7;
+        text-shadow: 0 1px 2px #000a; pointer-events: none; white-space: pre;
+      }
+      #hud { left: 12px; top: 10px; }
+      #help { right: 12px; top: 10px; text-align: right; opacity: 0.85; }
+      #info { left: 252px; bottom: 16px; }
+      .minimap {
+        position: fixed; left: 12px; bottom: 12px; width: 220px; height: 220px;
+        border: 2px solid #0008; border-radius: 4px; cursor: pointer;
+      }
+      .selection-box {
+        position: fixed; display: none; pointer-events: none;
+        border: 1px solid #7dff8a; background: #7dff8a22;
       }
     </style>
   </head>
   <body>
     <div id="app"></div>
-    <div id="hud"></div>
+    <div id="hud" class="panel"></div>
+    <div id="help" class="panel">左键选择 / 拖动框选 · 右键航行
+方向键、WASD、屏幕边缘或中键拖动平移 · 滚轮缩放
+空格或 H 回到所选船只 · 点击小地图跳转</div>
+    <div id="info" class="panel"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

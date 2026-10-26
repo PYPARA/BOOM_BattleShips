@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@boom/gamedata": "workspace:*",
+    "@boom/sim": "workspace:*",
     "three": "^0.186.1"
   },
   "devDependencies": {

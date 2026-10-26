@@ -4,8 +4,8 @@
     {
       "name": "client",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "@boom/client", "dev"],
-      "port": 5173
+      "runtimeArgs": ["--filter", "@boom/client", "dev", "--port", "5180"],
+      "port": 5180
     }
   ]
 }
