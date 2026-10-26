@@ -1,5 +1,5 @@
 // Builds a World from the extracted game data.
-import type { Item, MapInfo, PathingInfo, Ship, Terrain, Unit, Weapon } from '@boom/gamedata';
+import type { Ability, Item, MapInfo, PathingInfo, Ship, Terrain, Unit, Weapon } from '@boom/gamedata';
 import { Match, type GameMode } from './match.ts';
 import { PathGrid } from './pathing.ts';
 import { World } from './world.ts';
@@ -9,6 +9,7 @@ export interface GameData {
   units: Unit[];
   weapons: Weapon[];
   items: Item[];
+  abilities?: Ability[];
   misc?: Record<string, unknown>;
   map: MapInfo;
   terrain: Pick<Terrain, 'originX' | 'originY'>;

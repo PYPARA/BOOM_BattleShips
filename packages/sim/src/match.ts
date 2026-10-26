@@ -2,6 +2,7 @@
 // map script): structures, NPC fleet waves on two lanes, gold, bounties, shops, respawn and
 // victory. Section numbers below refer to that document.
 import type { Item, MapInfo, Placement, Unit } from '@boom/gamedata';
+import { gainXp, HERO_XP_RANGE, killXp, newHero, type HeroState } from './heroes.ts';
 import { distance, type Vec2 } from './math.ts';
 import { teamOfPlayer, TICK_RATE, type Team, type UnitEntity, type World } from './world.ts';
 
@@ -70,6 +71,8 @@ export interface PlayerState {
   respawnAt?: number;
   /** Tick when the post-respawn invulnerability ends. */
   shieldUntil?: number;
+  /** Experience and skills; kept across deaths, skills reset when changing ships. */
+  hero: HeroState;
 }
 
 export interface Shop {
@@ -88,7 +91,10 @@ export type MatchCommand =
   | { kind: 'buyItem'; player: number; itemId: string }
   | { kind: 'sellItem'; player: number; slot: number }
   /** §6 the `-out` chat command: leave the repair station early. */
-  | { kind: 'leaveRepair'; player: number };
+  | { kind: 'leaveRepair'; player: number }
+  | { kind: 'learn'; player: number; abilityId: string }
+  | { kind: 'cast'; player: number; abilityId: string; unitId?: number; point?: Vec2 }
+  | { kind: 'useItem'; player: number; slot: number; unitId?: number; point?: Vec2 };
 
 export type MatchEvent =
   | { kind: 'gold'; player: number; amount: number; reason: string; x?: number; y?: number }
@@ -97,7 +103,9 @@ export type MatchEvent =
   | { kind: 'death'; unitId: number; typeId: string; owner: number; x: number; y: number }
   | { kind: 'victory'; winner: Team }
   | { kind: 'repair'; player: number; active: boolean }
-  | { kind: 'westChannel'; open: boolean };
+  | { kind: 'westChannel'; open: boolean }
+  | { kind: 'levelUp'; player: number; level: number }
+  | { kind: 'cast'; casterId: number; abilityId: string; x: number; y: number };
 
 export interface MatchData {
   units: Unit[];
@@ -142,7 +150,7 @@ export class Match {
       const start = data.map.players.find((p) => p.index === index);
       this.players.set(index, {
         index, team: teamOfPlayer(index), gold: STARTING_GOLD, kills: 0, deaths: 0, deathStreak: 0,
-        shipTypeId: 'H000', items: [],
+        shipTypeId: 'H000', items: [], hero: newHero(),
       });
       const spot = start?.startX !== undefined ? { x: start.startX, y: start.startY! } : this.rect(RESPAWN_RECTS[teamOfPlayer(index) as 'south' | 'north']);
       this.spawnPlayerShip(index, spot);
@@ -151,7 +159,7 @@ export class Match {
   }
 
   private fleetState(team: 'south' | 'north'): PlayerState {
-    return { index: FLEET[team], team, gold: 0, kills: 0, deaths: 0, deathStreak: 0, shipTypeId: '', items: [] };
+    return { index: FLEET[team], team, gold: 0, kills: 0, deaths: 0, deathStreak: 0, shipTypeId: '', items: [], hero: newHero() };
   }
 
   private rect(name: string): Vec2 {
@@ -221,6 +229,11 @@ export class Match {
   private consumeWorldEvents(): void {
     for (const e of this.world.events) {
       if (e.kind === 'hit') this.noteDamage(e.targetId, e.sourceOwner);
+      if (e.kind === 'cast') this.events.push(e);
+      if (e.kind === 'itemUsed') {
+        const p = [...this.players.values()].find((q) => q.shipId === e.unitId);
+        if (p) p.items = [...(this.world.ships.get(e.unitId)?.items ?? [])];
+      }
       if (e.kind === 'death') {
         this.events.push({ kind: 'death', unitId: e.unit.id, typeId: e.unit.typeId, owner: e.unit.owner, x: e.unit.x, y: e.unit.y });
         this.onDeath(e.unit, e.killerOwner, e.killerId);
@@ -327,8 +340,8 @@ export class Match {
       victim.shipId = undefined;
       victim.deaths++;
       victim.deathStreak++;
-      // §6: respawn after level × 2 + 5 + 0..3 seconds (all ships are level 1 until M3).
-      victim.respawnAt = this.world.tick + Math.round((1 * 2 + 5 + Math.floor(this.world.random() * 4)) * TICK_RATE);
+      // §6: respawn after level × 2 + 5 + 0..3 seconds.
+      victim.respawnAt = this.world.tick + Math.round((victim.hero.level * 2 + 5 + Math.floor(this.world.random() * 4)) * TICK_RATE);
       // §3 PathLeft_On: a side with every player down gets the west channel for 120 s.
       const side = this.teamPlayers(victim.team);
       if (this.mode === 'fast' && side.length > 0 && side.every((p) => p.shipId === undefined)) this.setWestChannel(true);
@@ -352,11 +365,25 @@ export class Match {
       }
     }
     this.damagedBy.delete(unit.id);
+    if (killer && killer.team !== unit.team) this.shareXp(unit);
 
     if (unit.kind === 'structure') {
       if (unit.typeId === 'n003' && this.superShipAt === undefined) this.superShipAt = this.world.tick + 300 * TICK_RATE;
       if (unit.handle === BASES.south) this.win('north');
       if (unit.handle === BASES.north) this.win('south');
+    }
+  }
+
+  /** Allied ships near a dead enemy split its experience; fast mode grants 150%. */
+  private shareXp(dead: UnitEntity): void {
+    const level = dead.hero?.level ?? this.units.get(dead.typeId)?.level ?? 1;
+    const total = killXp(dead.isHero, level) * (this.mode === 'fast' ? 1.5 : 1);
+    const earners = this.teamPlayers(dead.team === 'south' ? 'north' : 'south')
+      .map((p) => ({ p, ship: this.world.ships.get(p.shipId ?? -1) }))
+      .filter((e) => e.ship && distance(e.ship, dead) <= HERO_XP_RANGE);
+    for (const { p } of earners) {
+      const gained = gainXp(p.hero, total / earners.length);
+      if (gained > 0) this.events.push({ kind: 'levelUp', player: p.index, level: p.hero.level });
     }
   }
 
@@ -378,31 +405,22 @@ export class Match {
     const levels = to - from;
     if (levels <= 0) return;
     if (u.upgrades.includes('R001') || u.upgrades.includes('R005')) u.bonusDamage += 10 * levels;
-    if (u.upgrades.includes('R003')) {
-      const base = this.units.get(u.typeId)?.hp ?? u.maxHp;
-      const add = base * 0.2 * levels;
-      u.maxHp += add;
-      u.hp += add;
-    }
-    if (u.upgrades.includes('R004')) {
-      const speedLevels = Math.min(to, TECH_SPEED_MAX) - Math.min(from, TECH_SPEED_MAX);
-      u.maxSpeed += 20 * speedLevels;
-    }
+    if (u.upgrades.includes('R003')) u.base.maxHp += (this.units.get(u.typeId)?.hp ?? u.base.maxHp) * 0.2 * levels;
+    if (u.upgrades.includes('R004')) u.base.speed += 20 * (Math.min(to, TECH_SPEED_MAX) - Math.min(from, TECH_SPEED_MAX));
+    this.world.abilities.refreshStats(u);
   }
 
   private levelUpNpc(u: UnitEntity): void {
-    if (u.kind !== 'structure') {
-      u.maxHp += NPC_LEVEL_UP.hp;
-      u.hp += NPC_LEVEL_UP.hp;
-    }
+    if (u.kind !== 'structure') u.base.maxHp += NPC_LEVEL_UP.hp;
     if (u.critChance === 0) {
       u.critChance = NPC_LEVEL_UP.critChance;
       u.critMultiplier = NPC_LEVEL_UP.critMultiplier;
-    } else if (u.regen < NPC_LEVEL_UP.regen) {
-      u.regen += NPC_LEVEL_UP.regen;
+    } else if (u.base.regen < NPC_LEVEL_UP.regen) {
+      u.base.regen += NPC_LEVEL_UP.regen;
     } else if (u.attackSpeedBonus === 0) {
       u.attackSpeedBonus = NPC_LEVEL_UP.attackSpeed;
     }
+    this.world.abilities.refreshStats(u);
   }
 
   private setWestChannel(open: boolean): void {
@@ -465,6 +483,7 @@ export class Match {
     const radius = this.units.get(p.shipTypeId)?.collision ?? 16;
     const spot = this.world.grid.nearestSailable(at.x, at.y, radius) ?? at;
     const ship = this.world.spawnShip(p.shipTypeId, index, spot.x, spot.y, p.team === 'south' ? Math.PI / 2 : -Math.PI / 2);
+    ship.hero = p.hero;
     this.world.setItems(ship, p.items);
     p.shipId = ship.id;
     return ship;
@@ -509,10 +528,27 @@ export class Match {
     if (base) this.world.attackMove(ship, [{ x: base.x, y: base.y }]);
   }
 
+  /** The usable ability of an item (blink, repair kit), if it has one. */
+  activeItemAbility(itemId: string | undefined): string | undefined {
+    return this.items.get(itemId ?? '')?.abilities.find((id) => this.world.abilities.targeting(id) !== 'passive');
+  }
+
   private apply(c: MatchCommand): void {
     const p = this.players.get(c.player);
     if (!p) return;
     const ship = this.world.ships.get(p.shipId ?? -1);
+    if (c.kind === 'learn') {
+      if (!ship || !this.world.abilities.learn(ship, c.abilityId)) this.deny(c.player, '现在还不能学习这个技能');
+      return;
+    }
+    if (c.kind === 'cast' || c.kind === 'useItem') {
+      if (!ship) return;
+      const abilityId = c.kind === 'cast' ? c.abilityId : this.activeItemAbility(p.items[c.slot]);
+      if (!abilityId) return this.deny(c.player, '这件物品不能主动使用');
+      const reason = this.world.abilities.cast(ship, abilityId, { unitId: c.unitId, point: c.point }, c.kind === 'useItem' ? c.slot : undefined);
+      if (reason) this.deny(c.player, reason);
+      return;
+    }
     if (c.kind === 'leaveRepair') {
       const side = p.team as 'south' | 'north';
       if (ship && this.repairing[side] === ship.id) this.releaseFromRepair(side);
@@ -529,6 +565,9 @@ export class Match {
       if (p.gold + refund < price) return this.deny(c.player, '金钱不足');
       p.gold += refund - price;
       p.shipTypeId = c.typeId;
+      // A new hull keeps the captain's experience but its skills are learned afresh.
+      p.hero.learned = {};
+      p.hero.readyAt = {};
       const at = { x: ship.x, y: ship.y };
       this.world.remove(ship.id);
       this.spawnPlayerShip(p.index, at);

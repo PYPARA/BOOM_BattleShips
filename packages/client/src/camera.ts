@@ -11,7 +11,7 @@ const PAN_SPEED = 2600;
 export interface MapBounds { minX: number; minY: number; maxX: number; maxY: number }
 
 /**
- * Warcraft-style RTS camera: fixed pitch, wheel zoom, pan with screen edges, arrow/WASD keys
+ * Warcraft-style RTS camera: fixed pitch, wheel zoom, pan with screen edges, arrow keys
  * or middle-mouse drag. `target` is the sea-level point the camera looks at (three.js space).
  */
 export class RtsCamera {
@@ -53,10 +53,11 @@ export class RtsCamera {
 
   update(dt: number): void {
     let dx = 0, dz = 0;
-    if (this.keys.has('arrowleft') || this.keys.has('a')) dx -= 1;
-    if (this.keys.has('arrowright') || this.keys.has('d')) dx += 1;
-    if (this.keys.has('arrowup') || this.keys.has('w')) dz -= 1;
-    if (this.keys.has('arrowdown') || this.keys.has('s')) dz += 1;
+    // Letters are skill hotkeys (the map's own, e.g. F for 冻结), so only arrows pan.
+    if (this.keys.has('arrowleft')) dx -= 1;
+    if (this.keys.has('arrowright')) dx += 1;
+    if (this.keys.has('arrowup')) dz -= 1;
+    if (this.keys.has('arrowdown')) dz += 1;
     if (this.mouse && document.hasFocus()) {
       if (this.mouse.x <= EDGE_PX) dx -= 1;
       if (this.mouse.x >= window.innerWidth - EDGE_PX) dx += 1;

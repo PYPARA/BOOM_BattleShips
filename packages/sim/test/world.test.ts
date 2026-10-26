@@ -10,6 +10,7 @@ const data: GameData = {
   units: json('units.json'),
   weapons: json('weapons.json'),
   items: json('items.json'),
+  abilities: json('abilities.json'),
   misc: json('misc.json'),
   map: json('map.json'),
   terrain: json('terrain.json'),

@@ -2,8 +2,11 @@
 // projectiles and damage. Pure TypeScript with no rendering dependencies, so it also runs
 // headless (tests, AI self-play, a future server). Game rules (waves, gold, shops, victory)
 // live in match.ts on top of this.
-import type { Ship, Unit, Weapon } from '@boom/gamedata';
+import type { Ability, Item, Ship, Unit, Weapon } from '@boom/gamedata';
+import { AbilitySystem } from './abilities.ts';
+import { dropExpired, hasBuff, strongest, type Buff } from './buffs.ts';
 import { DamageTable, parseTargets, type TargetFilter } from './combat.ts';
+import type { HeroState } from './heroes.ts';
 import { createRng, distance, turnToward, wrapAngle, type Vec2 } from './math.ts';
 import type { PathGrid } from './pathing.ts';
 
@@ -110,6 +113,17 @@ export interface UnitEntity {
   invulnerable: boolean;
   /** Cannot move or fight (ships being repaired). */
   frozen: boolean;
+  /** Player ships: experience, learned skills, cooldowns. */
+  hero?: HeroState;
+  buffs: Buff[];
+  /** Stats before items, passives and buffs; refreshStats derives the live ones from them. */
+  base: { maxHp: number; regen: number; speed: number; armor: number };
+  /** Share of weapon and attack damage taken (船甲 hulls lower it). */
+  damageTaken: number;
+  /** A cast waiting for the caster to come into range. */
+  pendingCast?: { abilityId: string; targetId?: number; point?: Vec2; itemSlot?: number };
+  /** Summons and mines disappear at this tick. */
+  expiresAt?: number;
   /** State at the start of the current tick, for render interpolation. */
   prevX: number;
   prevY: number;
@@ -135,7 +149,10 @@ export interface Projectile {
 export type WorldEvent =
   | { kind: 'shot'; projectileId: number; sourceId: number; targetId: number }
   | { kind: 'hit'; targetId: number; sourceOwner: number; damage: number }
-  | { kind: 'death'; unit: UnitEntity; killerOwner: number; killerId: number };
+  | { kind: 'death'; unit: UnitEntity; killerOwner: number; killerId: number }
+  | { kind: 'cast'; casterId: number; abilityId: string; x: number; y: number }
+  /** A consumable left the inventory; match.ts mirrors it into the player's item list. */
+  | { kind: 'itemUsed'; unitId: number; slot: number };
 
 export type Command =
   | { kind: 'move'; unitIds: number[]; x: number; y: number }
@@ -145,6 +162,8 @@ export interface WorldData {
   ships: Ship[];
   units: Unit[];
   weapons: Weapon[];
+  abilities?: Ability[];
+  items?: Item[];
   misc?: Record<string, unknown>;
 }
 
@@ -159,6 +178,7 @@ export class World {
   readonly grid: PathGrid;
   readonly damage: DamageTable;
   readonly random: () => number;
+  readonly abilities: AbilitySystem;
   private readonly shipTypes: Map<string, Ship>;
   private readonly unitTypes: Map<string, Unit>;
   private readonly weaponTypes: Map<string, Weapon>;
@@ -172,6 +192,11 @@ export class World {
     this.weaponTypes = new Map(data.weapons.map((w) => [w.id, w]));
     this.damage = new DamageTable(data.misc);
     this.random = createRng(seed);
+    this.abilities = new AbilitySystem(this, data.abilities ?? [], data.items ?? [], data.misc ?? {});
+  }
+
+  unitType(typeId: string): Unit | undefined {
+    return this.unitTypes.get(typeId);
   }
 
   unit(id: number | undefined): UnitEntity | undefined {
@@ -202,6 +227,7 @@ export class World {
     entity.pathRadius = unit.collision ?? 16;
     entity.bodyRadius = ship ? BODY_RADIUS[ship.size] ?? 55 : Math.max(30, (unit.collision ?? 16) * 2);
     this.ships.set(entity.id, entity);
+    this.abilities.refreshStats(entity);
     return entity;
   }
 
@@ -226,6 +252,7 @@ export class World {
       })),
       weapons: [], items: [], upgrades: unit.upgrades ?? [],
       bonusDamage: 0, attackSpeedBonus: 0, critChance: 0, critMultiplier: 1, invulnerable: false, frozen: false,
+      buffs: [], base: { maxHp: unit.hp, regen: unit.regenHp, speed: unit.speed, armor: unit.armor }, damageTaken: 1,
       prevX: x, prevY: y, prevFacing: facing,
     };
   }
@@ -238,6 +265,7 @@ export class World {
       if (!w) return [];
       return [{ itemId, damage: Number(w.damage) || 0, range: w.range, cooldown: Math.max(0.1, w.cooldown), filter: parseTargets(w.targets), readyAt: 0 }];
     });
+    this.abilities.refreshStats(ship);
   }
 
   remove(id: number): void {
@@ -265,17 +293,25 @@ export class World {
       p.prevX = p.x; p.prevY = p.y;
     }
     for (const command of this.pending.splice(0)) this.apply(command);
-    for (const u of this.ships.values()) if (!u.frozen) this.think(u);
-    for (const u of this.ships.values()) if (!u.frozen) this.move(u); else u.speed = 0;
+    this.abilities.tick();
+    for (const u of this.ships.values()) if (!u.frozen && !hasBuff(u, 'stun')) this.think(u);
+    for (const u of this.ships.values()) {
+      if (u.frozen || hasBuff(u, 'stun') || hasBuff(u, 'root')) u.speed = 0; else this.move(u);
+    }
     this.separate();
     for (const u of [...this.allUnits()]) this.fight(u);
     this.moveProjectiles();
-    for (const u of this.allUnits()) u.hp = Math.min(u.maxHp, u.hp + u.regen * TICK_DT);
+    for (const u of this.allUnits()) {
+      const heal = u.regen + strongest(u, 'hot');
+      if (u.hp > 0) u.hp = Math.min(u.maxHp, u.hp + heal * TICK_DT);
+      dropExpired(u, this.tick);
+    }
     this.tick++;
   }
 
   private apply(command: Command): void {
     const ships = command.unitIds.map((id) => this.ships.get(id)).filter((s): s is UnitEntity => s !== undefined);
+    for (const s of ships) s.pendingCast = undefined; // a new order cancels a cast in progress
     if (command.kind === 'stop') {
       for (const s of ships) { s.path = []; s.order = { kind: 'idle' }; }
       return;
@@ -352,7 +388,8 @@ export class World {
         const desired = Math.atan2(target.y - ship.y, target.x - ship.x);
         ship.facing = turnToward(ship.facing, desired, ship.turnSpeed * TICK_DT);
         const off = Math.abs(wrapAngle(desired - ship.facing));
-        targetSpeed = ship.maxSpeed * Math.max(MIN_TURNING_SPEED, Math.cos(Math.min(off, Math.PI / 2)));
+        const buffed = ship.maxSpeed * (1 + strongest(ship, 'haste')) * (1 - strongest(ship, 'slow'));
+        targetSpeed = buffed * Math.max(MIN_TURNING_SPEED, Math.cos(Math.min(off, Math.PI / 2)));
         // Brake into the final point so ships do not overshoot and circle.
         if (isLast) targetSpeed = Math.min(targetSpeed, dist * 2);
       }
@@ -377,7 +414,8 @@ export class World {
 
   /** Fires every ready attack and weapon. */
   private fight(u: UnitEntity): void {
-    if (u.hp <= 0 || u.frozen) return;
+    if (u.hp <= 0 || u.frozen || hasBuff(u, 'stun')) return;
+    const bonus = 1 + strongest(u, 'damageBonus');
     for (const a of u.attacks) {
       if (this.tick < a.readyAt) continue;
       // Structures and idle units pick the nearest valid enemy; attack-movers use their target.
@@ -394,7 +432,7 @@ export class World {
       if (!target) continue;
       let roll = a.damageBase + u.bonusDamage + Array.from({ length: a.dice }, () => 1 + Math.floor(this.random() * a.sides)).reduce((s, v) => s + v, 0);
       if (u.critChance > 0 && this.random() < u.critChance) roll *= u.critMultiplier;
-      this.shoot(u, target, roll, a.attackType);
+      this.shoot(u, target, roll * bonus, a.attackType);
       a.readyAt = this.tick + Math.round((a.cooldown / (1 + u.attackSpeedBonus)) * TICK_RATE);
     }
     for (const w of u.weapons) {
@@ -403,7 +441,7 @@ export class World {
       for (const e of this.enemiesOf(u)) if (this.canTarget(w.filter, e) && this.reach(u, e) <= w.range) candidates.push(e);
       if (candidates.length === 0) continue;
       const target = candidates[Math.floor(this.random() * candidates.length)]!;
-      this.shoot(u, target, w.damage, 'spells');
+      this.shoot(u, target, w.damage * bonus, 'spells');
       w.readyAt = this.tick + Math.round(w.cooldown * TICK_RATE);
     }
   }
@@ -433,10 +471,16 @@ export class World {
     }
   }
 
-  /** Applies typed, armor-reduced damage and reports deaths. */
+  /**
+   * Applies damage and reports deaths. Attacks and weapons are typed and armor-reduced, then
+   * scaled by hull plating (damageTaken). Attack type 'ability' is spell damage that ignores
+   * armor and plating; 'pure' ignores everything (间谍破坏).
+   */
   dealDamage(target: UnitEntity, amount: number, attackType: string, sourceOwner: number, sourceId: number): void {
-    if (target.hp <= 0 || target.invulnerable) return;
-    const dealt = this.damage.damage(amount, attackType, target.armorType, target.armor);
+    if (target.hp <= 0 || target.invulnerable || hasBuff(target, 'invulnerable')) return;
+    const dealt = attackType === 'ability' || attackType === 'pure'
+      ? amount
+      : this.damage.damage(amount, attackType, target.armorType, target.armor) * target.damageTaken;
     target.hp -= dealt;
     this.events.push({ kind: 'hit', targetId: target.id, sourceOwner, damage: dealt });
     if (target.hp > 0) return;

@@ -5,7 +5,13 @@ import type { Match, MatchEvent, UnitEntity } from '@boom/sim';
 import { SEA_LEVEL } from './space.ts';
 
 interface Floater { text: string; color: string; x: number; y: number; z: number; born: number }
-interface Burst { x: number; y: number; z: number; born: number; size: number }
+interface Burst { x: number; y: number; z: number; born: number; size: number; ring?: string }
+
+/** Short labels shown over a unit's health bar while a status effect is on it. */
+const BUFF_TAGS: Partial<Record<string, [string, string]>> = {
+  stun: ['晕', '#ffd84a'], root: ['定', '#c9a35a'], silence: ['沉默', '#c58cff'], slow: ['慢', '#7ab8ff'],
+  haste: ['加速', '#7dffb0'], invulnerable: ['无敌', '#ffffff'], dot: ['灼烧', '#ff8a4a'], hot: ['回复', '#7dff8a'],
+};
 
 const FLOAT_MS = 1400;
 const BURST_MS = 650;
@@ -35,6 +41,10 @@ export class Overlay {
         this.floaters.push({ text: `+${e.amount}`, color: '#ffd84a', x: e.x, y: e.y!, z: SEA_LEVEL + 80, born: now });
       }
       if (e.kind === 'death') this.bursts.push({ x: e.x, y: e.y, z: SEA_LEVEL + 20, born: now, size: e.typeId.startsWith('n') || e.typeId.startsWith('h01') ? 90 : 50 });
+      if (e.kind === 'cast') {
+        const area = this.match.world.abilities.byId.get(e.abilityId)?.levels[0]?.area ?? 0;
+        this.bursts.push({ x: e.x, y: e.y, z: SEA_LEVEL + 5, born: now, size: Math.max(80, area), ring: '#9fd8ff' });
+      }
     }
   }
 
@@ -59,6 +69,25 @@ export class Overlay {
     ctx.fillRect(sx - w / 2 - 1, sy - 1, w + 2, h + 2);
     ctx.fillStyle = own ? '#5cff7a' : ally ? '#5aa8ff' : '#ff5a4a';
     ctx.fillRect(sx - w / 2, sy, w * Math.max(0, u.hp / u.maxHp), h);
+    const tags = [...new Set(u.buffs.map((b) => b.kind))].map((k) => BUFF_TAGS[k]).filter((t) => t !== undefined);
+    if (u.invulnerable && !u.buffs.some((b) => b.kind === 'invulnerable')) tags.push(BUFF_TAGS.invulnerable!);
+    if (tags.length) {
+      ctx.font = 'bold 11px system-ui, sans-serif';
+      ctx.textAlign = 'center';
+      tags.forEach(([text, color], i) => {
+        const x = sx + (i - (tags.length - 1) / 2) * 30;
+        ctx.fillStyle = '#000a';
+        ctx.fillText(text, x + 1, sy - 4);
+        ctx.fillStyle = color;
+        ctx.fillText(text, x, sy - 5);
+      });
+    }
+  }
+
+  /** World-space radius → screen pixels at a point, for area rings. */
+  private screenRadius(x: number, y: number, radius: number, camera: THREE.Camera): number {
+    const a = this.project(x, y, SEA_LEVEL, camera), b = this.project(x + radius, y, SEA_LEVEL, camera);
+    return a && b ? Math.hypot(b[0] - a[0], b[1] - a[1]) : 0;
   }
 
   draw(camera: THREE.Camera, now: number): void {
@@ -79,6 +108,16 @@ export class Overlay {
       const at = this.project(b.x, b.y, b.z, camera);
       if (!at) continue;
       ctx.beginPath();
+      if (b.ring) {
+        // Area skills: a ring growing to the ability's radius.
+        ctx.arc(at[0], at[1], this.screenRadius(b.x, b.y, b.size, camera) * (0.4 + 0.6 * t), 0, Math.PI * 2);
+        ctx.strokeStyle = b.ring;
+        ctx.globalAlpha = 1 - t;
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+        continue;
+      }
       ctx.arc(at[0], at[1], b.size * (0.3 + t) * (1100 / Math.max(600, camera.position.y)), 0, Math.PI * 2);
       ctx.fillStyle = `rgba(255,${Math.round(180 - 120 * t)},60,${0.55 * (1 - t)})`;
       ctx.fill();

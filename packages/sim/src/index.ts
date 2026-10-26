@@ -4,3 +4,6 @@ export * from './world.ts';
 export * from './setup.ts';
 export * from './combat.ts';
 export * from './match.ts';
+export * from './abilities.ts';
+export * from './buffs.ts';
+export * from './heroes.ts';

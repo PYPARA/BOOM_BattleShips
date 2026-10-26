@@ -10,6 +10,7 @@ import { Overlay } from './overlay.ts';
 import { ProjectileViews } from './projectiles.ts';
 import { createBuildings, createDoodads } from './props.ts';
 import { ShipViews } from './shipViews.ts';
+import { SkillBar } from './skillbar.ts';
 import { SEA_LEVEL, toThree } from './space.ts';
 import { createTerrainMesh } from './terrain.ts';
 import { createWater } from './water.ts';
@@ -72,6 +73,8 @@ const overlay = new Overlay(match, PLAYER);
 const hudPanel = new Hud(match, PLAYER, data);
 
 const rts = new RtsCamera(renderer.domElement, data.map.bounds);
+// Created before selection input so its capture-phase listener sees targeting clicks first.
+const skillBar = new SkillBar(match, PLAYER, data.itemsById, rts, renderer.domElement);
 const input = new SelectionInput(renderer.domElement, rts, world, PLAYER);
 const buildings = data.map.placements.filter((p) => data.unitsById.get(p.id)?.isBuilding && p.id !== 'hhou');
 const minimap = new Minimap(data.terrain, data.pathingInfo, data.pathingCells, buildings, data.unitsById, world, rts, PLAYER);
@@ -145,6 +148,7 @@ renderer.setAnimationLoop(() => {
   overlay.draw(rts.camera, now);
   minimap.draw();
   hudPanel.update(now);
+  skillBar.update();
 
   const selected = [...input.selected].map((id) => world.ships.get(id)).filter((s) => s !== undefined);
   info.textContent = selected
