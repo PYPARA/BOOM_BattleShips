@@ -26,6 +26,9 @@ export class PathGrid {
   /** Chebyshev distance in cells to the nearest blocked cell (0 = blocked). */
   private readonly clearance: Uint8Array;
   private readonly blocked: Uint8Array;
+  /** Cells blocked by the map itself and by buildings, before any region closures. */
+  private readonly baseBlocked: Uint8Array;
+  private readonly closedRegions = new Map<string, { minX: number; minY: number; maxX: number; maxY: number }>();
 
   // A* scratch buffers, reused between searches.
   private readonly g: Float32Array;
@@ -45,6 +48,7 @@ export class PathGrid {
     const n = opts.width * opts.height;
     this.blocked = new Uint8Array(n);
     for (let i = 0; i < n; i++) this.blocked[i] = opts.cells[i]! & opts.noWaterFlag ? 1 : 0;
+    this.baseBlocked = this.blocked.slice();
     this.clearance = new Uint8Array(n);
     this.g = new Float32Array(n);
     this.parent = new Int32Array(n);
@@ -62,11 +66,31 @@ export class PathGrid {
         for (let dx = -r; dx <= r; dx++) {
           if (dx * dx + dy * dy > r * r) continue;
           const i = this.index(cx + dx, cy + dy);
-          if (i >= 0) this.blocked[i] = 1;
+          if (i >= 0) this.blocked[i] = this.baseBlocked[i] = 1;
         }
       }
     }
     this.rebuildClearance();
+  }
+
+  /**
+   * Closes or reopens a rectangular region to ships, e.g. the west channel that the fast
+   * mode keeps shut. Rebuilds clearance, so call it only when the state changes.
+   */
+  setRegionClosed(name: string, rect: { minX: number; minY: number; maxX: number; maxY: number }, closed: boolean): void {
+    if (closed) this.closedRegions.set(name, rect); else this.closedRegions.delete(name);
+    this.blocked.set(this.baseBlocked);
+    for (const r of this.closedRegions.values()) {
+      const [x0, y0] = this.toCell(r.minX, r.minY), [x1, y1] = this.toCell(r.maxX, r.maxY);
+      for (let y = Math.max(0, y0); y <= Math.min(this.height - 1, y1); y++) {
+        for (let x = Math.max(0, x0); x <= Math.min(this.width - 1, x1); x++) this.blocked[y * this.width + x] = 1;
+      }
+    }
+    this.rebuildClearance();
+  }
+
+  isRegionClosed(name: string): boolean {
+    return this.closedRegions.has(name);
   }
 
   private rebuildClearance(): void {

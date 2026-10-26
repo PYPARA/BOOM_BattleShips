@@ -78,6 +78,7 @@ export function buildUnits(src: ObjectSources): Unit[] {
       sellsUnits: s?.sellunits?.filter(Boolean) ?? [],
       sellsItems: s?.sellitems?.filter(Boolean) ?? [],
       upgradesTo: s?.upgrade?.filter(Boolean) ?? [],
+      upgrades: splitList(bal.upgrades),
       tip: cleanText(first(s, 'tip')),
       description: cleanText(joined(s, 'ubertip')),
       model: ui.file as string | undefined,

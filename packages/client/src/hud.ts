@@ -18,6 +18,7 @@ export class Hud {
   private readonly banner: HTMLElement;
   private readonly weapons: Map<string, Weapon>;
   private shopKey = '';
+  private readonly repairButton: HTMLButtonElement;
   private toastUntil = 0;
   private readonly match: Match;
   private readonly player: number;
@@ -41,6 +42,11 @@ export class Hud {
       if (cmd === 'item') this.match.issue({ kind: 'buyItem', player, itemId: arg });
       if (cmd === 'sell') this.match.issue({ kind: 'sellItem', player, slot: Number(arg) });
     });
+    this.repairButton = Object.assign(document.body.appendChild(document.createElement('button')), {
+      className: 'repair', textContent: '修理中…　提前离港 (Esc)',
+    });
+    this.repairButton.addEventListener('click', () => this.match.issue({ kind: 'leaveRepair', player }));
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') this.match.issue({ kind: 'leaveRepair', player }); });
   }
 
   private unitName(id: string): string {
@@ -60,6 +66,10 @@ export class Hud {
         this.toast.textContent = e.reason;
         this.toastUntil = now + 2500;
       }
+      if (e.kind === 'westChannel') {
+        this.toast.textContent = e.open ? '西侧航道短暂开放！（120 秒）' : '西侧航道已关闭';
+        this.toastUntil = now + 3500;
+      }
       if (e.kind === 'victory') {
         const won = this.match.players.get(this.player)?.team === e.winner;
         this.banner.textContent = won ? '胜利！敌方主基地已被摧毁' : '战败……我方主基地被摧毁';
@@ -77,6 +87,8 @@ export class Hud {
     const hp = ship ? `　耐久 ${Math.ceil(ship.hp)}/${ship.maxHp}` : '';
     this.status.textContent = `💰 ${p.gold}　击沉 ${p.kills} / 阵亡 ${p.deaths}　⏱ ${clock}${hp}${respawn}`;
     this.toast.classList.toggle('show', now < this.toastUntil);
+    const side = p.team as 'south' | 'north';
+    this.repairButton.classList.toggle('show', ship !== undefined && this.match.repairing[side] === ship.id);
 
     // Rebuild the shop only when what it shows changes.
     const shops = this.match.shopsInReach(this.player);

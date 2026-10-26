@@ -91,12 +91,17 @@ export class Minimap {
     const { ctx } = this;
     const s = this.canvas.width;
     ctx.drawImage(this.background, 0, 0, s, s);
-    for (const p of this.buildings) {
-      const [x, y] = this.toMap(p.x, p.y);
-      const r = Math.max(2, (this.buildingSizes.get(p)! / this.worldW) * s * 2);
-      ctx.fillStyle = css(TEAM_COLORS[teamOf(p.player)]);
+    // Neutral shops never fall; the fleets' buildings come from the simulation so lost ones vanish.
+    const square = (px: number, py: number, size: number, color: string) => {
+      const [x, y] = this.toMap(px, py);
+      const r = Math.max(2, (size / this.worldW) * s * 2);
+      ctx.fillStyle = color;
       ctx.fillRect(x - r, y - r, r * 2, r * 2);
+    };
+    for (const p of this.buildings) {
+      if (p.player < 0) square(p.x, p.y, this.buildingSizes.get(p)!, css(TEAM_COLORS.neutral));
     }
+    for (const u of this.world.structures.values()) square(u.x, u.y, u.bodyRadius, css(TEAM_COLORS[teamOf(u.owner)]));
     for (const ship of this.world.ships.values()) {
       const [x, y] = this.toMap(ship.x, ship.y);
       ctx.fillStyle = ship.owner === this.player ? '#7dff8a' : css(TEAM_COLORS[teamOf(ship.owner)]);

@@ -91,3 +91,54 @@ describe('hiring', () => {
     expect(npcCount(m)).toBeGreaterThan(before);
   });
 });
+
+describe('M2 rule details', () => {
+  it('repairs one ship at the home station, holding it invulnerable, then sends it out', () => {
+    const m = createMatch(data, { players: [2] });
+    const ship = m.world.ships.get(m.players.get(2)!.shipId!)!;
+    const station = data.map.rects.find((r) => r.name === 'Repair_Station_South')!;
+    Object.assign(ship, { x: (station.minX + station.maxX) / 2, y: (station.minY + station.maxY) / 2 });
+    ship.hp = 50;
+    m.step();
+    expect(m.repairing.south).toBe(ship.id);
+    expect(ship.invulnerable && ship.frozen).toBe(true);
+    run(m, 13);
+    expect(ship.hp).toBe(ship.maxHp);
+    expect(ship.frozen).toBe(false);
+    expect(m.repairing.south).toBeUndefined();
+  });
+
+  it('keeps the west channel shut in fast mode and opens it when a side is wiped out', () => {
+    const fast = createMatch(data, { players: [2], mode: 'fast' });
+    expect(fast.westChannelOpen).toBe(false);
+    expect(fast.world.grid.isSailable(-7000, -2000, 5)).toBe(false);
+    expect(createMatch(data, { players: [2], mode: 'standard' }).westChannelOpen).toBe(true);
+    fast.world.dealDamage(fast.world.ships.get(fast.players.get(2)!.shipId!)!, 1e6, 'chaos', 7, -1);
+    fast.step();
+    expect(fast.westChannelOpen).toBe(true);
+    run(fast, 121);
+    expect(fast.westChannelOpen).toBe(false);
+  });
+
+  it('raises research every 15 minutes: tower damage and fleet ship HP', () => {
+    const m = createMatch(data, { players: [] });
+    const tower = [...m.world.structures.values()].find((s) => s.typeId === 'h00K')!;
+    m.world.tick = 900 * TICK_RATE;
+    m.step();
+    expect(m.techLevel).toBe(1);
+    expect(tower.bonusDamage).toBe(10);
+    const rowboat = [...m.world.ships.values()].find((s) => s.typeId === 'h00I');
+    if (rowboat) expect(rowboat.maxHp).toBeCloseTo(200 * 1.2);
+  });
+
+  it('levels up an NPC that sinks a player ship', () => {
+    const m = createMatch(data, { players: [2] });
+    m.step();
+    const npc = [...m.world.ships.values()].find((s) => s.owner === 1)!;
+    const before = npc.maxHp;
+    m.world.dealDamage(m.world.ships.get(m.players.get(2)!.shipId!)!, 1e6, 'chaos', 1, npc.id);
+    m.step();
+    expect(npc.maxHp).toBe(before + 300);
+    expect(npc.critChance).toBeGreaterThan(0);
+  });
+});

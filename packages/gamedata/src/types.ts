@@ -46,6 +46,8 @@ export interface Unit {
   sellsItems: Rawcode[];
   /** Units this one can be upgraded into (改装). */
   upgradesTo: Rawcode[];
+  /** Research upgrades (e.g. R001 防御火力) that affect this unit. */
+  upgrades: Rawcode[];
   tip: string;
   description: string;
   model?: string;

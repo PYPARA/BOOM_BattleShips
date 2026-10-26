@@ -13,7 +13,11 @@ interface ShipView {
   model: THREE.Object3D;
   ring: THREE.Mesh;
   roll: number;
+  /** Seconds (render clock) when the ship was sunk; the view sinks, then goes. */
+  sunkAt?: number;
 }
+
+const SINK_SECONDS = 2.5;
 
 const ringMaterial = new THREE.MeshBasicMaterial({ color: 0x5cff7a, transparent: true, opacity: 0.85, depthWrite: false });
 
@@ -67,10 +71,20 @@ export class ShipViews {
       view.model.rotation.z = Math.sin(time * 0.9 + phase) * 0.025;
       view.ring.visible = selected.has(ship.id);
     }
+    // Sunk ships list over and slide under before their view is dropped.
     for (const [id, view] of this.views) {
       if (this.world.ships.has(id)) continue;
-      this.group.remove(view.root);
-      this.views.delete(id);
+      view.sunkAt ??= time;
+      view.ring.visible = false;
+      const t = (time - view.sunkAt) / SINK_SECONDS;
+      if (t >= 1) {
+        this.group.remove(view.root);
+        this.views.delete(id);
+        continue;
+      }
+      view.model.rotation.x = view.roll + t * 0.9;
+      view.model.rotation.z = -t * 0.35;
+      view.model.position.y = -t * t * 120;
     }
   }
 }

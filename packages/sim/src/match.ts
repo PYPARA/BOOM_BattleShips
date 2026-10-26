@@ -20,6 +20,23 @@ export const SHOP_RANGE = 1300;
 /** §6/§7: selling ships and items refunds this share of the price. */
 const RESALE = 0.6;
 const ASSIST_WINDOW_TICKS = 10 * TICK_RATE;
+/** §6: invulnerability after a respawn. */
+const RESPAWN_SHIELD_TICKS = 5 * TICK_RATE;
+/**
+ * §6 repair station healing per second as a share of max HP. The map uses repair workers whose
+ * rate is not in the data; this restores a ship in about 12 seconds.
+ */
+const REPAIR_RATE = 1 / 12;
+const REPAIR_RECTS = { south: { station: 'Repair_Station_South', out: 'Repair_Out_South' }, north: { station: 'Repair_Station_North', out: 'Repair_Out_North' } } as const;
+/** §3: the west channel, shut in fast mode and opened for 120 s when a whole side is down. */
+const WEST_CHANNEL = 'Left_Path';
+const WEST_CHANNEL_OPEN_TICKS = 120 * TICK_RATE;
+/** §5 Tech_Auto_UP: every 15 minutes, up to 15 times; ship speed only the first 4 times. */
+const TECH_INTERVAL_TICKS = 900 * TICK_RATE;
+const TECH_MAX = 15;
+const TECH_SPEED_MAX = 4;
+/** §4 AI_UP: what an NPC gains for sinking a player ship (A06L trick, A06F, A00I, AIsx). */
+const NPC_LEVEL_UP = { hp: 300, critChance: 0.2, critMultiplier: 2, regen: 15, attackSpeed: 0.15 } as const;
 
 /** §4: wave definitions. */
 const WAVES = [
@@ -51,6 +68,8 @@ export interface PlayerState {
   shipTypeId: string;
   items: string[];
   respawnAt?: number;
+  /** Tick when the post-respawn invulnerability ends. */
+  shieldUntil?: number;
 }
 
 export interface Shop {
@@ -67,14 +86,18 @@ export interface Shop {
 export type MatchCommand =
   | { kind: 'buyShip'; player: number; typeId: string }
   | { kind: 'buyItem'; player: number; itemId: string }
-  | { kind: 'sellItem'; player: number; slot: number };
+  | { kind: 'sellItem'; player: number; slot: number }
+  /** §6 the `-out` chat command: leave the repair station early. */
+  | { kind: 'leaveRepair'; player: number };
 
 export type MatchEvent =
   | { kind: 'gold'; player: number; amount: number; reason: string; x?: number; y?: number }
   | { kind: 'denied'; player: number; reason: string }
   | { kind: 'respawn'; player: number; shipId: number }
   | { kind: 'death'; unitId: number; typeId: string; owner: number; x: number; y: number }
-  | { kind: 'victory'; winner: Team };
+  | { kind: 'victory'; winner: Team }
+  | { kind: 'repair'; player: number; active: boolean }
+  | { kind: 'westChannel'; open: boolean };
 
 export interface MatchData {
   units: Unit[];
@@ -89,6 +112,12 @@ export class Match {
   readonly shops: Shop[] = [];
   winner?: Team;
   events: MatchEvent[] = [];
+  /** Global research level from Tech_Auto_UP. */
+  techLevel = 0;
+  /** Ship being repaired at each side's station. */
+  readonly repairing: Partial<Record<'south' | 'north', number>> = {};
+  private westChannelCloseAt?: number;
+  private readonly rectBounds = new Map<string, { minX: number; minY: number; maxX: number; maxY: number }>();
   private readonly units: Map<string, Unit>;
   private readonly items: Map<string, Item>;
   private readonly rects: Map<string, Vec2>;
@@ -104,6 +133,10 @@ export class Match {
     this.units = new Map(data.units.map((u) => [u.id, u]));
     this.items = new Map(data.items.map((i) => [i.id, i]));
     this.rects = new Map(data.map.rects.map((r) => [r.name, { x: (r.minX + r.maxX) / 2, y: (r.minY + r.maxY) / 2 }]));
+    for (const r of data.map.rects) this.rectBounds.set(r.name, r);
+    // §2: fast mode keeps the west channel shut; standard opens it from the start.
+    const channel = this.rectBounds.get(WEST_CHANNEL);
+    if (channel && this.mode === 'fast') this.world.grid.setRegionClosed(WEST_CHANNEL, channel, true);
     this.placeStructures(data.map.placements);
     for (const index of options.players) {
       const start = data.map.players.find((p) => p.index === index);
@@ -172,8 +205,16 @@ export class Match {
     this.spawnWaves(tick);
     if (tick > 0 && tick % (7 * TICK_RATE) === 0) this.paySalary();
     if (tick > 0 && tick % (180 * TICK_RATE) === 0) this.payEmpireGold();
+    if (tick > 0 && tick % TECH_INTERVAL_TICKS === 0 && this.techLevel < TECH_MAX) this.raiseTech();
+    if (this.westChannelCloseAt !== undefined && tick >= this.westChannelCloseAt) this.setWestChannel(false);
+    this.runRepairStations();
     for (const p of this.players.values()) {
       if (p.respawnAt !== undefined && tick >= p.respawnAt) this.respawn(p);
+      const ship = this.world.ships.get(p.shipId ?? -1);
+      if (ship?.invulnerable && p.shieldUntil !== undefined && tick >= p.shieldUntil) {
+        ship.invulnerable = false;
+        p.shieldUntil = undefined;
+      }
     }
   }
 
@@ -182,7 +223,7 @@ export class Match {
       if (e.kind === 'hit') this.noteDamage(e.targetId, e.sourceOwner);
       if (e.kind === 'death') {
         this.events.push({ kind: 'death', unitId: e.unit.id, typeId: e.unit.typeId, owner: e.unit.owner, x: e.unit.x, y: e.unit.y });
-        this.onDeath(e.unit, e.killerOwner);
+        this.onDeath(e.unit, e.killerOwner, e.killerId);
       }
     }
     this.world.events = [];
@@ -228,6 +269,7 @@ export class Match {
       const angle = (i / count) * Math.PI * 2;
       const spot = this.world.grid.nearestSailable(from.x + Math.cos(angle) * 120, from.y + Math.sin(angle) * 120, radius) ?? from;
       const ship = this.world.spawnShip(typeId, FLEET[side], spot.x, spot.y, side === 'south' ? Math.PI / 2 : -Math.PI / 2);
+      this.applyTech(ship, this.techLevel, 0);
       this.world.attackMove(ship, goals.map((g) => ({ x: g.x, y: g.y })));
     }
   }
@@ -271,16 +313,25 @@ export class Match {
     byPlayer.set(sourcePlayer, this.world.tick);
   }
 
-  private onDeath(unit: UnitEntity, killerOwner: number): void {
+  private onDeath(unit: UnitEntity, killerOwner: number, killerId: number): void {
     const killer = this.players.get(killerOwner);
     const enemyKill = killer && killer.team !== unit.team;
     const victim = [...this.players.values()].find((p) => p.shipId === unit.id);
+    if (victim && victim.team !== 'neutral') {
+      const killerUnit = this.world.unit(killerId);
+      if (killerUnit && !killerUnit.isHero) this.levelUpNpc(killerUnit);
+      const side = victim.team as 'south' | 'north';
+      if (this.repairing[side] === unit.id) delete this.repairing[side];
+    }
     if (victim) {
       victim.shipId = undefined;
       victim.deaths++;
       victim.deathStreak++;
       // §6: respawn after level × 2 + 5 + 0..3 seconds (all ships are level 1 until M3).
       victim.respawnAt = this.world.tick + Math.round((1 * 2 + 5 + Math.floor(this.world.random() * 4)) * TICK_RATE);
+      // §3 PathLeft_On: a side with every player down gets the west channel for 120 s.
+      const side = this.teamPlayers(victim.team);
+      if (this.mode === 'fast' && side.length > 0 && side.every((p) => p.shipId === undefined)) this.setWestChannel(true);
       if (enemyKill) {
         const price = this.units.get(unit.typeId)?.goldCost ?? 0;
         const base = unit.typeId === 'H00D' ? 400 : HERO_BOUNTY.find(([min]) => price >= min)![1];
@@ -314,6 +365,99 @@ export class Match {
     this.events.push({ kind: 'victory', winner: team });
   }
 
+  // §5 research, §4 NPC level-up, §3 west channel ------------------------------------------
+
+  private raiseTech(): void {
+    const from = this.techLevel;
+    this.techLevel++;
+    for (const u of this.world.allUnits()) this.applyTech(u, this.techLevel, from);
+  }
+
+  /** Applies research levels (from → to) to one unit: R001/R005 damage, R003 HP, R004 speed. */
+  private applyTech(u: UnitEntity, to: number, from: number): void {
+    const levels = to - from;
+    if (levels <= 0) return;
+    if (u.upgrades.includes('R001') || u.upgrades.includes('R005')) u.bonusDamage += 10 * levels;
+    if (u.upgrades.includes('R003')) {
+      const base = this.units.get(u.typeId)?.hp ?? u.maxHp;
+      const add = base * 0.2 * levels;
+      u.maxHp += add;
+      u.hp += add;
+    }
+    if (u.upgrades.includes('R004')) {
+      const speedLevels = Math.min(to, TECH_SPEED_MAX) - Math.min(from, TECH_SPEED_MAX);
+      u.maxSpeed += 20 * speedLevels;
+    }
+  }
+
+  private levelUpNpc(u: UnitEntity): void {
+    if (u.kind !== 'structure') {
+      u.maxHp += NPC_LEVEL_UP.hp;
+      u.hp += NPC_LEVEL_UP.hp;
+    }
+    if (u.critChance === 0) {
+      u.critChance = NPC_LEVEL_UP.critChance;
+      u.critMultiplier = NPC_LEVEL_UP.critMultiplier;
+    } else if (u.regen < NPC_LEVEL_UP.regen) {
+      u.regen += NPC_LEVEL_UP.regen;
+    } else if (u.attackSpeedBonus === 0) {
+      u.attackSpeedBonus = NPC_LEVEL_UP.attackSpeed;
+    }
+  }
+
+  private setWestChannel(open: boolean): void {
+    const rect = this.rectBounds.get(WEST_CHANNEL);
+    if (!rect || this.world.grid.isRegionClosed(WEST_CHANNEL) === !open) return;
+    this.world.grid.setRegionClosed(WEST_CHANNEL, rect, !open);
+    this.westChannelCloseAt = open ? this.world.tick + WEST_CHANNEL_OPEN_TICKS : undefined;
+    this.events.push({ kind: 'westChannel', open });
+  }
+
+  get westChannelOpen(): boolean {
+    return !this.world.grid.isRegionClosed(WEST_CHANNEL);
+  }
+
+  // §6 repair station ---------------------------------------------------------------------
+
+  private inRect(name: string, p: Vec2): boolean {
+    const r = this.rectBounds.get(name);
+    return !!r && p.x >= r.minX && p.x <= r.maxX && p.y >= r.minY && p.y <= r.maxY;
+  }
+
+  /** One ship at a time: held in place and invulnerable while it is repaired, then sent out. */
+  private runRepairStations(): void {
+    for (const side of ['south', 'north'] as const) {
+      const rects = REPAIR_RECTS[side];
+      const current = this.world.ships.get(this.repairing[side] ?? -1);
+      if (current) {
+        current.hp = Math.min(current.maxHp, current.hp + current.maxHp * REPAIR_RATE / TICK_RATE);
+        if (current.hp >= current.maxHp) this.releaseFromRepair(side);
+        continue;
+      }
+      delete this.repairing[side];
+      for (const p of this.teamPlayers(side)) {
+        const ship = this.world.ships.get(p.shipId ?? -1);
+        if (!ship || ship.hp >= ship.maxHp || ship.path.length > 0 || !this.inRect(rects.station, ship)) continue;
+        this.repairing[side] = ship.id;
+        ship.frozen = true;
+        ship.invulnerable = true;
+        this.events.push({ kind: 'repair', player: p.index, active: true });
+        break;
+      }
+    }
+  }
+
+  private releaseFromRepair(side: 'south' | 'north'): void {
+    const ship = this.world.ships.get(this.repairing[side] ?? -1);
+    delete this.repairing[side];
+    if (!ship) return;
+    ship.frozen = false;
+    ship.invulnerable = false;
+    const out = this.rect(REPAIR_RECTS[side].out);
+    this.world.issue({ kind: 'move', unitIds: [ship.id], x: out.x, y: out.y });
+    this.events.push({ kind: 'repair', player: ship.owner, active: false });
+  }
+
   // §6 ships, shops, respawn --------------------------------------------------------------
 
   private spawnPlayerShip(index: number, at: Vec2): UnitEntity {
@@ -329,6 +473,8 @@ export class Match {
   private respawn(p: PlayerState): void {
     p.respawnAt = undefined;
     const ship = this.spawnPlayerShip(p.index, this.rect(RESPAWN_RECTS[p.team as 'south' | 'north']));
+    ship.invulnerable = true;
+    p.shieldUntil = this.world.tick + RESPAWN_SHIELD_TICKS;
     this.events.push({ kind: 'respawn', player: p.index, shipId: ship.id });
   }
 
@@ -358,6 +504,7 @@ export class Match {
     const enemy = side === 'south' ? 'north' : 'south';
     const spot = this.world.grid.nearestSailable(shop.x, shop.y, this.units.get(typeId)?.collision ?? 16) ?? shop;
     const ship = this.world.spawnShip(typeId, FLEET[side], spot.x, spot.y);
+    this.applyTech(ship, this.techLevel, 0);
     const base = this.structureByHandle(BASES[enemy]);
     if (base) this.world.attackMove(ship, [{ x: base.x, y: base.y }]);
   }
@@ -366,6 +513,11 @@ export class Match {
     const p = this.players.get(c.player);
     if (!p) return;
     const ship = this.world.ships.get(p.shipId ?? -1);
+    if (c.kind === 'leaveRepair') {
+      const side = p.team as 'south' | 'north';
+      if (ship && this.repairing[side] === ship.id) this.releaseFromRepair(side);
+      return;
+    }
     if (!ship) return this.deny(c.player, '船只阵亡中，复活后才能交易');
     const shops = this.shopsInReach(c.player);
     if (c.kind === 'buyShip') {

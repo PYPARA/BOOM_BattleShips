@@ -53,6 +53,11 @@
       .inventory { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
       .inventory button, .inventory .empty { min-height: 34px; margin: 0; font-size: 12px; }
       .inventory .empty { border: 1px dashed #fff2; border-radius: 5px; }
+      .repair {
+        position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%); display: none; padding: 8px 16px;
+        border: 1px solid #5cff7a88; border-radius: 6px; background: #12301ce6; color: #c8ffd2; font: 14px system-ui, sans-serif; cursor: pointer;
+      }
+      .repair.show { display: block; }
       .selection-box {
         position: fixed; display: none; pointer-events: none;
         border: 1px solid #7dff8a; background: #7dff8a22;

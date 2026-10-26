@@ -25,7 +25,9 @@ const info = document.getElementById('info')!;
 
 const [data] = await Promise.all([loadData(), loadGlbModels()]);
 const params = new URLSearchParams(location.search);
-const match = createMatch(data, { players: [PLAYER], mode: 'fast', seed: Date.now() % 100000 });
+// `?mode=standard` plays the league rules (60 gold salary, west channel open); fast is the map's default.
+const mode = params.get('mode') === 'standard' ? 'standard' : 'fast';
+const match = createMatch(data, { players: [PLAYER], mode, seed: Date.now() % 100000 });
 const world = match.world;
 // `?gold=20000` starts with extra gold, for trying ships while developing.
 if (import.meta.env.DEV && params.has('gold')) match.players.get(PLAYER)!.gold = Number(params.get('gold')) || 20000;

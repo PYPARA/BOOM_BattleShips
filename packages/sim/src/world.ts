@@ -97,6 +97,19 @@ export interface UnitEntity {
   items: string[];
   /** Map handle for preplaced units, e.g. gg_unit_n003_0024. */
   handle?: string;
+  /** Research upgrades that apply to this unit (R001 …), from the unit data. */
+  upgrades: string[];
+  /** Flat damage added to every built-in attack (research and the like). */
+  bonusDamage: number;
+  /** Extra attack speed as a fraction (0.15 = 15% faster). */
+  attackSpeedBonus: number;
+  /** Critical strike: chance and damage multiplier. */
+  critChance: number;
+  critMultiplier: number;
+  /** Takes no damage (ships under repair, freshly respawned ships). */
+  invulnerable: boolean;
+  /** Cannot move or fight (ships being repaired). */
+  frozen: boolean;
   /** State at the start of the current tick, for render interpolation. */
   prevX: number;
   prevY: number;
@@ -211,7 +224,8 @@ export class World {
         damageBase: a.damageBase, dice: a.dice, sides: a.sides, range: a.range, cooldown: a.cooldown,
         attackType: a.attackType ?? 'normal', filter: parseTargets(a.targets), readyAt: 0,
       })),
-      weapons: [], items: [],
+      weapons: [], items: [], upgrades: unit.upgrades ?? [],
+      bonusDamage: 0, attackSpeedBonus: 0, critChance: 0, critMultiplier: 1, invulnerable: false, frozen: false,
       prevX: x, prevY: y, prevFacing: facing,
     };
   }
@@ -251,8 +265,8 @@ export class World {
       p.prevX = p.x; p.prevY = p.y;
     }
     for (const command of this.pending.splice(0)) this.apply(command);
-    for (const u of this.ships.values()) this.think(u);
-    for (const u of this.ships.values()) this.move(u);
+    for (const u of this.ships.values()) if (!u.frozen) this.think(u);
+    for (const u of this.ships.values()) if (!u.frozen) this.move(u); else u.speed = 0;
     this.separate();
     for (const u of [...this.allUnits()]) this.fight(u);
     this.moveProjectiles();
@@ -363,7 +377,7 @@ export class World {
 
   /** Fires every ready attack and weapon. */
   private fight(u: UnitEntity): void {
-    if (u.hp <= 0) return;
+    if (u.hp <= 0 || u.frozen) return;
     for (const a of u.attacks) {
       if (this.tick < a.readyAt) continue;
       // Structures and idle units pick the nearest valid enemy; attack-movers use their target.
@@ -378,9 +392,10 @@ export class World {
         }
       }
       if (!target) continue;
-      const roll = a.damageBase + Array.from({ length: a.dice }, () => 1 + Math.floor(this.random() * a.sides)).reduce((s, v) => s + v, 0);
+      let roll = a.damageBase + u.bonusDamage + Array.from({ length: a.dice }, () => 1 + Math.floor(this.random() * a.sides)).reduce((s, v) => s + v, 0);
+      if (u.critChance > 0 && this.random() < u.critChance) roll *= u.critMultiplier;
       this.shoot(u, target, roll, a.attackType);
-      a.readyAt = this.tick + Math.round(a.cooldown * TICK_RATE);
+      a.readyAt = this.tick + Math.round((a.cooldown / (1 + u.attackSpeedBonus)) * TICK_RATE);
     }
     for (const w of u.weapons) {
       if (this.tick < w.readyAt) continue;
@@ -420,7 +435,7 @@ export class World {
 
   /** Applies typed, armor-reduced damage and reports deaths. */
   dealDamage(target: UnitEntity, amount: number, attackType: string, sourceOwner: number, sourceId: number): void {
-    if (target.hp <= 0) return;
+    if (target.hp <= 0 || target.invulnerable) return;
     const dealt = this.damage.damage(amount, attackType, target.armorType, target.armor);
     target.hp -= dealt;
     this.events.push({ kind: 'hit', targetId: target.id, sourceOwner, damage: dealt });
