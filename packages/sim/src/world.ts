@@ -1,7 +1,10 @@
-// Fixed-tick simulation of ships on the sea plane. Pure TypeScript with no rendering
-// dependencies, so it also runs headless (tests, AI self-play, a future server).
-import type { Ship } from '@boom/gamedata';
-import { distance, turnToward, wrapAngle, type Vec2 } from './math.ts';
+// Fixed-tick simulation of ships and structures on the sea plane: movement, targeting,
+// projectiles and damage. Pure TypeScript with no rendering dependencies, so it also runs
+// headless (tests, AI self-play, a future server). Game rules (waves, gold, shops, victory)
+// live in match.ts on top of this.
+import type { Ship, Unit, Weapon } from '@boom/gamedata';
+import { DamageTable, parseTargets, type TargetFilter } from './combat.ts';
+import { createRng, distance, turnToward, wrapAngle, type Vec2 } from './math.ts';
 import type { PathGrid } from './pathing.ts';
 
 export const TICK_RATE = 20;
@@ -17,14 +20,57 @@ export const ACCELERATION_TIME = 0.8;
 export const MIN_TURNING_SPEED = 0.2;
 /** Distance at which an intermediate waypoint counts as reached. */
 export const WAYPOINT_RADIUS = 64;
+/** Projectile speed in world units per second; the map's missile speeds are mostly 900–1500. */
+export const PROJECTILE_SPEED = 1100;
+/** Units notice enemies this much beyond their attack range while attack-moving. */
+export const ACQUIRE_BONUS = 250;
 
 /** Radius used to keep hulls apart, by the shop's size label. Pathing uses the smaller unit collision. */
 const BODY_RADIUS: Record<string, number> = { 小型: 40, 中型: 55, 大型: 70, 大: 70, 巨大: 85 };
 
-export interface ShipEntity {
+export type Team = 'south' | 'north' | 'neutral';
+
+export function teamOfPlayer(player: number): Team {
+  if (player === 0 || (player >= 2 && player <= 6)) return 'south';
+  if (player === 1 || (player >= 7 && player <= 11)) return 'north';
+  return 'neutral';
+}
+
+/** A built-in attack (NPC ships and structures), from UnitWeapons data. */
+export interface AttackSlot {
+  damageBase: number;
+  dice: number;
+  sides: number;
+  range: number;
+  cooldown: number;
+  attackType: string;
+  filter: TargetFilter;
+  readyAt: number;
+}
+
+/** A weapon item on a player ship: fires at a random valid enemy in range (Phoenix Fire). */
+export interface WeaponSlot {
+  itemId: string;
+  damage: number;
+  range: number;
+  cooldown: number;
+  filter: TargetFilter;
+  readyAt: number;
+}
+
+export type Order =
+  | { kind: 'idle' }
+  | { kind: 'move' }
+  /** Move along `goals`, stopping to fight anything that comes into range. */
+  | { kind: 'attackMove'; goals: Vec2[] };
+
+export interface UnitEntity {
   id: number;
   typeId: string;
   owner: number;
+  team: Team;
+  kind: 'ship' | 'structure';
+  isHero: boolean;
   x: number;
   y: number;
   /** Radians, 0 = +x (east), counter-clockwise, like Warcraft facing. */
@@ -34,81 +80,252 @@ export interface ShipEntity {
   turnSpeed: number;
   /** Collision radius from the map data, used against terrain. */
   pathRadius: number;
-  /** Larger radius used between ships. */
+  /** Larger radius used between ships and for hit tests. */
   bodyRadius: number;
   path: Vec2[];
+  order: Order;
+  /** Current attack target for units with built-in attacks. */
+  targetId?: number;
+  hp: number;
+  maxHp: number;
+  armor: number;
+  armorType: string;
+  regen: number;
+  attacks: AttackSlot[];
+  weapons: WeaponSlot[];
+  /** Item ids in the six inventory slots (player ships). */
+  items: string[];
+  /** Map handle for preplaced units, e.g. gg_unit_n003_0024. */
+  handle?: string;
   /** State at the start of the current tick, for render interpolation. */
   prevX: number;
   prevY: number;
   prevFacing: number;
 }
 
+/** Kept for code written against the M1 ship-only world. */
+export type ShipEntity = UnitEntity;
+
+export interface Projectile {
+  id: number;
+  sourceId: number;
+  owner: number;
+  targetId: number;
+  x: number;
+  y: number;
+  prevX: number;
+  prevY: number;
+  damage: number;
+  attackType: string;
+}
+
+export type WorldEvent =
+  | { kind: 'shot'; projectileId: number; sourceId: number; targetId: number }
+  | { kind: 'hit'; targetId: number; sourceOwner: number; damage: number }
+  | { kind: 'death'; unit: UnitEntity; killerOwner: number; killerId: number };
+
 export type Command =
   | { kind: 'move'; unitIds: number[]; x: number; y: number }
   | { kind: 'stop'; unitIds: number[] };
 
+export interface WorldData {
+  ships: Ship[];
+  units: Unit[];
+  weapons: Weapon[];
+  misc?: Record<string, unknown>;
+}
+
 export class World {
   tick = 0;
-  readonly ships = new Map<number, ShipEntity>();
+  /** Everything that moves: player ships and NPC fleets. */
+  readonly ships = new Map<number, UnitEntity>();
+  readonly structures = new Map<number, UnitEntity>();
+  readonly projectiles = new Map<number, Projectile>();
+  /** Events of the last step, for rules and rendering. */
+  events: WorldEvent[] = [];
+  readonly grid: PathGrid;
+  readonly damage: DamageTable;
+  readonly random: () => number;
   private readonly shipTypes: Map<string, Ship>;
+  private readonly unitTypes: Map<string, Unit>;
+  private readonly weaponTypes: Map<string, Weapon>;
   private readonly pending: Command[] = [];
   private nextId = 1;
-  readonly grid: PathGrid;
 
-  constructor(grid: PathGrid, shipTypes: Ship[]) {
+  constructor(grid: PathGrid, data: WorldData, seed = 1) {
     this.grid = grid;
-    this.shipTypes = new Map(shipTypes.map((s) => [s.id, s]));
+    this.shipTypes = new Map(data.ships.map((s) => [s.id, s]));
+    this.unitTypes = new Map(data.units.map((u) => [u.id, u]));
+    this.weaponTypes = new Map(data.weapons.map((w) => [w.id, w]));
+    this.damage = new DamageTable(data.misc);
+    this.random = createRng(seed);
   }
 
-  spawnShip(typeId: string, owner: number, x: number, y: number, facing = Math.PI / 2): ShipEntity {
-    const type = this.shipTypes.get(typeId);
-    if (!type) throw new Error(`Unknown ship type ${typeId}`);
-    const ship: ShipEntity = {
-      id: this.nextId++,
-      typeId,
-      owner,
-      x, y, facing,
-      speed: 0,
-      maxSpeed: type.speed,
-      turnSpeed: type.turnRate * TURN_RATE_SCALE,
-      pathRadius: type.collision,
-      bodyRadius: BODY_RADIUS[type.size] ?? 55,
-      path: [],
+  unit(id: number | undefined): UnitEntity | undefined {
+    return id === undefined ? undefined : this.ships.get(id) ?? this.structures.get(id);
+  }
+
+  *allUnits(): Iterable<UnitEntity> {
+    yield* this.ships.values();
+    yield* this.structures.values();
+  }
+
+  shipType(typeId: string): Ship | undefined {
+    return this.shipTypes.get(typeId);
+  }
+
+  weaponType(itemId: string): Weapon | undefined {
+    return this.weaponTypes.get(itemId);
+  }
+
+  /** Spawns any mobile unit: a purchasable ship (hero) or an NPC fleet ship. */
+  spawnShip(typeId: string, owner: number, x: number, y: number, facing = Math.PI / 2): UnitEntity {
+    const unit = this.unitTypes.get(typeId);
+    const ship = this.shipTypes.get(typeId);
+    if (!unit) throw new Error(`Unknown unit type ${typeId}`);
+    const entity = this.makeUnit(unit, owner, x, y, facing, 'ship');
+    entity.maxSpeed = unit.speed;
+    entity.turnSpeed = (ship?.turnRate ?? unit.turnRate ?? 0.6) * TURN_RATE_SCALE;
+    entity.pathRadius = unit.collision ?? 16;
+    entity.bodyRadius = ship ? BODY_RADIUS[ship.size] ?? 55 : Math.max(30, (unit.collision ?? 16) * 2);
+    this.ships.set(entity.id, entity);
+    return entity;
+  }
+
+  spawnStructure(typeId: string, owner: number, x: number, y: number, facing = 0, handle?: string): UnitEntity {
+    const unit = this.unitTypes.get(typeId);
+    if (!unit) throw new Error(`Unknown unit type ${typeId}`);
+    const entity = this.makeUnit(unit, owner, x, y, facing, 'structure');
+    entity.bodyRadius = unit.collision ?? 48;
+    entity.handle = handle;
+    this.structures.set(entity.id, entity);
+    return entity;
+  }
+
+  private makeUnit(unit: Unit, owner: number, x: number, y: number, facing: number, kind: UnitEntity['kind']): UnitEntity {
+    return {
+      id: this.nextId++, typeId: unit.id, owner, team: teamOfPlayer(owner), kind, isHero: unit.isHero,
+      x, y, facing, speed: 0, maxSpeed: 0, turnSpeed: 0, pathRadius: 0, bodyRadius: 0, path: [], order: { kind: 'idle' },
+      hp: unit.hp, maxHp: unit.hp, armor: unit.armor, armorType: unit.armorType ?? 'none', regen: unit.regenHp,
+      attacks: unit.attacks.map((a) => ({
+        damageBase: a.damageBase, dice: a.dice, sides: a.sides, range: a.range, cooldown: a.cooldown,
+        attackType: a.attackType ?? 'normal', filter: parseTargets(a.targets), readyAt: 0,
+      })),
+      weapons: [], items: [],
       prevX: x, prevY: y, prevFacing: facing,
     };
-    this.ships.set(ship.id, ship);
-    return ship;
+  }
+
+  /** Puts weapon items in a ship's inventory (at most six); non-weapon items are kept but inert for now. */
+  setItems(ship: UnitEntity, items: string[]): void {
+    ship.items = items.slice(0, 6);
+    ship.weapons = ship.items.flatMap((itemId) => {
+      const w = this.weaponTypes.get(itemId);
+      if (!w) return [];
+      return [{ itemId, damage: Number(w.damage) || 0, range: w.range, cooldown: Math.max(0.1, w.cooldown), filter: parseTargets(w.targets), readyAt: 0 }];
+    });
+  }
+
+  remove(id: number): void {
+    this.ships.delete(id);
+    this.structures.delete(id);
   }
 
   issue(command: Command): void {
     this.pending.push(command);
   }
 
+  /** Orders NPC-style travel: follow `goals` in turn, fighting whatever comes into range. */
+  attackMove(unit: UnitEntity, goals: Vec2[]): void {
+    unit.order = { kind: 'attackMove', goals: [...goals] };
+    unit.targetId = undefined;
+    unit.path = goals[0] ? this.grid.findPath(unit, goals[0], unit.pathRadius) ?? [] : [];
+  }
+
   step(): void {
-    for (const ship of this.ships.values()) {
-      ship.prevX = ship.x;
-      ship.prevY = ship.y;
-      ship.prevFacing = ship.facing;
+    this.events = [];
+    for (const u of this.ships.values()) {
+      u.prevX = u.x; u.prevY = u.y; u.prevFacing = u.facing;
+    }
+    for (const p of this.projectiles.values()) {
+      p.prevX = p.x; p.prevY = p.y;
     }
     for (const command of this.pending.splice(0)) this.apply(command);
-    for (const ship of this.ships.values()) this.move(ship);
+    for (const u of this.ships.values()) this.think(u);
+    for (const u of this.ships.values()) this.move(u);
     this.separate();
+    for (const u of [...this.allUnits()]) this.fight(u);
+    this.moveProjectiles();
+    for (const u of this.allUnits()) u.hp = Math.min(u.maxHp, u.hp + u.regen * TICK_DT);
     this.tick++;
   }
 
   private apply(command: Command): void {
-    const ships = command.unitIds.map((id) => this.ships.get(id)).filter((s): s is ShipEntity => s !== undefined);
+    const ships = command.unitIds.map((id) => this.ships.get(id)).filter((s): s is UnitEntity => s !== undefined);
     if (command.kind === 'stop') {
-      for (const s of ships) s.path = [];
+      for (const s of ships) { s.path = []; s.order = { kind: 'idle' }; }
       return;
     }
     const targets = formationTargets(ships, { x: command.x, y: command.y });
     ships.forEach((ship, i) => {
+      ship.order = { kind: 'move' };
       ship.path = this.grid.findPath(ship, targets[i]!, ship.pathRadius) ?? [];
     });
   }
 
-  private move(ship: ShipEntity): void {
+  private enemiesOf(u: UnitEntity): Iterable<UnitEntity> {
+    const out: UnitEntity[] = [];
+    for (const other of this.allUnits()) if (other.team !== u.team && other.hp > 0) out.push(other);
+    return out;
+  }
+
+  private canTarget(filter: TargetFilter, target: UnitEntity): boolean {
+    if (target.kind === 'structure' ? !filter.structures : !filter.ships) return false;
+    if (filter.heroesOnly && !target.isHero) return false;
+    if (filter.noHeroes && target.isHero) return false;
+    return true;
+  }
+
+  /** Edge-to-edge distance, so big targets can be hit from their rim. */
+  private reach(a: UnitEntity, b: UnitEntity): number {
+    return distance(a, b) - b.bodyRadius * 0.6;
+  }
+
+  /** Attack-move AI: keep a target in sight, otherwise continue to the next goal. */
+  private think(u: UnitEntity): void {
+    if (u.order.kind !== 'attackMove' || u.attacks.length === 0) return;
+    const range = Math.max(...u.attacks.map((a) => a.range));
+    const current = this.unit(u.targetId);
+    if (!current || current.hp <= 0 || this.reach(u, current) > range + ACQUIRE_BONUS) {
+      u.targetId = undefined;
+      let best: UnitEntity | undefined;
+      let bestD = range + ACQUIRE_BONUS;
+      for (const e of this.enemiesOf(u)) {
+        if (!u.attacks.some((a) => this.canTarget(a.filter, e))) continue;
+        const d = this.reach(u, e);
+        if (d < bestD) { best = e; bestD = d; }
+      }
+      u.targetId = best?.id;
+    }
+    const target = this.unit(u.targetId);
+    if (target) {
+      // Close in if needed; stop once in range.
+      if (this.reach(u, target) > range * 0.9) {
+        if (u.path.length === 0 || this.tick % 20 === u.id % 20) u.path = this.grid.findPath(u, target, u.pathRadius) ?? [];
+      } else {
+        u.path = [];
+        u.facing = turnToward(u.facing, Math.atan2(target.y - u.y, target.x - u.x), u.turnSpeed * TICK_DT);
+      }
+      return;
+    }
+    // No target: head for the current goal, advancing when it is reached.
+    const goals = u.order.goals;
+    while (goals.length > 0 && distance(u, goals[0]!) < 200) goals.shift();
+    if (goals.length === 0) { u.order = { kind: 'idle' }; u.path = []; return; }
+    if (u.path.length === 0) u.path = this.grid.findPath(u, goals[0]!, u.pathRadius) ?? [];
+  }
+
+  private move(ship: UnitEntity): void {
     while (ship.path.length > 1 && distance(ship, ship.path[0]!) < WAYPOINT_RADIUS) ship.path.shift();
     const target = ship.path[0];
     let targetSpeed = 0;
@@ -144,7 +361,76 @@ export class World {
     }
   }
 
-  /** Pushes overlapping hulls apart; O(n²) is fine for the few dozen ships of M1. */
+  /** Fires every ready attack and weapon. */
+  private fight(u: UnitEntity): void {
+    if (u.hp <= 0) return;
+    for (const a of u.attacks) {
+      if (this.tick < a.readyAt) continue;
+      // Structures and idle units pick the nearest valid enemy; attack-movers use their target.
+      let target = this.unit(u.targetId);
+      if (!target || target.hp <= 0 || !this.canTarget(a.filter, target) || this.reach(u, target) > a.range) {
+        target = undefined;
+        let bestD = a.range;
+        for (const e of this.enemiesOf(u)) {
+          if (!this.canTarget(a.filter, e)) continue;
+          const d = this.reach(u, e);
+          if (d <= bestD) { target = e; bestD = d; }
+        }
+      }
+      if (!target) continue;
+      const roll = a.damageBase + Array.from({ length: a.dice }, () => 1 + Math.floor(this.random() * a.sides)).reduce((s, v) => s + v, 0);
+      this.shoot(u, target, roll, a.attackType);
+      a.readyAt = this.tick + Math.round(a.cooldown * TICK_RATE);
+    }
+    for (const w of u.weapons) {
+      if (this.tick < w.readyAt) continue;
+      const candidates: UnitEntity[] = [];
+      for (const e of this.enemiesOf(u)) if (this.canTarget(w.filter, e) && this.reach(u, e) <= w.range) candidates.push(e);
+      if (candidates.length === 0) continue;
+      const target = candidates[Math.floor(this.random() * candidates.length)]!;
+      this.shoot(u, target, w.damage, 'spells');
+      w.readyAt = this.tick + Math.round(w.cooldown * TICK_RATE);
+    }
+  }
+
+  private shoot(source: UnitEntity, target: UnitEntity, damage: number, attackType: string): void {
+    const p: Projectile = {
+      id: this.nextId++, sourceId: source.id, owner: source.owner, targetId: target.id,
+      x: source.x, y: source.y, prevX: source.x, prevY: source.y, damage, attackType,
+    };
+    this.projectiles.set(p.id, p);
+    this.events.push({ kind: 'shot', projectileId: p.id, sourceId: source.id, targetId: target.id });
+  }
+
+  private moveProjectiles(): void {
+    const step = PROJECTILE_SPEED * TICK_DT;
+    for (const p of this.projectiles.values()) {
+      const target = this.unit(p.targetId);
+      if (!target) { this.projectiles.delete(p.id); continue; }
+      const d = distance(p, target);
+      if (d > step) {
+        p.x += ((target.x - p.x) / d) * step;
+        p.y += ((target.y - p.y) / d) * step;
+        continue;
+      }
+      this.projectiles.delete(p.id);
+      this.dealDamage(target, p.damage, p.attackType, p.owner, p.sourceId);
+    }
+  }
+
+  /** Applies typed, armor-reduced damage and reports deaths. */
+  dealDamage(target: UnitEntity, amount: number, attackType: string, sourceOwner: number, sourceId: number): void {
+    if (target.hp <= 0) return;
+    const dealt = this.damage.damage(amount, attackType, target.armorType, target.armor);
+    target.hp -= dealt;
+    this.events.push({ kind: 'hit', targetId: target.id, sourceOwner, damage: dealt });
+    if (target.hp > 0) return;
+    target.hp = 0;
+    this.remove(target.id);
+    this.events.push({ kind: 'death', unit: target, killerOwner: sourceOwner, killerId: sourceId });
+  }
+
+  /** Pushes overlapping hulls apart; O(n²) is fine for the few hundred ships of a match. */
   private separate(): void {
     const list = [...this.ships.values()];
     for (let i = 0; i < list.length; i++) {
@@ -163,7 +449,7 @@ export class World {
     }
   }
 
-  private nudge(ship: ShipEntity, dx: number, dy: number): void {
+  private nudge(ship: UnitEntity, dx: number, dy: number): void {
     if (this.grid.isSailable(ship.x + dx, ship.y + dy, ship.pathRadius)) {
       ship.x += dx;
       ship.y += dy;
@@ -172,7 +458,7 @@ export class World {
 }
 
 /** Spreads a group's destinations on a grid around the clicked point. */
-export function formationTargets(ships: ShipEntity[], center: Vec2): Vec2[] {
+export function formationTargets(ships: UnitEntity[], center: Vec2): Vec2[] {
   if (ships.length <= 1) return ships.map(() => center);
   const spacing = Math.max(...ships.map((s) => s.bodyRadius)) * 2.2;
   const cols = Math.ceil(Math.sqrt(ships.length));

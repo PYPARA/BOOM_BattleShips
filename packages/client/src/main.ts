@@ -1,10 +1,13 @@
 import * as THREE from 'three/webgpu';
-import { createWorld, TICK_DT } from '@boom/sim';
+import { createMatch, TICK_DT } from '@boom/sim';
 import { RtsCamera } from './camera.ts';
 import { loadData } from './data.ts';
+import { Hud } from './hud.ts';
 import { SelectionInput } from './input.ts';
 import { Minimap } from './minimap.ts';
 import { loadGlbModels } from './models/glb.ts';
+import { Overlay } from './overlay.ts';
+import { ProjectileViews } from './projectiles.ts';
 import { createBuildings, createDoodads } from './props.ts';
 import { ShipViews } from './shipViews.ts';
 import { SEA_LEVEL, toThree } from './space.ts';
@@ -13,8 +16,6 @@ import { createWater } from './water.ts';
 
 /** Local player slot: the first southern player. */
 const PLAYER = 2;
-/** Ships handed to the player to compare hulls and the pilot models (水手, 龟船, 领主, 黑色幽灵). */
-const STARTING_FLEET = ['H000', 'H016', 'H008', 'H011'];
 /** Never run more than this many sim ticks per frame, so a stalled tab cannot spiral. */
 const MAX_TICKS_PER_FRAME = 5;
 
@@ -23,10 +24,14 @@ const hud = document.getElementById('hud')!;
 const info = document.getElementById('info')!;
 
 const [data] = await Promise.all([loadData(), loadGlbModels()]);
-const world = createWorld(data);
+const params = new URLSearchParams(location.search);
+const match = createMatch(data, { players: [PLAYER], mode: 'fast', seed: Date.now() % 100000 });
+const world = match.world;
+// `?gold=20000` starts with extra gold, for trying ships while developing.
+if (import.meta.env.DEV && params.has('gold')) match.players.get(PLAYER)!.gold = Number(params.get('gold')) || 20000;
 
 // `?webgl` forces the WebGL2 backend, to test the fallback path on WebGPU-capable browsers.
-const forceWebGL = new URLSearchParams(location.search).has('webgl');
+const forceWebGL = params.has('webgl');
 const renderer = new THREE.WebGPURenderer({ antialias: true, forceWebGL });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -45,27 +50,31 @@ scene.add(sun);
 scene.add(createTerrainMesh(data.terrain));
 scene.add(createWater(data.terrain));
 scene.add(createDoodads(data.doodads));
-scene.add(createBuildings(data.map.placements, data.unitsById, data.terrain));
-
-const start = data.map.players.find((p) => p.index === PLAYER)!;
-STARTING_FLEET.forEach((typeId, i) => {
-  const radius = data.ships.find((s) => s.id === typeId)!.collision;
-  const spot = world.grid.nearestSailable(start.startX! + (i - 1.5) * 220, start.startY! + 500, radius)!;
-  world.spawnShip(typeId, PLAYER, spot.x, spot.y, Math.PI / 2);
-});
+const buildingGroup = createBuildings(data.map.placements, data.unitsById, data.terrain);
+scene.add(buildingGroup);
+// Link each building mesh to its simulated structure, to remove it when destroyed.
+const buildingMeshes = new Map<number, THREE.Object3D>();
+for (const s of world.structures.values()) {
+  const mesh = buildingGroup.children.find((c) => c.userData.mapX === s.x && c.userData.mapY === s.y);
+  if (mesh) buildingMeshes.set(s.id, mesh);
+}
 
 // Handy in the browser console while developing.
-if (import.meta.env.DEV) Object.assign(window, { boom: { scene, world, renderer, get rts() { return rts; } } });
+if (import.meta.env.DEV) Object.assign(window, { boom: { scene, match, world, renderer, get rts() { return rts; } } });
 
 const shipViews = new ShipViews(world);
 scene.add(shipViews.group);
+const projectileViews = new ProjectileViews(world);
+scene.add(projectileViews.mesh);
+const overlay = new Overlay(match, PLAYER);
+const hudPanel = new Hud(match, PLAYER, data);
 
 const rts = new RtsCamera(renderer.domElement, data.map.bounds);
 const input = new SelectionInput(renderer.domElement, rts, world, PLAYER);
 const buildings = data.map.placements.filter((p) => data.unitsById.get(p.id)?.isBuilding && p.id !== 'hhou');
 const minimap = new Minimap(data.terrain, data.pathingInfo, data.pathingCells, buildings, data.unitsById, world, rts, PLAYER);
 minimap.onOrder = (x, y) => input.orderAt(x, y);
-const firstShip = [...world.ships.values()][0]!;
+const firstShip = world.ships.get(match.players.get(PLAYER)!.shipId!)!;
 input.selected.add(firstShip.id);
 rts.lookAt(firstShip.x, firstShip.y + 400);
 
@@ -95,14 +104,30 @@ renderer.setAnimationLoop(() => {
   accumulator += frameDt;
   let ticks = 0;
   while (accumulator >= TICK_DT && ticks < MAX_TICKS_PER_FRAME) {
-    world.step();
+    match.step();
+    overlay.onEvents(match.events, now);
+    hudPanel.onEvents(match.events, now);
+    for (const e of match.events) {
+      if (e.kind === 'death') buildingMeshes.get(e.unitId)?.removeFromParent();
+      if (e.kind === 'respawn' && e.player === PLAYER) {
+        const ship = world.ships.get(e.shipId)!;
+        rts.lookAt(ship.x, ship.y);
+      }
+    }
     accumulator -= TICK_DT;
     ticks++;
   }
   if (ticks === MAX_TICKS_PER_FRAME) accumulator = 0;
 
+  // The player's ship changes on purchase and respawn; keep it selected.
+  const own = match.players.get(PLAYER)!.shipId;
+  for (const id of input.selected) if (!world.ships.has(id)) input.selected.delete(id);
+  if (own !== undefined && input.selected.size === 0) input.selected.add(own);
+
   rts.update(frameDt);
-  shipViews.update(accumulator / TICK_DT, now / 1000, input.selected, frameDt);
+  const alpha = accumulator / TICK_DT;
+  shipViews.update(alpha, now / 1000, input.selected, frameDt);
+  projectileViews.update(alpha);
 
   if (input.lastOrder) {
     const age = (now - input.lastOrder.at) / 600;
@@ -115,12 +140,15 @@ renderer.setAnimationLoop(() => {
   }
 
   renderer.render(scene, rts.camera);
+  overlay.draw(rts.camera, now);
   minimap.draw();
+  hudPanel.update(now);
 
   const selected = [...input.selected].map((id) => world.ships.get(id)).filter((s) => s !== undefined);
   info.textContent = selected
     .map((s) => {
-      const type = shipTypes.get(s.typeId)!;
+      const type = shipTypes.get(s.typeId);
+      if (!type) return '';
       return `${type.name}（${type.hullClass}，${type.size}）  航速 ${(s.speed / 10).toFixed(1)}/${type.speed / 10} 节  转向 ${type.turnRate}`;
     })
     .join('\n');

@@ -116,6 +116,8 @@ export function createBuildings(placements: Placement[], unitsById: Map<string, 
     mesh.rotation.y = THREE.MathUtils.degToRad(p.facing);
     mesh.scale.multiplyScalar(unit.modelScale ?? 1); // on top of any GLB normalization
     mesh.userData.unitId = p.id;
+    mesh.userData.mapX = p.x; // lets the client match the mesh to its simulated structure
+    mesh.userData.mapY = p.y;
     group.add(mesh);
   }
   return group;

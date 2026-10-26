@@ -4,7 +4,7 @@
   "projectName": "H000 水手",
   "versionId": "f2fb8482-786b-4338-89d6-e76500122e84",
   "versionName": "v3",
-  "adopted": false,
+  "adopted": true,
   "triangles": 1928,
   "waterline": 0.1296,
   "teamMaterials": [

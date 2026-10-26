@@ -1,18 +1,22 @@
 // Builds a World from the extracted game data.
-import type { MapInfo, PathingInfo, Ship, Terrain, Unit } from '@boom/gamedata';
+import type { Item, MapInfo, PathingInfo, Ship, Terrain, Unit, Weapon } from '@boom/gamedata';
+import { Match, type GameMode } from './match.ts';
 import { PathGrid } from './pathing.ts';
 import { World } from './world.ts';
 
 export interface GameData {
   ships: Ship[];
   units: Unit[];
+  weapons: Weapon[];
+  items: Item[];
+  misc?: Record<string, unknown>;
   map: MapInfo;
   terrain: Pick<Terrain, 'originX' | 'originY'>;
   pathingInfo: PathingInfo;
   pathingCells: Uint8Array;
 }
 
-export function createWorld(data: GameData): World {
+export function createWorld(data: GameData, seed = 1): World {
   const grid = new PathGrid({
     width: data.pathingInfo.width,
     height: data.pathingInfo.height,
@@ -29,5 +33,10 @@ export function createWorld(data: GameData): World {
       .filter((p) => units.get(p.id)?.isBuilding)
       .map((p) => ({ x: p.x, y: p.y, radius: units.get(p.id)!.collision ?? 48 })),
   );
-  return new World(grid, data.ships);
+  return new World(grid, data, seed);
+}
+
+/** A full match: structures placed, the given player slots each with a starting ship. */
+export function createMatch(data: GameData, options: { players: number[]; mode?: GameMode; seed?: number }): Match {
+  return new Match(createWorld(data, options.seed), data, options);
 }

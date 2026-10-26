@@ -8,11 +8,15 @@ const json = (name: string) => JSON.parse(readFileSync(gen(name), 'utf8'));
 const data: GameData = {
   ships: json('ships.json'),
   units: json('units.json'),
+  weapons: json('weapons.json'),
+  items: json('items.json'),
+  misc: json('misc.json'),
   map: json('map.json'),
   terrain: json('terrain.json'),
   pathingInfo: json('pathing.json'),
   pathingCells: new Uint8Array(readFileSync(gen('pathing.bin'))),
 };
+export { data };
 const southStart = data.map.players.find((p) => p.index === 2)!;
 const northStart = data.map.players.find((p) => p.index === 7)!;
 
