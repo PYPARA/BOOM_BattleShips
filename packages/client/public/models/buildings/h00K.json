@@ -1,0 +1,12 @@
+{
+  "source": "aha",
+  "projectId": "4703aa1b-11e1-457a-919c-dbe5156cd090",
+  "projectName": "炮塔",
+  "versionId": "6e43ed15-775a-42e6-8aea-7b035110d0db",
+  "versionName": "v2",
+  "adopted": false,
+  "triangles": 15788,
+  "teamMaterials": [
+    "banner-blue"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "@boom/art",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node src/generate.ts",
+    "typecheck": "tsc -p .",
+    "pull-aha": "node src/pull-aha.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2"
+  }
+}

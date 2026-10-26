@@ -2,7 +2,11 @@
 // Real models come from the AI art pipeline later; these only need the right size and place.
 import * as THREE from 'three/webgpu';
 import type { Doodad, Placement, Terrain, Unit } from '@boom/gamedata';
+import { glbModel } from './models/glb.ts';
 import { groundHeightAt, SEA_LEVEL, TEAM_COLORS, teamOf, toThree } from './space.ts';
+
+/** On-screen heights for pulled building models, matching the placeholder proportions. */
+const BUILDING_HEIGHTS: Record<string, number> = { n000: 320, n003: 130, h00K: 230, h00M: 250, h012: 290 };
 
 type DoodadKind = 'tree' | 'rock' | 'plant' | 'prop';
 
@@ -105,11 +109,12 @@ export function createBuildings(placements: Placement[], unitsById: Map<string, 
   for (const p of placements) {
     const unit = unitsById.get(p.id);
     if (!unit?.isBuilding || p.id === 'hhou') continue; // hhou: the script's hidden per-player helper
-    const mesh = buildingMesh(unit, TEAM_COLORS[teamOf(p.player)]);
+    const color = TEAM_COLORS[teamOf(p.player)];
+    const mesh = glbModel('buildings', p.id, color, { height: BUILDING_HEIGHTS[p.id] ?? (unit.collision ?? 48) * 4 }) ?? buildingMesh(unit, color);
     const ground = Math.max(groundHeightAt(terrain, p.x, p.y), SEA_LEVEL - 20);
     toThree(p.x, p.y, ground, mesh.position);
     mesh.rotation.y = THREE.MathUtils.degToRad(p.facing);
-    mesh.scale.setScalar(unit.modelScale ?? 1);
+    mesh.scale.multiplyScalar(unit.modelScale ?? 1); // on top of any GLB normalization
     mesh.userData.unitId = p.id;
     group.add(mesh);
   }

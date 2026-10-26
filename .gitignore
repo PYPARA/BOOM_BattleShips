@@ -4,3 +4,8 @@ dist/
 *.log
 # Files unpacked from the map archive (regenerate with `pnpm extract`)
 data/raw/
+
+# Local API credentials
+key.json
+# Full-size generated images; downsized copies live in art/concepts/preview
+art/concepts/*.png

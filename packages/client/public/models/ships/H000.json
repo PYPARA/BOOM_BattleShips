@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "98b1c68b-135f-42f0-bcf5-cb85b288f803",
+  "projectName": "H000 水手",
+  "versionId": "f2fb8482-786b-4338-89d6-e76500122e84",
+  "versionName": "v3",
+  "adopted": false,
+  "triangles": 1928,
+  "waterline": 0.1296,
+  "teamMaterials": [
+    "team"
+  ]
+}

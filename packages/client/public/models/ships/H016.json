@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "f8f676f7-8085-4e14-9233-7f93200500c3",
+  "projectName": "H016 龟船",
+  "versionId": "767c84cd-5f6c-44d6-a2e0-f6f5ac02150e",
+  "versionName": "v2",
+  "adopted": false,
+  "triangles": 3426,
+  "waterline": 0.21,
+  "teamMaterials": [
+    "team"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "9f10af88-c1b4-4e6b-90a3-91b30f8b5cd3",
+  "projectName": "H008 领主",
+  "versionId": "233b687c-e924-42ab-a351-41f8ec4a0ebc",
+  "versionName": "v5",
+  "adopted": false,
+  "triangles": 7749,
+  "waterline": 0.248,
+  "teamMaterials": [
+    "team"
+  ]
+}

@@ -4,6 +4,7 @@ import { RtsCamera } from './camera.ts';
 import { loadData } from './data.ts';
 import { SelectionInput } from './input.ts';
 import { Minimap } from './minimap.ts';
+import { loadGlbModels } from './models/glb.ts';
 import { createBuildings, createDoodads } from './props.ts';
 import { ShipViews } from './shipViews.ts';
 import { SEA_LEVEL, toThree } from './space.ts';
@@ -12,8 +13,8 @@ import { createWater } from './water.ts';
 
 /** Local player slot: the first southern player. */
 const PLAYER = 2;
-/** Ships handed to the player in M1 to compare hull handling (水手, 拦截者, 领主, 黑色幽灵). */
-const STARTING_FLEET = ['H000', 'H003', 'H008', 'H011'];
+/** Ships handed to the player to compare hulls and the pilot models (水手, 龟船, 领主, 黑色幽灵). */
+const STARTING_FLEET = ['H000', 'H016', 'H008', 'H011'];
 /** Never run more than this many sim ticks per frame, so a stalled tab cannot spiral. */
 const MAX_TICKS_PER_FRAME = 5;
 
@@ -21,7 +22,7 @@ const container = document.getElementById('app')!;
 const hud = document.getElementById('hud')!;
 const info = document.getElementById('info')!;
 
-const data = await loadData();
+const [data] = await Promise.all([loadData(), loadGlbModels()]);
 const world = createWorld(data);
 
 // `?webgl` forces the WebGL2 backend, to test the fallback path on WebGPU-capable browsers.
@@ -54,7 +55,7 @@ STARTING_FLEET.forEach((typeId, i) => {
 });
 
 // Handy in the browser console while developing.
-if (import.meta.env.DEV) Object.assign(window, { boom: { scene, world, renderer } });
+if (import.meta.env.DEV) Object.assign(window, { boom: { scene, world, renderer, get rts() { return rts; } } });
 
 const shipViews = new ShipViews(world);
 scene.add(shipViews.group);

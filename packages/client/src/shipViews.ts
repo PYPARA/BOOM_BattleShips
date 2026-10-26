@@ -2,12 +2,15 @@
 // cosmetic motion (bobbing, leaning into turns) that the simulation does not model.
 import * as THREE from 'three/webgpu';
 import { wrapAngle, type ShipEntity, type World } from '@boom/sim';
+import { glbModel } from './models/glb.ts';
+import { shipModels } from './models/index.ts';
+import { withEngineRig } from './models/rigs.ts';
 import { createPlaceholderShip } from './placeholderShip.ts';
 import { TEAM_COLORS, teamOf, toThree } from './space.ts';
 
 interface ShipView {
   root: THREE.Group;
-  model: THREE.Group;
+  model: THREE.Object3D;
   ring: THREE.Mesh;
   roll: number;
 }
@@ -25,9 +28,13 @@ export class ShipViews {
   }
 
   private create(ship: ShipEntity): ShipView {
+    // Aha GLB first, then the hand-built procedural model, then the generic placeholder.
     const length = ship.bodyRadius * 3;
     const masts = ship.bodyRadius >= 80 ? 3 : ship.bodyRadius >= 55 ? 2 : 1;
-    const model = createPlaceholderShip(length, masts, TEAM_COLORS[teamOf(ship.owner)]);
+    const color = TEAM_COLORS[teamOf(ship.owner)];
+    const glb = glbModel('ships', ship.typeId, color, { length });
+    const model = (glb && withEngineRig(glb, ship.typeId, length, color)) // Aha models leave sails to the engine
+      ?? shipModels[ship.typeId]?.(color) ?? createPlaceholderShip(length, masts, color);
     const ring = new THREE.Mesh(new THREE.RingGeometry(ship.bodyRadius * 1.05, ship.bodyRadius * 1.2, 40), ringMaterial);
     ring.rotation.x = -Math.PI / 2;
     ring.position.y = 2;

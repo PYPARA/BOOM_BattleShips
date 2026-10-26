@@ -1,0 +1,54 @@
+{
+  "model": "gpt-image-2.5-sunburst-4k",
+  "style": "stylized low-poly 3D game asset, hand-painted textures, chunky slightly exaggerated proportions, warm wood and weathered metal, clean readable silhouette, isolated on a plain light grey background, soft flat even lighting, no cast shadows, full object in frame, centered",
+  "views": {
+    "34": "three-quarter view from the front-left, camera slightly above",
+    "side": "exact side profile view, orthographic, bow pointing right"
+  },
+  "shipSuffix": "hull and deck superstructure only, no masts, no sails, no rigging",
+  "styleReferences": ["S1_sloop_34.png", "S2_ironclad_34.png"],
+  "items": [
+    {
+      "id": "S1",
+      "name": "sloop",
+      "kind": "style",
+      "views": ["34"],
+      "description": "A small wooden fishing sloop hull with a little deck cabin and a few barrels"
+    },
+    {
+      "id": "S2",
+      "name": "ironclad",
+      "kind": "style",
+      "views": ["34"],
+      "description": "A medium iron-plated warship hull with riveted armor, a small command bridge and two deck cannons"
+    },
+    {
+      "id": "S3",
+      "name": "tower",
+      "kind": "building",
+      "views": ["34"],
+      "description": "A sturdy stone coastal defense tower with a cannon platform on top and a wooden door at the base"
+    },
+    {
+      "id": "H000",
+      "name": "sailor",
+      "kind": "ship",
+      "views": ["34", "side"],
+      "description": "A small, cheap wooden launch boat with a single small cannon mounted at the bow, a tiny tiller at the stern and a coil of rope on deck, simple and humble"
+    },
+    {
+      "id": "H016",
+      "name": "turtle",
+      "kind": "ship",
+      "views": ["34", "side"],
+      "description": "A Joseon-era Korean turtle warship: a fully enclosed curved armored roof covered in iron spikes like a turtle shell, a carved dragon head at the bow, rows of small gun ports along both sides, sturdy dark wooden hull"
+    },
+    {
+      "id": "H008",
+      "name": "lord",
+      "kind": "ship",
+      "views": ["34", "side"],
+      "description": "A massive dark iron battleship with a fortified stone-and-iron keep in the middle of the deck, a heavy reinforced ram at the bow, frost-blue crystal ornaments on the keep, broadside cannon ports along the hull, intimidating ruler of the sea"
+    }
+  ]
+}
