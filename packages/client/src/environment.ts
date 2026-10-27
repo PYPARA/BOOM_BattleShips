@@ -25,7 +25,7 @@ export class Environment {
   private readonly sky: THREE.Mesh;
   private shadowSize = 0;
 
-  constructor(scene: THREE.Scene) {
+  constructor(scene: THREE.Scene, shadowMapSize = 2048) {
     scene.background = HORIZON.clone();
     scene.fog = new THREE.Fog(HORIZON.clone(), 5000, 14000);
     this.sky = new THREE.Mesh(new THREE.SphereGeometry(30000, 32, 16), skyMaterial());
@@ -36,7 +36,7 @@ export class Environment {
     scene.add(new THREE.HemisphereLight(0xdcecff, 0x3a5a48, 0.9));
     this.sun = new THREE.DirectionalLight(0xfff1dc, 2.6);
     this.sun.castShadow = true;
-    this.sun.shadow.mapSize.set(2048, 2048);
+    this.sun.shadow.mapSize.set(shadowMapSize, shadowMapSize);
     this.sun.shadow.bias = -0.0004;
     this.sun.shadow.normalBias = 2;
     this.sun.shadow.camera.near = 100;

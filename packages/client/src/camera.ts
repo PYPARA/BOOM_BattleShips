@@ -18,6 +18,8 @@ export class RtsCamera {
   readonly camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 20, 30000);
   readonly target = new THREE.Vector3(0, SEA_LEVEL, 0);
   private distance = 2400;
+  /** Pan when the mouse touches a screen edge (settings). */
+  edgePan = true;
 
   /** Camera distance from the target (zoom). */
   get viewDistance(): number {
@@ -63,7 +65,7 @@ export class RtsCamera {
     if (this.keys.has('arrowright')) dx += 1;
     if (this.keys.has('arrowup')) dz -= 1;
     if (this.keys.has('arrowdown')) dz += 1;
-    if (this.mouse && document.hasFocus()) {
+    if (this.edgePan && this.mouse && document.hasFocus()) {
       if (this.mouse.x <= EDGE_PX) dx -= 1;
       if (this.mouse.x >= window.innerWidth - EDGE_PX) dx += 1;
       if (this.mouse.y <= EDGE_PX) dz -= 1;

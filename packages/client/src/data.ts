@@ -2,6 +2,7 @@
 // app bundle stays small; the binary pathing grid is fetched.
 import type { Ability, Doodad, Item, MapInfo, PathingInfo, Ship, Terrain, Unit, Weapon } from '@boom/gamedata';
 import pathingBinUrl from '@boom/gamedata/generated/pathing.bin?url';
+import type { Progress } from './config.ts';
 
 export interface ClientData {
   ships: Ship[];
@@ -19,8 +20,8 @@ export interface ClientData {
   pathingCells: Uint8Array;
 }
 
-export async function loadData(): Promise<ClientData> {
-  const [response, ships, units, map, terrain, doodads, pathingInfo, weapons, items, misc, abilities] = await Promise.all([
+export async function loadData(progress?: Progress): Promise<ClientData> {
+  const parts = [
     fetch(pathingBinUrl),
     import('@boom/gamedata/generated/ships.json').then((m) => m.default as Ship[]),
     import('@boom/gamedata/generated/units.json').then((m) => m.default as Unit[]),
@@ -32,7 +33,10 @@ export async function loadData(): Promise<ClientData> {
     import('@boom/gamedata/generated/items.json').then((m) => m.default as Item[]),
     import('@boom/gamedata/generated/misc.json').then((m) => m.default as Record<string, unknown>),
     import('@boom/gamedata/generated/abilities.json').then((m) => m.default as Ability[]),
-  ]);
+  ] as const;
+  progress?.add(parts.length);
+  for (const part of parts) void part.then(() => progress?.tick(), () => undefined);
+  const [response, ships, units, map, terrain, doodads, pathingInfo, weapons, items, misc, abilities] = await Promise.all(parts);
   if (!response.ok) throw new Error(`Failed to load pathing grid: ${response.status}`);
   return {
     ships,

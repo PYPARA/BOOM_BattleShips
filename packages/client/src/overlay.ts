@@ -28,6 +28,8 @@ export class Overlay {
   private readonly v = new THREE.Vector3();
   private readonly match: Match;
   private readonly player: number;
+  /** Damage numbers on or off (settings). */
+  showDamage = true;
 
   constructor(match: Match, player: number) {
     this.match = match;
@@ -44,7 +46,7 @@ export class Overlay {
       if (e.kind === 'gold' && e.player === this.player && e.x !== undefined) {
         this.floaters.push({ text: `+${e.amount}`, color: '#ffd84a', x: e.x, y: e.y!, z: SEA_LEVEL + 80, born: now, size: 15 });
       }
-      if (e.kind === 'hit' && e.damage >= 1) this.damage(e.targetId, e.sourceOwner, e.damage, e.attackType, e.x, e.y, now);
+      if (e.kind === 'hit' && e.damage >= 1 && this.showDamage) this.damage(e.targetId, e.sourceOwner, e.damage, e.attackType, e.x, e.y, now);
 
     }
   }

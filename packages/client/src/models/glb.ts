@@ -5,6 +5,7 @@
 import * as THREE from 'three/webgpu';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import type { Progress } from '../config.ts';
 
 export type ModelKind = 'ships' | 'buildings' | 'creatures' | 'doodads';
 
@@ -30,8 +31,9 @@ const templates = new Map<string, Template>();
 const teamMaterialCache = new Map<string, THREE.Material>();
 
 /** Loads every pulled GLB once; call before building the scene. Missing files are skipped. */
-export async function loadGlbModels(): Promise<void> {
+export async function loadGlbModels(progress?: Progress): Promise<void> {
   const loader = new GLTFLoader();
+  progress?.add(Object.keys(sidecars).length);
   await Promise.all(Object.entries(sidecars).map(async ([path, sidecar]) => {
     const match = /models\/(\w+)\/(\w+)\.json$/.exec(path);
     if (!match) return;
@@ -50,6 +52,7 @@ export async function loadGlbModels(): Promise<void> {
     } catch (error) {
       console.warn(`Could not load model ${kind}/${id}:`, error);
     }
+    progress?.tick();
   }));
 }
 

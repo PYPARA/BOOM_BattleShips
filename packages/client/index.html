@@ -155,6 +155,74 @@
       .tip-next { margin-top: 6px; padding-top: 5px; border-top: 1px solid #ffffff1a; color: var(--gold); font-weight: 600; font-size: 11px; }
       .tip-list, .tip-note { margin-top: 5px; color: var(--dim); font-size: 11px; }
 
+      /* Main menu and loading. */
+      .menu {
+        position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; overflow: hidden;
+        background: radial-gradient(ellipse at 50% 30%, #1d5a7a 0%, #0c2a3e 55%, #06131d 100%); color: var(--text);
+        font: 14px system-ui, sans-serif; transition: opacity 0.4s;
+      }
+      .menu.leaving { opacity: 0; pointer-events: none; }
+      .menu-ships { position: absolute; inset: auto 0 0 0; height: 30vh; display: flex; justify-content: center; gap: 2vw; opacity: 0.35; filter: saturate(0.8); mask-image: linear-gradient(transparent, #000 40%); }
+      .menu-ships i { width: 12vw; max-width: 160px; aspect-ratio: 1; background: center / cover; border-radius: 16px; transform: translateY(30%); }
+      .menu-card {
+        position: relative; width: min(520px, calc(100vw - 32px)); padding: 26px 28px 20px; border-radius: 14px;
+        background: var(--panel); border: 1px solid var(--edge); box-shadow: 0 20px 60px #000c;
+      }
+      .menu h1 { margin: 0 0 18px; text-align: center; font-size: 44px; font-weight: 900; letter-spacing: 6px; color: #ffe08a;
+        text-shadow: 0 0 22px #ff9a2a88, 0 4px 0 #6b2a00; }
+      .menu h1 small { display: block; margin-top: 4px; font-size: 13px; letter-spacing: 2px; color: var(--dim); text-shadow: none; font-weight: 500; }
+      .menu-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 10px 0; }
+      .menu-row > span { color: var(--dim); min-width: 64px; }
+      .seg { display: flex; flex-wrap: wrap; gap: 4px; }
+      .seg button { min-width: 44px; padding: 6px 12px; border: 1px solid #ffffff1f; border-radius: 6px; background: #0006; color: var(--text); font: inherit; cursor: pointer; }
+      .seg button:hover { border-color: var(--edge-strong); }
+      .seg button.on { background: #2b1c08; border-color: var(--edge-strong); color: var(--gold); font-weight: 700; }
+      .menu-note { margin: 12px 0 0; color: var(--dim); font-size: 12px; line-height: 1.5; }
+      .menu-actions, .settings-actions, .results-actions { display: flex; gap: 8px; justify-content: center; margin-top: 18px; }
+      .menu-actions button, .settings-actions button, .results-actions button {
+        padding: 9px 20px; border: 1px solid #ffffff2a; border-radius: 8px; background: #0006; color: var(--text); font: 600 14px system-ui, sans-serif; cursor: pointer;
+      }
+      .menu-actions button.primary, .settings-actions button.primary, .results-actions button.primary {
+        background: linear-gradient(180deg, #e6b65a, #b07a1f); border-color: #ffe08a; color: #2b1600; padding: 9px 30px;
+      }
+      .menu-help { display: none; margin: 14px 0 0; color: var(--dim); font-size: 12px; line-height: 1.7; }
+      .menu.show-help .menu-help { display: block; }
+      .menu-loading { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); width: min(420px, calc(100vw - 48px)); text-align: center; color: var(--dim); font-size: 12px; }
+      .menu-bar { height: 6px; margin-bottom: 6px; border-radius: 3px; background: #0008; overflow: hidden; }
+      .menu-bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #b07a1f, #ffe08a); transition: width 0.2s; }
+      .menu.loading .menu-card { display: none; }
+      .menu.loading .menu-loading { bottom: 50%; font-size: 15px; color: var(--text); }
+      .menu.loading .menu-loading::before { content: '正在驶入海域…'; display: block; margin-bottom: 14px; font-size: 26px; font-weight: 800; color: #ffe08a; }
+
+      /* Settings. */
+      .gear { position: fixed; left: 48px; top: 34px; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--edge); background: var(--panel); color: var(--text); cursor: pointer; font-size: 15px; }
+      .settings { position: fixed; inset: 0; z-index: 30; display: none; place-items: center; background: #0008; font: 13px system-ui, sans-serif; color: var(--text); }
+      .settings.show { display: grid; }
+      .settings-card { width: min(420px, calc(100vw - 32px)); padding: 20px 24px; border-radius: 12px; background: var(--panel); border: 1px solid var(--edge); box-shadow: 0 16px 50px #000c; }
+      .settings h2 { margin: 0 0 12px; font-size: 20px; color: var(--gold); text-align: center; }
+      .settings section { margin: 12px 0; }
+      .settings h3 { margin: 0 0 8px; font-size: 12px; color: var(--dim); font-weight: 600; letter-spacing: 1px; }
+      .settings label { display: flex; align-items: center; gap: 10px; margin: 6px 0; }
+      .settings input[type=range] { flex: 1; accent-color: #e2bd70; }
+      .settings .hint { margin: 6px 0 0; color: var(--dim); font-size: 11px; }
+
+      /* Results. */
+      .results { position: fixed; inset: 0; z-index: 25; display: grid; place-items: center; background: #000a; font: 13px system-ui, sans-serif; color: var(--text); animation: fadein 0.6s; }
+      @keyframes fadein { from { opacity: 0; } }
+      .results-card { width: min(860px, calc(100vw - 24px)); max-height: calc(100vh - 32px); overflow: auto; padding: 22px 26px; border-radius: 14px; background: var(--panel); border: 1px solid var(--edge); box-shadow: 0 20px 60px #000d; }
+      .results h1 { margin: 0; text-align: center; font-size: 52px; font-weight: 900; letter-spacing: 8px; }
+      .results.won h1 { color: #ffe08a; text-shadow: 0 0 24px #ff9a2a, 0 4px 0 #6b2a00; }
+      .results.lost h1 { color: #ff8a7a; text-shadow: 0 0 24px #a02a1a, 0 4px 0 #3a0b0b; }
+      .results-sub { margin: 4px 0 12px; text-align: center; color: var(--dim); }
+      .results h3 { margin: 12px 0 4px; font-size: 14px; }
+      .results .south { color: var(--south); } .results .north { color: var(--north); }
+      .results table { width: 100%; border-collapse: collapse; }
+      .results th { text-align: left; color: var(--dim); font-weight: 500; font-size: 11px; padding: 3px 6px; }
+      .results td { padding: 4px 6px; border-top: 1px solid #ffffff0f; white-space: nowrap; }
+      .results tr.me td { background: #e2bd7018; }
+      .results td.ship .icon { margin-right: 6px; }
+      .results .mvp { padding: 1px 5px; border-radius: 4px; background: #b07a1f; color: #2b1600; font-size: 10px; }
+
       /* Volume control. */
       .volume { position: fixed; left: 12px; top: 34px; font: 12px system-ui, sans-serif; color: var(--text); }
       .volume .speaker { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--edge); background: var(--panel); cursor: pointer; font-size: 14px; }
@@ -222,7 +290,7 @@
     <div id="app"></div>
     <div id="hud" class="panel"></div>
     <div id="help" class="panel">左键选择 · 右键航行 · 方向键 / 边缘 / 中键平移 · 滚轮缩放
-技能快捷键见技能图标 · 1–6 物品 · 按住 Tab 查看战况 · 空格回到船只</div>
+技能快捷键见技能图标 · 1–6 物品 · 按住 Tab 查看战况 · 空格回到船只 · F10 设置</div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

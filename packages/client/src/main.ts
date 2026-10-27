@@ -1,7 +1,8 @@
 import * as THREE from 'three/webgpu';
-import { Bot, type Difficulty } from '@boom/ai';
+import { Bot } from '@boom/ai';
 import { createMatch, REPAIR_RECTS, TICK_DT } from '@boom/sim';
 import { RtsCamera } from './camera.ts';
+import { loadConfig, loadSettings, matchSlots, Progress, saveConfig } from './config.ts';
 import { loadData } from './data.ts';
 import { AudioEngine, createVolumeControl } from './audio.ts';
 import { Effects } from './effects.ts';
@@ -10,11 +11,14 @@ import { CombatFx } from './fx.ts';
 import { Hud } from './hud.ts';
 import { Info } from './info.ts';
 import { SelectionInput } from './input.ts';
+import { MainMenu } from './menu.ts';
 import { Minimap } from './minimap.ts';
 import { Music } from './music.ts';
 import { loadGlbModels } from './models/glb.ts';
 import { Overlay } from './overlay.ts';
 import { ProjectileViews } from './projectiles.ts';
+import { Results } from './results.ts';
+import { SettingsPanel } from './settings.ts';
 import { createBuildings, createDoodads, createRepairDocks } from './props.ts';
 import { ShipViews } from './shipViews.ts';
 import { SkillBar } from './skillbar.ts';
@@ -24,23 +28,35 @@ import { createTerrainMesh } from './terrain.ts';
 import { Tooltip } from './tooltip.ts';
 import { createWater } from './water.ts';
 
-/** Local player slot: the first southern player. */
-const PLAYER = 2;
 /** Never run more than this many sim ticks per frame, so a stalled tab cannot spiral. */
 const MAX_TICKS_PER_FRAME = 5;
 
 const container = document.getElementById('app')!;
 const hud = document.getElementById('hud')!;
 
-const [data] = await Promise.all([loadData(), loadGlbModels()]);
+// Load the data and models in the background while the main menu is up.
 const params = new URLSearchParams(location.search);
-// `?mode=standard` plays the league rules (60 gold salary, west channel open); fast is the map's default.
-const mode = params.get('mode') === 'standard' ? 'standard' : 'fast';
-// Full 5v5: the local player plus nine computer players. `?ai=easy|normal|hard`, `?solo` for none.
-const difficulty = (['easy', 'normal', 'hard'] as const).find((d) => d === params.get('ai')) ?? ('normal' as Difficulty);
-const slots = params.has('solo') ? [PLAYER] : [2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-const match = createMatch(data, { players: slots, mode, seed: Date.now() % 100000 });
-const bots = slots.filter((p) => p !== PLAYER).map((p) => new Bot(match, p, { difficulty }));
+const settings = loadSettings();
+const progress = new Progress();
+const loading = Promise.all([loadData(progress), loadGlbModels(progress)]);
+// Sound starts with the menu (on the first click), so the shanty plays while choosing.
+const audio = new AudioEngine();
+const music = new Music(audio);
+audio.onStart = () => music.start();
+const settingsPanel = new SettingsPanel(settings, audio);
+const menu = new MainMenu(progress);
+menu.onSettings = () => settingsPanel.open();
+// `?play` (rematch) and the developer parameters skip the menu.
+const skipMenu = ['play', 'ai', 'solo', 'gold', 'side', 'mode'].some((k) => params.has(k));
+const config = skipMenu ? loadConfig() : await menu.choose(loadConfig());
+// Remember menu choices only; URL overrides are for one visit.
+if (!skipMenu) saveConfig(config);
+await menu.finish(loading);
+const [data] = await loading;
+
+const { player: PLAYER, slots } = matchSlots(config);
+const match = createMatch(data, { players: slots, mode: config.mode, seed: Date.now() % 100000 });
+const bots = slots.filter((p) => p !== PLAYER).map((p) => new Bot(match, p, { difficulty: config.difficulty }));
 const world = match.world;
 // `?gold=20000` starts with extra gold, for trying ships while developing.
 if (import.meta.env.DEV && params.has('gold')) match.players.get(PLAYER)!.gold = Number(params.get('gold')) || 20000;
@@ -48,7 +64,8 @@ if (import.meta.env.DEV && params.has('gold')) match.players.get(PLAYER)!.gold =
 // `?webgl` forces the WebGL2 backend, to test the fallback path on WebGPU-capable browsers.
 const forceWebGL = params.has('webgl');
 const renderer = new THREE.WebGPURenderer({ antialias: true, forceWebGL });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+// Quality: render resolution and shadows (applied when a match starts).
+renderer.setPixelRatio(settings.quality === 'low' ? 0.75 : settings.quality === 'medium' ? 1 : Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 container.appendChild(renderer.domElement);
 await renderer.init();
@@ -56,11 +73,11 @@ const backendName = (renderer.backend as { isWebGPUBackend?: boolean }).isWebGPU
 
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.05;
-renderer.shadowMap.enabled = true;
+renderer.shadowMap.enabled = settings.quality !== 'low';
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const scene = new THREE.Scene();
-const environment = new Environment(scene);
+const environment = new Environment(scene, settings.quality === 'high' ? 2048 : 1024);
 environment.bakeEnvironment(renderer, scene);
 
 scene.add(createTerrainMesh(data.terrain));
@@ -88,10 +105,9 @@ const projectileViews = new ProjectileViews(world);
 scene.add(projectileViews.mesh);
 const overlay = new Overlay(match, PLAYER);
 const hudPanel = new Hud(match, PLAYER, data);
-const audio = new AudioEngine();
-const music = new Music(audio);
-audio.onStart = () => music.start();
 createVolumeControl(audio);
+const results = new Results(match, PLAYER);
+settingsPanel.enterMatch();
 const soundFx = new SoundFx(audio, music, match, PLAYER);
 hudPanel.onAnnounce = () => soundFx.announce();
 const shipTypes = new Map(data.ships.map((s) => [s.id, s]));
@@ -108,6 +124,8 @@ const tooltip = new Tooltip((key) => {
 const rts = new RtsCamera(renderer.domElement, data.map.bounds);
 // Created before selection input so its capture-phase listener sees targeting clicks first.
 const skillBar = new SkillBar(match, PLAYER, data.itemsById, rts, renderer.domElement);
+settingsPanel.onChange = (s) => { overlay.showDamage = s.damageNumbers; rts.edgePan = s.edgePan; };
+settingsPanel.onChange(settings);
 const input = new SelectionInput(renderer.domElement, rts, world, PLAYER);
 const buildings = data.map.placements.filter((p) => data.unitsById.get(p.id)?.isBuilding && p.id !== 'hhou');
 const minimap = new Minimap(data.terrain, data.pathingInfo, data.pathingCells, buildings, data.unitsById, world, rts, PLAYER);
@@ -157,13 +175,15 @@ renderer.setAnimationLoop(() => {
   last = now;
   fps += (1 / Math.max(frameDt, 1e-3) - fps) * 0.05;
 
-  accumulator += frameDt;
+  // The settings panel pauses the match; everything else keeps drawing.
+  accumulator = settingsPanel.paused ? 0 : accumulator + frameDt;
   let ticks = 0;
   while (accumulator >= TICK_DT && ticks < MAX_TICKS_PER_FRAME) {
     for (const bot of bots) bot.update();
     match.step();
     overlay.onEvents(match.events, now);
     combatFx.onEvents(match.events);
+    results.onEvents(match.events);
     soundFx.onEvents(match.events);
     hudPanel.onEvents(match.events, now);
     for (const e of match.events) {
