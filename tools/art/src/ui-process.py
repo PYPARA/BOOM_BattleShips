@@ -12,6 +12,9 @@ OUT = ROOT / 'packages/client/public/ui'
 # name: (longest side in px, trim transparent margins)
 SIZES = {
     'keyart': (1600, False), 'loading': (1600, False), 'logo': (384, True), 'compassLines': (640, True),
+    # The fantasy UI kit (border images and decorations).
+    'woodFrame': (512, True), 'woodPlaque': (900, True), 'woodButton': (640, True), 'woodButtonOn': (640, True),
+    'woodSlot': (192, True), 'woodBanner': (360, True), 'woodCrest': (384, True),
 }
 
 

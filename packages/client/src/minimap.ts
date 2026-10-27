@@ -67,8 +67,10 @@ export class Minimap {
     this.buildingSizes = new Map(buildings.map((p) => [p, unitsById.get(p.id)?.collision ?? 40]));
 
     const toWorld = (e: PointerEvent): [number, number] => {
+      // The frame is a CSS border: measure from the inside of it.
       const rect = this.canvas.getBoundingClientRect();
-      const u = (e.clientX - rect.left) / rect.width, v = (e.clientY - rect.top) / rect.height;
+      const c = this.canvas;
+      const u = (e.clientX - rect.left - c.clientLeft) / c.clientWidth, v = (e.clientY - rect.top - c.clientTop) / c.clientHeight;
       return [this.originX + u * this.worldW, this.originY + (1 - v) * this.worldH];
     };
     const jump = (e: PointerEvent) => this.rts.lookAt(...toWorld(e));

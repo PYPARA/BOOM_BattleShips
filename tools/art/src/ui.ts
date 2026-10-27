@@ -1,5 +1,6 @@
-// Generates the interface art (the menu and loading key art) through the images API. The UI
-// itself is drawn in CSS (a clean, modern glass style).
+// Generates the interface art through the images API: the menu and loading key art, and the
+// hand-painted fantasy UI kit (dark ship timber, blackened iron, teal gems) that the CSS lays
+// out as border images: panel frame, top-bar plaque, buttons, slots, a banner and the crest.
 // Usage: node src/ui.ts [name...]   (all missing ones when no names)
 // Originals go to art/ui/ (gitignored); the post-processed files the client uses are written by
 // tools/art/src/ui-process.py into packages/client/public/ui/.
@@ -12,9 +13,40 @@ const outDir = join(root, 'art/ui');
 
 const STYLE = 'stylized hand-painted fantasy naval game art, warm golden light, rich colors, clean readable shapes, no text, no letters, no watermark';
 
-interface Asset { prompt: string; size: '1024x1024' | '1536x1024'; transparent?: boolean }
+interface Asset { prompt: string; size: '1024x1024' | '1536x1024' | '1024x1536'; transparent?: boolean }
+
+/** The fantasy kit's shared look. */
+const KIT = 'hand-painted fantasy RTS game UI art, dark weathered ship timber, blackened wrought iron with bronze rivets, small polished teal gemstones, muted readable colors, not gold, crisp painted edges, front view, perfectly symmetrical, centered, isolated on a transparent background, no text, no letters';
 
 const ASSETS: Record<string, Asset> = {
+  woodFrame: {
+    size: '1024x1024', transparent: true,
+    prompt: `a square game UI panel: a thick border of dark timber bound with blackened iron straps, an ornate iron corner bracket with one round teal gem in each of the four corners, rivets evenly spaced along the border, the large inner area a plain flat dark walnut wood surface with very subtle grain, the border the same thickness on all four sides, ${KIT}`,
+  },
+  woodPlaque: {
+    size: '1536x1024', transparent: true,
+    prompt: `a single long horizontal game UI title plaque, very wide and short: a dark wood board with a blackened iron rim, iron end caps shaped like scrolls with a teal gem at the left and right ends, the middle plain and empty for text, ${KIT}`,
+  },
+  woodButton: {
+    size: '1536x1024', transparent: true,
+    prompt: `a single wide horizontal game UI button, very wide and short with slightly rounded corners: a dark brown wood face with a blackened iron rim and small rivets, a soft highlight along the top edge, the face empty, ${KIT}`,
+  },
+  woodButtonOn: {
+    size: '1536x1024', transparent: true,
+    prompt: `a single wide horizontal game UI button, very wide and short with slightly rounded corners: a glowing deep teal lacquered face with a bright inner glow, a blackened iron rim with small rivets and a tiny teal gem at each end, the face empty, ${KIT}`,
+  },
+  woodSlot: {
+    size: '1024x1024', transparent: true,
+    prompt: `a single square game UI slot for an ability icon: a blackened iron frame with four rivets and beveled edges, a dark recessed inset in the middle, empty, ${KIT}`,
+  },
+  woodBanner: {
+    size: '1024x1536', transparent: true,
+    prompt: `a single tall hanging cloth banner on a short wooden pole: weathered dark navy canvas with a pale painted ship anchor emblem and a frayed swallowtail bottom edge, ${KIT}`,
+  },
+  woodCrest: {
+    size: '1024x1024', transparent: true,
+    prompt: `a game logo emblem without any text: a heraldic shield of dark timber and blackened iron with two crossed cannons behind it, a ship anchor on the shield, a large teal gem at the top, rope coiled around the bottom, ${KIT}`,
+  },
   keyart: {
     size: '1536x1024',
     prompt: `epic wide key art for a naval battle game: two fleets of chunky stylized wooden and ironclad warships trading cannon fire across a turquoise tropical sea between lush islands and a stone harbor fortress, cannon smoke and splashes, dramatic golden hour sky, the upper center of the sky calm and uncluttered, ${STYLE}`,
