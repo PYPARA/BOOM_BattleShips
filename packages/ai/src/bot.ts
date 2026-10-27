@@ -154,9 +154,10 @@ export class Bot {
     if (pick) this.match.issue({ kind: 'learn', player: this.player, abilityId: pick.id });
   }
 
+  /** Enemy ships and structures near a point; neutral creeps are left to the auto-firing weapons. */
   private enemiesWithin(at: Vec2, radius: number): UnitEntity[] {
     const out: UnitEntity[] = [];
-    for (const u of this.match.world.allUnits()) if (u.team !== this.side && u.hp > 0 && distance(at, u) <= radius) out.push(u);
+    for (const u of this.match.world.allUnits()) if (u.team !== this.side && u.team !== 'neutral' && u.hp > 0 && distance(at, u) <= radius) out.push(u);
     return out;
   }
 

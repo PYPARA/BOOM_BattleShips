@@ -97,6 +97,15 @@ export class Hud {
       if (e.kind === 'westChannel') this.say(e.open ? '西侧航道短暂开放！（120 秒）' : '西侧航道已关闭', now, 3500);
       if (e.kind === 'levelUp' && e.player === this.player) this.say(`升到 ${e.level} 级！`, now, 2000);
       if (e.kind === 'death' && (e.hero || e.structure)) this.onKill(e, now);
+      if (e.kind === 'boss') {
+        const name = this.unitName(e.typeId);
+        this.announce.innerHTML = e.killed
+          ? `<strong>${name} 被击败！</strong><small>${this.playerName(e.killerOwner ?? 0)} · 船只耐久 +300 · 失踪的地精出现了（65 秒）</small>`
+          : `<strong>${name} 出现了！</strong><small>西部海域的 Boss 点</small>`;
+        this.announce.className = 'announce show';
+        this.announceUntil = now + 4000;
+        this.onAnnounce?.();
+      }
       if (e.kind === 'victory') {
         const won = this.match.players.get(this.player)?.team === e.winner;
         this.banner.textContent = won ? '胜利！敌方主基地已被摧毁' : '战败……我方主基地被摧毁';

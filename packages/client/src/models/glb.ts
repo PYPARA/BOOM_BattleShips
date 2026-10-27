@@ -96,8 +96,8 @@ export function glbVersion(kind: ModelKind, id: string): string | undefined {
 }
 
 /**
- * A normalized copy of a pulled model, or undefined when there is none. Ships are scaled to
- * `length` along X; buildings to `height`. Team materials are recolored.
+ * A normalized copy of a pulled model, or undefined when there is none. Ships and creatures are
+ * scaled to `length` along X; buildings and doodads to `height`. Team materials are recolored.
  */
 export function glbModel(kind: ModelKind, id: string, teamColor: THREE.ColorRepresentation, size: { length?: number; height?: number }): THREE.Group | undefined {
   const t = templates.get(`${kind}/${id}`);
@@ -122,9 +122,11 @@ export function glbModel(kind: ModelKind, id: string, teamColor: THREE.ColorRepr
     mesh.material = Array.isArray(mesh.material) ? mesh.material.map(swap) : swap(mesh.material);
   });
 
-  const scale = kind === 'ships' ? (size.length ?? 150) / t.size.x : (size.height ?? 200) / t.size.y;
+  // Ships and sea creatures are sized by length and float at their waterline.
+  const floats = kind === 'ships' || kind === 'creatures';
+  const scale = floats ? (size.length ?? 150) / t.size.x : (size.height ?? 200) / t.size.y;
   // Height of the waterline above the model's bottom (the sidecar value is already that).
-  const waterline = kind === 'ships' ? (t.sidecar.waterline ?? t.size.y * DEFAULT_WATERLINE) : 0;
+  const waterline = floats ? (t.sidecar.waterline ?? t.size.y * DEFAULT_WATERLINE) : 0;
   // Center on x/z, put the waterline (ships) or the base (buildings) at y = 0.
   model.position.set(-t.center.x, -(t.min.y + waterline), -t.center.z);
   const wrapper = new THREE.Group();

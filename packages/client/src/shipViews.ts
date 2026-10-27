@@ -32,6 +32,26 @@ const FLEET_MODELS: Record<string, [model: string, length: number]> = {
   h018: ['h018', 300],
 };
 
+/**
+ * Neutral creeps (§8 camps) and summoned sea creatures: the six creature models stand in for
+ * the map's 30-odd Warcraft creep types by family, at a length that grows with their strength.
+ */
+const CREATURE_MODELS: Record<string, [model: string, length: number]> = {
+  // Bosses.
+  nbzd: ['nbzd', 520], ntrd: ['ntrd', 460], n016: ['n016', 400],
+  // Naga, murlocs and Draenei: the naga queen's family.
+  nmyr: ['n016', 110], nnrg: ['n016', 140], nmbg: ['n016', 85], nmtw: ['n016', 90], nmsn: ['n016', 100], nmrr: ['n016', 105],
+  nmsc: ['n016', 115], ndrm: ['n016', 90], ndrp: ['n016', 95], ndrh: ['n016', 100], ndrw: ['n016', 105], ndrs: ['n016', 115], ndrd: ['n016', 125],
+  // Shelled things: turtles, crabs, prawns.
+  ntrt: ['ntrd', 140], nsc3: ['ntrd', 100], nlkl: ['ntrd', 110], nsgb: ['ntrd', 200],
+  // Elementals, ghosts and the frost folk.
+  nsel: ['nsel', 110], ndrv: ['nsel', 140], ntka: ['nsel', 95], ntkf: ['nsel', 105], nwns: ['nsel', 120], nwna: ['nsel', 160],
+  // Serpents and dragons.
+  nsnp: ['nbzd', 130], nslv: ['nbzd', 170], nahy: ['nbzd', 210],
+  // Summoned sea monsters and orcas.
+  n017: ['n00L', 200], n00L: ['n00L', 260], n01E: ['n01E', 110], n01D: ['n01E', 150], n01G: ['n01E', 200],
+};
+
 export class ShipViews {
   readonly group = new THREE.Group();
   private readonly views = new Map<number, ShipView>();
@@ -52,7 +72,10 @@ export class ShipViews {
     const length = fleet?.[1] ?? ship.bodyRadius * 3;
     const masts = ship.bodyRadius >= 80 ? 3 : ship.bodyRadius >= 55 ? 2 : 1;
     const color = TEAM_COLORS[teamOf(ship.owner)];
-    const glb = glbModel('ships', modelId, color, { length });
+    const creature = CREATURE_MODELS[ship.typeId];
+    const glb = creature
+      ? glbModel('creatures', creature[0], color, { length: creature[1] })
+      : glbModel('ships', modelId, color, { length });
     const model = (glb && withEngineRig(glb, ship.typeId, length, color)) // Aha models leave sails to the engine
       ?? shipModels[ship.typeId]?.(color) ?? createPlaceholderShip(length, masts, color);
     const ring = new THREE.Mesh(new THREE.RingGeometry(ship.bodyRadius * 1.05, ship.bodyRadius * 1.2, 40), ringMaterial);

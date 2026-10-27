@@ -27,10 +27,12 @@ export interface HeroState {
   invested: number;
   /** The player's submarine researches (高爆弹头 …), by item id. */
   techs: string[];
+  /** Permanent max HP on every ship (killing the boss). */
+  bonusHp: number;
 }
 
 export function newHero(): HeroState {
-  return { xp: 0, level: 1, learned: {}, readyAt: {}, granted: {}, charges: {}, hullBonus: {}, invested: 0, techs: [] };
+  return { xp: 0, level: 1, learned: {}, readyAt: {}, granted: {}, charges: {}, hullBonus: {}, invested: 0, techs: [], bonusHp: 0 };
 }
 
 /**

@@ -98,7 +98,7 @@ export class AbilitySystem {
 
   /** Recomputes live stats from base values, learned passives and carried items. */
   refreshStats(u: UnitEntity): void {
-    let maxHp = u.base.maxHp + (u.hero?.hullBonus[u.typeId] ?? 0), regen = u.base.regen, speedPct = 0, speedFlat = 0, taken = 1, crit = 0, critMultiplier = 1;
+    let maxHp = u.base.maxHp + (u.hero?.hullBonus[u.typeId] ?? 0) + (u.hero?.bonusHp ?? 0), regen = u.base.regen, speedPct = 0, speedFlat = 0, taken = 1, crit = 0, critMultiplier = 1;
     let detects = 0;
     // Submarine research (推进器, 声纳).
     if (SUBMARINES.has(u.typeId)) {

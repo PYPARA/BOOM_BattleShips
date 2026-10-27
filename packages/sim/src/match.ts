@@ -4,6 +4,7 @@
 import type { Item, MapInfo, Placement, Unit } from '@boom/gamedata';
 import { gainXp, HERO_XP_RANGE, killXp, newHero, type HeroState } from './heroes.ts';
 import { distance, type Vec2 } from './math.ts';
+import { CREEP_OWNER, Creeps } from './creeps.ts';
 import { DEFAULT_GRANTS, SUBMARINES } from './goods.ts';
 import { teamOfPlayer, TICK_RATE, type Team, type UnitEntity, type World } from './world.ts';
 
@@ -110,7 +111,9 @@ export type MatchEvent =
   // Combat feedback for the renderer, passed through from the world.
   | { kind: 'shot'; projectileId: number; sourceId: number; targetId: number }
   | { kind: 'hit'; targetId: number; sourceOwner: number; damage: number; attackType: string; x: number; y: number }
-  | { kind: 'zap'; abilityId: string; fromX: number; fromY: number; toX: number; toY: number };
+  | { kind: 'zap'; abilityId: string; fromX: number; fromY: number; toX: number; toY: number }
+  /** §8: the boss appeared, or a player sank it. */
+  | { kind: 'boss'; typeId: string; killed: boolean; killerOwner?: number; x: number; y: number };
 
 export interface MatchData {
   units: Unit[];
@@ -139,6 +142,10 @@ export class Match {
   /** victim id → player → last tick they damaged it (§5 assists). */
   private readonly damagedBy = new Map<number, Map<number, number>>();
   private superShipAt?: number;
+  /** §8 neutral creep camps and the boss. */
+  readonly creeps: Creeps;
+  /** The goblin merchant that appears where the boss died, and when it leaves. */
+  private goblin?: { entityId: number; until: number };
 
   constructor(world: World, data: MatchData, options: { mode?: GameMode; players: number[] }) {
     this.world = world;
@@ -147,6 +154,7 @@ export class Match {
     this.items = new Map(data.items.map((i) => [i.id, i]));
     this.rects = new Map(data.map.rects.map((r) => [r.name, { x: (r.minX + r.maxX) / 2, y: (r.minY + r.maxY) / 2 }]));
     for (const r of data.map.rects) this.rectBounds.set(r.name, r);
+    this.creeps = new Creeps(this.world, this.rectBounds);
     // §2: fast mode keeps the west channel shut; standard opens it from the start.
     const channel = this.rectBounds.get(WEST_CHANNEL);
     if (channel && this.mode === 'fast') this.world.grid.setRegionClosed(WEST_CHANNEL, channel, true);
@@ -244,6 +252,18 @@ export class Match {
     this.world.step();
     this.consumeWorldEvents();
     if (this.winner) return;
+    const boss = this.creeps.bossId;
+    this.creeps.tick();
+    if (boss === undefined && this.creeps.bossId !== undefined) {
+      const b = this.world.unit(this.creeps.bossId)!;
+      this.events.push({ kind: 'boss', typeId: b.typeId, killed: false, x: b.x, y: b.y });
+    }
+    if (this.goblin && tick >= this.goblin.until) {
+      this.world.remove(this.goblin.entityId);
+      const id = this.goblin.entityId;
+      this.shops.splice(0, this.shops.length, ...this.shops.filter((s) => s.entityId !== id));
+      this.goblin = undefined;
+    }
     this.spawnWaves(tick);
     if (tick > 0 && tick % (7 * TICK_RATE) === 0) this.paySalary();
     if (tick > 0 && tick % (180 * TICK_RATE) === 0) this.payEmpireGold();
@@ -373,6 +393,12 @@ export class Match {
     const killer = this.players.get(killerOwner);
     const enemyKill = killer && killer.team !== unit.team;
     const victim = [...this.players.values()].find((p) => p.shipId === unit.id);
+    if (unit.owner === CREEP_OWNER && this.creeps.onDeath(unit)) this.onBossDeath(unit, killerOwner);
+    // §5: sunk by creeps costs 50 + price / 30 + level × 6 gold.
+    if (victim && killerOwner === CREEP_OWNER) {
+      const price = this.units.get(unit.typeId)?.goldCost ?? 0;
+      victim.gold = Math.max(0, victim.gold - Math.floor(50 + price / 30 + victim.hero.level * 6));
+    }
     if (victim && victim.team !== 'neutral') {
       const killerUnit = this.world.unit(killerId);
       if (killerUnit && !killerUnit.isHero) this.levelUpNpc(killerUnit);
@@ -415,6 +441,28 @@ export class Match {
       if (unit.handle === BASES.south) this.win('north');
       if (unit.handle === BASES.north) this.win('south');
     }
+  }
+
+  /**
+   * §8 BossTime1: the killer's ship gains 300 max HP for good (the map's add-ability, set level 9,
+   * remove trick on A06L), and the goblin merchant appears for 65 s with one of two special cannons.
+   */
+  private onBossDeath(boss: UnitEntity, killerOwner: number): void {
+    const killer = this.players.get(killerOwner);
+    if (killer && killerOwner >= 2) {
+      killer.hero.bonusHp += 300;
+      const ship = this.world.ships.get(killer.shipId ?? -1);
+      if (ship) this.world.abilities.refreshStats(ship);
+    }
+    this.events.push({ kind: 'boss', typeId: boss.typeId, killed: true, killerOwner, x: boss.x, y: boss.y });
+    const unit = this.units.get('h01T');
+    if (!unit || this.goblin) return;
+    const at = this.rect('YeGuai_BOSS');
+    const goblin = this.world.spawnStructure('h01T', 15, at.x, at.y);
+    goblin.invulnerable = true;
+    const cannon = this.world.random() < 0.5 ? 'I05W' : 'I05X';
+    this.shops.push({ unitId: 'h01T', entityId: goblin.id, owner: 15, x: at.x, y: at.y, sellsUnits: [], sellsItems: [...unit.sellsItems, cannon] });
+    this.goblin = { entityId: goblin.id, until: this.world.tick + 65 * TICK_RATE };
   }
 
   /** Allied ships near a dead enemy split its experience; fast mode grants 150%. */

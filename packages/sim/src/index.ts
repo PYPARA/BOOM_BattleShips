@@ -8,3 +8,4 @@ export * from './abilities.ts';
 export * from './buffs.ts';
 export * from './heroes.ts';
 export * from './goods.ts';
+export * from './creeps.ts';

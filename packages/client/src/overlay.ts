@@ -77,8 +77,9 @@ export class Overlay {
     if (!at) return;
     const [sx, sy] = at;
     if (sx < -60 || sy < -20 || sx > innerWidth + 60 || sy > innerHeight + 20) return;
-    const w = u.kind === 'structure' ? 70 : u.isHero ? 52 : 34;
-    const h = u.isHero || u.kind === 'structure' ? 6 : 4;
+    const boss = u.id === this.match.creeps.bossId;
+    const w = boss ? 110 : u.kind === 'structure' ? 70 : u.isHero ? 52 : 34;
+    const h = boss ? 8 : u.isHero || u.kind === 'structure' ? 6 : 4;
     const own = u.owner === this.player;
     const ally = !own && this.match.players.get(this.player)?.team === u.team;
     const { ctx } = this;
@@ -113,7 +114,7 @@ export class Overlay {
     const team = this.match.players.get(this.player)?.team;
     for (const u of this.match.world.allUnits()) {
       if (u.locust || (team && u.team !== team && !this.match.world.visibleTo(team, u))) continue;
-      if (u.hp < u.maxHp || u.isHero) this.bar(u, camera);
+      if (u.hp < u.maxHp || u.isHero || u.id === this.match.creeps.bossId) this.bar(u, camera);
     }
 
     ctx.textAlign = 'center';

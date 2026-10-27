@@ -1,7 +1,7 @@
 // Tooltip content for ships, weapons, items, skills and live units, built from the game data.
 // Everything returns HTML for the shared tooltip (tooltip.ts).
 import type { Ability, Item, Ship, Unit, Weapon } from '@boom/gamedata';
-import { canLearn, strongest, TICK_RATE, type Match, type UnitEntity } from '@boom/sim';
+import { BOSSES, canLearn, CREEP_OWNER, strongest, TICK_RATE, type Match, type UnitEntity } from '@boom/sim';
 
 export const clean = (s: string | undefined) => (s ?? '').replace(/\|c[0-9a-fA-F]{8}|\|r/g, '').replace(/\|n/g, '\n').replace(/^[.!~_@]+/, '').trim();
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -133,8 +133,9 @@ export class Info {
     const owner = this.match.players.get(u.owner);
     const own = u.owner === this.player;
     const ally = !own && owner?.team === this.state.team;
-    const who = u.isHero && owner && !u.illusion ? `玩家 ${owner.index - 1}` : u.kind === 'structure' ? '建筑' : '舰队';
-    const side = own ? '你' : ally ? '友军' : '敌方';
+    const creep = u.owner === CREEP_OWNER;
+    const who = creep ? ((BOSSES as readonly string[]).includes(u.typeId) ? 'Boss' : '野怪') : u.isHero && owner && !u.illusion ? `玩家 ${owner.index - 1}` : u.kind === 'structure' ? '建筑' : '舰队';
+    const side = creep ? '中立' : own ? '你' : ally ? '友军' : '敌方';
     const name = this.data.ships.get(u.typeId)?.name ?? type?.properName ?? type?.name ?? u.typeId;
     const level = u.hero?.level ?? type?.level;
     const buffs = [...new Set(u.buffs.map((b) => BUFF_NAMES[b.kind]).filter(Boolean))];

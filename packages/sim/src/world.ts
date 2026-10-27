@@ -28,6 +28,8 @@ export const WAYPOINT_RADIUS = 64;
 export const PROJECTILE_SPEED = 1100;
 /** Units notice enemies this much beyond their attack range while attack-moving. */
 export const ACQUIRE_BONUS = 250;
+/** How long an attack with nothing in range waits before looking again. */
+const RETARGET_TICKS = 5;
 
 /** Radius used to keep hulls apart, by the shop's size label. Pathing uses the smaller unit collision. */
 const BODY_RADIUS: Record<string, number> = { 小型: 40, 中型: 55, 大型: 70, 大: 70, 巨大: 85 };
@@ -391,7 +393,9 @@ export class World {
     if (u.order.kind !== 'attackMove' || u.attacks.length === 0) return;
     const range = Math.max(...u.attacks.map((a) => a.range));
     const current = this.unit(u.targetId);
-    if (!current || current.hp <= 0 || current.team === u.team || !this.visibleTo(u.team, current) || this.reach(u, current) > range + ACQUIRE_BONUS) {
+    const lost = !current || current.hp <= 0 || current.team === u.team || !this.visibleTo(u.team, current) || this.reach(u, current) > range + ACQUIRE_BONUS;
+    // Without a target, look for one a few times a second (staggered by unit), not every tick.
+    if (lost && (current || (this.tick + u.id) % RETARGET_TICKS === 0)) {
       u.targetId = undefined;
       let best: UnitEntity | undefined;
       let bestD = range + ACQUIRE_BONUS;
@@ -475,7 +479,8 @@ export class World {
           if (d <= bestD) { target = e; bestD = d; }
         }
       }
-      if (!target) continue;
+      // Nothing in range: look again in a quarter second rather than every tick.
+      if (!target) { a.readyAt = this.tick + RETARGET_TICKS; continue; }
       let roll = a.damageBase + u.bonusDamage + Array.from({ length: a.dice }, () => 1 + Math.floor(this.random() * a.sides)).reduce((s, v) => s + v, 0);
       if (u.critChance > 0 && this.random() < u.critChance) roll *= u.critMultiplier;
       this.shoot(u, target, roll * bonus, a.attackType);
@@ -486,7 +491,7 @@ export class World {
       if (w.manual || this.tick < w.readyAt) continue;
       const candidates: UnitEntity[] = [];
       for (const e of this.enemiesOf(u)) if (this.canTarget(w.filter, e) && this.reach(u, e) <= w.range) candidates.push(e);
-      if (candidates.length === 0) continue;
+      if (candidates.length === 0) { w.readyAt = this.tick + RETARGET_TICKS; continue; }
       const target = candidates[Math.floor(this.random() * candidates.length)]!;
       const crit = u.critChance > 0 && this.random() < u.critChance ? u.critMultiplier : 1;
       this.shoot(u, target, w.damage * bonus * crit, 'spells', w.special);
