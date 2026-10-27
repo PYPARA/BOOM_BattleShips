@@ -3,15 +3,22 @@
 // victory. Section numbers below refer to that document.
 import type { Item, MapInfo, Placement, Unit } from '@boom/gamedata';
 import { gainXp, HERO_XP_RANGE, killXp, newHero, type HeroState } from './heroes.ts';
-import { distance, type Vec2 } from './math.ts';
+import { createRng, distance, type Vec2 } from './math.ts';
 import { CREEP_OWNER, Creeps } from './creeps.ts';
 import { DEFAULT_GRANTS, SUBMARINES } from './goods.ts';
+import { CONTRACTS, QUEST_ITEMS, QUEST_REACH, REPAIRMAN, STEPS, stepApplies, stepRect, type QuestStep, type Reward } from './quests.ts';
 import { teamOfPlayer, TICK_RATE, type Team, type UnitEntity, type World } from './world.ts';
 
-export type GameMode = 'standard' | 'fast';
+/** §2: -m1 联赛标准, -m2 快速战斗 (the default), -m3 商船任务. */
+export type GameMode = 'standard' | 'fast' | 'traders';
 
 /** §5: salary base per 7 seconds, split between the team's players. */
-const SALARY_BASE: Record<GameMode, number> = { standard: 60, fast: 120 };
+const SALARY_BASE: Record<GameMode, number> = { standard: 60, fast: 120, traders: 60 };
+/** §2: shops only the 商船任务 mode keeps: 奸商, 贸易主 and the submarine factory. */
+const TRADER_SHOPS = new Set(['n00E', 'n00F', 'n00U']);
+
+/** The Weather trigger's random sky, rolled again every 50–100 seconds. Looks only. */
+export type Weather = 'clear' | 'lightRain' | 'heavyRain' | 'snow' | 'sunrays';
 const STARTING_GOLD = 400;
 /** §5: hero bounty by the dead ship's price. */
 const HERO_BOUNTY: [number, number][] = [[9000, 600], [7000, 500], [5000, 400], [3000, 350], [1500, 300], [1000, 250], [500, 200], [0, 150]];
@@ -75,6 +82,8 @@ export interface PlayerState {
   shieldUntil?: number;
   /** Experience and skills; kept across deaths, skills reset when changing ships. */
   hero: HeroState;
+  /** 声望, earned by trade and quests; contracts need enough of it. */
+  reputation: number;
 }
 
 export interface Shop {
@@ -97,7 +106,9 @@ export type MatchCommand =
   | { kind: 'leaveRepair'; player: number }
   | { kind: 'learn'; player: number; abilityId: string }
   | { kind: 'cast'; player: number; abilityId: string; unitId?: number; point?: Vec2 }
-  | { kind: 'useItem'; player: number; slot: number; unitId?: number; point?: Vec2 };
+  | { kind: 'useItem'; player: number; slot: number; unitId?: number; point?: Vec2 }
+  /** 商船任务 mode only: hand gold to a teammate. */
+  | { kind: 'giveGold'; player: number; to: number; amount: number };
 
 export type MatchEvent =
   | { kind: 'gold'; player: number; amount: number; reason: string; x?: number; y?: number }
@@ -114,7 +125,10 @@ export type MatchEvent =
   | { kind: 'hit'; targetId: number; sourceOwner: number; damage: number; attackType: string; x: number; y: number }
   | { kind: 'zap'; abilityId: string; fromX: number; fromY: number; toX: number; toY: number }
   /** §8: the boss appeared, or a player sank it. */
-  | { kind: 'boss'; typeId: string; killed: boolean; killerOwner?: number; x: number; y: number };
+  | { kind: 'boss'; typeId: string; killed: boolean; killerOwner?: number; x: number; y: number }
+  /** A quest step: cargo loaded, a delivery paid, a contract signed; `everyone` news is for all players. */
+  | { kind: 'quest'; player: number; text: string; gold: number; xp: number; rep: number; everyone?: boolean }
+  | { kind: 'weather'; weather: Weather };
 
 export interface MatchData {
   units: Unit[];
@@ -147,10 +161,20 @@ export class Match {
   readonly creeps: Creeps;
   /** The goblin merchant that appears where the boss died, and when it leaves. */
   private goblin?: { entityId: number; until: number };
+  weather: Weather = 'clear';
+  private readonly weatherRandom = createRng(1913);
+  private readonly weatherEvery: number;
+  /** 中立港 flags: + north, − south; at ±2 the port joins that side. */
+  flags = 0;
+  /** The dark mage's chain is a one-off for the whole map. */
+  mageDone = false;
+  /** Buildings a repairman is restoring: hit points per tick until the tick given. */
+  private repairJobs: { structureId: number; perTick: number; until: number }[] = [];
 
   constructor(world: World, data: MatchData, options: { mode?: GameMode; players: number[]; fog?: boolean }) {
     this.world = world;
     this.mode = options.mode ?? 'fast';
+    this.weatherEvery = Math.round((50 + this.weatherRandom() * 50) * TICK_RATE);
     this.units = new Map(data.units.map((u) => [u.id, u]));
     this.items = new Map(data.items.map((i) => [i.id, i]));
     this.rects = new Map(data.map.rects.map((r) => [r.name, { x: (r.minX + r.maxX) / 2, y: (r.minY + r.maxY) / 2 }]));
@@ -170,7 +194,7 @@ export class Match {
       const start = data.map.players.find((p) => p.index === index);
       this.players.set(index, {
         index, team: teamOfPlayer(index), gold: STARTING_GOLD, kills: 0, deaths: 0, deathStreak: 0,
-        shipTypeId: 'H000', items: [], hero: newHero(),
+        shipTypeId: 'H000', items: [], hero: newHero(), reputation: 0,
       });
       const spot = start?.startX !== undefined ? { x: start.startX, y: start.startY! } : this.rect(RESPAWN_RECTS[teamOfPlayer(index) as 'south' | 'north']);
       this.spawnPlayerShip(index, spot);
@@ -179,7 +203,7 @@ export class Match {
   }
 
   private fleetState(team: 'south' | 'north'): PlayerState {
-    return { index: FLEET[team], team, gold: 0, kills: 0, deaths: 0, deathStreak: 0, shipTypeId: '', items: [], hero: newHero() };
+    return { index: FLEET[team], team, gold: 0, kills: 0, deaths: 0, deathStreak: 0, shipTypeId: '', items: [], hero: newHero(), reputation: 0 };
   }
 
   /** Center of a named map region (harbours, repair stations, …). */
@@ -219,8 +243,10 @@ export class Match {
     for (const p of placements) {
       const unit = this.units.get(p.id);
       if (!unit?.isBuilding || p.id === 'hhou') continue;
-      // Only priced goods make a shop; towers list free quest tokens handed out by triggers.
-      const sellsItems = unit.sellsItems.filter((id) => (this.items.get(id)?.goldCost ?? 0) > 0);
+      if (TRADER_SHOPS.has(p.id) && this.mode !== 'traders') continue;
+      // Only priced goods make a shop (towers list free quest tokens handed out by triggers),
+      // and in 商船任务 mode the contracts.
+      const sellsItems = unit.sellsItems.filter((id) => (this.items.get(id)?.goldCost ?? 0) > 0 || (this.mode === 'traders' && id in CONTRACTS));
       const sells = unit.sellsUnits.length > 0 || sellsItems.length > 0;
       // The fleets' buildings are combat units; neutral shops are just trading posts.
       if (p.player === 0 || p.player === 1) {
@@ -272,6 +298,9 @@ export class Match {
       this.goblin = undefined;
     }
     this.spawnWaves(tick);
+    if (tick > 0 && tick % this.weatherEvery === 0) this.rollWeather();
+    if (this.mode === 'traders' && tick % TICK_RATE === 0) this.runQuests();
+    this.runRepairJobs();
     if (tick > 0 && tick % (7 * TICK_RATE) === 0) this.paySalary();
     if (tick > 0 && tick % (180 * TICK_RATE) === 0) this.payEmpireGold();
     if (tick > 0 && tick % TECH_INTERVAL_TICKS === 0 && this.techLevel < TECH_MAX) this.raiseTech();
@@ -355,6 +384,135 @@ export class Match {
       this.applyTech(ship, this.techLevel, 0);
       this.world.attackMove(ship, goals.map((g) => ({ x: g.x, y: g.y })));
     }
+  }
+
+  /** Weather: 4 in 13 clear, 2 heavy rain, 2 light rain, 1 snow, 1 sun rays, 3 clear again. */
+  private rollWeather(): void {
+    const n = 1 + Math.floor(this.weatherRandom() * 13);
+    const next: Weather = n <= 4 || n > 10 ? 'clear' : n <= 6 ? 'heavyRain' : n <= 8 ? 'lightRain' : n === 9 ? 'snow' : 'sunrays';
+    if (next === this.weather) return;
+    this.weather = next;
+    this.events.push({ kind: 'weather', weather: next });
+  }
+
+  // 商船任务 quests -------------------------------------------------------------------------
+
+  private nearRect(name: string, at: Vec2, reach: number): boolean {
+    const r = this.rectBounds.get(name);
+    if (!r) return false;
+    const dx = Math.max(r.minX - at.x, 0, at.x - r.maxX), dy = Math.max(r.minY - at.y, 0, at.y - r.maxY);
+    return Math.hypot(dx, dy) <= reach;
+  }
+
+  /** Once a second: each player's ship at a quest spot loads or delivers what it can. */
+  private runQuests(): void {
+    for (const p of this.teamPlayers('south').concat(this.teamPlayers('north'))) {
+      const ship = this.world.ships.get(p.shipId ?? -1);
+      if (!ship || ship.hp <= 0) continue;
+      const side = p.team as 'south' | 'north';
+      for (const step of STEPS) {
+        if (step.mage && this.mageDone) continue;
+        if (step.effect === 'flag' && (side === 'north' ? this.flags >= 2 : this.flags <= -2)) continue;
+        if (!stepApplies(step, side, p.shipTypeId, p.items) || !this.nearRect(stepRect(step, side), ship, QUEST_REACH)) continue;
+        this.doStep(p, ship, step);
+        if (!this.world.ships.has(ship.id)) break; // the suicide attack sinks the ship
+      }
+    }
+  }
+
+  private doStep(p: PlayerState, ship: UnitEntity, step: QuestStep): void {
+    for (const id of step.take ?? []) p.items.splice(p.items.indexOf(id), 1);
+    if (step.give && p.items.length < 6) p.items.push(step.give);
+    this.world.setItems(ship, p.items);
+    const side = p.team as 'south' | 'north';
+    const enemy = side === 'south' ? 'north' : 'south';
+    this.grant(p, step.reward ?? [0, 0, 0], step.say);
+    switch (step.effect) {
+      case 'cruisers': // two X-type cruisers sail from the side's harbours
+        for (const lane of LANES) this.spawnLaneShips(side, lane, 1, 'h010');
+        break;
+      case 'bomb': {
+        const base = this.structureByHandle(BASES[enemy]);
+        if (base) this.world.dealDamage(base, 1000, 'pure', p.index, ship.id);
+        this.world.dealDamage(ship, ship.hp + 1, 'pure', p.index, ship.id);
+        break;
+      }
+      case 'fakeGold':
+        for (const e of this.teamPlayers(enemy)) e.gold = Math.max(0, e.gold - 200);
+        this.news(`${side === 'north' ? '南方' : '北方'}联盟收到假黄金，每人金钱 -200`);
+        break;
+      case 'opium':
+        for (const e of this.teamPlayers(enemy)) {
+          const s = this.world.ships.get(e.shipId ?? -1);
+          if (s) s.hp = Math.max(1, s.hp * 0.75);
+        }
+        this.news(`${side === 'south' ? '北方' : '南方'}联盟吸食鸦片，每艘玩家船只耐久减少 1/4`);
+        break;
+      case 'flag': {
+        this.flags += side === 'north' ? 1 : -1;
+        if (Math.abs(this.flags) < 2) break;
+        const port = this.shops.find((s) => s.unitId === 'n005');
+        if (port) port.owner = FLEET[side];
+        this.news(`中立港已经被${side === 'south' ? '南方' : '北方'}占领`);
+        break;
+      }
+      case 'mageDone': {
+        this.mageDone = true;
+        const i = this.shops.findIndex((s) => s.unitId === 'n004');
+        if (i >= 0) this.shops.splice(i, 1);
+        break;
+      }
+    }
+  }
+
+  /** Pays a quest reward and tells the player. */
+  private grant(p: PlayerState, [gold, xp, rep]: Reward, text: string): void {
+    if (gold > 0) this.give(p.index, gold, 'quest');
+    if (xp > 0 && gainXp(p.hero, xp) > 0) this.events.push({ kind: 'levelUp', player: p.index, level: p.hero.level });
+    p.reputation = Math.max(0, p.reputation + rep);
+    this.events.push({ kind: 'quest', player: p.index, text, gold, xp, rep });
+  }
+
+  private news(text: string): void {
+    this.events.push({ kind: 'quest', player: -1, text, gold: 0, xp: 0, rep: 0, everyone: true });
+  }
+
+  /** 小精灵修理工: restores the most damaged friendly building nearby, then the job pays. */
+  private useRepairman(p: PlayerState, ship: UnitEntity, slot: number): void {
+    const building = [...this.world.structures.values()]
+      .filter((s) => s.team === p.team && s.hp < s.maxHp && distance(s, ship) <= 1500)
+      .sort((a, b) => a.hp / a.maxHp - b.hp / b.maxHp)[0];
+    if (!building) return this.deny(p.index, '附近没有受损的己方建筑');
+    p.items.splice(slot, 1);
+    this.world.setItems(ship, p.items);
+    const ticks = REPAIRMAN.seconds * TICK_RATE;
+    this.repairJobs.push({ structureId: building.id, perTick: REPAIRMAN.hp / ticks, until: this.world.tick + ticks });
+    this.grant(p, REPAIRMAN.reward, '小精灵修理工开始修理建筑');
+  }
+
+  private runRepairJobs(): void {
+    if (!this.repairJobs.length) return;
+    const now = this.world.tick;
+    this.repairJobs = this.repairJobs.filter((job) => {
+      const b = this.world.structures.get(job.structureId);
+      if (!b || now >= job.until) return false;
+      b.hp = Math.min(b.maxHp, b.hp + job.perTick);
+      return true;
+    });
+  }
+
+  /** Signs a contract at a trader: free, but it needs reputation (the slave trade costs some). */
+  private signContract(p: PlayerState, ship: UnitEntity, itemId: string): void {
+    const c = CONTRACTS[itemId]!;
+    if (p.reputation < c.rep) return this.deny(p.index, `需要 ${c.rep} 点声望`);
+    if (p.items.includes(itemId)) return this.deny(p.index, '已经有这份合同了');
+    if ((itemId === 'I02T' || itemId === 'I02U') && (p.items.includes('I02T') || p.items.includes('I02U'))) return this.deny(p.index, '每次只能携带一面旗帜');
+    if (p.items.length + (c.gives ? 2 : 1) > 6) return this.deny(p.index, '物品栏已满');
+    p.reputation -= c.cost ?? 0;
+    p.items.push(itemId);
+    if (c.gives) p.items.push(c.gives);
+    this.world.setItems(ship, p.items);
+    this.events.push({ kind: 'quest', player: p.index, text: `签下了${this.items.get(itemId)?.name.replace(/\|c[0-9a-fA-F]{8}|\|r/g, '') ?? '合同'}`, gold: 0, xp: 0, rep: -(c.cost ?? 0) });
   }
 
   // §5 economy ----------------------------------------------------------------------------
@@ -712,6 +870,17 @@ export class Match {
       if (!ship || !this.world.abilities.learn(ship, c.abilityId)) this.deny(c.player, '现在还不能学习这个技能');
       return;
     }
+    if (c.kind === 'giveGold') {
+      const to = this.players.get(c.to);
+      if (this.mode !== 'traders') return this.deny(c.player, '只有商船任务模式可以互相给钱');
+      if (!to || to.team !== p.team || to === p || c.to === FLEET.south || c.to === FLEET.north) return;
+      const amount = Math.min(Math.floor(c.amount), p.gold);
+      if (amount <= 0) return;
+      p.gold -= amount;
+      this.give(c.to, amount, 'gift');
+      return;
+    }
+    if (c.kind === 'useItem' && ship && p.items[c.slot] === REPAIRMAN.item) return this.useRepairman(p, ship, c.slot);
     if (c.kind === 'cast' || c.kind === 'useItem') {
       if (!ship) return;
       const abilityId = c.kind === 'cast' ? c.abilityId : this.activeItemAbility(p.items[c.slot]);
@@ -750,6 +919,7 @@ export class Match {
       this.spawnPlayerShip(p.index, at);
     } else if (c.kind === 'buyItem') {
       if (!(chosen ?? undefined)?.sellsItems.includes(c.itemId) && !shops.some((s) => s.sellsItems.includes(c.itemId))) return this.deny(c.player, '附近没有出售这件物品的商店');
+      if (c.itemId in CONTRACTS) return this.signContract(p, ship, c.itemId);
       const price = this.items.get(c.itemId)?.goldCost ?? Infinity;
       if (p.gold < price) return this.deny(c.player, '金钱不足');
       const goods = this.world.goods;
@@ -779,7 +949,8 @@ export class Match {
       if (shops.length === 0) return this.deny(c.player, '要在商店附近才能出售');
       p.items.splice(c.slot, 1);
       delete p.hero.charges[itemId];
-      p.gold += Math.floor((this.items.get(itemId)?.goldCost ?? 0) * RESALE);
+      // Contracts and cargo are thrown away, not sold.
+      if (!QUEST_ITEMS.has(itemId)) p.gold += Math.floor((this.items.get(itemId)?.goldCost ?? 0) * RESALE);
       this.world.setItems(ship, p.items);
     }
   }

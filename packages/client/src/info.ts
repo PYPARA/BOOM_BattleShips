@@ -153,4 +153,5 @@ export class Info {
 const BUFF_NAMES: Partial<Record<string, string>> = {
   stun: '失控', root: '定身', silence: '沉默', slow: '减速', haste: '加速', invulnerable: '无敌', dot: '持续伤害',
   hot: '回复中', damageBonus: '战鼓', spied: '被间谍标记', invisible: '隐形', armorDown: '破甲', disarm: '变异',
+  armorUp: '护甲光环', miss: '诅咒（攻击常落空）',
 };

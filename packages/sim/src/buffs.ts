@@ -24,6 +24,10 @@ export type BuffKind =
   | 'invisible'
   /** Armor − value; also keeps the target visible to `sourceOwner`'s team (影随行). */
   | 'armorDown'
+  /** Armor + value (creep 专注光环); refreshed each tick by the aura owner. */
+  | 'armorUp'
+  /** Each attack misses with chance `value` (creep 诅咒). */
+  | 'miss'
   /** Cannot attack (变异). */
   | 'disarm';
 

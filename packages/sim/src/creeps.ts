@@ -1,7 +1,8 @@
 // Neutral creep camps and the boss (§8, Shua_YeGuai / Shua_YeGuai5 / Shua_YeGuai6 / BossTime in
 // war3map.j). Six camps refill on their own timers and get stronger units as their wave count
 // rises; the boss point holds one of three bosses, back 600 s after it dies. Creeps guard their
-// spot, chase what comes close, and give up past a leash.
+// spot, chase what comes close, give up past a leash, and cast their own skills in a fight.
+import { hasBuff } from './buffs.ts';
 import { distance, type Vec2 } from './math.ts';
 import { TICK_RATE, type UnitEntity, type World } from './world.ts';
 
@@ -54,7 +55,10 @@ function camps(): Camp[] {
   ];
 }
 
-interface Creep { unitId: number; home: Vec2; returning: boolean }
+interface Creep { unitId: number; home: Vec2; returning: boolean; readyAt: Record<string, number> }
+
+/** Shortest wait between two casts of the same skill, whatever its data says. */
+const MIN_COOLDOWN = 3;
 
 export class Creeps {
   private readonly world: World;
@@ -94,7 +98,7 @@ export class Creeps {
     // Creeps on an island cannot reach ships; they guard and shoot from the shore (and a
     // path search to an unreachable ship would scan the whole grid).
     if (!this.world.grid.isSailable(x, y, u.pathRadius)) u.maxSpeed = 0;
-    this.creeps.set(u.id, { unitId: u.id, home: { x, y }, returning: false });
+    this.creeps.set(u.id, { unitId: u.id, home: { x, y }, returning: false, readyAt: {} });
     return u;
   }
 
@@ -130,6 +134,10 @@ export class Creeps {
 
   /** Guard, chase within the leash, then sail home healed. */
   private think(): void {
+    // Creeps that did not come from a camp (summoned water elements) guard where they stand.
+    for (const u of this.world.ships.values()) {
+      if (u.owner === CREEP_OWNER && !this.creeps.has(u.id)) this.creeps.set(u.id, { unitId: u.id, home: { x: u.x, y: u.y }, returning: false, readyAt: {} });
+    }
     for (const [id, c] of this.creeps) {
       const u = this.world.unit(id);
       if (!u) { this.creeps.delete(id); continue; }
@@ -146,6 +154,7 @@ export class Creeps {
         u.hp = u.maxHp; // creeps heal fully when they give up, like Warcraft's return-to-camp
         continue;
       }
+      this.castSkills(u, c);
       if (u.maxSpeed <= 0 || (u.order.kind === 'attackMove' && u.targetId !== undefined)) continue;
       let best: UnitEntity | undefined, bestD = ACQUIRE;
       for (const e of this.world.allUnits()) {
@@ -155,6 +164,56 @@ export class Creeps {
       }
       if (best) this.world.attackMove(u, [{ x: best.x, y: best.y }]);
       else if (u.order.kind === 'attackMove') { u.order = { kind: 'idle' }; u.path = []; }
+    }
+  }
+
+  /**
+   * One skill per look when ships are near: crowd control and nukes on the ship it fights
+   * (players' ships first), heals on a hurt ally, stomps and summons once enemies are close.
+   */
+  private castSkills(u: UnitEntity, c: Creep): void {
+    const abilities = this.world.abilities;
+    const skills = abilities.naturalSkills(u.typeId);
+    if (!skills.length || hasBuff(u, 'stun') || hasBuff(u, 'silence')) return;
+    const tick = this.world.tick;
+    const foes: UnitEntity[] = [];
+    for (const e of this.world.ships.values()) {
+      if (e.team !== 'neutral' && e.hp > 0 && distance(u, e) <= 1000 && this.world.visibleTo(u.team, e)) foes.push(e);
+    }
+    if (!foes.length) return;
+    for (const a of skills) {
+      if (tick < (c.readyAt[a.id] ?? 0)) continue;
+      const level = a.levels[0]!;
+      const reach = (level.range || 600) + 50;
+      const inReach = foes.filter((e) => distance(u, e) <= reach + e.bodyRadius * 0.5 && abilities.canAffect(a, e));
+      const current = inReach.find((e) => e.id === u.targetId);
+      const pick = current ?? inReach.sort((x, y) => Number(y.isHero) - Number(x.isHero) || distance(u, x) - distance(u, y))[0];
+      let target: UnitEntity | undefined, point: Vec2 | undefined;
+      switch (abilities.targeting(a.id)) {
+        case 'unit':
+          // Debuffs are not stacked on a ship that already carries this one.
+          if (pick && !pick.buffs.some((b) => b.abilityId === a.id)) target = pick;
+          break;
+        case 'point':
+          if (pick) point = { x: pick.x, y: pick.y };
+          break;
+        case 'ally': {
+          const hurt = [...this.world.ships.values()].filter((v) => v.team === u.team && v.hp > 0 && v.hp < v.maxHp * 0.7 && distance(u, v) <= reach)
+            .sort((x, y) => x.hp / x.maxHp - y.hp / y.maxHp)[0];
+          target = hurt;
+          break;
+        }
+        case 'instant': {
+          // Stomps need ships within their area; roars and summons only a fight nearby.
+          const area = a.baseCode === 'AOws' ? (level.area || 250) + 60 : 900;
+          if (foes.some((e) => distance(u, e) <= area + e.bodyRadius * 0.5)) point = u;
+          break;
+        }
+      }
+      if (!target && !point) continue;
+      abilities.castNatural(u, a.id, target, point);
+      c.readyAt[a.id] = tick + Math.round(Math.max(MIN_COOLDOWN, level.cooldown ?? 0) * TICK_RATE);
+      return;
     }
   }
 

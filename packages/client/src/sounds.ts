@@ -14,6 +14,9 @@ const SKILL_SOUNDS: Record<string, SoundName> = {
   Arej: 'heal', AEtq: 'heal', ANhs: 'heal', AIhe: 'heal', Arpl: 'heal',
   ANsi: 'curse', ANso: 'curse', Afae: 'curse', Aply: 'curse', ANab: 'curse', ANpa: 'curse', AEer: 'curse', Aens: 'curse', Ashs: 'curse',
   ANcl: 'curse', Aprg: 'curse', ANch: 'curse', AHdr: 'curse',
+  // 下潜 and the creeps' own skills.
+  Arav: 'splash', ACtb: 'explosion', ANfd: 'curse', AUcs: 'splash', Aslo: 'frost', AOhx: 'curse', Acrs: 'curse',
+  AOhw: 'heal', Aroa: 'buff', Aadm: 'magic',
 };
 /** Barrages: how many extra impacts, over how many seconds. */
 const BARRAGES: Record<string, [count: number, seconds: number]> = { ANcs: [6, 2.2], ANrf: [5, 4], AEsf: [6, 4], ANvc: [7, 7], AOsh: [5, 0.7] };
@@ -81,6 +84,12 @@ export class SoundFx {
         case 'levelUp': if (e.player === this.player) this.audio.play('levelUp'); break;
         case 'respawn': if (e.player === this.player) this.audio.play('respawn'); break;
         case 'victory': this.audio.play(e.winner === me.team ? 'victory' : 'defeat'); break;
+        case 'quest': if (e.player === this.player) this.audio.play(e.gold > 0 ? 'coin' : 'learn'); break;
+        case 'weather':
+          this.music.setRain(e.weather === 'heavyRain' ? 1 : e.weather === 'lightRain' ? 0.45 : 0);
+          // Rain rolls in with thunder (the map plays Lightning / Lightning2).
+          if (e.weather === 'heavyRain' || e.weather === 'lightRain') this.audio.play('lightning', undefined, { gain: 1.2, pitch: 0.5 });
+          break;
       }
     }
   }

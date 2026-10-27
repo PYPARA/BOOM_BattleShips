@@ -2,9 +2,12 @@
 // so it cannot cheat beyond reading unit positions (the game has no fog of war yet).
 // Behavior follows the map's own AI (docs/mechanics/README.md §9): buy ships and weapons at
 // home, push a lane behind the friendly fleet, keep out of tower fire, retreat to repair when
-// hurt, and use skills when enough enemies are in reach.
+// hurt, and use skills when enough enemies are in reach. On top of that the bots fight as a
+// team: they gang up on the weakest enemy ship in sight, come to the help of a teammate in a
+// fight, keep out-ranged enemies at the edge of their weapons, and buy answers to the enemy
+// line-up (anti-submarine charges against submarines, a spotter against invisible ships).
 import {
-  canLearn, distance, LANES, REPAIR_RECTS, SHOP_RANGE, skillPoints, type Match, type Shop, type UnitEntity, type Vec2,
+  canLearn, distance, LANES, REPAIR_RECTS, SHOP_RANGE, skillPoints, SUBMARINES, type Match, type Shop, type UnitEntity, type Vec2,
 } from '@boom/sim';
 
 export type Difficulty = 'easy' | 'normal' | 'hard';
@@ -32,6 +35,15 @@ const SETTINGS: Record<Difficulty, { thinkEvery: number; retreatAt: number; cast
 const HULLS = ['I009', 'I016', 'I00A'];
 const SAILS = ['I007', 'I008', 'I01A'];
 const REPAIR_KIT = 'I00C';
+/** 深水炸弹: the cheapest weapon that reaches a submerged submarine. */
+const ANTI_SUB = 'I03E';
+/** 资深观察员: sees invisible ships around the ship. */
+const SPOTTER = 'I00F';
+/** Skills that hide a ship. */
+const STEALTH = new Set(['Aivs', 'AIvi']);
+/** How far the bots look for a fight to join or a ship to gang up on. */
+const ENGAGE_RANGE = 1400;
+const SUPPORT_RANGE = 3000;
 
 export class Bot {
   readonly player: number;
@@ -41,6 +53,8 @@ export class Bot {
   private readonly lane: number;
   private readonly random: () => number;
   private retreating = false;
+  /** What the enemy line-up calls for, refreshed now and then. */
+  private intel = { subs: false, stealth: false, at: -Infinity };
   private lastGoal?: Vec2;
   private lastGoalTick = -Infinity;
 
@@ -111,6 +125,12 @@ export class Bot {
         return;
       }
     }
+    // Answers to the enemy line-up come before hull and sail upgrades.
+    const counter = this.counterItem();
+    if (weapons.length >= 2 && counter && sells(counter, 'item') && p.items.length < 6 && spare(this.match.itemPrice(counter))) {
+      this.match.issue({ kind: 'buyItem', player: this.player, itemId: counter });
+      return;
+    }
     // Hull, sail, then a repair kit in whatever slots remain.
     const upgrade = (line: string[]) => {
       const owned = p.items.findIndex((i) => line.includes(i));
@@ -126,6 +146,29 @@ export class Bot {
     if (p.items.length < 6 && !p.items.includes(REPAIR_KIT) && sells(REPAIR_KIT, 'item') && spare(this.match.itemPrice(REPAIR_KIT))) {
       this.match.issue({ kind: 'buyItem', player: this.player, itemId: REPAIR_KIT });
     }
+  }
+
+  /** Which side the bot is on the scoreboard tells it the enemy hulls and what they can learn. */
+  private enemyLineup(): { subs: boolean; stealth: boolean } {
+    const tick = this.match.world.tick;
+    if (tick - this.intel.at < 200) return this.intel;
+    const abilities = this.match.world.abilities;
+    const enemies = [...this.match.players.values()].filter((q) => q.team !== this.side && q.index >= 2);
+    this.intel = {
+      subs: enemies.some((q) => SUBMARINES.has(q.shipTypeId)),
+      stealth: enemies.some((q) => abilities.skillsOf(q.shipTypeId).some((a) => STEALTH.has(a.baseCode) && q.hero.learned[a.id])),
+      at: tick,
+    };
+    return this.intel;
+  }
+
+  /** The counter the enemy line-up calls for that the bot does not carry yet. */
+  private counterItem(): string | undefined {
+    const items = this.state.items;
+    const { subs, stealth } = this.enemyLineup();
+    if (subs && !items.some((i) => this.match.world.weaponType(i)?.targets.includes('ward'))) return ANTI_SUB;
+    if (stealth && !items.includes(SPOTTER)) return SPOTTER;
+    return undefined;
   }
 
   private bestWeapon(offered: string[], gold: number): string | undefined {
@@ -200,7 +243,9 @@ export class Bot {
           if (prey) { cast({ unitId: prey.id }); return; }
           continue;
         }
-        const target = heroes.sort((x, y) => x.hp - y.hp)[0]
+        const focus = this.focusTarget(ship);
+        const target = (focus && distance(ship, focus) <= reach && !focus.submerged ? focus : undefined)
+          ?? heroes.filter((u) => !u.submerged).sort((x, y) => x.hp - y.hp)[0]
           ?? (a.baseCode === 'Auco' ? undefined : this.enemiesWithin(ship, reach).filter((u) => u.kind === 'ship').sort((x, y) => y.maxHp - x.maxHp)[0]);
         // The suicide ram only pays off against a ship it can sink or a crowd.
         if (target && (a.baseCode !== 'Auco' || target.hp < Number(level.data.B ?? 0) || this.enemiesWithin(target, 400).length >= 4)) { cast({ unitId: target.id }); return; }
@@ -251,10 +296,72 @@ export class Bot {
       if (shop) return;
     }
 
-    // Chase a weaker enemy ship in reach.
-    const prey = this.enemiesWithin(ship, 1000).filter((u) => u.isHero && u.hp / u.maxHp < hurt && u.hp < ship.hp);
-    if (prey[0]) return this.goTo(ship, prey[0]);
+    // Gang up on the weakest enemy ship in sight when the fight around it is even or better.
+    const focus = this.focusTarget(ship);
+    if (focus && this.strength(focus, this.side) >= this.strength(focus, this.enemySide) * 0.8) return this.engage(ship, focus);
+    // Sail to a teammate who is in a fight.
+    const call = this.callForHelp(ship);
+    if (call && hurt > 0.5) return this.goTo(ship, call);
     this.goTo(ship, this.lanePosition(ship));
+  }
+
+  private get enemySide(): 'south' | 'north' {
+    return this.side === 'south' ? 'north' : 'south';
+  }
+
+  /** Longest reach of a ship's automatic weapons and built-in attacks. */
+  private reach(u: UnitEntity): number {
+    return Math.max(0, ...u.weapons.filter((w) => !w.manual).map((w) => w.range), ...u.attacks.map((a) => a.range));
+  }
+
+  /**
+   * The enemy player ship the whole side should shoot: the one in sight with the fewest hit
+   * points. Every bot of a side picks by the same rule, so they converge on it.
+   */
+  private focusTarget(ship: UnitEntity): UnitEntity | undefined {
+    return this.enemiesWithin(ship, ENGAGE_RANGE).filter((u) => u.isHero && u.kind === 'ship' && !u.illusion)
+      .sort((a, b) => a.hp - b.hp)[0];
+  }
+
+  /** Hit points of a side's player ships, fleet ships and towers around a point. */
+  private strength(at: Vec2, side: 'south' | 'north'): number {
+    let total = 0;
+    for (const u of this.match.world.allUnits()) {
+      if (u.team !== side || u.hp <= 0 || distance(u, at) > 1200) continue;
+      if (u.kind === 'structure' && u.attacks.length === 0) continue;
+      if (side !== this.side && !this.match.world.visibleTo(this.side, u)) continue;
+      total += u.isHero ? u.hp : u.hp * 0.5;
+    }
+    return total;
+  }
+
+  /**
+   * Fight at the edge of the bot's own reach: back off from an enemy that is out-ranged, close
+   * in on one that is not in reach yet, otherwise hold the distance.
+   */
+  private engage(ship: UnitEntity, target: UnitEntity): void {
+    const mine = this.reach(ship), theirs = this.reach(target);
+    const d = distance(ship, target);
+    const want = mine * 0.85;
+    const outranged = theirs + 100 < mine;
+    if ((outranged && d < theirs + 150) || d > mine * 0.95) {
+      const k = d > 0 ? want / d : 0;
+      const spot = { x: target.x + (ship.x - target.x) * k, y: target.y + (ship.y - target.y) * k };
+      return this.goTo(ship, this.match.world.grid.nearestSailable(spot.x, spot.y, ship.pathRadius) ?? target);
+    }
+    if (ship.path.length) this.match.world.issue({ kind: 'stop', unitIds: [ship.id] });
+  }
+
+  /** Where a teammate is fighting an enemy player ship, if one is not too far. */
+  private callForHelp(ship: UnitEntity): Vec2 | undefined {
+    for (const q of this.match.players.values()) {
+      if (q.team !== this.side || q.index === this.player || q.index < 2) continue;
+      const ally = this.match.world.ships.get(q.shipId ?? -1);
+      if (!ally || distance(ally, ship) > SUPPORT_RANGE) continue;
+      const foe = this.enemiesWithin(ally, 900).find((u) => u.isHero && u.kind === 'ship');
+      if (foe) return { x: (ally.x + foe.x) / 2, y: (ally.y + foe.y) / 2 };
+    }
+    return undefined;
   }
 
   /** The home-side shop that sells what the bot means to buy next (ship, weapon, then gear). */
@@ -268,6 +375,11 @@ export class Bot {
     if (next && weapons >= 2) return nearest(shops.filter((s) => s.sellsUnits.includes(next)));
     const best = this.bestWeapon(shops.flatMap((s) => s.sellsItems), p.gold);
     if (best) return nearest(shops.filter((s) => s.sellsItems.includes(best)));
+    const counter = this.counterItem();
+    if (counter && p.items.length < 6) {
+      const shop = nearest(shops.filter((s) => s.sellsItems.includes(counter)));
+      if (shop) return shop;
+    }
     return nearest(shops.filter((s) => [...HULLS, ...SAILS, REPAIR_KIT].some((id) => s.sellsItems.includes(id))));
   }
 
@@ -283,6 +395,8 @@ export class Bot {
     const next = this.route[this.route.indexOf(ship.typeId) + 1];
     const refund = Math.floor(this.match.unitPrice(ship.typeId) * 0.6);
     if (weapons < 2) return p.gold >= 430; // 护卫舰炮, the staple starter cannon
+    const counter = this.counterItem();
+    if (counter && p.items.length < 6 && p.gold >= this.match.itemPrice(counter)) return true;
     if (next) return p.gold + refund >= this.match.unitPrice(next);
     return weapons < this.settings.weaponSlots && p.gold >= 1500;
   }

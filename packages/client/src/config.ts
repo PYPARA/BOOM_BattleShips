@@ -45,7 +45,7 @@ export function loadConfig(): GameConfig {
   const params = new URLSearchParams(location.search);
   const ai = params.get('ai');
   if (ai === 'easy' || ai === 'normal' || ai === 'hard') config.difficulty = ai;
-  if (params.get('mode') === 'standard' || params.get('mode') === 'fast') config.mode = params.get('mode') as GameMode;
+  if (['standard', 'fast', 'traders'].includes(params.get('mode') ?? '')) config.mode = params.get('mode') as GameMode;
   if (params.get('side') === 'north' || params.get('side') === 'south') config.side = params.get('side') as 'south' | 'north';
   if (params.has('solo')) { config.allies = 0; config.enemies = 0; }
   return config;

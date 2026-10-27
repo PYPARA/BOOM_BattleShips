@@ -15,6 +15,7 @@ const SUN_DIR = new THREE.Vector3(-0.42, 0.78, 0.46).normalize();
 const NIGHT_ZENITH = new THREE.Color(0x0b1730);
 const NIGHT_HORIZON = new THREE.Color(0x26385a);
 const DUSK = new THREE.Color(0xffa060);
+const OVERCAST = new THREE.Color(0x7d8894);
 
 /** Sky colors and sun direction the dome reads, updated with the clock. */
 const skyState = {
@@ -50,6 +51,10 @@ export class Environment {
   private readonly scene: THREE.Scene;
   private shadowSize = 0;
   private readonly sunDir = SUN_DIR.clone();
+  /** Weather: cloud cover (0 clear … 1 storm) and sun-ray brightness, eased toward their targets. */
+  private overcast = 0;
+  private bright = 0;
+  private weather = { overcast: 0, bright: 0 };
 
   constructor(scene: THREE.Scene, shadowMapSize = 2048) {
     scene.background = HORIZON.clone();
@@ -82,8 +87,19 @@ export class Environment {
     scene.environmentIntensity = 0.55;
   }
 
+  /** Cloud cover for the match's weather; the sky eases toward it. */
+  setWeather(weather: 'clear' | 'lightRain' | 'heavyRain' | 'snow' | 'sunrays'): void {
+    this.weather = {
+      overcast: weather === 'heavyRain' ? 1 : weather === 'lightRain' ? 0.55 : weather === 'snow' ? 0.45 : 0,
+      bright: weather === 'sunrays' ? 1 : 0,
+    };
+  }
+
   /** Keeps the sun's shadow box over what the camera looks at. */
-  update(camera: THREE.Camera, target: THREE.Vector3, distance: number, tick: number): void {
+  update(camera: THREE.Camera, target: THREE.Vector3, distance: number, tick: number, dt = 0): void {
+    const k = Math.min(1, dt * 0.4);
+    this.overcast += (this.weather.overcast - this.overcast) * k;
+    this.bright += (this.weather.bright - this.bright) * k;
     this.updateClock(timeOfDay(tick));
     this.sky.position.copy(camera.position);
     this.sun.target.position.copy(target);
@@ -108,16 +124,22 @@ export class Environment {
     // The moon stands behind the camera (south) like the sun, so the sea does not mirror it back
     // as bright streaks.
     this.sunDir.copy(day).lerp(new THREE.Vector3(0.25, 0.75, 0.6).normalize(), 1 - d).normalize();
-    this.sun.intensity = 0.4 + 2.2 * d;
+    const cloud = this.overcast;
+    this.sun.intensity = (0.4 + 2.2 * d) * (1 - 0.65 * cloud) * (1 + 0.2 * this.bright);
     this.sun.color.setRGB(1, 0.95, 0.86).lerp(new THREE.Color(0x9fb6ff), 1 - d).lerp(DUSK, dusk * 0.55);
-    this.hemi.intensity = 0.35 + 0.55 * d;
+    this.hemi.intensity = (0.35 + 0.55 * d) * (1 - 0.25 * cloud);
     this.scene.environmentIntensity = 0.2 + 0.35 * d;
-    const horizon = NIGHT_HORIZON.clone().lerp(HORIZON, d).lerp(DUSK, dusk * 0.35);
+    // Rain clouds grey the sky and pull the haze in.
+    const grey = OVERCAST.clone().multiplyScalar(0.25 + 0.75 * d);
+    const horizon = NIGHT_HORIZON.clone().lerp(HORIZON, d).lerp(DUSK, dusk * 0.35).lerp(grey, cloud * 0.7);
     skyState.horizon.value.copy(horizon);
-    skyState.zenith.value.copy(NIGHT_ZENITH).lerp(ZENITH, d);
+    skyState.zenith.value.copy(NIGHT_ZENITH).lerp(ZENITH, d).lerp(grey, cloud * 0.8);
     skyState.sunDir.value.copy(this.sunDir);
-    skyState.glow.value = 0.25 + 0.75 * d;
+    skyState.glow.value = (0.25 + 0.75 * d) * (1 - cloud) * (1 + 0.6 * this.bright);
     (this.scene.background as THREE.Color).copy(horizon);
-    (this.scene.fog as THREE.Fog).color.copy(horizon);
+    const fog = this.scene.fog as THREE.Fog;
+    fog.color.copy(horizon);
+    fog.near = 5000 - 3000 * cloud;
+    fog.far = 14000 - 5000 * cloud;
   }
 }

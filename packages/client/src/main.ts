@@ -16,6 +16,7 @@ import { MainMenu } from './menu.ts';
 import { Minimap } from './minimap.ts';
 import { Music } from './music.ts';
 import { loadGlbModels } from './models/glb.ts';
+import { WeatherView } from './weather.ts';
 import { Overlay } from './overlay.ts';
 import { ProjectileViews } from './projectiles.ts';
 import { Results } from './results.ts';
@@ -104,6 +105,10 @@ const shipViews = new ShipViews(world, match.players.get(PLAYER)!.team);
 scene.add(shipViews.group);
 const effects = new Effects();
 scene.add(effects.group);
+const weatherView = new WeatherView();
+scene.add(weatherView.group);
+weatherView.set(match.weather);
+environment.setWeather(match.weather);
 const combatFx = new CombatFx(effects, match, match.players.get(PLAYER)!.team);
 const projectileViews = new ProjectileViews(world);
 scene.add(projectileViews.mesh);
@@ -195,6 +200,7 @@ renderer.setAnimationLoop(() => {
     hudPanel.onEvents(match.events, now);
     for (const e of match.events) {
       if (e.kind === 'death') buildingMeshes.get(e.unitId)?.removeFromParent();
+      if (e.kind === 'weather') { weatherView.set(e.weather); environment.setWeather(e.weather); }
       if (e.kind === 'respawn' && e.player === PLAYER) {
         const ship = world.ships.get(e.shipId)!;
         rts.lookAt(ship.x, ship.y);
@@ -211,7 +217,8 @@ renderer.setAnimationLoop(() => {
   if (own !== undefined && input.selected.size === 0) input.selected.add(own);
 
   rts.update(frameDt);
-  environment.update(rts.camera, rts.target, rts.viewDistance, world.tick);
+  environment.update(rts.camera, rts.target, rts.viewDistance, world.tick, frameDt);
+  weatherView.update(frameDt, rts.target, rts.camera, rts.viewDistance);
   fog.update(frameDt);
   if (frame % 6 === 0) fog.tintInstances(doodads);
   soundFx.update(rts.target.x, -rts.target.z, rts.viewDistance);
@@ -240,6 +247,7 @@ renderer.setAnimationLoop(() => {
 
   renderer.render(scene, rts.camera);
   overlay.draw(rts.camera, now);
+  minimap.marks = hudPanel.questSpots;
   minimap.draw();
   hudPanel.update(now);
   // The bottom panel shows the inspected unit or shop, else the player's own ship.

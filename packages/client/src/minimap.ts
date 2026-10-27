@@ -8,6 +8,8 @@ const SIZE = 220;
 const css = (hex: number) => `#${hex.toString(16).padStart(6, '0')}`;
 
 export class Minimap {
+  /** Spots to highlight (quest destinations). */
+  marks: { x: number; y: number }[] = [];
   private readonly canvas: HTMLCanvasElement;
   private readonly ctx: CanvasRenderingContext2D;
   private readonly background: HTMLCanvasElement;
@@ -110,6 +112,19 @@ export class Minimap {
       ctx.beginPath();
       ctx.arc(x, y, 3 * devicePixelRatio, 0, Math.PI * 2);
       ctx.fill();
+    }
+    // Quest destinations (商船任务 mode): gold diamonds.
+    for (const m of this.marks) {
+      const [x, y] = this.toMap(m.x, m.y);
+      const r = 4 * devicePixelRatio;
+      ctx.fillStyle = '#ffd34d';
+      ctx.strokeStyle = '#3a2a00';
+      ctx.lineWidth = devicePixelRatio;
+      ctx.beginPath();
+      ctx.moveTo(x, y - r); ctx.lineTo(x + r, y); ctx.lineTo(x, y + r); ctx.lineTo(x - r, y);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
     }
     // Camera footprint: project the four screen corners onto the sea.
     const corners = [[0, 0], [innerWidth, 0], [innerWidth, innerHeight], [0, innerHeight]]

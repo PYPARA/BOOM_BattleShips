@@ -31,8 +31,8 @@ const SUB_SKILLS: Record<string, { abilityId: string; level: number; value: numb
 };
 export const SUBMARINES = new Set(['H005', 'H00U']);
 
-/** Abilities a ship type starts with besides its learnable skills (the submarine's mine layer). */
-export const DEFAULT_GRANTS: Record<string, Record<string, number>> = { H005: { A036: 1 } };
+/** Abilities a ship type starts with besides its learnable skills (the submarine's mine layer and 下潜). */
+export const DEFAULT_GRANTS: Record<string, Record<string, number>> = { H005: { A036: 1, A046: 1 } };
 
 /** Blueprints whose text abbreviates the weapon names: [from, to] item pairs. */
 const UPGRADES: Record<string, [string, string][]> = {

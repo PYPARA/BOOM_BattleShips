@@ -1,14 +1,14 @@
 // Shop goods: blueprints, hull upgrades, bought ship skills, submarine gear, salvos, special
 // weapons, charges and carry limits — and a check that nothing a shop sells is inert.
 import { describe, expect, it } from 'vitest';
-import { createMatch, DEFAULT_GRANTS, hasBuff, TICK_RATE, type Match } from '../src/index.ts';
+import { createMatch, DEFAULT_GRANTS, hasBuff, TICK_RATE, type GameMode, type Match } from '../src/index.ts';
 import { data } from './world.test.ts';
 
 const run = (m: Match, seconds: number) => { for (let i = 0; i < Math.round(seconds * TICK_RATE); i++) m.step(); };
 
 /** Player 2 sailing `typeId`, rich, parked at whichever shop sells `itemId`. */
-function atShop(itemId: string, typeId = 'H000') {
-  const m = createMatch(data, { players: [2, 7] });
+function atShop(itemId: string, typeId = 'H000', mode?: GameMode) {
+  const m = createMatch(data, { players: [2, 7], mode });
   const p = m.players.get(2)!;
   p.gold = 100000;
   const shop = m.shops.find((s) => s.sellsItems.includes(itemId) && m.world.grid.nearestSailable(s.x, s.y, 30))!;
@@ -70,9 +70,11 @@ describe('shop goods', () => {
   });
 
   it('submarine gear only fits the submarine and works once', () => {
-    const { buy } = atShop('I03R');
+    // The submarine factory only stands in the 商船任务 mode.
+    expect(createMatch(data, { players: [2, 7] }).shops.some((s) => s.unitId === 'n00U')).toBe(false);
+    const { buy } = atShop('I03R', 'H000', 'traders');
     expect(buy('I03R')).toBe('非潜水艇，不能安装');
-    const sub = atShop('I03R', 'H005');
+    const sub = atShop('I03R', 'H005', 'traders');
     const speed = sub.ship.maxSpeed;
     expect(sub.buy('I03R')).toBeUndefined();
     expect(sub.m.world.ships.get(sub.p.shipId!)!.maxSpeed).toBe(speed + 100);

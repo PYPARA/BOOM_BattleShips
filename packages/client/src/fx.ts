@@ -80,6 +80,22 @@ const PRESETS: Record<string, Preset> = {
   ANcl: (fx, e) => fx.pulse(e.x, e.y, 300, PURPLE),
   Aprg: (fx, e) => fx.curse(e.x, e.y, 140, PURPLE),
   ANch: (fx, e) => fx.curse(e.x, e.y, 140, [1, 0.5, 0.8]),
+  // 下潜 / 浮出水面.
+  Arav: (fx, e) => { fx.ring(e.x, e.y, 30, 160, [0.75, 0.9, 1], 0.8, 0.6); fx.splash(e.x, e.y, 45); },
+  // Neutral creeps' skills.
+  ACtb: (fx, e) => fx.explosion(e.x, e.y, 45),
+  ANfd: (fx, e, c) => { if (c) fx.bolt(c.x, c.y, H(80), e.x, e.y, H(40), [0.85, 0.3, 1], 0.4, 18); fx.curse(e.x, e.y, 120, PURPLE); },
+  AUcs: (fx, e, c) => {
+    if (!c) return fx.explosion(e.x, e.y, 50);
+    const dx = e.x - c.x, dy = e.y - c.y, len = Math.hypot(dx, dy) || 1;
+    for (let d = 80; d <= 1000; d += 120) fx.after(d / 2000, () => fx.splash(c.x + (dx / len) * d, c.y + (dy / len) * d, 50));
+  },
+  Aslo: (fx, e) => fx.curse(e.x, e.y, 110, BLUE),
+  AOhx: (fx, e) => fx.curse(e.x, e.y, 140, [1, 0.6, 0.9]),
+  Acrs: (fx, e) => fx.curse(e.x, e.y, 120, [0.3, 0.25, 0.35]),
+  AOhw: (fx, e) => fx.heal(e.x, e.y, 120),
+  Aroa: (fx, e, _c, area) => fx.pulse(e.x, e.y, area || 500, ORANGE),
+  Aadm: (fx, e, _c, area) => fx.pulse(e.x, e.y, area || 300, [0.95, 0.95, 1]),
   AHdr: (fx, e, c, _a, duration) => {
     if (!c) return;
     fx.emit(Math.max(1, duration), 0.25, () => fx.bolt(e.x, e.y, H(60), c.x, c.y, H(60), [1, 0.25, 0.3], 0.3, 8));
@@ -112,7 +128,9 @@ export class CombatFx {
         if (preset) preset(this.fx, e, caster, level?.area ?? 0, level?.duration ?? 0);
         else this.fx.pulse(e.x, e.y, 120, BLUE);
       } else if (e.kind === 'zap') {
-        this.fx.lightning(e.fromX, e.fromY, e.toX, e.toY);
+        // A healing wave jumps in green; everything else is lightning.
+        if (world.abilities.byId.get(e.abilityId)?.baseCode === 'AOhw') this.fx.bolt(e.fromX, e.fromY, H(50), e.toX, e.toY, H(40), GREEN, 0.35, 12);
+        else this.fx.lightning(e.fromX, e.fromY, e.toX, e.toY);
       } else if (e.kind === 'shot') {
         const from = world.unit(e.sourceId), to = world.unit(e.targetId);
         if (from && to && this.visible(from)) this.fx.muzzle(from.x, from.y, to.x - from.x, to.y - from.y, from.kind === 'structure' ? H(230) : undefined);
@@ -172,6 +190,7 @@ export class CombatFx {
       if (kinds.has('hot')) { const p = at(); this.fx.glow.spawn({ ...p, z: H(20), vz: H(70), life: 0.7, size: 12, endSize: 4, color: GREEN }); }
       if (kinds.has('silence') || kinds.has('disarm')) { const p = at(); this.fx.glow.spawn({ ...p, z: H(size), vz: H(20), life: 0.5, size: 14, endSize: 4, color: PURPLE }); }
       if (kinds.has('root')) { const p = at(); this.fx.smoke.spawn({ ...p, z: H(10), vz: H(15), life: 0.6, size: 20, endSize: 30, color: [0.45, 0.6, 0.3], alpha: 0.6 }); }
+      if (kinds.has('miss')) { const p = at(); this.fx.smoke.spawn({ ...p, z: H(size), vz: H(10), life: 0.6, size: 18, endSize: 26, color: [0.25, 0.2, 0.3], alpha: 0.5 }); }
       if (kinds.has('haste')) { const p = at(); this.fx.glow.spawn({ ...p, z: H(15), life: 0.35, size: 14, endSize: 4, color: [1, 0.9, 0.5] }); }
     }
     this.fx.pruneShields(shielded);

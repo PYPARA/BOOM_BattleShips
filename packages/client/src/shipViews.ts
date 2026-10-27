@@ -13,6 +13,8 @@ interface ShipView {
   model: THREE.Object3D;
   ring: THREE.Mesh;
   roll: number;
+  /** 0 on the surface … 1 fully under (下潜), eased. */
+  dive: number;
   /** Seconds (render clock) when the ship was sunk; the view sinks, then goes. */
   sunkAt?: number;
 }
@@ -87,7 +89,7 @@ export class ShipViews {
     root.add(model, ring);
     root.userData.entityId = ship.id;
     this.group.add(root);
-    const view = { root, model, ring, roll: 0 };
+    const view = { root, model, ring, roll: 0, dive: 0 };
     this.views.set(ship.id, view);
     return view;
   }
@@ -106,7 +108,9 @@ export class ShipViews {
       const targetRoll = THREE.MathUtils.clamp(-turn * 20 * (ship.speed / Math.max(1, ship.maxSpeed)), -0.25, 0.25);
       view.roll += (targetRoll - view.roll) * Math.min(1, frameDt * 3);
       const phase = ship.id * 1.7;
-      view.model.position.y = Math.sin(time * 1.3 + phase) * ship.bodyRadius * 0.04;
+      // A submerged submarine slides under until only its tower breaks the water.
+      view.dive += ((ship.submerged ? 1 : 0) - view.dive) * Math.min(1, frameDt * 1.5);
+      view.model.position.y = Math.sin(time * 1.3 + phase) * ship.bodyRadius * 0.04 * (1 - view.dive) - view.dive * ship.bodyRadius * 0.55;
       view.model.rotation.x = view.roll + Math.sin(time * 1.1 + phase) * 0.03;
       view.model.rotation.z = Math.sin(time * 0.9 + phase) * 0.025;
       view.ring.visible = selected.has(ship.id);

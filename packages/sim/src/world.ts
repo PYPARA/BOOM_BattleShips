@@ -139,6 +139,10 @@ export interface UnitEntity {
   locust?: boolean;
   /** A mine or a submarine: only anti-submarine weapons (and normal ones, for the surfaced sub) hit it. */
   ward?: boolean;
+  /** The unit type it has turned into (下潜: the submarine's H00U), whose stats and sight apply. */
+  form?: string;
+  /** Under water: only anti-submarine weapons reach it and its items cannot be used. */
+  submerged?: boolean;
   /** Reveals invisible enemies within this range (探测者, 观察员, 声纳, 探测器). */
   detects?: number;
   /** State at the start of the current tick, for render interpolation. */
@@ -162,6 +166,8 @@ export interface Projectile {
   damage: number;
   attackType: string;
   special?: WeaponSpecial;
+  /** Fired by a built-in attack (creep poisons, bashes and cleaves ride on these). */
+  attack?: boolean;
 }
 
 export type WorldEvent =
@@ -301,7 +307,7 @@ export class World {
     });
     // Submarine research: better torpedoes and weapons.
     if (SUBMARINES.has(ship.typeId) && ship.hero) {
-      ship.attacks = this.attackSlots(this.unitTypes.get(ship.typeId)!);
+      ship.attacks = this.attackSlots(this.unitTypes.get(ship.form ?? ship.typeId)!);
       const techs = ship.hero.techs.map((id) => this.goods.purchases.get(id)).flatMap((p) => (p?.kind === 'subTech' ? [p.tech] : []));
       for (const t of techs) {
         for (const w of ship.weapons) { w.damage += t.damage ?? 0; w.range += t.range ?? 0; w.cooldown /= t.rate ?? 1; }
@@ -309,6 +315,22 @@ export class World {
       }
     }
     this.abilities.refreshStats(ship);
+  }
+
+  /**
+   * Turns a unit into another unit type (下潜 → H00U) or back (`formId` undefined): speed,
+   * regeneration, attacks and sight follow the form; hit points keep their share.
+   */
+  setForm(u: UnitEntity, formId: string | undefined): void {
+    const type = this.unitTypes.get(formId ?? u.typeId);
+    if (!type) return;
+    u.form = formId;
+    u.submerged = !!formId && (type.targetedAs ?? []).includes('ward');
+    u.base.speed = type.speed;
+    u.base.regen = type.regenHp;
+    u.attacks = this.attackSlots(type);
+    u.targetId = undefined;
+    this.setItems(u, u.items);
   }
 
   remove(id: number): void {
@@ -395,13 +417,14 @@ export class World {
     const viewers = [];
     for (const u of this.allUnits()) {
       if (u.team === 'neutral') continue;
-      const type = this.unitTypes.get(u.typeId);
+      const type = this.unitTypes.get(u.form ?? u.typeId);
       viewers.push({ team: u.team, x: u.x, y: u.y, hp: u.hp, sight: (night ? type?.nightSight ?? type?.sight : type?.sight) ?? 800 });
     }
     this.vision.update(this.tick, viewers, force);
   }
 
   canTarget(filter: TargetFilter, target: UnitEntity): boolean {
+    if (target.submerged) return filter.wards;
     if (filter.wards && (target.ward || SUBMARINES.has(target.typeId))) return true;
     if (target.ward) return false;
     if (target.kind === 'structure' ? !filter.structures : !filter.ships) return false;
@@ -492,6 +515,8 @@ export class World {
   private fight(u: UnitEntity): void {
     if (u.hp <= 0 || u.frozen || hasBuff(u, 'stun') || hasBuff(u, 'disarm')) return;
     const bonus = 1 + strongest(u, 'damageBonus');
+    // 诅咒: some attacks go wide (the shot is still spent).
+    const miss = strongest(u, 'miss');
     let fired = false;
     for (const a of u.attacks) {
       if (this.tick < a.readyAt) continue;
@@ -510,18 +535,19 @@ export class World {
       if (!target) { a.readyAt = this.tick + RETARGET_TICKS; continue; }
       let roll = a.damageBase + u.bonusDamage + Array.from({ length: a.dice }, () => 1 + Math.floor(this.random() * a.sides)).reduce((s, v) => s + v, 0);
       if (u.critChance > 0 && this.random() < u.critChance) roll *= u.critMultiplier;
-      this.shoot(u, target, roll * bonus, a.attackType);
+      if (!(miss > 0 && this.random() < miss)) this.shoot(u, target, roll * bonus, a.attackType, undefined, true);
       fired = true;
       a.readyAt = this.tick + Math.round((a.cooldown / (1 + u.attackSpeedBonus)) * TICK_RATE);
     }
-    for (const w of u.weapons) {
+    // Weapons are items, which a submerged submarine cannot use.
+    for (const w of u.submerged ? [] : u.weapons) {
       if (w.manual || this.tick < w.readyAt) continue;
       const candidates: UnitEntity[] = [];
       for (const e of this.enemiesOf(u)) if (this.canTarget(w.filter, e) && this.reach(u, e) <= w.range) candidates.push(e);
       if (candidates.length === 0) { w.readyAt = this.tick + RETARGET_TICKS; continue; }
       const target = candidates[Math.floor(this.random() * candidates.length)]!;
       const crit = u.critChance > 0 && this.random() < u.critChance ? u.critMultiplier : 1;
-      this.shoot(u, target, w.damage * bonus * crit, 'spells', w.special);
+      if (!(miss > 0 && this.random() < miss)) this.shoot(u, target, w.damage * bonus * crit, 'spells', w.special);
       fired = true;
       w.readyAt = this.tick + Math.round(w.cooldown * TICK_RATE);
     }
@@ -529,10 +555,10 @@ export class World {
     if (fired && u.buffs.length) u.buffs = u.buffs.filter((b) => b.kind !== 'invisible');
   }
 
-  private shoot(source: UnitEntity, target: UnitEntity, damage: number, attackType: string, special?: WeaponSpecial): void {
+  private shoot(source: UnitEntity, target: UnitEntity, damage: number, attackType: string, special?: WeaponSpecial, attack = false): void {
     const p: Projectile = {
       id: this.nextId++, sourceId: source.id, owner: source.owner, targetId: target.id,
-      x: source.x, y: source.y, prevX: source.x, prevY: source.y, damage, attackType, special,
+      x: source.x, y: source.y, prevX: source.x, prevY: source.y, damage, attackType, special, attack,
     };
     this.projectiles.set(p.id, p);
     this.events.push({ kind: 'shot', projectileId: p.id, sourceId: source.id, targetId: target.id });
@@ -552,6 +578,7 @@ export class World {
       this.projectiles.delete(p.id);
       this.dealDamage(target, p.damage, p.attackType, p.owner, p.sourceId, !p.special?.ignoresPlating);
       if (p.special) this.abilities.weaponHit(p, target);
+      if (p.attack) this.abilities.attackHit(p, target);
     }
   }
 
@@ -564,9 +591,10 @@ export class World {
     if (target.hp <= 0 || target.invulnerable || hasBuff(target, 'invulnerable')) return;
     const dealt = attackType === 'ability' || attackType === 'pure'
       ? amount
-      : this.damage.damage(amount, attackType, target.armorType, target.armor - strongest(target, 'armorDown')) * (plating ? target.damageTaken : 1);
+      : this.damage.damage(amount, attackType, target.armorType, target.armor + strongest(target, 'armorUp') - strongest(target, 'armorDown')) * (plating ? target.damageTaken : 1);
     target.hp -= dealt;
     this.events.push({ kind: 'hit', targetId: target.id, sourceOwner, damage: dealt, attackType, x: target.x, y: target.y });
+    this.abilities.onHit(target, sourceId, dealt, attackType);
     if (target.hp > 0) { this.abilities.onDamaged(target); return; }
     target.hp = 0;
     this.remove(target.id);

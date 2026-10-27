@@ -10,3 +10,4 @@ export * from './heroes.ts';
 export * from './goods.ts';
 export * from './creeps.ts';
 export * from './vision.ts';
+export * from './quests.ts';

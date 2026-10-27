@@ -23,7 +23,14 @@ const TARGETING: Record<string, Targeting> = {
   AIsa: 'instant',
   // Bought ship skills and item abilities.
   Acri: 'unit', ANab: 'unit', Asta: 'point', Afla: 'point', ANwm: 'point', AIbl: 'point',
+  // 下潜 (the submarine's own skill).
+  Arav: 'instant',
+  // Neutral creeps' skills (cast by creeps.ts).
+  Aslo: 'unit', AOhx: 'unit', Acrs: 'unit', ACtb: 'unit', ANfd: 'unit', AUcs: 'point', AOhw: 'ally', Aroa: 'instant', Aadm: 'point',
 };
+
+/** Passive creep abilities that ride on each attack. */
+const ON_ATTACK = new Set(['Aven', 'Aspo', 'AHbh', 'ANca', 'Awar', 'AIva', 'Alit', 'Aroc']);
 
 /**
  * Skills that would need mana, which the remake does not simulate (the map's ships have none
@@ -66,6 +73,8 @@ export class AbilitySystem {
   private readonly requiem = new Map<number, number>();
   /** Built-in abilities per unit type (summons carry auras such as 建筑物破坏光环). */
   private readonly intrinsic = new Map<string, Ability[]>();
+  /** A unit type's own abilities, by type id. */
+  private readonly typeAbilities = new Map<string, Ability[]>();
 
   constructor(world: World, abilities: Ability[], items: Item[], misc: Record<string, unknown>) {
     this.world = world;
@@ -135,6 +144,22 @@ export class AbilitySystem {
         if (a?.levels[0]) passive(a, a.levels[0]);
       }
     }
+    // The unit type's own passives: a turned unit's form (the submerged submarine's 声纳), and
+    // for creeps and NPC ships their crit, evasion-like hide and true sight.
+    let typeCrit: [number, number] | undefined;
+    for (const a of this.abilitiesOf(u.form ?? (u.hero ? '' : u.typeId))) {
+      const level = a.levels[0]!, d = level.data;
+      switch (a.baseCode) {
+        case 'Agyv': case 'Atru': case 'Adet': detects = Math.max(detects, level.range || 900); break;
+        case 'AIdd': taken = Math.min(taken, Number(d.E ?? 1) || 1); break;
+        case 'AOcr': { // the bosses' data swaps chance and multiplier (A 3, B 50)
+          const [c, m] = [Number(d.A ?? 0), Number(d.B ?? 1)];
+          typeCrit = m > 10 ? [m / 100, c] : [c / 100, m];
+          break;
+        }
+      }
+    }
+    if (typeCrit && !u.hero) [u.critChance, u.critMultiplier] = typeCrit;
     const gained = maxHp - u.maxHp;
     u.maxHp = maxHp;
     u.hp = Math.min(maxHp, u.hp + Math.max(0, gained)); // added max HP comes with matching HP
@@ -170,6 +195,7 @@ export class AbilitySystem {
     if (hasBuff(u, 'stun') || u.frozen) return '船只失控中';
     const key = this.cooldownKey(u, abilityId, itemSlot);
     if (this.world.tick < (u.hero?.readyAt[key] ?? 0)) return '冷却中';
+    if (itemSlot !== undefined && u.submerged) return '水下航行时不能使用物品';
     if (itemSlot === undefined) {
       if (!this.level(u, abilityId)) return '尚未学会这个技能';
       if (hasBuff(u, 'silence')) return '被干扰，无法使用技能';
@@ -192,6 +218,7 @@ export class AbilitySystem {
     if (kind === 'point' && !target.point) return '需要选择一个地点';
     const code = this.byId.get(abilityId)?.baseCode;
     if (targetUnit && kind === 'unit' && !this.world.visibleTo(u.team, targetUnit)) return '看不到这个目标';
+    if (targetUnit?.submerged && kind === 'unit') return '技能打不到水下的潜艇';
     if (code === 'ANch' && (targetUnit!.isHero || targetUnit!.kind === 'structure')) return '只能控制普通船只';
     if (code === 'Aprg' && !targetUnit!.isHero) return '只能控制敌方玩家船只';
     u.pendingCast = { abilityId, targetId: target.unitId, point: target.point, itemSlot };
@@ -281,6 +308,11 @@ export class AbilitySystem {
             if (!e.buffs.some((b) => b.kind === 'dot' && b.abilityId === a.id)) this.buff(e, 'dot', Number(d.A ?? 120), Number(d.B ?? 0), u, a.id);
           }
           break;
+        case 'AHad': // creep 专注光环: armor for allies around
+          for (const ally of this.alliesNear(u, u, area || 900)) {
+            addBuff(ally, { kind: 'armorUp', until: now + 2, value: Number(d.A ?? 0), sourceId: u.id, sourceOwner: u.owner, abilityId: a.id });
+          }
+          break;
         case 'Aoar': // 雅典娜女神 figurehead: regeneration aura
           for (const ally of this.alliesNear(u, u, area || 900)) ally.hp = Math.min(ally.maxHp, ally.hp + Number(d.A ?? 0) * TICK_DT);
           break;
@@ -325,11 +357,39 @@ export class AbilitySystem {
   private intrinsicOf(typeId: string): Ability[] {
     let list = this.intrinsic.get(typeId);
     if (!list) {
-      const auras = new Set(['Atdg', 'Aasl', 'Aapl', 'Apxf', 'AUls', 'Aakb', 'AEim', 'Arpl']);
-      list = (this.world.unitType(typeId)?.abilities ?? []).map((id) => this.byId.get(id)).filter((a): a is Ability => !!a && auras.has(a.baseCode) && a.levels.length > 0);
+      const auras = new Set(['Atdg', 'Aasl', 'Aapl', 'Apxf', 'AUls', 'Aakb', 'AEim', 'Arpl', 'AHad']);
+      list = this.abilitiesOf(typeId).filter((a) => auras.has(a.baseCode));
       this.intrinsic.set(typeId, list);
     }
     return list;
+  }
+
+  /** A unit type's own abilities (from its unit data) that have level data. */
+  abilitiesOf(typeId: string): Ability[] {
+    let list = this.typeAbilities.get(typeId);
+    if (!list) {
+      list = (this.world.unitType(typeId)?.abilities ?? []).map((id) => this.byId.get(id)).filter((a): a is Ability => !!a && a.levels.length > 0);
+      this.typeAbilities.set(typeId, list);
+    }
+    return list;
+  }
+
+  /** Skills a creep type casts on its own (诱捕, 医疗波, 霜冻闪电 …). */
+  naturalSkills(typeId: string): Ability[] {
+    return this.abilitiesOf(typeId).filter((a) => (TARGETING[a.baseCode] ?? 'passive') !== 'passive');
+  }
+
+  /** Whether a creep skill may land on `u`: only skills that list wards reach a submerged submarine. */
+  canAffect(a: Ability, u: UnitEntity): boolean {
+    const targets = a.levels[0]?.targets ?? [];
+    if (u.submerged) return targets.includes('ward');
+    return u.kind !== 'structure' || targets.includes('structure');
+  }
+
+  /** A creep's own skill at its first level, cast at once; the caller checks range and cooldown. */
+  castNatural(u: UnitEntity, abilityId: string, target?: UnitEntity, point?: Vec2): void {
+    const level = this.byId.get(abilityId)?.levels[0];
+    if (level) this.execute(u, abilityId, target, point, undefined, level);
   }
 
   /** Summons chase enemies near their master and fall back to it when there are none. */
@@ -382,6 +442,62 @@ export class AbilitySystem {
         from = next;
       }
     }
+  }
+
+  /** Creep attack passives: poison, bash, cleave, pulverize, life steal, lightning, multishot. */
+  attackHit(p: Projectile, target: UnitEntity): void {
+    const u = this.world.unit(p.sourceId);
+    if (!u) return;
+    for (const a of this.abilitiesOf(u.form ?? u.typeId)) {
+      if (!ON_ATTACK.has(a.baseCode)) continue;
+      const level = a.levels[0]!;
+      const n = (k: keyof AbilityLevel['data']) => Number(level.data[k] ?? 0);
+      switch (a.baseCode) {
+        case 'Aven': // 浸毒武器
+          this.buff(target, 'dot', this.duration(level, target), n('A'), u, a.id);
+          break;
+        case 'Aspo': // 慢性毒药: poison and a slow
+          this.buff(target, 'dot', this.duration(level, target), n('A'), u, a.id);
+          this.buff(target, 'slow', this.duration(level, target), n('C'), u, a.id);
+          break;
+        case 'AHbh': // 重击: a chance to stun with extra damage
+          if (this.world.random() * 100 >= n('A')) break;
+          this.world.dealDamage(target, n('C'), 'ability', u.owner, u.id);
+          this.buff(target, 'stun', this.duration(level, target), 0, u, a.id);
+          break;
+        case 'ANca': // 分裂攻击: part of the hit splashes on those beside the target
+          for (const e of this.enemiesNear(u, target, level.area || 150)) if (e !== target) this.world.dealDamage(e, p.damage * n('A'), p.attackType, u.owner, u.id);
+          break;
+        case 'Awar': // 粉碎: a chance to slam everything around
+          if (this.world.random() * 100 >= n('A')) break;
+          for (const e of this.enemiesNear(u, target, n('D') || 250)) this.world.dealDamage(e, distance(e, target) <= (n('C') || 150) ? n('B') : n('B') / 2, 'ability', u.owner, u.id);
+          break;
+        case 'AIva': // 窃取生命
+          u.hp = Math.min(u.maxHp, u.hp + p.damage * n('A'));
+          break;
+        case 'Alit': // 闪电攻击: a crackle of extra damage
+          this.world.events.push({ kind: 'zap', abilityId: a.id, fromX: u.x, fromY: u.y, toX: target.x, toY: target.y });
+          this.world.dealDamage(target, p.damage * n('A'), 'ability', u.owner, u.id);
+          break;
+        case 'Aroc': { // 多重箭 (the hydra queen): the volley also strikes a few more ships
+          const more = this.enemiesNear(u, u, level.area || 1000).filter((e) => e !== target && this.world.visibleTo(u.team, e) && this.world.canTarget(parseTargets(level.targets), e));
+          for (const e of more.slice(0, n('C') || 2)) {
+            this.world.events.push({ kind: 'zap', abilityId: a.id, fromX: u.x, fromY: u.y, toX: e.x, toY: e.y });
+            this.world.dealDamage(e, p.damage, p.attackType, u.owner, u.id);
+          }
+          break;
+        }
+      }
+    }
+  }
+
+  /** 尖刺外壳: whoever attacks the creep takes part of the damage back. */
+  onHit(target: UnitEntity, sourceId: number, dealt: number, attackType: string): void {
+    if (attackType === 'ability' || attackType === 'pure' || target.hero) return;
+    const thorns = this.abilitiesOf(target.typeId).find((a) => a.baseCode === 'AUts');
+    const source = thorns && this.world.unit(sourceId);
+    if (!source || source.team === target.team) return;
+    this.world.dealDamage(source, dealt * Number(thorns.levels[0]!.data.A ?? 0), 'ability', target.owner, target.id);
   }
 
   onDamaged(u: UnitEntity): void {
@@ -460,9 +576,10 @@ export class AbilitySystem {
     this.followers.set(s.id, { masterId: owner.id, leash: 1200 });
   }
 
+  /** Enemies in an area; skills do not reach a submerged submarine. */
   private enemiesNear(of: UnitEntity, at: Vec2, radius: number): UnitEntity[] {
     const out: UnitEntity[] = [];
-    for (const v of this.world.allUnits()) if (v.team !== of.team && v.hp > 0 && distance(at, v) <= radius + v.bodyRadius * 0.5) out.push(v);
+    for (const v of this.world.allUnits()) if (v.team !== of.team && v.hp > 0 && !v.submerged && distance(at, v) <= radius + v.bodyRadius * 0.5) out.push(v);
     return out;
   }
 
@@ -533,17 +650,59 @@ export class AbilitySystem {
     this.consume(u, itemSlot);
   }
 
-  private execute(u: UnitEntity, abilityId: string, target: UnitEntity | undefined, point: Vec2 | undefined, itemSlot?: number): void {
+  /** Runs a skill. `fixed` is the level a creep casts at (its cooldown is kept by creeps.ts). */
+  private execute(u: UnitEntity, abilityId: string, target: UnitEntity | undefined, point: Vec2 | undefined, itemSlot?: number, fixed?: AbilityLevel): void {
     if (abilityId.startsWith('@')) { this.scriptedItem(u, abilityId.slice(1), itemSlot!); return; }
     const a = this.byId.get(abilityId)!;
-    const level = itemSlot !== undefined ? a.levels[0]! : this.level(u, abilityId)!;
+    const level = fixed ?? (itemSlot !== undefined ? a.levels[0]! : this.level(u, abilityId)!);
     const d = level.data;
     const num = (k: keyof AbilityLevel['data']) => Number(d[k] ?? 0);
-    u.hero ??= newHero();
-    u.hero.readyAt[this.cooldownKey(u, abilityId, itemSlot)] = this.world.tick + Math.round((level.cooldown ?? 0) * TICK_RATE);
+    if (!fixed) {
+      u.hero ??= newHero();
+      u.hero.readyAt[this.cooldownKey(u, abilityId, itemSlot)] = this.world.tick + Math.round((level.cooldown ?? 0) * TICK_RATE);
+    }
     this.world.events.push({ kind: 'cast', casterId: u.id, abilityId, x: (target ?? point ?? u).x, y: (target ?? point ?? u).y });
 
     switch (a.baseCode) {
+      case 'Arav': // 下潜 / 浮出水面: the submarine turns into its submerged form and back
+        this.world.setForm(u, u.form ? undefined : level.units[0]);
+        break;
+      case 'Aslo': // creep 减速
+        this.buff(target!, 'slow', this.duration(level, target!), num('A'), u, abilityId);
+        break;
+      case 'Acrs': // creep 诅咒: the target's attacks often miss
+        this.buff(target!, 'miss', this.duration(level, target!), num('A'), u, abilityId);
+        break;
+      case 'ANfd': // creep 死亡之指
+        this.world.dealDamage(target!, num('C'), 'ability', u.owner, u.id);
+        break;
+      case 'Aroa': // creep 咆哮: allies around hit harder
+        for (const ally of this.alliesNear(u, u, level.area || 500)) this.buff(ally, 'damageBonus', level.duration ?? 0, num('A'), u, abilityId);
+        break;
+      case 'AOhw': { // creep 医疗波: a heal that jumps between hurt allies, weaker each time
+        let heal = num('A');
+        const healed = new Set<number>();
+        let current: UnitEntity | undefined = target ?? u;
+        let prev: Vec2 = u;
+        for (let i = 0; i < (num('B') || 3) && current; i++) {
+          this.world.events.push({ kind: 'zap', abilityId, fromX: prev.x, fromY: prev.y, toX: current.x, toY: current.y });
+          current.hp = Math.min(current.maxHp, current.hp + heal);
+          healed.add(current.id);
+          heal *= 1 - num('C');
+          const from: UnitEntity = current;
+          prev = { x: from.x, y: from.y };
+          current = this.alliesNear(u, from, level.area || 500).filter((v) => !healed.has(v.id) && v.hp < v.maxHp)
+            .sort((x, y) => x.hp / x.maxHp - y.hp / y.maxHp)[0];
+        }
+        break;
+      }
+      case 'Aadm': // creep 驱逐魔法: strips enemies' boosts around the point; summons are torn apart
+        for (const v of this.enemiesNear(u, point ?? u, num('B') || 300)) {
+          v.buffs = v.buffs.filter((b) => !['haste', 'invulnerable', 'hot', 'damageBonus', 'invisible', 'armorUp'].includes(b.kind));
+          if (v.summoned) this.world.dealDamage(v, num('B') || 300, 'pure', u.owner, u.id);
+        }
+        break;
+      case 'ACtb': // creep 投石: damage and stun
       case 'AHtb': // 船长火炮 / 克虏伯主炮: damage and stun
         this.world.dealDamage(target!, num('A'), 'ability', u.owner, u.id);
         this.buff(target!, 'stun', this.duration(level, target!), 0, u, abilityId);
@@ -869,6 +1028,7 @@ export class AbilitySystem {
         }
         break;
       }
+      case 'AUcs': // creep 冲击波
       case 'AOsh': { // 主炮轰击: everything on a line takes the shell
         const len = num('C') || 1700, half = (num('D') || 200) / 2;
         const dx = point!.x - u.x, dy = point!.y - u.y, d = Math.hypot(dx, dy) || 1;
@@ -922,6 +1082,7 @@ export class AbilitySystem {
         this.schedule(seconds, () => { victim.team = teamOfPlayer(victim.owner); victim.targetId = undefined; });
         break;
       }
+      case 'AOhx': // creep 妖术
       case 'Aply': // 变异: cannot fight or cast
         this.buff(target!, 'disarm', this.duration(level, target!), 0, u, abilityId);
         this.buff(target!, 'silence', this.duration(level, target!), 0, u, abilityId);

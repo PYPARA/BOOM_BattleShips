@@ -279,6 +279,16 @@
       .killfeed div { padding: 3px 9px; border-radius: 5px; background: #0b131ad0; border: 1px solid #ffffff14; color: var(--text); transition: opacity 1s; }
       .killfeed div.old { opacity: 0; }
       .killfeed .south { color: var(--south); } .killfeed .north { color: var(--north); }
+      .killfeed .quest { border-color: #ffd34d55; } .killfeed .quest .gold { color: var(--gold); }
+      .quests { position: fixed; right: 12px; top: 230px; width: 250px; display: none; padding: 8px 10px; border-radius: 8px; background: #0b131ad8;
+        border: 1px solid #ffffff1a; color: var(--text); font: 12px 'Noto Sans SC', system-ui, sans-serif; pointer-events: none; }
+      .quests.show { display: block; }
+      .quests h4 { margin: 0 0 6px; font-size: 12px; font-weight: 600; color: var(--gold); }
+      .quests ul { margin: 0; padding-left: 16px; } .quests li { margin: 3px 0; } .quests li b { color: #ffd34d; font-weight: 600; }
+      .quests small { display: block; color: #ff9b7a; } .quests p { margin: 0; color: var(--dim); }
+      .gift { display: flex; gap: 6px; align-items: center; margin-bottom: 6px; font-size: 12px; color: var(--dim); }
+      .gift button { padding: 2px 10px; }
+      .tile.contract b { color: #ffd34d; }
       .announce {
         position: fixed; left: 50%; top: 22%; transform: translate(-50%, -50%) scale(0.8); opacity: 0; pointer-events: none; text-align: center;
         transition: opacity 0.25s, transform 0.25s cubic-bezier(.2,1.6,.4,1); font-family: system-ui, sans-serif;

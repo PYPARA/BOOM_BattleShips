@@ -51,6 +51,9 @@ export class Music {
   private intensity = 0;
   private melodies: (number | null)[][] = [];
   private layers!: { pad: Kit; bass: Kit; lead: Kit; drums: Kit; drumGain: GainNode; leadGain: GainNode };
+  /** Rain on the sea, faded in by the weather. */
+  private rainGain?: GainNode;
+  private rain = 0;
 
   constructor(audio: AudioEngine) {
     this.audio = audio;
@@ -144,5 +147,23 @@ export class Music {
     };
     layer('lowpass', 420, 0.35, 0.09, 0.2);
     layer('bandpass', 1800, 0.06, 0.13, 0.05);
+    // Rain: a bright hiss, silent until the weather turns.
+    const src = ctx.createBufferSource();
+    src.buffer = buffer;
+    src.loop = true;
+    const hp = ctx.createBiquadFilter();
+    hp.type = 'highpass';
+    hp.frequency.value = 2600;
+    this.rainGain = ctx.createGain();
+    this.rainGain.gain.value = this.rain;
+    src.connect(hp).connect(this.rainGain).connect(out);
+    src.start();
+  }
+
+  /** Rain loudness, 0 (dry) … 1 (downpour), faded over a few seconds. */
+  setRain(level: number): void {
+    this.rain = level * 0.5;
+    const g = this.rainGain;
+    if (g) g.gain.setTargetAtTime(this.rain, g.context.currentTime, 2);
   }
 }

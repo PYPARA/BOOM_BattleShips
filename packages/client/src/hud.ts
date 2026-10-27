@@ -2,7 +2,7 @@
 // naming the shops in reach (trading happens by clicking a shop: selection.ts), and the
 // scoreboard while Tab is held.
 import type { Item, Unit, Weapon } from '@boom/gamedata';
-import { isNight, TICK_RATE, timeOfDay, type Match, type MatchEvent } from '@boom/sim';
+import { isNight, nextSteps, REWARD_RECT, stepRect, TICK_RATE, timeOfDay, type Match, type MatchEvent, type Vec2, type Weather } from '@boom/sim';
 import { clean } from './info.ts';
 import { icon } from './tooltip.ts';
 
@@ -19,6 +19,18 @@ const STREAKS: Record<number, string> = {
 /** Kills within MULTI_KILL_MS of each other. */
 const MULTI: Record<number, string> = { 2: '双杀！', 3: '三杀！', 4: '疯狂杀戮！', 5: '暴走！' };
 const MULTI_KILL_MS = 10_000;
+
+/** Quest spots by their map rect. */
+const PLACES: Record<string, string> = {
+  AleFactory: '东边的啤酒厂', SwedeLumberMill: '西边岛上的瑞典木材厂', PigShop: '西北岛上的农场', PotionShop: '西南岛上的药剂坊',
+  GhostShip: '东北的沉船', Book: '东南的精灵图书馆', North_Main: '北方主基地', South_Main: '南方主基地', GoblinShop: '中立港旁的小精灵商店',
+  _______Gold: '西南的金矿主', _______FaShi_1: '东北的黑魔法师', _______Dfzs: '西方农场旁的刀锋战士', _______HaiDao1: '东北角的海盗洞穴',
+  _______33333333: '东边的中立港',
+};
+
+const WEATHER_NEWS: Partial<Record<Weather, string>> = {
+  heavyRain: '暴雨来袭', lightRain: '下起了小雨', snow: '海上飘起了雪', sunrays: '阳光穿透了云层',
+};
 
 export class Hud {
   private readonly top: HTMLElement;
@@ -45,6 +57,11 @@ export class Hud {
   private readonly match: Match;
   private readonly player: number;
   private readonly data: HudData;
+  /** 商船任务 mode: where the carried contracts lead next. */
+  private readonly quests: HTMLElement;
+  private questKey = '';
+  /** Quest destinations, for the minimap. */
+  questSpots: Vec2[] = [];
 
   constructor(match: Match, player: number, data: HudData) {
     this.match = match;
@@ -60,6 +77,7 @@ export class Hud {
     this.board = el('scoreboard');
     this.feed = el('killfeed');
     this.announce = el('announce');
+    this.quests = el('quests');
     this.repairButton = Object.assign(document.body.appendChild(document.createElement('button')), {
       className: 'repair', textContent: '修理中…　提前离港 (Esc)',
     });
@@ -87,6 +105,8 @@ export class Hud {
       if (e.kind === 'denied' && e.player === this.player) this.say(e.reason, now, 2500);
       if (e.kind === 'westChannel') this.say(e.open ? '西侧航道短暂开放！（120 秒）' : '西侧航道已关闭', now, 3500);
       if (e.kind === 'levelUp' && e.player === this.player) this.say(`升到 ${e.level} 级！`, now, 2000);
+      if (e.kind === 'quest' && (e.player === this.player || e.everyone)) this.onQuest(e, now);
+      if (e.kind === 'weather' && WEATHER_NEWS[e.weather]) this.say(WEATHER_NEWS[e.weather]!, now, 3000);
       if (e.kind === 'death' && (e.hero || e.structure)) this.onKill(e, now);
       if (e.kind === 'boss') {
         const name = this.unitName(e.typeId);
@@ -103,6 +123,36 @@ export class Hud {
         this.banner.classList.add('show', won ? 'win' : 'lose');
       }
     }
+  }
+
+  private onQuest(e: Extract<MatchEvent, { kind: 'quest' }>, now: number): void {
+    const pay = [e.gold > 0 ? `<b class="gold">+${e.gold} 金</b>` : '', e.xp > 0 ? `+${e.xp} 经验` : '', e.rep ? `${e.rep > 0 ? '+' : ''}${e.rep} 声望` : ''].filter(Boolean).join(' · ');
+    const line = document.createElement('div');
+    line.className = 'quest';
+    line.innerHTML = `${e.text}${pay ? `　${pay}` : ''}`;
+    this.feed.prepend(line);
+    while (this.feed.children.length > 5) this.feed.lastElementChild!.remove();
+    setTimeout(() => line.classList.add('old'), 9000);
+    this.say(e.text, now, 3000);
+  }
+
+  /** The quest tracker: for each contract carried, the next place to sail to. */
+  private updateQuests(): void {
+    const p = this.match.players.get(this.player)!;
+    const side = p.team as 'south' | 'north';
+    const steps = this.match.mode === 'traders' ? nextSteps(side, p.items, this.match.mageDone) : [];
+    this.questSpots = steps.map((s) => this.match.rectCenter(stepRect(s, side)));
+    const rows = steps.map((s) => {
+      const rect = stepRect(s, side);
+      const place = rect === REWARD_RECT[side] ? `我方${side === 'south' ? '奸商' : '贸易主'}` : rect === REWARD_RECT[side === 'south' ? 'north' : 'south'] ? `敌方${side === 'south' ? '贸易主' : '奸商'}` : PLACES[rect] ?? rect;
+      const need = s.ship && s.ship !== p.shipTypeId ? `（需要${clean(this.match.world.shipType(s.ship)?.name ?? s.ship)}）` : s.room && p.items.length >= 3 ? '（货舱已满：最多带 3 件物品）' : '';
+      return `<li><b>${clean(this.data.itemsById.get(s.has[0]!)?.name)}</b> → ${place}<small>${need}</small></li>`;
+    });
+    const html = this.match.mode === 'traders' ? `<h4>任务 · 声望 ★${p.reputation}</h4>${rows.length ? `<ul>${rows.join('')}</ul>` : '<p>在奸商或贸易主处签下合同</p>'}` : '';
+    if (html === this.questKey) return;
+    this.questKey = html;
+    this.quests.innerHTML = html;
+    this.quests.classList.toggle('show', html !== '');
   }
 
   private playerName(index: number): string {
@@ -169,6 +219,7 @@ export class Hud {
 
     this.updateBoard(players);
     this.updateShop();
+    this.updateQuests();
   }
 
   private updateBoard(players: ReturnType<Match['players']['get']>[]): void {

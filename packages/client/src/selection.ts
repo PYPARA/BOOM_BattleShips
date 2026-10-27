@@ -3,7 +3,7 @@
 // shop, its goods. Buying from a shop works only while the player's ship is in its reach, like
 // the original's shops (select the shop, click the goods).
 import type { Item, Unit } from '@boom/gamedata';
-import { BOSSES, CREEP_OWNER, distance, SHOP_RANGE, strongest, type Match, type UnitEntity } from '@boom/sim';
+import { BOSSES, CONTRACTS, CREEP_OWNER, distance, SHOP_RANGE, strongest, type Match, type UnitEntity } from '@boom/sim';
 import type { Focus } from './input.ts';
 import { clean } from './info.ts';
 import { icon } from './tooltip.ts';
@@ -87,7 +87,10 @@ export class SelectionPanel {
       return `<span data-tip="skill:${id}">${icon('skill', id, clean(ab?.name), 'small')}<sub>${n}</sub></span>`;
     }).join('') : '';
     const hp = u.hp / u.maxHp;
-    return `<div class="hero"><div class="portrait">${icon('ship', u.typeId, this.name(u.typeId))}${level ? `<span class="lv">${level}</span>` : ''}</div>
+    // 商船任务 mode: teammates may hand each other gold.
+    const gift = this.match.mode === 'traders' && side === '友军' && u.isHero && owner && owner.index >= 2 && !u.illusion
+      ? `<div class="gift"><span>赠送金钱</span>${[100, 500, 1000].map((n) => `<button data-gift="${owner.index}:${n}">${n}</button>`).join('')}</div>` : '';
+    return `${gift}<div class="hero"><div class="portrait">${icon('ship', u.typeId, this.name(u.typeId))}${level ? `<span class="lv">${level}</span>` : ''}</div>
       <div class="vitals">
         <div class="name">${this.name(u.typeId)}<small class="side ${side === '敌方' ? 'enemy' : side === '中立' ? 'neutral' : 'friend'}">${side} · ${who}${u.illusion ? ' · 幻象' : ''}</small></div>
         <div class="bar hp ${side === '敌方' || creep ? 'foe' : ''}"><i style="width:${(hp * 100).toFixed(1)}%"></i><span>${Math.ceil(u.hp)} / ${Math.round(u.maxHp)}</span></div>
@@ -111,7 +114,7 @@ export class SelectionPanel {
           : `<b class="no">船只需要靠近商店（还差 ${gap} 码）</b><button data-sail>驶向商店</button>`;
     const tile = (cmd: string, tip: string, iconHtml: string, cost: number, extra = '') =>
       `<button class="tile${cost > p.gold ? ' poor' : ''}${inReach ? '' : ' off'}${extra}" data-cmd="${cmd}" data-tip="${tip}">${iconHtml}<b>${cost}</b></button>`;
-    const ships: string[] = [], hires: string[] = [], weapons: string[] = [], gear: string[] = [];
+    const ships: string[] = [], hires: string[] = [], weapons: string[] = [], gear: string[] = [], contracts: string[] = [];
     for (const id of shop.sellsUnits) {
       if (id === 'H00J') continue; // the on-foot captain
       const u = this.data.units.get(id);
@@ -119,6 +122,12 @@ export class SelectionPanel {
       (u?.isHero ? ships : hires).push(html);
     }
     for (const id of shop.sellsItems) {
+      // Contracts are free but need reputation (声望).
+      const contract = CONTRACTS[id];
+      if (contract) {
+        contracts.push(`<button class="tile contract${contract.rep > p.reputation ? ' poor' : ''}${inReach ? '' : ' off'}" data-cmd="item:${id}" data-tip="item:${id}">${icon('item', id, clean(this.data.items.get(id)?.name))}<b>★${contract.rep}</b></button>`);
+        continue;
+      }
       const cost = this.data.items.get(id)?.goldCost ?? 0;
       if (cost <= 0) continue; // quest tokens handed out by triggers
       const isWeapon = !!this.match.world.weaponType(id);
@@ -128,12 +137,17 @@ export class SelectionPanel {
     const own = p.items.map((id, i) => `<button class="tile mine" data-sell="${i}" data-tip="slot:${i}">${icon(this.match.world.weaponType(id) ? 'weapon' : 'item', id, clean(this.data.items.get(id)?.name), 'small')}</button>`).join('');
     return `<div class="shop-head"><div class="portrait">${icon('item', shop.unitId, this.name(shop.unitId))}</div>
         <div><div class="name">${this.name(shop.unitId)}</div><div class="status">${status}</div></div></div>
-      <div class="goods">${group('船只', ships)}${group('雇佣舰队', hires)}${group('武器', weapons)}${group('装备', gear)}</div>
+      <div class="goods">${group('船只', ships)}${group('雇佣舰队', hires)}${group('武器', weapons)}${group('装备', gear)}${group(`任务合同（需要声望 ★，你有 ${p.reputation}）`, contracts)}</div>
       ${own && inReach ? `<div class="loadout"><div><span>出售（返还 60%）</span>${own}</div></div>` : ''}`;
   }
 
   private onClick(e: Event): void {
     const b = (e.target as HTMLElement).closest('button');
+    if (b?.dataset.gift) {
+      const [to, amount] = b.dataset.gift.split(':').map(Number);
+      this.match.issue({ kind: 'giveGold', player: this.player, to: to!, amount: amount! });
+      return;
+    }
     if (!b || this.shopIndex === undefined) return;
     const shop = this.match.shops[this.shopIndex]!;
     if (b.dataset.sail !== undefined) {

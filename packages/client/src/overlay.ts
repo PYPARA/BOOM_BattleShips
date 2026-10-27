@@ -15,6 +15,7 @@ const BUFF_TAGS: Partial<Record<string, [string, string]>> = {
   stun: ['晕', '#ffd84a'], root: ['定', '#c9a35a'], silence: ['沉默', '#c58cff'], slow: ['慢', '#7ab8ff'],
   haste: ['加速', '#7dffb0'], invulnerable: ['无敌', '#ffffff'], dot: ['灼烧', '#ff8a4a'], hot: ['回复', '#7dff8a'],
   invisible: ['隐形', '#b9c6d8'], armorDown: ['破甲', '#ff6a6a'], disarm: ['变异', '#e59cff'],
+  miss: ['诅咒', '#9a86b8'],
 };
 
 const FLOAT_MS = 1400;
@@ -90,6 +91,7 @@ export class Overlay {
     ctx.fillStyle = own ? '#5cff7a' : ally ? '#5aa8ff' : '#ff5a4a';
     ctx.fillRect(sx - w / 2, sy, w * Math.max(0, u.hp / u.maxHp), h);
     const tags = [...new Set(u.buffs.map((b) => b.kind))].map((k) => BUFF_TAGS[k]).filter((t) => t !== undefined);
+    if (u.submerged) tags.unshift(['潜航', '#7fd4ff']);
     if (u.invulnerable && !u.buffs.some((b) => b.kind === 'invulnerable')) tags.push(BUFF_TAGS.invulnerable!);
     if (tags.length) {
       ctx.font = 'bold 11px system-ui, sans-serif';
