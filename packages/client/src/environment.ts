@@ -91,7 +91,7 @@ export class Environment {
   setWeather(weather: 'clear' | 'lightRain' | 'heavyRain' | 'snow' | 'sunrays'): void {
     this.weather = {
       overcast: weather === 'heavyRain' ? 1 : weather === 'lightRain' ? 0.55 : weather === 'snow' ? 0.45 : 0,
-      bright: weather === 'sunrays' ? 1 : 0,
+      bright: weather === 'sunrays' ? 1 : 0, // 光柱: a brighter, warmer sun
     };
   }
 
@@ -125,7 +125,7 @@ export class Environment {
     // as bright streaks.
     this.sunDir.copy(day).lerp(new THREE.Vector3(0.25, 0.75, 0.6).normalize(), 1 - d).normalize();
     const cloud = this.overcast;
-    this.sun.intensity = (0.4 + 2.2 * d) * (1 - 0.65 * cloud) * (1 + 0.2 * this.bright);
+    this.sun.intensity = (0.4 + 2.2 * d) * (1 - 0.65 * cloud) * (1 + 0.35 * this.bright);
     this.sun.color.setRGB(1, 0.95, 0.86).lerp(new THREE.Color(0x9fb6ff), 1 - d).lerp(DUSK, dusk * 0.55);
     this.hemi.intensity = (0.35 + 0.55 * d) * (1 - 0.25 * cloud);
     this.scene.environmentIntensity = 0.2 + 0.35 * d;

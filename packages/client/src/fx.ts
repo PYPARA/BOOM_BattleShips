@@ -161,6 +161,25 @@ export class CombatFx {
     return this.match.world.vision.sees(this.team, x, y);
   }
 
+  /**
+   * A badly damaged hull smokes, and below a quarter of its hit points it burns: grey smoke
+   * under half, thick black smoke and flames lower down. Buildings smoke from the roof.
+   */
+  private damageSmoke(u: UnitEntity, size: number): void {
+    const hp = u.hp / u.maxHp;
+    if (hp >= 0.5 || u.illusion || (u.kind === 'ship' && u.bodyRadius < 30)) return;
+    const hurt = 1 - hp * 2; // 0 at half … 1 when sinking
+    if (Math.random() > 0.5 + hurt * 0.5) return;
+    const top = u.kind === 'structure' ? H(200) : H(size * 0.6);
+    const x = u.x + (Math.random() - 0.5) * size * 0.6, y = u.y + (Math.random() - 0.5) * size * 0.6;
+    const shade = 0.55 - hurt * 0.4;
+    this.fx.smoke.spawn({ x, y, z: top, vx: 18, vy: 10, vz: 55 + Math.random() * 30, life: 1.8 + hurt, size: Math.max(24, size * 0.6), endSize: Math.max(70, size * (1.6 + hurt)),
+      color: [shade, shade, shade], endColor: [shade + 0.2, shade + 0.2, shade + 0.2], alpha: 0.6 + hurt * 0.3, endAlpha: 0.05, drag: 0.4 });
+    if (hp < 0.25) {
+      this.fx.glow.spawn({ x, y, z: top - 10, vz: 50 + Math.random() * 40, life: 0.5, size: Math.max(22, size * 0.55), endSize: 6, color: [1, 0.7, 0.25], endColor: [0.9, 0.2, 0.02] });
+    }
+  }
+
   /** Per-frame visuals for status effects: shields, stuns, burns, frost, healing. */
   update(): void {
     const { world } = this.match;
@@ -174,6 +193,7 @@ export class CombatFx {
         shielded.add(u.id);
         this.fx.shield(u.id, true, u.x, u.y, size);
       }
+      if (tick) this.damageSmoke(u, size);
       if (!tick || u.buffs.length === 0) continue;
       const kinds = new Set(u.buffs.map((b) => b.kind));
       const frozen = u.buffs.some((b) => b.kind === 'stun' && world.abilities.byId.get(b.abilityId)?.baseCode === 'AOws');

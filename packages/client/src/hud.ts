@@ -1,6 +1,7 @@
-// DOM HUD: the top bar (gold, team score, clock), respawn countdown, messages, victory, a hint
-// naming the shops in reach (trading happens by clicking a shop: selection.ts), and the
-// scoreboard while Tab is held.
+// DOM HUD: the top bar (gold, team score, clock), respawn countdowns (the player's own and a strip
+// of every sunk player's, like the map's timer windows), messages, victory, a hint naming the
+// shops in reach (trading happens by clicking a shop: selection.ts), the always-on mini
+// scoreboard on the right (the map's multiboard) and the full scoreboard while Tab is held.
 import type { Item, Unit, Weapon } from '@boom/gamedata';
 import { isNight, nextSteps, REWARD_RECT, stepRect, TICK_RATE, timeOfDay, type Match, type MatchEvent, type Vec2, type Weather } from '@boom/sim';
 import { clean } from './info.ts';
@@ -57,6 +58,13 @@ export class Hud {
   private readonly match: Match;
   private readonly player: number;
   private readonly data: HudData;
+  /** Right column: the mini scoreboard, then the quest tracker. */
+  private readonly mini: HTMLElement;
+  private miniKey = '';
+  private miniOpen = true;
+  /** Every sunk player's respawn countdown. */
+  private readonly timers: HTMLElement;
+  private timersKey = '';
   /** 商船任务 mode: where the carried contracts lead next. */
   private readonly quests: HTMLElement;
   private questKey = '';
@@ -77,7 +85,17 @@ export class Hud {
     this.board = el('scoreboard');
     this.feed = el('killfeed');
     this.announce = el('announce');
-    this.quests = el('quests');
+    this.timers = el('timers');
+    const column = el('sidebar');
+    this.mini = column.appendChild(Object.assign(document.createElement('div'), { className: 'miniboard' }));
+    this.quests = column.appendChild(Object.assign(document.createElement('div'), { className: 'quests' }));
+    try { this.miniOpen = localStorage.getItem('boom.miniboard') !== 'closed'; } catch { /* storage blocked */ }
+    this.mini.addEventListener('click', (e) => {
+      if (!(e.target as HTMLElement).closest('.mb-head')) return;
+      this.miniOpen = !this.miniOpen;
+      this.miniKey = '';
+      try { localStorage.setItem('boom.miniboard', this.miniOpen ? 'open' : 'closed'); } catch { /* storage blocked */ }
+    });
     this.repairButton = Object.assign(document.body.appendChild(document.createElement('button')), {
       className: 'repair', textContent: '修理中…　提前离港 (Esc)',
     });
@@ -218,6 +236,8 @@ export class Hud {
     this.respawn.classList.toggle('show', wait > 0);
 
     this.updateBoard(players);
+    this.updateMini(players);
+    this.updateTimers(players);
     this.updateShop();
     this.updateQuests();
   }
@@ -238,6 +258,44 @@ export class Hud {
     const head = '<tr><th>玩家</th><th>船只</th><th>等级</th><th>击沉/阵亡</th><th>金钱</th><th>耐久</th><th>装备</th></tr>';
     const html = `<h3 class="south">南方</h3><table>${head}${rows('south')}</table><h3 class="north">北方</h3><table>${head}${rows('north')}</table>`;
     if (html !== this.boardKey) { this.boardKey = html; this.board.innerHTML = html; }
+  }
+
+  /**
+   * The always-on scoreboard: each player's ship, level, kills and deaths, and how they are
+   * doing: hit points for the own side, a respawn countdown for anyone sunk.
+   */
+  private updateMini(players: ReturnType<Match['players']['get']>[]): void {
+    const me = this.match.players.get(this.player)!;
+    const tick = this.match.world.tick;
+    const rows = (team: string) => players.filter((q) => q!.team === team).map((q) => {
+      const s = this.match.world.ships.get(q!.shipId ?? -1);
+      const name = clean(this.match.world.shipType(q!.shipTypeId)?.name ?? q!.shipTypeId);
+      const wait = q!.respawnAt !== undefined ? Math.max(0, Math.ceil((q!.respawnAt - tick) / TICK_RATE)) : 0;
+      const state = !s ? `<em class="dead">${wait}s</em>`
+        : q!.team === me.team ? `<i class="hpbar"><i style="width:${Math.round((s.hp / s.maxHp) * 100)}%"></i></i>` : '';
+      return `<tr class="${q!.index === this.player ? 'me' : ''}${s ? '' : ' sunk'}"><td class="${team}">${q!.index === this.player ? '你' : `P${q!.index - 1}`}</td>
+        <td class="ship">${icon('ship', q!.shipTypeId, name, 'mini')}<span>${name}</span></td><td>${q!.hero.level}</td><td>${q!.kills}/${q!.deaths}</td><td class="st">${state}</td></tr>`;
+    }).join('');
+    const score = (team: string) => players.filter((q) => q!.team === team).reduce((sum, q) => sum + q!.kills, 0);
+    const head = `<div class="mb-head" title="点击收起 / 展开"><span>战况</span><b class="south">${score('south')}</b> : <b class="north">${score('north')}</b><span class="arrow">${this.miniOpen ? '▾' : '▸'}</span></div>`;
+    const html = this.miniOpen ? `${head}<table>${rows('south')}<tr class="gap"><td colspan="5"></td></tr>${rows('north')}</table>` : head;
+    if (html !== this.miniKey) { this.miniKey = html; this.mini.innerHTML = html; }
+  }
+
+  /** A countdown chip for every sunk player, own side first (the map's timer windows). */
+  private updateTimers(players: ReturnType<Match['players']['get']>[]): void {
+    const me = this.match.players.get(this.player)!;
+    const tick = this.match.world.tick;
+    const dead = players.filter((q) => q!.shipId === undefined && q!.respawnAt !== undefined && q!.index !== this.player)
+      .sort((a, b) => Number(b!.team === me.team) - Number(a!.team === me.team) || a!.respawnAt! - b!.respawnAt!);
+    const html = dead.map((q) => {
+      const wait = Math.max(0, Math.ceil((q!.respawnAt! - tick) / TICK_RATE));
+      return `<span class="${q!.team}">${q!.team === me.team ? '友' : '敌'} P${q!.index - 1} <b>${wait}</b>s</span>`;
+    }).join('');
+    if (html === this.timersKey) return;
+    this.timersKey = html;
+    this.timers.innerHTML = html;
+    this.timers.classList.toggle('show', html !== '');
   }
 
   /** Names the shops in reach: trading itself happens by clicking a shop (the bottom panel). */

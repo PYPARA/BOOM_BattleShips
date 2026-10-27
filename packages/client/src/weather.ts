@@ -6,7 +6,7 @@ import { SEA_LEVEL } from './space.ts';
 
 const DROPS = 2600;
 const FLAKES = 1400;
-const RAYS = 6;
+const RAYS = 10;
 /** Height of the falling box above the sea. */
 const TOP = 1400;
 
@@ -57,10 +57,12 @@ export class WeatherView {
     ctx.fillRect(0, 0, 64, 256);
     const tex = new THREE.CanvasTexture(canvas);
     tex.colorSpace = THREE.SRGBColorSpace;
-    this.rayMat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, fog: false });
+    // Light shafts sit in the air between camera and sea: drawn over everything rather than cut by the water.
+    this.rayMat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, fog: false });
     for (let i = 0; i < RAYS; i++) {
       const ray = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), this.rayMat);
       ray.userData.seed = Math.random();
+      ray.renderOrder = 10;
       this.rays.push(ray);
     }
     this.group.add(this.rain, this.snow, ...this.rays);
@@ -124,17 +126,19 @@ export class WeatherView {
       this.snowMat.opacity = 0.85 * this.level.snow;
     }
 
-    // Sun rays: a few slanted beams drifting slowly across the view.
+    // Sun rays: slanted beams turned to the camera (the view looks steeply down, so beams standing
+    // upright would be seen edge-on), drifting slowly across the view.
     const showRays = this.level.rays > 0.01;
     this.rays.forEach((ray, i) => {
       ray.visible = showRays;
       if (!showRays) return;
       const s = ray.userData.seed as number;
-      const t = performance.now() / 1000 * 0.02 + s * 10;
-      ray.position.set(((s * 1.7 + t) % 1 - 0.5) * this.box, TOP * 0.55, ((s * 3.1) % 1 - 0.5) * this.box * 0.6 - this.box * 0.15);
-      ray.scale.set(160 + 220 * ((s * 7) % 1), TOP * 1.3, 1);
-      ray.rotation.set(0, (i / RAYS) * Math.PI, -0.35);
+      const t = performance.now() / 1000 * 0.015 + s * 10;
+      ray.position.set(((s * 1.7 + t) % 1 - 0.5) * this.box * 1.1, 200 + 300 * ((s * 5) % 1), ((s * 3.1) % 1 - 0.5) * this.box * 0.7);
+      ray.quaternion.copy(camera.quaternion);
+      ray.rotateZ(-0.45 + ((i % 3) - 1) * 0.06);
+      ray.scale.set(this.box * (0.05 + 0.08 * ((s * 7) % 1)), this.box * 0.9, 1);
     });
-    this.rayMat.opacity = 0.16 * this.level.rays;
+    this.rayMat.opacity = 0.22 * this.level.rays;
   }
 }

@@ -275,12 +275,34 @@
       .volume-panel input[type=range] { width: 120px; accent-color: #e2bd70; }
 
       /* Kill feed and announcements. */
-      .killfeed { position: fixed; right: 12px; top: 56px; display: flex; flex-direction: column; gap: 3px; align-items: flex-end; pointer-events: none; font: 12px system-ui, sans-serif; }
+      .killfeed { position: fixed; left: 12px; top: 84px; display: flex; flex-direction: column; gap: 3px; align-items: flex-start; pointer-events: none; font: 12px system-ui, sans-serif; }
+      .sidebar { position: fixed; right: 12px; top: 56px; width: 236px; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+      .miniboard { pointer-events: auto; padding: 6px 8px; border-radius: 8px; background: #0b131ad8; border: 1px solid #ffffff1a; color: var(--text); font: 12px 'Noto Sans SC', system-ui, sans-serif; }
+      .miniboard .mb-head { display: flex; gap: 6px; align-items: center; cursor: pointer; user-select: none; font-weight: 600; }
+      .miniboard .mb-head span:first-child { flex: 1; color: var(--dim); font-weight: 500; }
+      .miniboard .mb-head .arrow { color: var(--dim); }
+      .miniboard .south { color: var(--south); } .miniboard .north { color: var(--north); }
+      .miniboard table { width: 100%; margin-top: 4px; border-collapse: collapse; }
+      .miniboard td { padding: 1px 3px; white-space: nowrap; }
+      .miniboard td.ship { max-width: 92px; overflow: hidden; text-overflow: ellipsis; }
+      .miniboard td.ship img, .miniboard td.ship .icon { vertical-align: middle; margin-right: 3px; }
+      .miniboard tr.me td { background: #ffffff10; }
+      .miniboard tr.sunk td { opacity: 0.55; } .miniboard tr.sunk td.st { opacity: 1; }
+      .miniboard tr.gap td { height: 4px; }
+      .miniboard td.st { width: 44px; text-align: right; }
+      .miniboard .dead { color: #ff9b7a; font-style: normal; font-weight: 600; }
+      .miniboard .hpbar { display: inline-block; width: 40px; height: 5px; border-radius: 3px; background: #ffffff1c; overflow: hidden; vertical-align: middle; }
+      .miniboard .hpbar i { display: block; height: 100%; background: #5cff7a; }
+      .timers { position: fixed; left: 50%; top: 46px; transform: translateX(-50%); display: none; gap: 6px; pointer-events: none; font: 12px 'Noto Sans SC', system-ui, sans-serif; }
+      .timers.show { display: flex; }
+      .timers span { padding: 2px 8px; border-radius: 5px; background: #0b131ad8; border: 1px solid #ffffff1a; color: var(--text); }
+      .timers span.south { border-color: #5aa0ff66; } .timers span.north { border-color: #ff6a5a66; }
+      .timers b { font-weight: 600; }
       .killfeed div { padding: 3px 9px; border-radius: 5px; background: #0b131ad0; border: 1px solid #ffffff14; color: var(--text); transition: opacity 1s; }
       .killfeed div.old { opacity: 0; }
       .killfeed .south { color: var(--south); } .killfeed .north { color: var(--north); }
       .killfeed .quest { border-color: #ffd34d55; } .killfeed .quest .gold { color: var(--gold); }
-      .quests { position: fixed; right: 12px; top: 230px; width: 250px; display: none; padding: 8px 10px; border-radius: 8px; background: #0b131ad8;
+      .quests { display: none; padding: 8px 10px; border-radius: 8px; background: #0b131ad8;
         border: 1px solid #ffffff1a; color: var(--text); font: 12px 'Noto Sans SC', system-ui, sans-serif; pointer-events: none; }
       .quests.show { display: block; }
       .quests h4 { margin: 0 0 6px; font-size: 12px; font-weight: 600; color: var(--gold); }
