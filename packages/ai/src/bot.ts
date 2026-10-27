@@ -4,7 +4,7 @@
 // home, push a lane behind the friendly fleet, keep out of tower fire, retreat to repair when
 // hurt, and use skills when enough enemies are in reach.
 import {
-  canLearn, distance, LANES, REPAIR_RECTS, skillPoints, type Match, type UnitEntity, type Vec2,
+  canLearn, distance, LANES, REPAIR_RECTS, SHOP_RANGE, skillPoints, type Match, type Shop, type UnitEntity, type Vec2,
 } from '@boom/sim';
 
 export type Difficulty = 'easy' | 'normal' | 'hard';
@@ -238,12 +238,36 @@ export class Bot {
     if (this.retreating) return this.goTo(ship, this.home());
     // Head home to spend money once the next purchase is affordable. Go all the way in: at the
     // edge of shop range only the shipyards may be in reach, and they sell nothing for us.
-    if (this.wantsToShop(ship) && distance(ship, this.home()) > 900) return this.goTo(ship, this.home());
+    // Sail to the home shop that sells the next purchase; shop() buys once it is in reach.
+    if (this.wantsToShop(ship)) {
+      const shop = this.shoppingTarget(ship);
+      if (shop && distance(ship, shop) > SHOP_RANGE - 120) return this.goTo(ship, this.dockAt(shop, ship));
+      if (shop) return;
+    }
 
     // Chase a weaker enemy ship in reach.
     const prey = this.enemiesWithin(ship, 1000).filter((u) => u.isHero && u.hp / u.maxHp < hurt && u.hp < ship.hp);
     if (prey[0]) return this.goTo(ship, prey[0]);
     this.goTo(ship, this.lanePosition(ship));
+  }
+
+  /** The home-side shop that sells what the bot means to buy next (ship, weapon, then gear). */
+  private shoppingTarget(ship: UnitEntity): Shop | undefined {
+    const home = this.home();
+    const shops = this.match.friendlyShops(this.player).filter((s) => distance(s, home) < 3500);
+    const nearest = (list: Shop[]) => list.sort((a, b) => distance(a, ship) - distance(b, ship))[0];
+    const p = this.state;
+    const weapons = p.items.filter((i) => this.match.world.weaponType(i)).length;
+    const next = this.route[this.route.indexOf(ship.typeId) + 1];
+    if (next && weapons >= 2) return nearest(shops.filter((s) => s.sellsUnits.includes(next)));
+    const best = this.bestWeapon(shops.flatMap((s) => s.sellsItems), p.gold);
+    if (best) return nearest(shops.filter((s) => s.sellsItems.includes(best)));
+    return nearest(shops.filter((s) => [...HULLS, ...SAILS, REPAIR_KIT].some((id) => s.sellsItems.includes(id))));
+  }
+
+  /** A spot on the water next to a shop (shops stand on the shore). */
+  private dockAt(shop: Shop, ship: UnitEntity): Vec2 {
+    return this.match.world.grid.nearestSailable(shop.x, shop.y, ship.pathRadius) ?? shop;
   }
 
   /** Whether the next planned purchase (weapons, then the next ship, then more weapons) is affordable. */

@@ -55,7 +55,14 @@ describe('match', () => {
     const m = createMatch(data, { players: [2] });
     const p = m.players.get(2)!;
     p.gold = 5000;
-    m.issue({ kind: 'buyItem', player: 2, itemId: 'I004' }); // 护卫舰炮 at the weapon shop
+    // Too far from the weapon shop at the spawn point.
+    m.issue({ kind: 'buyItem', player: 2, itemId: 'I004' });
+    m.step();
+    expect(m.events.some((e) => e.kind === 'denied')).toBe(true);
+    sailTo(m, 2, shopSelling(m, 'I004'));
+    m.issue({ kind: 'buyItem', player: 2, itemId: 'I004', shop: m.shops.indexOf(shopSelling(m, 'I004')) }); // 护卫舰炮
+    m.step();
+    sailTo(m, 2, shopSelling(m, 'H001', true));
     m.issue({ kind: 'buyShip', player: 2, typeId: 'H001' }); // 圣战者 at the main base
     m.step();
     expect(p.items).toEqual(['I004']);
@@ -82,6 +89,7 @@ describe('hiring', () => {
     const p = m.players.get(2)!;
     p.gold = 1000;
     const before = npcCount(m);
+    sailTo(m, 2, shopSelling(m, 'h00F', true));
     m.issue({ kind: 'buyShip', player: 2, typeId: 'h00F' }); // 海军护卫舰 (II型) at the shipyard
     m.step();
     expect(p.shipTypeId).toBe('H000');
@@ -142,3 +150,18 @@ describe('M2 rule details', () => {
     expect(npc.critChance).toBeGreaterThan(0);
   });
 });
+
+/** The home-side shop nearest the player's spawn that sells an item (or ship). */
+function shopSelling(m: Match, id: string, unit = false) {
+  const ship = m.world.ships.get(m.players.get(2)!.shipId!)!;
+  return m.friendlyShops(2).filter((s) => (unit ? s.sellsUnits : s.sellsItems).includes(id))
+    .sort((a, b) => Math.hypot(a.x - ship.x, a.y - ship.y) - Math.hypot(b.x - ship.x, b.y - ship.y))[0]!;
+}
+
+/** Puts a player's ship on the water right next to a shop. */
+function sailTo(m: Match, player: number, shop: { x: number; y: number }) {
+  const ship = m.world.ships.get(m.players.get(player)!.shipId!)!;
+  const spot = m.world.grid.nearestSailable(shop.x, shop.y, ship.pathRadius)!;
+  ship.x = ship.prevX = spot.x;
+  ship.y = ship.prevY = spot.y;
+}

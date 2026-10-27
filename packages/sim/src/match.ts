@@ -16,10 +16,10 @@ const STARTING_GOLD = 400;
 /** §5: hero bounty by the dead ship's price. */
 const HERO_BOUNTY: [number, number][] = [[9000, 600], [7000, 500], [5000, 400], [3000, 350], [1500, 300], [1000, 250], [500, 200], [0, 150]];
 /**
- * How close a ship must be to a shop to trade. Not in the map data: tuned so a ship at its
- * spawn reaches every home shop on both sides (the farthest, the north weapon shop, is 1408).
+ * How close a ship must be to a shop to trade: the shops' activation radius (Aneu/Ane2 DataA =
+ * 450) plus room for a hull, since shops stand on the shore 75–300 from sailable water.
  */
-export const SHOP_RANGE = 1450;
+export const SHOP_RANGE = 600;
 /** §6/§7: selling ships and items refunds this share of the price. */
 const RESALE = 0.6;
 const ASSIST_WINDOW_TICKS = 10 * TICK_RATE;
@@ -89,8 +89,9 @@ export interface Shop {
 }
 
 export type MatchCommand =
-  | { kind: 'buyShip'; player: number; typeId: string }
-  | { kind: 'buyItem'; player: number; itemId: string }
+  /** `shop`: index into `shops` when the player bought from a selected shop. */
+  | { kind: 'buyShip'; player: number; typeId: string; shop?: number }
+  | { kind: 'buyItem'; player: number; itemId: string; shop?: number }
   | { kind: 'sellItem'; player: number; slot: number }
   /** §6 the `-out` chat command: leave the repair station early. */
   | { kind: 'leaveRepair'; player: number }
@@ -720,8 +721,11 @@ export class Match {
     }
     if (!ship) return this.deny(c.player, '船只阵亡中，复活后才能交易');
     const shops = this.shopsInReach(c.player);
+    // Buying from a selected shop: that shop must be in reach and sell the goods.
+    const chosen = 'shop' in c && c.shop !== undefined ? this.shops[c.shop] : undefined;
+    if (chosen && !shops.includes(chosen)) return this.deny(c.player, '船只需要靠近这家商店');
     if (c.kind === 'buyShip') {
-      const shop = shops.find((s) => s.sellsUnits.includes(c.typeId));
+      const shop = chosen?.sellsUnits.includes(c.typeId) ? chosen : shops.find((s) => s.sellsUnits.includes(c.typeId));
       if (!shop) return this.deny(c.player, '附近没有出售这艘船的商店');
       if (!this.world.shipType(c.typeId)) return this.hireFleetShip(p, c.typeId, shop);
       const price = this.units.get(c.typeId)?.goldCost ?? Infinity;
@@ -739,7 +743,7 @@ export class Match {
       this.world.remove(ship.id);
       this.spawnPlayerShip(p.index, at);
     } else if (c.kind === 'buyItem') {
-      if (!shops.some((s) => s.sellsItems.includes(c.itemId))) return this.deny(c.player, '附近没有出售这件物品的商店');
+      if (!(chosen ?? undefined)?.sellsItems.includes(c.itemId) && !shops.some((s) => s.sellsItems.includes(c.itemId))) return this.deny(c.player, '附近没有出售这件物品的商店');
       const price = this.items.get(c.itemId)?.goldCost ?? Infinity;
       if (p.gold < price) return this.deny(c.player, '金钱不足');
       const goods = this.world.goods;

@@ -1,6 +1,6 @@
-// DOM HUD: the top bar (gold, team score, clock), respawn countdown, messages, victory, the
-// shop that opens when the player's ship is within reach of one (a tab per shop, goods as icon
-// tiles; hover for details), and the scoreboard while Tab is held.
+// DOM HUD: the top bar (gold, team score, clock), respawn countdown, messages, victory, a hint
+// naming the shops in reach (trading happens by clicking a shop: selection.ts), and the
+// scoreboard while Tab is held.
 import type { Item, Unit, Weapon } from '@boom/gamedata';
 import { TICK_RATE, type Match, type MatchEvent } from '@boom/sim';
 import { clean } from './info.ts';
@@ -39,7 +39,6 @@ export class Hud {
   private shopKey = '';
   private topKey = '';
   private boardKey = '';
-  private tab: string | undefined;
   private showBoard = false;
   private readonly repairButton: HTMLButtonElement;
   private toastUntil = 0;
@@ -55,20 +54,12 @@ export class Hud {
     const el = (cls: string) => Object.assign(document.body.appendChild(document.createElement('div')), { className: cls });
     this.top = el('topbar');
     this.respawn = el('respawn');
-    this.shop = el('shop');
+    this.shop = el('shop-hint');
     this.toast = el('toast');
     this.banner = el('banner');
     this.board = el('scoreboard');
     this.feed = el('killfeed');
     this.announce = el('announce');
-    this.shop.addEventListener('click', (e) => {
-      const b = (e.target as HTMLElement).closest('button');
-      if (!b?.dataset.cmd) return;
-      const [cmd, arg] = b.dataset.cmd.split(':') as [string, string];
-      if (cmd === 'tab') { this.tab = arg; this.shopKey = ''; }
-      if (cmd === 'ship') this.match.issue({ kind: 'buyShip', player, typeId: arg });
-      if (cmd === 'item') this.match.issue({ kind: 'buyItem', player, itemId: arg });
-    });
     this.repairButton = Object.assign(document.body.appendChild(document.createElement('button')), {
       className: 'repair', textContent: '修理中…　提前离港 (Esc)',
     });
@@ -198,41 +189,16 @@ export class Hud {
     if (html !== this.boardKey) { this.boardKey = html; this.board.innerHTML = html; }
   }
 
+  /** Names the shops in reach: trading itself happens by clicking a shop (the bottom panel). */
   private updateShop(): void {
-    const p = this.match.players.get(this.player)!;
-    const shops = this.match.shopsInReach(this.player).filter((s) => s.sellsUnits.some((id) => id !== 'H00J') || s.sellsItems.some((id) => (this.data.itemsById.get(id)?.goldCost ?? 0) > 0));
-    const active = shops.find((s) => s.unitId === this.tab) ?? shops[0];
-    // Rebuild only when what it shows changes.
-    const key = `${shops.map((s) => s.unitId).join()}|${active?.unitId}|${p.items.join()}|${p.gold}|${p.shipTypeId}`;
+    const names = [...new Set(this.match.shopsInReach(this.player)
+      .filter((s) => s.sellsUnits.some((id) => id !== 'H00J') || s.sellsItems.some((id) => (this.data.itemsById.get(id)?.goldCost ?? 0) > 0))
+      .map((s) => this.unitName(s.unitId)))];
+    const key = names.join('、');
     if (key === this.shopKey) return;
     this.shopKey = key;
-    if (!active) {
-      this.shop.innerHTML = '';
-      this.shop.classList.remove('show');
-      return;
-    }
-    const tile = (cmd: string, tip: string, iconHtml: string, cost: number, extra = '') =>
-      `<button class="tile${cost > p.gold ? ' poor' : ''}${extra}" data-cmd="${cmd}" data-tip="${tip}">${iconHtml}<b>${cost}</b></button>`;
-    const ships: string[] = [], hires: string[] = [], weapons: string[] = [], gear: string[] = [];
-    for (const id of active.sellsUnits) {
-      if (id === 'H00J') continue; // the on-foot captain
-      const u = this.data.unitsById.get(id);
-      const html = tile(`ship:${id}`, `ship:${id}`, icon('ship', id, this.unitName(id)), u?.goldCost ?? 0, id === p.shipTypeId ? ' current' : '');
-      (u?.isHero ? ships : hires).push(html);
-    }
-    for (const id of active.sellsItems) {
-      const cost = this.data.itemsById.get(id)?.goldCost ?? 0;
-      if (cost <= 0) continue; // quest tokens handed out by triggers
-      const isWeapon = this.weapons.has(id);
-      const html = tile(`item:${id}`, `item:${id}`, icon(isWeapon ? 'weapon' : 'item', id, clean(this.data.itemsById.get(id)?.name)), cost);
-      (isWeapon ? weapons : gear).push(html);
-    }
-    const group = (title: string, tiles: string[]) => (tiles.length ? `<h4>${title}</h4><div class="grid">${tiles.join('')}</div>` : '');
-    const tabs = shops.length > 1
-      ? `<nav>${shops.map((s) => `<button data-cmd="tab:${s.unitId}" class="${s === active ? 'on' : ''}">${this.unitName(s.unitId)}</button>`).join('')}</nav>`
-      : `<nav><span class="on">${this.unitName(active.unitId)}</span></nav>`;
-    this.shop.innerHTML = tabs + group('船只', ships) + group('雇佣舰队', hires) + group('武器', weapons) + group('装备', gear)
-      + `<p class="shop-hint">点击购买 · 悬停查看详情 · 右键物品栏卖出 · 身上 ${p.items.length}/6</p>`;
-    this.shop.classList.add('show');
+    this.shop.innerHTML = key ? `附近商店：<b>${key}</b> · 点击建筑交易` : '';
+    this.shop.classList.toggle('show', key !== '');
   }
+
 }

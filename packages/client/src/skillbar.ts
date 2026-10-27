@@ -55,6 +55,11 @@ export class SkillBar {
     });
   }
 
+  /** Hidden while the bottom panel shows something else (a selected unit or shop). */
+  setVisible(visible: boolean): void {
+    this.bar.classList.toggle('hidden', !visible);
+  }
+
   private ship() {
     return this.match.world.ships.get(this.match.players.get(this.player)?.shipId ?? -1);
   }

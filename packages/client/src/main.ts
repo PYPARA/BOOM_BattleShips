@@ -18,6 +18,7 @@ import { loadGlbModels } from './models/glb.ts';
 import { Overlay } from './overlay.ts';
 import { ProjectileViews } from './projectiles.ts';
 import { Results } from './results.ts';
+import { SelectionPanel } from './selection.ts';
 import { SettingsPanel } from './settings.ts';
 import { createBuildings, createDoodads, createRepairDocks } from './props.ts';
 import { ShipViews } from './shipViews.ts';
@@ -94,7 +95,7 @@ for (const s of world.structures.values()) {
 }
 
 // Handy in the browser console while developing.
-if (import.meta.env.DEV) Object.assign(window, { boom: { scene, match, world, renderer, get rts() { return rts; }, get effects() { return effects; }, get hud() { return hudPanel; }, get overlay() { return overlay; }, get audio() { return audio; }, get music() { return music; } } });
+if (import.meta.env.DEV) Object.assign(window, { boom: { scene, match, world, renderer, get rts() { return rts; }, get effects() { return effects; }, get hud() { return hudPanel; }, get overlay() { return overlay; }, get audio() { return audio; }, get music() { return music; }, get input() { return input; } } });
 
 const shipViews = new ShipViews(world, match.players.get(PLAYER)!.team);
 scene.add(shipViews.group);
@@ -126,7 +127,10 @@ const rts = new RtsCamera(renderer.domElement, data.map.bounds);
 const skillBar = new SkillBar(match, PLAYER, data.itemsById, rts, renderer.domElement);
 settingsPanel.onChange = (s) => { overlay.showDamage = s.damageNumbers; rts.edgePan = s.edgePan; };
 settingsPanel.onChange(settings);
-const input = new SelectionInput(renderer.domElement, rts, world, PLAYER);
+const input = new SelectionInput(renderer.domElement, rts, match, PLAYER);
+input.buildings = buildingGroup;
+const selectionPanel = new SelectionPanel(match, PLAYER, { units: data.unitsById, items: data.itemsById });
+selectionPanel.onSail = (x, y) => input.orderAt(x, y);
 const buildings = data.map.placements.filter((p) => data.unitsById.get(p.id)?.isBuilding && p.id !== 'hhou');
 const minimap = new Minimap(data.terrain, data.pathingInfo, data.pathingCells, buildings, data.unitsById, world, rts, PLAYER);
 minimap.onOrder = (x, y) => input.orderAt(x, y);
@@ -207,7 +211,10 @@ renderer.setAnimationLoop(() => {
   environment.update(rts.camera, rts.target, rts.viewDistance);
   soundFx.update(rts.target.x, -rts.target.z, rts.viewDistance);
   const alpha = accumulator / TICK_DT;
-  shipViews.update(alpha, now / 1000, input.selected, frameDt);
+  // A selected enemy or creep gets the selection ring too (it is only inspected, not ordered).
+  if (input.focus?.kind === 'unit' && !world.unit(input.focus.id)) input.focus = undefined;
+  const ringed = input.focus?.kind === 'unit' ? new Set([...input.selected, input.focus.id]) : input.selected;
+  shipViews.update(alpha, now / 1000, ringed, frameDt);
   projectileViews.update(alpha);
   combatFx.update();
   effects.update(frameDt, rts.camera);
@@ -226,6 +233,8 @@ renderer.setAnimationLoop(() => {
   overlay.draw(rts.camera, now);
   minimap.draw();
   hudPanel.update(now);
+  // The bottom panel shows the inspected unit or shop, else the player's own ship.
+  skillBar.setVisible(!selectionPanel.update(input.focus));
   skillBar.update();
 
   if (++frame % 6 === 0) { hoverUnit(); tooltip.refresh(); }
