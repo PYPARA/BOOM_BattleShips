@@ -6,8 +6,17 @@ import type { Doodad, Placement, Terrain, Unit } from '@boom/gamedata';
 import { glbModel, glbParts } from './models/glb.ts';
 import { groundHeightAt, SEA_LEVEL, TEAM_COLORS, teamOf, toThree } from './space.ts';
 
-/** On-screen heights for pulled building models, matching the placeholder proportions. */
-const BUILDING_HEIGHTS: Record<string, number> = { n000: 320, n003: 130, h00K: 230, h00M: 250, h012: 290 };
+/** On-screen heights for pulled building models, before the unit's own model scale. */
+const BUILDING_HEIGHTS: Record<string, number> = {
+  n000: 320, n003: 130, h00K: 230, h00M: 250, h012: 290, n001: 150, n002: 150, n00Y: 120, n012: 100,
+  n011: 220, n005: 170, n014: 210, n00U: 220, repair: 120,
+};
+
+/** Building types without a model of their own borrow a close relative's (docs/art/batch-buildings.md). */
+const BUILDING_MODELS: Record<string, string> = {
+  n007: 'n001', n00Z: 'n001', n013: 'n011', n01H: 'n012', h01S: 'h00M',
+  n00F: 'n002', n00E: 'n002', n00H: 'n002', n009: 'n002', n00B: 'n011', n008: 'n002', n00A: 'n002', n00C: 'n002', ncp2: 'n00Y',
+};
 
 type DoodadKind = 'tree' | 'rock' | 'plant' | 'prop';
 
@@ -164,7 +173,8 @@ export function createBuildings(placements: Placement[], unitsById: Map<string, 
     const unit = unitsById.get(p.id);
     if (!unit?.isBuilding || p.id === 'hhou') continue; // hhou: the script's hidden per-player helper
     const color = TEAM_COLORS[teamOf(p.player)];
-    const mesh = glbModel('buildings', p.id, color, { height: BUILDING_HEIGHTS[p.id] ?? (unit.collision ?? 48) * 4 }) ?? buildingMesh(unit, color);
+    const model = BUILDING_MODELS[p.id] ?? p.id;
+    const mesh = glbModel('buildings', model, color, { height: BUILDING_HEIGHTS[p.id] ?? BUILDING_HEIGHTS[model] ?? (unit.collision ?? 48) * 4 }) ?? buildingMesh(unit, color);
     const ground = Math.max(groundHeightAt(terrain, p.x, p.y), SEA_LEVEL - 20);
     toThree(p.x, p.y, ground, mesh.position);
     mesh.rotation.y = THREE.MathUtils.degToRad(p.facing);
@@ -173,6 +183,21 @@ export function createBuildings(placements: Placement[], unitsById: Map<string, 
     mesh.traverse((o) => { if ((o as THREE.Mesh).isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     mesh.userData.mapX = p.x; // lets the client match the mesh to its simulated structure
     mesh.userData.mapY = p.y;
+    group.add(mesh);
+  }
+  return group;
+}
+
+/** The repair docks (a rect in the map, not a unit) beside each base. */
+export function createRepairDocks(stations: { x: number; y: number; team: 'south' | 'north' }[], terrain: Terrain): THREE.Group {
+  const group = new THREE.Group();
+  group.name = 'repair-docks';
+  for (const s of stations) {
+    const mesh = glbModel('buildings', 'repair', TEAM_COLORS[s.team], { height: BUILDING_HEIGHTS.repair! });
+    if (!mesh) continue;
+    toThree(s.x, s.y, Math.max(groundHeightAt(terrain, s.x, s.y), SEA_LEVEL - 20), mesh.position);
+    mesh.rotation.y = s.team === 'south' ? Math.PI / 2 : -Math.PI / 2;
+    mesh.traverse((o) => { if ((o as THREE.Mesh).isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     group.add(mesh);
   }
   return group;

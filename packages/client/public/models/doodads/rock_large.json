@@ -1,0 +1,12 @@
+{
+  "source": "aha",
+  "projectId": "dde29d06-14c2-4433-9140-e2a7d9ab7bb0",
+  "projectName": "doodad rock_large",
+  "versionId": "f05f2873-ccc7-4374-b961-754c4109027d",
+  "versionName": "v1",
+  "adopted": true,
+  "triangles": 60,
+  "teamMaterials": [
+    "team"
+  ]
+}

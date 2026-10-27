@@ -1,0 +1,12 @@
+{
+  "source": "aha",
+  "projectId": "d0acaf50-e63a-4f13-aacb-3eadf7546671",
+  "projectName": "repair 修理站",
+  "versionId": "142b4021-acbc-4540-8ca2-f5bd97c340ba",
+  "versionName": "v1",
+  "adopted": true,
+  "triangles": 2950,
+  "teamMaterials": [
+    "team"
+  ]
+}

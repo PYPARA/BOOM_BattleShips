@@ -1,0 +1,12 @@
+{
+  "source": "aha",
+  "projectId": "619f12f3-98fc-4bef-bb53-ca683484765a",
+  "projectName": "doodad seaweed",
+  "versionId": "1a6068a6-3366-4be3-879f-5f0d9aa21e59",
+  "versionName": "v1",
+  "adopted": true,
+  "triangles": 200,
+  "teamMaterials": [
+    "team"
+  ]
+}

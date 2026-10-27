@@ -1,6 +1,6 @@
 import * as THREE from 'three/webgpu';
 import { Bot, type Difficulty } from '@boom/ai';
-import { createMatch, TICK_DT } from '@boom/sim';
+import { createMatch, REPAIR_RECTS, TICK_DT } from '@boom/sim';
 import { RtsCamera } from './camera.ts';
 import { loadData } from './data.ts';
 import { AudioEngine, createVolumeControl } from './audio.ts';
@@ -15,7 +15,7 @@ import { Music } from './music.ts';
 import { loadGlbModels } from './models/glb.ts';
 import { Overlay } from './overlay.ts';
 import { ProjectileViews } from './projectiles.ts';
-import { createBuildings, createDoodads } from './props.ts';
+import { createBuildings, createDoodads, createRepairDocks } from './props.ts';
 import { ShipViews } from './shipViews.ts';
 import { SkillBar } from './skillbar.ts';
 import { SoundFx } from './sounds.ts';
@@ -68,6 +68,7 @@ scene.add(createWater(data.terrain));
 scene.add(createDoodads(data.doodads));
 const buildingGroup = createBuildings(data.map.placements, data.unitsById, data.terrain);
 scene.add(buildingGroup);
+scene.add(createRepairDocks((['south', 'north'] as const).map((team) => ({ team, ...match.rectCenter(REPAIR_RECTS[team].station) })), data.terrain));
 // Link each building mesh to its simulated structure, to remove it when destroyed.
 const buildingMeshes = new Map<number, THREE.Object3D>();
 for (const s of world.structures.values()) {

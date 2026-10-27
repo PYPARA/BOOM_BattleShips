@@ -66,7 +66,16 @@ function mergeByMaterial(source: THREE.Object3D): THREE.Group {
     if (!mesh.isMesh || Array.isArray(mesh.material)) return;
     let g = mesh.geometry.clone().applyMatrix4(mesh.matrixWorld);
     if (g.index) g = g.toNonIndexed();
-    for (const name of Object.keys(g.attributes)) if (name !== 'position' && name !== 'normal') g.deleteAttribute(name);
+    // Some models paint with vertex colors (Aha decorations); keep them, as RGB, where the
+    // material uses them, and give uncolored parts white so the merged attributes line up.
+    const keepColor = (mesh.material as THREE.MeshStandardMaterial).vertexColors === true;
+    for (const name of Object.keys(g.attributes)) if (name !== 'position' && name !== 'normal' && !(keepColor && name === 'color')) g.deleteAttribute(name);
+    if (keepColor) {
+      const c = g.getAttribute('color');
+      const rgb = new Float32Array(g.getAttribute('position').count * 3).fill(1);
+      if (c) for (let i = 0; i < c.count; i++) rgb.set([c.getX(i), c.getY(i), c.getZ(i)], i * 3);
+      g.setAttribute('color', new THREE.BufferAttribute(rgb, 3));
+    }
     if (!g.getAttribute('normal')) g.computeVertexNormals();
     byMaterial.set(mesh.material, [...(byMaterial.get(mesh.material) ?? []), g]);
   });

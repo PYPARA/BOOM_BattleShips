@@ -1,0 +1,12 @@
+{
+  "source": "aha",
+  "projectId": "adc09a45-e9d8-4f40-8de8-fc0db3037caf",
+  "projectName": "n011 武器研发中心",
+  "versionId": "73f06a61-60d3-4235-a0f0-0d4e98869693",
+  "versionName": "v1",
+  "adopted": true,
+  "triangles": 2906,
+  "teamMaterials": [
+    "team"
+  ]
+}
