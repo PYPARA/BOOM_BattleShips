@@ -59,6 +59,7 @@ export class ShipViews {
     ring.rotation.x = -Math.PI / 2;
     ring.position.y = 2;
     ring.visible = false;
+    model.traverse((o) => { if ((o as THREE.Mesh).isMesh) o.castShadow = true; });
     const root = new THREE.Group();
     root.add(model, ring);
     root.userData.entityId = ship.id;

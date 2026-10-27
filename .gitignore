@@ -11,3 +11,4 @@ key.json
 art/concepts/*.png
 # Full-size icons; 128 px copies live in packages/client/public/icons
 art/icons/
+art/textures/

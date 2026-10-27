@@ -18,6 +18,11 @@ export class RtsCamera {
   readonly camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 20, 30000);
   readonly target = new THREE.Vector3(0, SEA_LEVEL, 0);
   private distance = 2400;
+
+  /** Camera distance from the target (zoom). */
+  get viewDistance(): number {
+    return this.distance;
+  }
   private readonly keys = new Set<string>();
   private mouse: { x: number; y: number } | undefined;
   private dragging = false;

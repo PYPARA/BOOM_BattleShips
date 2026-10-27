@@ -64,7 +64,8 @@ export function createWater(terrain: Terrain): THREE.Mesh {
   // Foam band along the shore, broken up by a moving ripple pattern.
   const ripple = sin(depth.mul(0.25).sub(time.mul(2.0))).mul(0.5).add(0.5);
   const foam = float(1).sub(smoothstep(5, 45, depth)).mul(ripple.mul(0.6).add(0.4));
-  const crest = smoothstep(0.75, 1.0, abs(w1.mul(w2))).mul(0.12);
+  // Faint crests where three waves line up; two alone repeat as a visible dot grid.
+  const crest = smoothstep(0.82, 1.0, abs(w1.mul(w2).mul(w3))).mul(0.06);
 
   const material = new THREE.MeshStandardNodeMaterial({ transparent: true, roughness: 0.18, metalness: 0.05 });
   material.colorNode = mix(waterColor, vec3(0.95, 0.97, 0.97), clamp(foam.add(crest), 0, 1));
@@ -73,5 +74,6 @@ export function createWater(terrain: Terrain): THREE.Mesh {
   const mesh = new THREE.Mesh(createWaterGeometry(terrain), material);
   mesh.name = 'water';
   mesh.renderOrder = 1;
+  mesh.receiveShadow = true;
   return mesh;
 }

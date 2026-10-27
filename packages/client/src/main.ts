@@ -3,6 +3,7 @@ import { Bot, type Difficulty } from '@boom/ai';
 import { createMatch, TICK_DT } from '@boom/sim';
 import { RtsCamera } from './camera.ts';
 import { loadData } from './data.ts';
+import { Environment } from './environment.ts';
 import { Hud } from './hud.ts';
 import { Info } from './info.ts';
 import { SelectionInput } from './input.ts';
@@ -48,13 +49,14 @@ container.appendChild(renderer.domElement);
 await renderer.init();
 const backendName = (renderer.backend as { isWebGPUBackend?: boolean }).isWebGPUBackend ? 'WebGPU' : 'WebGL2';
 
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x9cc3d8);
-scene.fog = new THREE.Fog(0x9cc3d8, 4000, 11000);
-scene.add(new THREE.HemisphereLight(0xe4f1ff, 0x2a4a50, 1.3));
-const sun = new THREE.DirectionalLight(0xfff0d8, 2.4);
-sun.position.set(-3000, 6000, 2500);
-scene.add(sun);
+const environment = new Environment(scene);
+environment.bakeEnvironment(renderer, scene);
 
 scene.add(createTerrainMesh(data.terrain));
 scene.add(createWater(data.terrain));
@@ -165,6 +167,7 @@ renderer.setAnimationLoop(() => {
   if (own !== undefined && input.selected.size === 0) input.selected.add(own);
 
   rts.update(frameDt);
+  environment.update(rts.camera, rts.target, rts.viewDistance);
   const alpha = accumulator / TICK_DT;
   shipViews.update(alpha, now / 1000, input.selected, frameDt);
   projectileViews.update(alpha);

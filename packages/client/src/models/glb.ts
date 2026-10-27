@@ -6,7 +6,7 @@ import * as THREE from 'three/webgpu';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-export type ModelKind = 'ships' | 'buildings';
+export type ModelKind = 'ships' | 'buildings' | 'creatures' | 'doodads';
 
 interface Sidecar {
   versionName: string;
@@ -132,4 +132,25 @@ export function glbModel(kind: ModelKind, id: string, teamColor: THREE.ColorRepr
   wrapper.scale.setScalar(scale);
   wrapper.add(model);
   return wrapper;
+}
+
+const partsCache = new Map<string, { geometry: THREE.BufferGeometry; material: THREE.Material }[]>();
+
+/**
+ * A model as bare geometry + material pairs, scaled to `height` and standing on y = 0, for
+ * instancing (map doodads draw the same few models thousands of times).
+ */
+export function glbParts(kind: ModelKind, id: string, height: number): { geometry: THREE.BufferGeometry; material: THREE.Material }[] | undefined {
+  const key = `${kind}/${id}@${height}`;
+  const cached = partsCache.get(key);
+  if (cached) return cached;
+  const t = templates.get(`${kind}/${id}`);
+  if (!t) return undefined;
+  const s = height / t.size.y;
+  const m = new THREE.Matrix4().makeScale(s, s, s).multiply(new THREE.Matrix4().makeTranslation(-t.center.x, -t.min.y, -t.center.z));
+  const parts = t.scene.children
+    .filter((o): o is THREE.Mesh => (o as THREE.Mesh).isMesh)
+    .map((mesh) => ({ geometry: mesh.geometry.clone().applyMatrix4(m), material: mesh.material as THREE.Material }));
+  partsCache.set(key, parts);
+  return parts;
 }

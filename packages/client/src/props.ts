@@ -1,8 +1,9 @@
-// Placeholder geometry for map doodads (trees, rocks, plants) and preplaced buildings.
-// Real models come from the AI art pipeline later; these only need the right size and place.
+// Map doodads (trees, rocks, plants, props) and preplaced buildings. Doodads use the Aha models
+// in public/models/doodads (docs/art/batch-doodads.md), instanced per model; a type whose model
+// is not pulled yet falls back to a simple placeholder shape.
 import * as THREE from 'three/webgpu';
 import type { Doodad, Placement, Terrain, Unit } from '@boom/gamedata';
-import { glbModel } from './models/glb.ts';
+import { glbModel, glbParts } from './models/glb.ts';
 import { groundHeightAt, SEA_LEVEL, TEAM_COLORS, teamOf, toThree } from './space.ts';
 
 /** On-screen heights for pulled building models, matching the placeholder proportions. */
@@ -26,33 +27,86 @@ const DOODAD_PARTS: Record<DoodadKind, { geometry: THREE.BufferGeometry; color: 
   prop: { geometry: new THREE.BoxGeometry(50, 50, 50).translate(0, 25, 0), color: 0x8a6a46 },
 };
 
+/** On-screen height of each doodad model before the map's own scale. */
+const MODEL_HEIGHTS: Record<string, number> = {
+  tree_broadleaf_a: 190, tree_broadleaf_b: 210, tree_pine_a: 215, tree_pine_b: 175, tree_palm_a: 220, tree_palm_b: 200,
+  tree_dead: 160, bush_a: 60, bush_b: 60, flowers: 35, reeds: 85, lilypads: 8, seaweed: 45, rock_large: 90,
+  rocks_small: 40, barrels_crates: 55, ruins_pillar: 140, shipwreck: 110,
+};
+
+/** Which models stand in for a Warcraft doodad type; `i` picks a variant. */
+function doodadModels(d: Doodad): string[] {
+  const id = d.id, c = id[1];
+  if (c === 'T') {
+    if (/d\d$/.test(id) || id === 'ZTd5') return ['tree_dead'];
+    // Trees on the beach become palms.
+    if (d.z < SEA_LEVEL + 70 || id.startsWith('B')) return ['tree_palm_a', 'tree_palm_b'];
+    if (id.startsWith('L') || id.startsWith('Z') || id.startsWith('YTp')) return ['tree_pine_a', 'tree_pine_b'];
+    return ['tree_broadleaf_a', 'tree_broadleaf_b'];
+  }
+  if (c === 'W') return /fl|fs|fp|fb/.test(id.slice(2)) ? ['lilypads'] : id.startsWith('N') ? ['seaweed'] : ['reeds'];
+  if (c === 'R') return ['rock_large', 'rocks_small'];
+  if (c === 'P') return /fw|fp|lp/.test(id.slice(2)) ? ['flowers'] : /rs/.test(id.slice(2)) ? ['rocks_small'] : ['bush_a', 'bush_b'];
+  if (c === 'O') {
+    if (/^VOf/.test(id)) return ['flowers'];
+    if (/bt|sw|sv/.test(id.slice(2))) return ['shipwreck'];
+    if (/^[ZD]/.test(id)) return ['ruins_pillar'];
+    return ['barrels_crates'];
+  }
+  return ['ruins_pillar'];
+}
+
 export function createDoodads(doodads: Doodad[]): THREE.Group {
   const group = new THREE.Group();
   group.name = 'doodads';
-  const byKind = new Map<DoodadKind, Doodad[]>();
-  for (const d of doodads) {
-    const kind = doodadKind(d.id);
-    byKind.set(kind, [...(byKind.get(kind) ?? []), d]);
-  }
   const matrix = new THREE.Matrix4();
   const position = new THREE.Vector3();
   const quaternion = new THREE.Quaternion();
   const scale = new THREE.Vector3();
   const up = new THREE.Vector3(0, 1, 0);
+  const place = (d: Doodad, i: number, floats: boolean) => {
+    // Water plants float on the surface; everything else stands on the ground.
+    toThree(d.x, d.y, floats ? Math.max(d.z, SEA_LEVEL) : d.z, position);
+    quaternion.setFromAxisAngle(up, d.angle);
+    const s = (d.scale[0] + d.scale[1] + d.scale[2]) / 3;
+    scale.set(s, s * (0.85 + ((i * 7919) % 30) / 100), s);
+    return matrix.compose(position, quaternion, scale);
+  };
+
+  // Doodads with a pulled model, grouped by model.
+  const byModel = new Map<string, Doodad[]>();
+  const rest: Doodad[] = [];
+  doodads.forEach((d, i) => {
+    const options = doodadModels(d);
+    const model = options[(i * 2654435761) % options.length >>> 0] ?? options[0]!;
+    if (glbParts('doodads', model, MODEL_HEIGHTS[model] ?? 100)) byModel.set(model, [...(byModel.get(model) ?? []), d]);
+    else rest.push(d);
+  });
+  for (const [model, list] of byModel) {
+    const floats = model === 'lilypads' || model === 'seaweed';
+    for (const part of glbParts('doodads', model, MODEL_HEIGHTS[model] ?? 100)!) {
+      const mesh = new THREE.InstancedMesh(part.geometry, part.material, list.length);
+      list.forEach((d, i) => mesh.setMatrixAt(i, place(d, i, floats)));
+      mesh.instanceMatrix.needsUpdate = true;
+      mesh.castShadow = model !== 'lilypads';
+      mesh.receiveShadow = true;
+      group.add(mesh);
+    }
+  }
+  doodads = rest;
+  const byKind = new Map<DoodadKind, Doodad[]>();
+  for (const d of doodads) {
+    const kind = doodadKind(d.id);
+    byKind.set(kind, [...(byKind.get(kind) ?? []), d]);
+  }
   for (const [kind, list] of byKind) {
     const part = DOODAD_PARTS[kind];
     const material = new THREE.MeshStandardMaterial({ color: part.color, roughness: 0.9, flatShading: true });
     const mesh = new THREE.InstancedMesh(part.geometry, material, list.length);
-    list.forEach((d, i) => {
-      // Water plants float on the surface; everything else stands on the ground.
-      const z = kind === 'plant' ? Math.max(d.z, SEA_LEVEL) : d.z;
-      toThree(d.x, d.y, z, position);
-      quaternion.setFromAxisAngle(up, d.angle);
-      const s = (d.scale[0] + d.scale[1] + d.scale[2]) / 3;
-      scale.set(s, s * (0.85 + ((i * 7919) % 30) / 100), s);
-      mesh.setMatrixAt(i, matrix.compose(position, quaternion, scale));
-    });
+    list.forEach((d, i) => mesh.setMatrixAt(i, place(d, i, kind === 'plant')));
     mesh.instanceMatrix.needsUpdate = true;
+    mesh.castShadow = kind !== 'plant';
+    mesh.receiveShadow = true;
     group.add(mesh);
   }
   return group;
@@ -116,6 +170,7 @@ export function createBuildings(placements: Placement[], unitsById: Map<string, 
     mesh.rotation.y = THREE.MathUtils.degToRad(p.facing);
     mesh.scale.multiplyScalar(unit.modelScale ?? 1); // on top of any GLB normalization
     mesh.userData.unitId = p.id;
+    mesh.traverse((o) => { if ((o as THREE.Mesh).isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     mesh.userData.mapX = p.x; // lets the client match the mesh to its simulated structure
     mesh.userData.mapY = p.y;
     group.add(mesh);
