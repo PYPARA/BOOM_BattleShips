@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "778f6698-ccec-4bf4-aab9-444a957e8b7c",
+  "projectName": "H006 支配者",
+  "versionId": "c58b2991-9f75-4f1a-8b5a-5e45229e9bad",
+  "versionName": "v1",
+  "adopted": true,
+  "triangles": 3991,
+  "waterline": 0.13125,
+  "teamMaterials": [
+    "team"
+  ]
+}

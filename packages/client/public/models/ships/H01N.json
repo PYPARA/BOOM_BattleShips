@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "d2a5ff3f-c882-4669-8834-97793d881abb",
+  "projectName": "H01N 飞行的荷兰人",
+  "versionId": "8bedb09b-1ef7-4113-88e9-6ce45a6d8581",
+  "versionName": "v1",
+  "adopted": true,
+  "triangles": 3874,
+  "waterline": 0.168,
+  "teamMaterials": [
+    "team"
+  ]
+}

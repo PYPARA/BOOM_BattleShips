@@ -40,14 +40,29 @@ function buildList(): Icon[] {
   for (const s of ships) {
     out.push({ kind: 'ship', id: s.id, name: s.name, subject: `a sailing warship portrait seen from the front-left: ${concept.get(s.id) ?? `a ship called "${s.name}", ${gist(s.description)}`}` });
   }
+  // NPC fleet models (hired at the shipyard); their I/II/III variants share these.
+  for (const id of ['h00I', 'h00B', 'h00H', 'h018']) {
+    const name = { h00I: '海军小艇', h00B: '海军护卫舰', h00H: '海军巡洋舰', h018: '超级战舰' }[id]!;
+    out.push({ kind: 'ship', id, name, subject: `a warship portrait seen from the front-left: ${concept.get(id) ?? name}` });
+  }
   for (const w of weapons) {
-    out.push({ kind: 'weapon', id: w.id, name: clean(w.name), subject: `a naval ship weapon called "${clean(w.name)}" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object` });
+    const subject = /火焰喷射/.test(w.name)
+      ? 'a brass ship-mounted fire nozzle device with fuel tanks and a small flame at the tip, shown as a single object'
+      : `a naval ship weapon called "${clean(w.name)}" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object`;
+    out.push({ kind: 'weapon', id: w.id, name: clean(w.name), subject });
   }
   for (const i of items) {
     if (weaponIds.has(i.id) || !sold.has(i.id) || i.goldCost <= 0) continue;
-    out.push({ kind: 'item', id: i.id, name: clean(i.name), subject: `a ship equipment item called "${clean(i.name)}": ${gist(i.description)}` });
+    // Blueprints get a neutral subject: weapon-upgrade wording trips the image API's filter.
+    const blueprint = /^(设计图|合成图|船体强化)/.test(clean(i.name));
+    const subject = blueprint
+      ? `a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (${/船体/.test(i.name) ? 'hull' : 'deck fitting'} plans)`
+      : `a ship equipment item called "${clean(i.name)}": ${gist(i.description)}`;
+    out.push({ kind: 'item', id: i.id, name: clean(i.name), subject });
   }
   const skills = new Set(ships.flatMap((s) => (s as unknown as { skills: string[] }).skills));
+  // Skills bought for the ship (船只特殊能力) and the submarine's own actions.
+  for (const id of ['AUls', 'Asta', 'A03I', 'Acri', 'ANhs', 'ANab', 'A036', 'A02H', 'A04M']) skills.add(id);
   for (const id of skills) {
     const a = byAbility.get(id);
     if (!a) continue;

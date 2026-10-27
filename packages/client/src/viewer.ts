@@ -1,13 +1,22 @@
-// Side-by-side viewer: a concept image next to the procedural model rendered from the
-// same angle, for checking models against the art. Open /viewer.html on the dev server.
+// Side-by-side viewer: a concept image next to the model rendered from the same angle, for
+// checking models against the art. Open /viewer.html on the dev server; /viewer.html?sheet
+// lays out every pulled ship in one grid with its engine rig, for a quick review.
 import * as THREE from 'three/webgpu';
-import { glbModel, glbVersion, loadGlbModels } from './models/glb.ts';
+import { glbIds, glbModel, glbVersion, loadGlbModels } from './models/glb.ts';
 import { shipConcepts, shipModels } from './models/index.ts';
 import { withEngineRig } from './models/rigs.ts';
 import { TEAM_COLORS } from './space.ts';
 
 const concepts = import.meta.glob('../../../art/concepts/preview/*.jpg', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 const conceptUrl = (name: string) => Object.entries(concepts).find(([path]) => path.endsWith(`/${name}.jpg`))?.[1];
+/** Concept file stem (`H005_nautilus`) for a ship id, from the preview file names. */
+const conceptOf = (id: string) => shipConcepts[id] ?? Object.keys(concepts).map((p) => /\/([^/]+)_34\.jpg$/.exec(p)?.[1]).find((n) => n?.startsWith(`${id}_`));
+/** Ship lengths by size class (docs/art/README.md); NPC fleet models by their class. */
+const LENGTHS: Record<string, number> = { 小型: 120, 中型: 165, 大型: 210, 巨大: 255 };
+const NPC_LENGTHS: Record<string, number> = { h00I: 100, h00B: 150, h00H: 200, h018: 300 };
+const shipsData = (await import('@boom/gamedata/generated/ships.json')).default as { id: string; name: string; size: string }[];
+const lengthOf = (id: string) => NPC_LENGTHS[id] ?? LENGTHS[shipsData.find((s) => s.id === id)?.size ?? ''] ?? 165;
+const nameOf = (id: string) => shipsData.find((s) => s.id === id)?.name ?? id;
 
 await loadGlbModels();
 const stage = document.getElementById('stage')!;
@@ -30,7 +39,8 @@ fill.position.set(-300, 200, 300);
 scene.add(fill);
 const camera = new THREE.PerspectiveCamera(28, 1, 1, 5000);
 
-const state = { id: Object.keys(shipModels)[0]!, view: '34' as '34' | 'side', team: 'south' as 'south' | 'north', spin: false, rig: false };
+const ids = [...new Set([...glbIds('ships'), ...Object.keys(shipModels)])];
+const state = { id: ids[0]!, view: '34' as '34' | 'side', team: 'south' as 'south' | 'north', spin: false, rig: false };
 let model: THREE.Object3D | undefined;
 
 function frame() {
@@ -54,9 +64,9 @@ function load() {
   render();
   if (model) scene.remove(model);
   // Same priority as the game: the Aha GLB when one was pulled, else the procedural model.
-  const length = { H000: 120, H016: 165, H008: 255 }[state.id] ?? 165;
+  const length = lengthOf(state.id);
   const glb = glbModel('ships', state.id, TEAM_COLORS[state.team], { length });
-  model = (glb && withEngineRig(glb, state.id, length, TEAM_COLORS[state.team])) ?? shipModels[state.id]!(TEAM_COLORS[state.team]);
+  model = (glb && withEngineRig(glb, state.id, length, TEAM_COLORS[state.team])) ?? shipModels[state.id]?.(TEAM_COLORS[state.team]) ?? new THREE.Group();
   const caption = stage.querySelector('figcaption')!;
   const version = glbVersion('ships', state.id);
   caption.textContent = version ? `Aha 模型 ${version}` : 'Three.js 程序化模型';
@@ -65,7 +75,7 @@ function load() {
   if (rig) rig.visible = state.rig;
   scene.add(model);
   frame();
-  const url = conceptUrl(`${shipConcepts[state.id]}_${state.view}`);
+  const url = conceptUrl(`${conceptOf(state.id)}_${state.view}`);
   if (url) img.src = url;
   render();
 }
@@ -88,7 +98,7 @@ function button(label: string, key: string, onClick: () => void) {
   controls.appendChild(b);
 }
 const sep = () => controls.appendChild(Object.assign(document.createElement('span'), { className: 'sep' }));
-for (const id of Object.keys(shipModels)) button(`${id} ${shipConcepts[id]?.split('_')[1] ?? ''}`, id, () => { state.id = id; });
+for (const id of ids) button(`${id} ${nameOf(id)}`, id, () => { state.id = id; });
 sep();
 button('3/4 视角', '34', () => { state.view = '34'; });
 button('侧视', 'side', () => { state.view = 'side'; });
@@ -99,7 +109,32 @@ button('显示帆', 'rig', () => { state.rig = !state.rig; });
 button('旋转', 'spin', () => { state.spin = !state.spin; });
 
 window.addEventListener('resize', render);
-load();
+if (new URLSearchParams(location.search).has('sheet')) showSheet();
+else load();
+
+/** Every ship in a grid, 3/4 view with rigs, true relative size; labels list the order. */
+function showSheet(): void {
+  document.querySelector('main')!.setAttribute('style', 'display:block;max-width:none');
+  img.parentElement!.remove();
+  stage.setAttribute('style', 'aspect-ratio:auto;height:calc(100vh - 20px)');
+  controls.textContent = ids.map((id, i) => `${i + 1}.${id} ${nameOf(id)}`).join('  ');
+  const cols = Math.ceil(Math.sqrt(ids.length * 1.3)), cell = 330;
+  ids.forEach((id, i) => {
+    const length = lengthOf(id);
+    const glb = glbModel('ships', id, TEAM_COLORS.south, { length });
+    const m = (glb && withEngineRig(glb, id, length, TEAM_COLORS.south)) ?? shipModels[id]?.(TEAM_COLORS.south);
+    if (!m) return;
+    m.position.set((i % cols) * cell, 0, Math.floor(i / cols) * cell * 0.75);
+    scene.add(m);
+  });
+  const rows = Math.ceil(ids.length / cols);
+  const center = new THREE.Vector3(((cols - 1) * cell) / 2, 0, ((rows - 1) * cell * 0.75) / 2);
+  camera.fov = 22;
+  camera.position.copy(center).add(new THREE.Vector3(900, 2300, 2700));
+  camera.lookAt(center);
+  model = undefined;
+  render();
+}
 renderer.setAnimationLoop(() => {
   if (model) model.rotation.y = state.spin ? model.rotation.y + 0.01 : 0;
   renderer.render(scene, camera);

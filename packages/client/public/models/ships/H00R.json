@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "4b0d1ff7-17a8-4150-af30-53cb3be155f2",
+  "projectName": "H00R 麦哲伦",
+  "versionId": "c2f982f5-778b-42d5-b1f1-bfb51fa70d6e",
+  "versionName": "v2",
+  "adopted": true,
+  "triangles": 7670,
+  "waterline": 0.133,
+  "teamMaterials": [
+    "team"
+  ]
+}

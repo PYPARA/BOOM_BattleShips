@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "c290901b-c828-409d-bb97-14fccfed7df4",
+  "projectName": "H01C 私掠者",
+  "versionId": "75814492-af2a-40c3-83c5-f1451ee27237",
+  "versionName": "v1",
+  "adopted": true,
+  "triangles": 3975,
+  "waterline": 0.168,
+  "teamMaterials": [
+    "team"
+  ]
+}

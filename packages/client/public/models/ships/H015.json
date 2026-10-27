@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "d658df2f-773f-4251-b893-79abd8f29389",
+  "projectName": "H015 定远",
+  "versionId": "37a5c621-f82e-47a3-8db9-56905be2c76e",
+  "versionName": "v2",
+  "adopted": true,
+  "triangles": 7294,
+  "waterline": 0.126,
+  "teamMaterials": [
+    "team"
+  ]
+}

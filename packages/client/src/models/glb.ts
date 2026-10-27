@@ -86,6 +86,11 @@ export function hasGlbModel(kind: ModelKind, id: string): boolean {
 }
 
 /** Version label of a pulled model, for the viewer. */
+/** Ids of the loaded models of a kind, e.g. every pulled ship. */
+export function glbIds(kind: ModelKind): string[] {
+  return [...templates.keys()].filter((k) => k.startsWith(`${kind}/`)).map((k) => k.slice(kind.length + 1)).sort();
+}
+
 export function glbVersion(kind: ModelKind, id: string): string | undefined {
   return templates.get(`${kind}/${id}`)?.sidecar.versionName;
 }

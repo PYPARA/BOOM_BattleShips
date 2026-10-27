@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "d6e6d443-7708-423c-b496-676dd10796f9",
+  "projectName": "H004 守护者",
+  "versionId": "250e7e35-cb8f-41ef-85e2-1122921e1c26",
+  "versionName": "v2",
+  "adopted": true,
+  "triangles": 3866,
+  "waterline": 0.112,
+  "teamMaterials": [
+    "team"
+  ]
+}

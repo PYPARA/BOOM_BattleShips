@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "df475d17-f0da-4abb-a34c-cbd2e4a4aa83",
+  "projectName": "H001 圣战者",
+  "versionId": "e38966bf-1ed8-43b8-bb5a-8a33bf13fec9",
+  "versionName": "v3",
+  "adopted": true,
+  "triangles": 1850,
+  "waterline": 0.077,
+  "teamMaterials": [
+    "team"
+  ]
+}

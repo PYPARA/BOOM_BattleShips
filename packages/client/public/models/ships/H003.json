@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "a1e99858-94dc-4ee8-9eb7-9b387af56c26",
+  "projectName": "H003 拦截者",
+  "versionId": "a7ee19a8-721e-440b-a2a6-2d9580a5b608",
+  "versionName": "v2",
+  "adopted": true,
+  "triangles": 3789,
+  "waterline": 0.08225,
+  "teamMaterials": [
+    "team"
+  ]
+}

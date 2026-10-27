@@ -186,6 +186,30 @@
   "subject": "a sailing warship portrait seen from the front-left: A large fearsome pirate galleon with a black-painted hull, a carved screaming-skull figurehead, rows of cannon ports, a tall stern castle with skull lanterns"
  },
  {
+  "kind": "ship",
+  "id": "h00I",
+  "name": "海军小艇",
+  "subject": "a warship portrait seen from the front-left: A small standard-issue navy patrol boat, uniform military design, one light deck gun, simple and mass-produced"
+ },
+ {
+  "kind": "ship",
+  "id": "h00B",
+  "name": "海军护卫舰",
+  "subject": "a warship portrait seen from the front-left: A standard navy frigate, uniform military paint scheme, two deck guns, a small bridge, mass-produced and practical"
+ },
+ {
+  "kind": "ship",
+  "id": "h00H",
+  "name": "海军巡洋舰",
+  "subject": "a warship portrait seen from the front-left: A standard navy cruiser, uniform military design, a forward gun turret, a command bridge, sturdy and mass-produced"
+ },
+ {
+  "kind": "ship",
+  "id": "h018",
+  "name": "超级战舰",
+  "subject": "a warship portrait seen from the front-left: A gigantic super battleship, the pride of the navy, layered armored superstructure, many gun turrets, a massive armored prow"
+ },
+ {
   "kind": "weapon",
   "id": "I002",
   "name": "冲天炮",
@@ -243,7 +267,7 @@
   "kind": "weapon",
   "id": "I006",
   "name": "火焰喷射装置 (I型)",
-  "subject": "a naval ship weapon called \"火焰喷射装置 (I型)\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+  "subject": "a brass ship-mounted fire nozzle device with fuel tanks and a small flame at the tip, shown as a single object"
  },
  {
   "kind": "weapon",
@@ -357,7 +381,7 @@
   "kind": "weapon",
   "id": "I027",
   "name": "火焰喷射装置 (II型)",
-  "subject": "a naval ship weapon called \"火焰喷射装置 (II型)\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+  "subject": "a brass ship-mounted fire nozzle device with fuel tanks and a small flame at the tip, shown as a single object"
  },
  {
   "kind": "weapon",
@@ -459,7 +483,7 @@
   "kind": "weapon",
   "id": "I02C",
   "name": "火焰喷射装置 (III型)",
-  "subject": "a naval ship weapon called \"火焰喷射装置 (III型)\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+  "subject": "a brass ship-mounted fire nozzle device with fuel tanks and a small flame at the tip, shown as a single object"
  },
  {
   "kind": "weapon",
@@ -771,73 +795,73 @@
   "kind": "item",
   "id": "I02V",
   "name": "设计图-巡洋舰炮",
-  "subject": "a ship equipment item called \"设计图-巡洋舰炮\": 物品升级设计图纸 使用本图纸可以将 护卫舰炮 改造为 巡洋舰炮"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
   "id": "I02X",
   "name": "设计图-II型火焰喷射装置",
-  "subject": "a ship equipment item called \"设计图-II型火焰喷射装置\": 物品升级设计图纸 使用本图纸可以将 I型火焰喷射装置 改造为 II型"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
   "id": "I02Y",
   "name": "设计图-III型火焰喷射装置",
-  "subject": "a ship equipment item called \"设计图-III型火焰喷射装置\": 物品升级设计图纸 使用本图纸可以将 II型火焰喷射装置 改造为 III型"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
   "id": "I030",
   "name": "设计图-强力冷冻炮",
-  "subject": "a ship equipment item called \"设计图-强力冷冻炮\": 物品升级设计图纸 使用本图纸可以将 冷冻炮 改造为 强力冷冻炮"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
   "id": "I032",
   "name": "设计图-高能电磁炮",
-  "subject": "a ship equipment item called \"设计图-高能电磁炮\": 物品升级设计图纸 使用本图纸可以将 电磁炮 改造为 高能电磁炮"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
   "id": "I035",
   "name": "设计图-重型火箭炮",
-  "subject": "a ship equipment item called \"设计图-重型火箭炮\": 物品升级设计图纸 使用本图纸可以将 轻型火箭炮 改造为 重型火箭炮"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
   "id": "I037",
   "name": "设计图-对地导弹",
-  "subject": "a ship equipment item called \"设计图-对地导弹\": 物品升级设计图纸 使用本图纸可以将 重型火箭炮 改造为 对地导弹 (特殊武器) 对地导弹，可自动单发，可手动控制齐射"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
   "id": "I038",
   "name": "船体强化设计图 - 巡洋舰",
-  "subject": "a ship equipment item called \"船体强化设计图 - 巡洋舰\": 舰体改造设计图纸 用更先进的制造工艺和中国人发明的水密隔舱技术来大大加强船只强度和抗沉性 每艘船只能升级一次！ 使用本图纸可提高 巡洋舰 耐久度1500 影子战"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (hull plans)"
  },
  {
   "kind": "item",
   "id": "I039",
   "name": "船体强化设计图 - 护卫舰",
-  "subject": "a ship equipment item called \"船体强化设计图 - 护卫舰\": 舰体改造设计图纸 用更先进的制造工艺和中国人发明的水密隔舱技术来大大加强船只强度和抗沉性 每艘船只能升级一次！ 使用本图纸可提高 护卫舰耐久度 900 工程舰、"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (hull plans)"
  },
  {
   "kind": "item",
   "id": "I03A",
   "name": "船体强化设计图 - 战列舰",
-  "subject": "a ship equipment item called \"船体强化设计图 - 战列舰\": 舰体改造设计图纸 用更先进的制造工艺和中国人发明的水密隔舱技术来大大加强船只强度和抗沉性 每艘船只能升级一次！ 使用本图纸可提高 战列舰 的耐久度2000 适用"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (hull plans)"
  },
  {
   "kind": "item",
   "id": "I03C",
   "name": "设计图-战列舰炮",
-  "subject": "a ship equipment item called \"设计图-战列舰炮\": 物品升级设计图纸 使用本图纸可以将 巡洋舰炮 改造为 战列舰炮"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
   "id": "I03D",
   "name": "船体强化设计图 - 小艇类",
-  "subject": "a ship equipment item called \"船体强化设计图 - 小艇类\": 船体改造设计图纸 用更先进的制造工艺和中国人发明的水密隔舱技术来大大加强船只强度和抗沉性 每艘船只能升级一次！ 使用本图纸可提高 小艇类 耐久度500 适用船:"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (hull plans)"
  },
  {
   "kind": "item",
@@ -867,13 +891,13 @@
   "kind": "item",
   "id": "I03O",
   "name": "设计图-密集阵近防炮",
-  "subject": "a ship equipment item called \"设计图-密集阵近防炮\": 物品升级设计图纸 使用本图纸可以将 机关炮 改造为 密集阵近防炮"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
   "id": "I03P",
   "name": "船体强化设计图 - 特殊船",
-  "subject": "a ship equipment item called \"船体强化设计图 - 特殊船\": 舰体改造设计图纸 用更先进的制造工艺和中国人发明的水密隔舱技术来大大加强船只强度和抗沉性 每艘船只能升级一次！ 使用本图纸可提高 特殊船 的耐久度2000 适用"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (hull plans)"
  },
  {
   "kind": "item",
@@ -903,7 +927,7 @@
   "kind": "item",
   "id": "I03U",
   "name": "设计图-双联装深水炸弹",
-  "subject": "a ship equipment item called \"设计图-双联装深水炸弹\": 物品升级设计图纸 使用本图纸可以将 深水炸弹 改造为 双联装深水炸弹"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
@@ -915,7 +939,7 @@
   "kind": "item",
   "id": "I03X",
   "name": "设计图-火神炮",
-  "subject": "a ship equipment item called \"设计图-火神炮\": 物品升级设计图纸 使用本图纸可以将 密集阵近防炮 改造为 火神炮"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
@@ -993,7 +1017,7 @@
   "kind": "item",
   "id": "I04I",
   "name": "设计图-轰击炮改",
-  "subject": "a ship equipment item called \"设计图-轰击炮改\": 物品升级设计图纸 使用本图纸可以将 轰击大炮 改造为 轰击炮改"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
@@ -1083,7 +1107,7 @@
   "kind": "item",
   "id": "I055",
   "name": "设计图-雷神大炮增强型",
-  "subject": "a ship equipment item called \"设计图-雷神大炮增强型\": 物品升级设计图纸 使用本图纸可以将 雷神大炮 改造为 雷神大炮增强型"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
@@ -1095,25 +1119,25 @@
   "kind": "item",
   "id": "I05A",
   "name": "设计图-高速阔剑投掷器",
-  "subject": "a ship equipment item called \"设计图-高速阔剑投掷器\": 物品升级设计图纸 使用本图纸可以将 阔剑投掷器 改造为 高速阔剑投掷器"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
   "id": "I05C",
   "name": "设计图-无轨迹炮改",
-  "subject": "a ship equipment item called \"设计图-无轨迹炮改\": 物品升级设计图纸 使用本图纸可以将 无轨迹炮 改造为 无轨迹炮改"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
   "id": "I05E",
   "name": "设计图-终级精灵大炮",
-  "subject": "a ship equipment item called \"设计图-终级精灵大炮\": 物品升级设计图纸 使用本图纸可以将 精灵大炮 改造为 终级精灵大炮"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
   "id": "I05P",
   "name": "设计图-超级天星大炮",
-  "subject": "a ship equipment item called \"设计图-超级天星大炮\": 物品升级设计图纸 使用本图纸可以将 天星大炮 改造为 超级天星大炮"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
@@ -1131,7 +1155,7 @@
   "kind": "item",
   "id": "I06B",
   "name": "设计图-真红之箭",
-  "subject": "a ship equipment item called \"设计图-真红之箭\": 物品升级设计图纸 使用本图纸可以将 红箭 改造为 真红之箭"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
@@ -1149,13 +1173,13 @@
   "kind": "item",
   "id": "I06I",
   "name": "合成图-红箭大炮",
-  "subject": "a ship equipment item called \"合成图-红箭大炮\": 物品合成图纸 使用本图纸可合成：红箭大炮 所需物品：冲天炮、小箭、小炮 、捕鲸炮"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "item",
   "id": "I06L",
   "name": "设计图-大大海绵宝宝炮",
-  "subject": "a ship equipment item called \"设计图-大大海绵宝宝炮\": 物品升级设计图纸 使用本图纸可以将 海绵大炮 改造为 大大海绵宝宝炮"
+  "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
   "kind": "skill",
@@ -1666,5 +1690,53 @@
   "id": "A071",
   "name": "探测者",
   "subject": "a naval battle skill called \"探测者\": 满级的黑珍珠能 显示周围的隐形单位。, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "AUls",
+  "name": "舰载直升机",
+  "subject": "a naval battle skill called \"舰载直升机\": 用来侦察和攻击敌人地面空中目标和潜水艇, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "Asta",
+  "name": "震荡雷",
+  "subject": "a naval battle skill called \"震荡雷\": 释放一个固定隐形的震荡雷。当敌方单位靠近震荡雷时会自动引爆 只能放在浅水区, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A03I",
+  "name": "照明弹",
+  "subject": "a naval battle skill called \"照明弹\": 发射一颗照明弹，探测 1200 区域 7 秒, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "Acri",
+  "name": "减速",
+  "subject": "a naval battle skill called \"减速\": 减慢目标单位50%的移动速度和50%攻击速度，并减弱其50%的攻击力。 持续30秒。, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "ANab",
+  "name": "酸毒炸弹",
+  "subject": "a naval battle skill called \"酸毒炸弹\": 投掷酸毒炸弹对其周围的敌人造成伤害, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A036",
+  "name": "布放水雷",
+  "subject": "a naval battle skill called \"布放水雷\": 布放一枚水雷,当敌人从旁边经过时会爆炸, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A02H",
+  "name": "潜射巡航导弹",
+  "subject": "a naval battle skill called \"潜射巡航导弹\": 巡航导弹，手动控制齐射 (会误伤), shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A04M",
+  "name": "假目标",
+  "subject": "a naval battle skill called \"假目标\": 假目标使潜水艇能够释放诱饵吸引敌人, 从而使自身有机会逃脱攻击 假目标持续 40 秒, shown as a dramatic magical or military effect"
  }
 ]

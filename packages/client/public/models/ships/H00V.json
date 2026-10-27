@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "fcd77be9-c6e6-4a82-8f01-21035a6d307d",
+  "projectName": "H00V 大天使",
+  "versionId": "6e93e4d9-6e53-49f6-9543-930a488a98c7",
+  "versionName": "v2",
+  "adopted": true,
+  "triangles": 5226,
+  "waterline": 0.203,
+  "teamMaterials": [
+    "team"
+  ]
+}

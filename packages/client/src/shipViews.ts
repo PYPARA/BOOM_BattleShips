@@ -21,6 +21,17 @@ const SINK_SECONDS = 2.5;
 
 const ringMaterial = new THREE.MeshBasicMaterial({ color: 0x5cff7a, transparent: true, opacity: 0.85, depthWrite: false });
 
+/**
+ * NPC fleet ships: the I/II/III variants share one model per class (docs/art/image-prompts.md
+ * 第 3 批), shown at the class length rather than from their small collision radius.
+ */
+const FLEET_MODELS: Record<string, [model: string, length: number]> = {
+  h00I: ['h00I', 100], h00E: ['h00I', 105], h01M: ['h00I', 100],
+  h00B: ['h00B', 150], h00F: ['h00B', 155], h013: ['h00B', 160],
+  h00H: ['h00H', 200], h00G: ['h00H', 205], h017: ['h00H', 210], h010: ['h00H', 215],
+  h018: ['h018', 300],
+};
+
 export class ShipViews {
   readonly group = new THREE.Group();
   private readonly views = new Map<number, ShipView>();
@@ -36,10 +47,12 @@ export class ShipViews {
 
   private create(ship: ShipEntity): ShipView {
     // Aha GLB first, then the hand-built procedural model, then the generic placeholder.
-    const length = ship.bodyRadius * 3;
+    const fleet = FLEET_MODELS[ship.typeId];
+    const modelId = fleet?.[0] ?? ship.typeId;
+    const length = fleet?.[1] ?? ship.bodyRadius * 3;
     const masts = ship.bodyRadius >= 80 ? 3 : ship.bodyRadius >= 55 ? 2 : 1;
     const color = TEAM_COLORS[teamOf(ship.owner)];
-    const glb = glbModel('ships', ship.typeId, color, { length });
+    const glb = glbModel('ships', modelId, color, { length });
     const model = (glb && withEngineRig(glb, ship.typeId, length, color)) // Aha models leave sails to the engine
       ?? shipModels[ship.typeId]?.(color) ?? createPlaceholderShip(length, masts, color);
     const ring = new THREE.Mesh(new THREE.RingGeometry(ship.bodyRadius * 1.05, ship.bodyRadius * 1.2, 40), ringMaterial);

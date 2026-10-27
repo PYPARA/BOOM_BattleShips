@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "5fcd4204-8d28-4753-b11f-5b9296134170",
+  "projectName": "h00H 海军巡洋舰",
+  "versionId": "4eaa6c7c-4fac-49e3-9c7b-c868c2f416bd",
+  "versionName": "v2",
+  "adopted": true,
+  "triangles": 5642,
+  "waterline": 0.1085,
+  "teamMaterials": [
+    "team"
+  ]
+}

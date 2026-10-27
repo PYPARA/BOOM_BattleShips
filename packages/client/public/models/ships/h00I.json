@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "5bf9fa6e-bddd-438f-8da3-a61e2c784fec",
+  "projectName": "h00I 海军小艇",
+  "versionId": "8c91aac2-8865-4cbe-8274-a4510c047be2",
+  "versionName": "v2",
+  "adopted": true,
+  "triangles": 1380,
+  "waterline": 0.083,
+  "teamMaterials": [
+    "team"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "fdc5d386-2ba1-492d-87d8-69aab3e63396",
+  "projectName": "H01H 元素战舰",
+  "versionId": "3c9863f8-33a6-4ea8-a10c-f1dd042a4a54",
+  "versionName": "v2",
+  "adopted": true,
+  "triangles": 3940,
+  "waterline": 0.1925,
+  "teamMaterials": [
+    "team"
+  ]
+}

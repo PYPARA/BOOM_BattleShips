@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "4ecb1395-9f4f-449d-bfcc-a72be01880bd",
+  "projectName": "H011 黑色幽灵",
+  "versionId": "6655cca7-1f0b-4b64-b5e7-fbe02caf683b",
+  "versionName": "v2",
+  "adopted": true,
+  "triangles": 2860,
+  "waterline": 0.114,
+  "teamMaterials": [
+    "team"
+  ]
+}

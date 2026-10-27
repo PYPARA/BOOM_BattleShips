@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "001a438c-c45d-4c20-ad4b-dd8c27014d6d",
+  "projectName": "H00X 腓尼基",
+  "versionId": "71a3fc12-06e3-4abe-9efd-4b32c519e7c9",
+  "versionName": "v2",
+  "adopted": true,
+  "triangles": 5754,
+  "waterline": 0.147,
+  "teamMaterials": [
+    "team"
+  ]
+}

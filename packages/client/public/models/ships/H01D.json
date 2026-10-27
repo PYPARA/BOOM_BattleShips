@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "7a80df41-fbf3-4e50-9b41-b227a11e4f2d",
+  "projectName": "H01D 影子战舰",
+  "versionId": "f59c3591-b488-4073-a6c7-97b81e088a25",
+  "versionName": "v2",
+  "adopted": true,
+  "triangles": 3555,
+  "waterline": 0.133,
+  "teamMaterials": [
+    "team"
+  ]
+}

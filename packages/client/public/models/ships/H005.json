@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "849dabc9-1e88-452b-990e-b7a111f8b7fc",
+  "projectName": "H005 鹦鹉螺",
+  "versionId": "9b33a352-930c-4c90-96e2-28bf29bf6d3b",
+  "versionName": "v2",
+  "adopted": true,
+  "triangles": 3885,
+  "waterline": 0.14,
+  "teamMaterials": [
+    "team"
+  ]
+}

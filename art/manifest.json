@@ -6,49 +6,573 @@
     "side": "exact side profile view, orthographic, bow pointing right"
   },
   "shipSuffix": "hull and deck superstructure only, no masts, no sails, no rigging",
-  "styleReferences": ["S1_sloop_34.png", "S2_ironclad_34.png"],
+  "styleReferences": [
+    "S1_sloop_34.png",
+    "S2_ironclad_34.png"
+  ],
   "items": [
     {
       "id": "S1",
       "name": "sloop",
       "kind": "style",
-      "views": ["34"],
+      "views": [
+        "34"
+      ],
       "description": "A small wooden fishing sloop hull with a little deck cabin and a few barrels"
     },
     {
       "id": "S2",
       "name": "ironclad",
       "kind": "style",
-      "views": ["34"],
+      "views": [
+        "34"
+      ],
       "description": "A medium iron-plated warship hull with riveted armor, a small command bridge and two deck cannons"
     },
     {
       "id": "S3",
       "name": "tower",
       "kind": "building",
-      "views": ["34"],
+      "views": [
+        "34"
+      ],
       "description": "A sturdy stone coastal defense tower with a cannon platform on top and a wooden door at the base"
     },
     {
       "id": "H000",
       "name": "sailor",
       "kind": "ship",
-      "views": ["34", "side"],
+      "views": [
+        "34",
+        "side"
+      ],
       "description": "A small, cheap wooden launch boat with a single small cannon mounted at the bow, a tiny tiller at the stern and a coil of rope on deck, simple and humble"
     },
     {
       "id": "H016",
       "name": "turtle",
       "kind": "ship",
-      "views": ["34", "side"],
+      "views": [
+        "34",
+        "side"
+      ],
       "description": "A Joseon-era Korean turtle warship: a fully enclosed curved armored roof covered in iron spikes like a turtle shell, a carved dragon head at the bow, rows of small gun ports along both sides, sturdy dark wooden hull"
     },
     {
       "id": "H008",
       "name": "lord",
       "kind": "ship",
-      "views": ["34", "side"],
+      "views": [
+        "34",
+        "side"
+      ],
       "description": "A massive dark iron battleship with a fortified stone-and-iron keep in the middle of the deck, a heavy reinforced ram at the bow, frost-blue crystal ornaments on the keep, broadside cannon ports along the hull, intimidating ruler of the sea"
+    },
+    {
+      "id": "H00D",
+      "name": "panama",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A small round-bellied merchant cog loaded with cargo crates, sacks and barrels lashed on deck, a little covered cargo hold, peaceful trading vessel"
+    },
+    {
+      "id": "H001",
+      "name": "jihadi",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A fast armored skiff with an iron-reinforced pointed ram bow, low sleek hull, a few powder kegs strapped near the bow, built for daring suicide charges"
+    },
+    {
+      "id": "H01A",
+      "name": "fishing",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A sturdy fishing boat with a net winch, piled fishing nets and floats, a small wheelhouse, and a carved orca figurehead at the bow"
+    },
+    {
+      "id": "H01B",
+      "name": "flyingfish",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A sleek steam-powered launch with fin-shaped armored side plates like a flying fish, a short smokestack and a small engine housing, fast and tough"
+    },
+    {
+      "id": "H021",
+      "name": "goldenmerry",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A cheerful small caravel with a bright sunflower-yellow hull and orange trim, a round sun-shaped carved figurehead at the bow, a small cozy cabin with round windows, adventurous and friendly"
+    },
+    {
+      "id": "H003",
+      "name": "interceptor",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A narrow fast naval frigate with twin fuel boilers and exhaust pipes at the stern, a sharp bow, a light deck cannon, built for speed"
+    },
+    {
+      "id": "H004",
+      "name": "guardian",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A practical engineering ship with a deck crane, a repair workshop cabin with tool racks, spare planks, and naval mine racks at the stern"
+    },
+    {
+      "id": "H01K",
+      "name": "enforcer",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "An elegant royal gunboat with a white hull and gold trim, twin forward deck guns, a polished command cabin and royal crest on the bow"
+    },
+    {
+      "id": "H007",
+      "name": "saboteur",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A mysterious cruiser that looks like a patched-together shipwreck, mismatched hull planks and iron plates, broken railings, boarding hooks and grapples, eerie and chaotic"
+    },
+    {
+      "id": "H006",
+      "name": "dominator",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A solid medium cruiser with a large copper electromagnetic coil tower on the deck, cables running along the hull, a few cannons"
+    },
+    {
+      "id": "H01C",
+      "name": "privateer",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A privateer raider with flamethrower nozzles and fuel tanks at the bow, heavy chains and shackles hanging from the sides, a treasure chest on deck"
+    },
+    {
+      "id": "H01D",
+      "name": "shadow",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A strange shimmering warship covered in polished crystal and mirror panels that reflect light, faceted angular hull, mysterious and glittering"
+    },
+    {
+      "id": "H01H",
+      "name": "elemental",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A living nature-magic warship whose hull is made of twisted living wood covered in moss, small trees growing on deck, mossy boulders and glowing green runes"
+    },
+    {
+      "id": "H01V",
+      "name": "maus",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A compact, extremely heavily armored low-profile ironclad with one huge rotating gun turret in the middle, thick sloped steel armor, small but unstoppable"
+    },
+    {
+      "id": "H005",
+      "name": "nautilus",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A Victorian brass submarine with a riveted cigar-shaped hull, nautilus-shell spiral ornaments, a conning tower with round portholes, side fins and a propeller"
+    },
+    {
+      "id": "H01N",
+      "name": "dutchman",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A spectral ghost galleon from sailor legends, rotting dark wood hull with faint green ghostly glow seeping through cracks, broken lanterns, crackling lightning crystals on deck"
+    },
+    {
+      "id": "H00X",
+      "name": "phoenician",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "An ancient Mediterranean bronze-age war galley with a bronze ram, rows of oars, painted eyes on the bow, flaming braziers along the deck, surrounded by fire"
+    },
+    {
+      "id": "H00V",
+      "name": "archangel",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A majestic white command flagship with gilded angel-wing ornaments along the hull, a tall signal tower, large war drums on deck, radiant and noble"
+    },
+    {
+      "id": "H00T",
+      "name": "reaper",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A fast black-and-crimson war galley with dozens of long oars, a scythe-shaped curved ram blade at the bow, skull lanterns, menacing and swift"
+    },
+    {
+      "id": "H011",
+      "name": "phantom",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A sleek matte-black high-speed stealth warship with a sharp angular wave-piercing hull, low profile, faint purple glowing seams"
+    },
+    {
+      "id": "H01L",
+      "name": "moonlight",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "An ancient eastern magic warship with a crescent-moon shaped hull, silver and deep blue lacquer, hanging paper lanterns, moon symbols and carved clouds"
+    },
+    {
+      "id": "H009",
+      "name": "overlord",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A colossal floating fortress battleship with thick dark armor plates, multiple decks of cannons, a heavy tower, and a carved kraken totem at the bow"
+    },
+    {
+      "id": "H01O",
+      "name": "gravedigger",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "An undead ship whose hull is built from giant bones and ribs, exposed rib cage sides, green ghostly lanterns, a smoking volcanic vent in the middle of the deck, plague barrels"
+    },
+    {
+      "id": "H019",
+      "name": "dengzilong",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A huge Ming-dynasty Chinese treasure ship, multi-deck junk hull painted red and gold, a tall ornate stern castle with carved dragons, eye painted on the bow"
+    },
+    {
+      "id": "H01P",
+      "name": "iserlohn",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A slow mobile sea fortress: a round disc-shaped armored citadel floating on a wide hull, one giant central siege cannon, small airship docking platform on top"
+    },
+    {
+      "id": "H00R",
+      "name": "magellan",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A heavy dreadnought battleship with three enormous main gun turrets, a tall armored bridge tower, thick belt armor, big-gun battleship design"
+    },
+    {
+      "id": "H015",
+      "name": "dingyuan",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A late 19th-century Chinese ironclad battleship, twin large armored gun barbettes placed diagonally, a central superstructure with two tall funnels, black hull with buff upper works"
+    },
+    {
+      "id": "H00C",
+      "name": "blackpearl",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A large fearsome pirate galleon with a black-painted hull, a carved screaming-skull figurehead, rows of cannon ports, a tall stern castle with skull lanterns"
+    },
+    {
+      "id": "h00I",
+      "name": "navyboat",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A small standard-issue navy patrol boat, uniform military design, one light deck gun, simple and mass-produced"
+    },
+    {
+      "id": "h00B",
+      "name": "navyfrigate",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A standard navy frigate, uniform military paint scheme, two deck guns, a small bridge, mass-produced and practical"
+    },
+    {
+      "id": "h00H",
+      "name": "navycruiser",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A standard navy cruiser, uniform military design, a forward gun turret, a command bridge, sturdy and mass-produced"
+    },
+    {
+      "id": "h018",
+      "name": "superbattleship",
+      "kind": "ship",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A gigantic super battleship, the pride of the navy, layered armored superstructure, many gun turrets, a massive armored prow"
+    },
+    {
+      "id": "n000",
+      "name": "mainbase",
+      "kind": "building",
+      "views": [
+        "34"
+      ],
+      "description": "A grand harbor fortress headquarters, a thick-walled stone keep with a large neutral-grey roof, defensive cannons on the battlements, a harbor gate at the front, standing on a small flat base, no ground, no terrain, roofs and banners in neutral grey so the engine can tint them"
+    },
+    {
+      "id": "n003",
+      "name": "shipyard",
+      "kind": "building",
+      "views": [
+        "34"
+      ],
+      "description": "A wooden shipyard dock with a slipway, a large wooden crane, scaffolding around a half-built hull frame, stacked timber, standing on a small flat base, no ground, no terrain, roofs and banners in neutral grey so the engine can tint them"
+    },
+    {
+      "id": "h00K",
+      "name": "tower",
+      "kind": "building",
+      "views": [
+        "34"
+      ],
+      "description": "A round stone coastal artillery tower with a cannon on a rotating platform on top, sturdy and squat, standing on a small flat base, no ground, no terrain, roofs and banners in neutral grey so the engine can tint them"
+    },
+    {
+      "id": "h00M",
+      "name": "tower2",
+      "kind": "building",
+      "views": [
+        "34"
+      ],
+      "description": "An upgraded reinforced coastal artillery tower with iron bands, two cannons on top and an observation post, standing on a small flat base, no ground, no terrain, roofs and banners in neutral grey so the engine can tint them"
+    },
+    {
+      "id": "h012",
+      "name": "energytower",
+      "kind": "building",
+      "views": [
+        "34"
+      ],
+      "description": "A tall arcane energy tower of carved stone with a glowing blue crystal floating at the top, runes along the sides, standing on a small flat base, no ground, no terrain, roofs and banners in neutral grey so the engine can tint them"
+    },
+    {
+      "id": "n001",
+      "name": "weaponshop",
+      "kind": "building",
+      "views": [
+        "34"
+      ],
+      "description": "A small seaside weapon shop with cannons and cannonballs displayed out front, a wooden sign with a crossed-cannons emblem, standing on a small flat base, no ground, no terrain, roofs and banners in neutral grey so the engine can tint them"
+    },
+    {
+      "id": "n002",
+      "name": "outfitter",
+      "kind": "building",
+      "views": [
+        "34"
+      ],
+      "description": "A small seaside outfitter shop with ship armor plates, rolled sails and steering wheels displayed out front, standing on a small flat base, no ground, no terrain, roofs and banners in neutral grey so the engine can tint them"
+    },
+    {
+      "id": "n00Y",
+      "name": "refit",
+      "kind": "building",
+      "views": [
+        "34"
+      ],
+      "description": "A shipwright workshop with a dry dock gantry, gears and tools, ship parts hanging from hooks, standing on a small flat base, no ground, no terrain, roofs and banners in neutral grey so the engine can tint them"
+    },
+    {
+      "id": "n012",
+      "name": "figureheads",
+      "kind": "building",
+      "views": [
+        "34"
+      ],
+      "description": "A small carving workshop with several colorful wooden ship figureheads displayed outside, standing on a small flat base, no ground, no terrain, roofs and banners in neutral grey so the engine can tint them"
+    },
+    {
+      "id": "n011",
+      "name": "research",
+      "kind": "building",
+      "views": [
+        "34"
+      ],
+      "description": "A brick weapons research workshop with a tall chimney, blueprints pinned on the walls, an experimental cannon prototype outside, standing on a small flat base, no ground, no terrain, roofs and banners in neutral grey so the engine can tint them"
+    },
+    {
+      "id": "n005",
+      "name": "neutralport",
+      "kind": "building",
+      "views": [
+        "34"
+      ],
+      "description": "A neutral trading port: a cluster of wooden piers, a harbor master's house, cranes and cargo crates, standing on a small flat base, no ground, no terrain, roofs and banners in neutral grey so the engine can tint them"
+    },
+    {
+      "id": "n014",
+      "name": "alexandria",
+      "kind": "building",
+      "views": [
+        "34"
+      ],
+      "description": "An ancient Mediterranean port with white stone buildings, columns, and a small lighthouse tower, standing on a small flat base, no ground, no terrain, roofs and banners in neutral grey so the engine can tint them"
+    },
+    {
+      "id": "n00U",
+      "name": "subfactory",
+      "kind": "building",
+      "views": [
+        "34"
+      ],
+      "description": "An industrial submarine factory hangar with a sloped launch ramp into the water, riveted iron walls, a smokestack, standing on a small flat base, no ground, no terrain, roofs and banners in neutral grey so the engine can tint them"
+    },
+    {
+      "id": "repair",
+      "name": "repairdock",
+      "kind": "building",
+      "views": [
+        "34"
+      ],
+      "description": "A small repair dock with a wooden frame, workers' tool sheds, stacks of planks and pulleys, standing on a small flat base, no ground, no terrain, roofs and banners in neutral grey so the engine can tint them"
+    },
+    {
+      "id": "n00L",
+      "name": "kraken",
+      "kind": "creature",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A giant kraken rising from below, huge tentacles curled upward, barnacle-covered head, menacing eyes, sea creature, full body, simple swimming or standing pose, no water, no base"
+    },
+    {
+      "id": "n01E",
+      "name": "orca",
+      "kind": "creature",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A stylized orca whale, black and white, swimming pose, friendly but powerful, sea creature, full body, simple swimming or standing pose, no water, no base"
+    },
+    {
+      "id": "n016",
+      "name": "nagaqueen",
+      "kind": "creature",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A sea serpent queen with a coiled scaly serpent body and several hydra heads, wearing a coral crown, sea creature, full body, simple swimming or standing pose, no water, no base"
+    },
+    {
+      "id": "ntrd",
+      "name": "dragonturtle",
+      "kind": "creature",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A colossal dragon turtle with a craggy rock-like shell, dragon head and clawed flippers, sea creature, full body, simple swimming or standing pose, no water, no base"
+    },
+    {
+      "id": "nbzd",
+      "name": "goldendragon",
+      "kind": "creature",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A golden sea dragon king, long coiled golden scaled body, flowing whiskers and a pearl, sea creature, full body, simple swimming or standing pose, no water, no base"
+    },
+    {
+      "id": "nsel",
+      "name": "seaelemental",
+      "kind": "creature",
+      "views": [
+        "34",
+        "side"
+      ],
+      "description": "A sea elemental made of swirling seawater and foam in a roughly humanoid shape, sea creature, full body, simple swimming or standing pose, no water, no base"
     }
   ]
 }

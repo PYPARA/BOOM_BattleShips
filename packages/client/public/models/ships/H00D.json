@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "2f7dfa90-c1f3-4540-bc0b-23f5c968e515",
+  "projectName": "H00D 巴拿马",
+  "versionId": "213ee920-70c9-40e2-b715-a964b1320dbb",
+  "versionName": "v3",
+  "adopted": true,
+  "triangles": 1966,
+  "waterline": 0.14,
+  "teamMaterials": [
+    "team"
+  ]
+}

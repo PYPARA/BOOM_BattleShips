@@ -50,7 +50,11 @@ export class Tooltip {
   }
 }
 
+/** NPC fleet variants (I/II/III 型) use their class's icon, like they share its model. */
+const ICON_ALIASES: Record<string, string> = { h00E: 'h00I', h01M: 'h00I', h00F: 'h00B', h013: 'h00B', h00G: 'h00H', h017: 'h00H', h010: 'h00H' };
+
 /** An icon tile: the picture when it exists, its name underneath as the fallback. */
 export function icon(kind: 'ship' | 'weapon' | 'item' | 'skill', id: string, name: string, cls = ''): string {
+  id = ICON_ALIASES[id] ?? id;
   return `<span class="icon ${cls}"><em>${name.slice(0, 4)}</em><i style="background-image:url(${import.meta.env.BASE_URL}icons/${kind}/${id}.jpg)"></i></span>`;
 }

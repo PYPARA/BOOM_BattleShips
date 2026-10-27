@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "048a026a-2874-4ece-b86c-6b4bad316b50",
+  "projectName": "H01B 飞鱼",
+  "versionId": "f2416401-2b4f-4c72-b325-f8b436caf20f",
+  "versionName": "v2",
+  "adopted": true,
+  "triangles": 1993,
+  "waterline": 0.1085,
+  "teamMaterials": [
+    "team"
+  ]
+}

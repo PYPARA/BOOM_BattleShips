@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "3701c925-6f6a-46b6-b19b-637e56ec9470",
+  "projectName": "h018 超级战舰",
+  "versionId": "c0c8a45b-fbf6-4dfc-b93d-af0228d917f1",
+  "versionName": "v2",
+  "adopted": true,
+  "triangles": 7425,
+  "waterline": 0.2065,
+  "teamMaterials": [
+    "team"
+  ]
+}

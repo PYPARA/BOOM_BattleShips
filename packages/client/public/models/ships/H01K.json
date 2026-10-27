@@ -1,0 +1,13 @@
+{
+  "source": "aha",
+  "projectId": "3fb71471-c321-43e4-aa5b-160910254cb0",
+  "projectName": "H01K 执法者",
+  "versionId": "1678c613-c95e-4b2a-b76c-26e1e97af6e2",
+  "versionName": "v2",
+  "adopted": true,
+  "triangles": 3306,
+  "waterline": 0.14,
+  "teamMaterials": [
+    "team"
+  ]
+}
