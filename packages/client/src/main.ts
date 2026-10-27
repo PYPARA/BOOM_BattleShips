@@ -3,6 +3,7 @@ import { Bot, type Difficulty } from '@boom/ai';
 import { createMatch, TICK_DT } from '@boom/sim';
 import { RtsCamera } from './camera.ts';
 import { loadData } from './data.ts';
+import { AudioEngine, createVolumeControl } from './audio.ts';
 import { Effects } from './effects.ts';
 import { Environment } from './environment.ts';
 import { CombatFx } from './fx.ts';
@@ -10,12 +11,14 @@ import { Hud } from './hud.ts';
 import { Info } from './info.ts';
 import { SelectionInput } from './input.ts';
 import { Minimap } from './minimap.ts';
+import { Music } from './music.ts';
 import { loadGlbModels } from './models/glb.ts';
 import { Overlay } from './overlay.ts';
 import { ProjectileViews } from './projectiles.ts';
 import { createBuildings, createDoodads } from './props.ts';
 import { ShipViews } from './shipViews.ts';
 import { SkillBar } from './skillbar.ts';
+import { SoundFx } from './sounds.ts';
 import { SEA_LEVEL, toThree } from './space.ts';
 import { createTerrainMesh } from './terrain.ts';
 import { Tooltip } from './tooltip.ts';
@@ -73,7 +76,7 @@ for (const s of world.structures.values()) {
 }
 
 // Handy in the browser console while developing.
-if (import.meta.env.DEV) Object.assign(window, { boom: { scene, match, world, renderer, get rts() { return rts; }, get effects() { return effects; }, get hud() { return hudPanel; }, get overlay() { return overlay; } } });
+if (import.meta.env.DEV) Object.assign(window, { boom: { scene, match, world, renderer, get rts() { return rts; }, get effects() { return effects; }, get hud() { return hudPanel; }, get overlay() { return overlay; }, get audio() { return audio; }, get music() { return music; } } });
 
 const shipViews = new ShipViews(world, match.players.get(PLAYER)!.team);
 scene.add(shipViews.group);
@@ -84,6 +87,12 @@ const projectileViews = new ProjectileViews(world);
 scene.add(projectileViews.mesh);
 const overlay = new Overlay(match, PLAYER);
 const hudPanel = new Hud(match, PLAYER, data);
+const audio = new AudioEngine();
+const music = new Music(audio);
+audio.onStart = () => music.start();
+createVolumeControl(audio);
+const soundFx = new SoundFx(audio, music, match, PLAYER);
+hudPanel.onAnnounce = () => soundFx.announce();
 const shipTypes = new Map(data.ships.map((s) => [s.id, s]));
 const info = new Info(match, PLAYER, { ships: shipTypes, units: data.unitsById, items: data.itemsById, weapons: new Map(data.weapons.map((w) => [w.id, w])) });
 const tooltip = new Tooltip((key) => {
@@ -154,6 +163,7 @@ renderer.setAnimationLoop(() => {
     match.step();
     overlay.onEvents(match.events, now);
     combatFx.onEvents(match.events);
+    soundFx.onEvents(match.events);
     hudPanel.onEvents(match.events, now);
     for (const e of match.events) {
       if (e.kind === 'death') buildingMeshes.get(e.unitId)?.removeFromParent();
@@ -174,6 +184,7 @@ renderer.setAnimationLoop(() => {
 
   rts.update(frameDt);
   environment.update(rts.camera, rts.target, rts.viewDistance);
+  soundFx.update(rts.target.x, -rts.target.z, rts.viewDistance);
   const alpha = accumulator / TICK_DT;
   shipViews.update(alpha, now / 1000, input.selected, frameDt);
   projectileViews.update(alpha);

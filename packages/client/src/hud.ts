@@ -30,6 +30,8 @@ export class Hud {
   private readonly feed: HTMLElement;
   private readonly announce: HTMLElement;
   private announceUntil = 0;
+  /** Called with each kill call, for its sound. */
+  onAnnounce: (() => void) | undefined;
   private firstBlood = false;
   /** Per player: kills since last death, and the recent kill times for multi-kills. */
   private readonly streaks = new Map<number, { streak: number; recent: number[] }>();
@@ -140,6 +142,7 @@ export class Hud {
     this.announce.innerHTML = `<strong>${call}</strong><small>${who}</small>`;
     this.announce.className = `announce show ${side(killer.team)}`;
     this.announceUntil = now + 3000;
+    this.onAnnounce?.();
   }
 
   update(now: number): void {
