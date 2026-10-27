@@ -96,6 +96,7 @@ export function createDoodads(doodads: Doodad[]): THREE.Group {
     for (const part of glbParts('doodads', model, MODEL_HEIGHTS[model] ?? 100)!) {
       const mesh = new THREE.InstancedMesh(part.geometry, part.material, list.length);
       list.forEach((d, i) => mesh.setMatrixAt(i, place(d, i, floats)));
+      mesh.userData.spots = list.map((d) => [d.x, d.y]); // for the fog tint (fog.ts)
       mesh.instanceMatrix.needsUpdate = true;
       mesh.castShadow = model !== 'lilypads';
       mesh.receiveShadow = true;
@@ -113,6 +114,7 @@ export function createDoodads(doodads: Doodad[]): THREE.Group {
     const material = new THREE.MeshStandardMaterial({ color: part.color, roughness: 0.9, flatShading: true });
     const mesh = new THREE.InstancedMesh(part.geometry, material, list.length);
     list.forEach((d, i) => mesh.setMatrixAt(i, place(d, i, kind === 'plant')));
+    mesh.userData.spots = list.map((d) => [d.x, d.y]);
     mesh.instanceMatrix.needsUpdate = true;
     mesh.castShadow = kind !== 'plant';
     mesh.receiveShadow = true;

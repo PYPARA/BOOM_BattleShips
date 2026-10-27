@@ -102,7 +102,9 @@ export class Minimap {
       if (p.player < 0) square(p.x, p.y, this.buildingSizes.get(p)!, css(TEAM_COLORS.neutral));
     }
     for (const u of this.world.structures.values()) square(u.x, u.y, u.bodyRadius, css(TEAM_COLORS[teamOf(u.owner)]));
+    const team = teamOf(this.player);
     for (const ship of this.world.ships.values()) {
+      if (!this.world.seenBy(team, ship)) continue; // fogged enemies are not on the minimap
       const [x, y] = this.toMap(ship.x, ship.y);
       ctx.fillStyle = ship.owner === this.player ? '#7dff8a' : css(TEAM_COLORS[teamOf(ship.owner)]);
       ctx.beginPath();

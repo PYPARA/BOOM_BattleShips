@@ -7,6 +7,7 @@ import { loadData } from './data.ts';
 import { AudioEngine, createVolumeControl } from './audio.ts';
 import { Effects } from './effects.ts';
 import { Environment } from './environment.ts';
+import { FogLayer } from './fog.ts';
 import { CombatFx } from './fx.ts';
 import { Hud } from './hud.ts';
 import { Info } from './info.ts';
@@ -81,9 +82,11 @@ const scene = new THREE.Scene();
 const environment = new Environment(scene, settings.quality === 'high' ? 2048 : 1024);
 environment.bakeEnvironment(renderer, scene);
 
-scene.add(createTerrainMesh(data.terrain));
-scene.add(createWater(data.terrain));
-scene.add(createDoodads(data.doodads));
+const fog = new FogLayer(world, match.players.get(PLAYER)!.team);
+scene.add(createTerrainMesh(data.terrain, fog));
+scene.add(createWater(data.terrain, fog));
+const doodads = createDoodads(data.doodads);
+scene.add(doodads);
 const buildingGroup = createBuildings(data.map.placements, data.unitsById, data.terrain);
 scene.add(buildingGroup);
 scene.add(createRepairDocks((['south', 'north'] as const).map((team) => ({ team, ...match.rectCenter(REPAIR_RECTS[team].station) })), data.terrain));
@@ -208,11 +211,17 @@ renderer.setAnimationLoop(() => {
   if (own !== undefined && input.selected.size === 0) input.selected.add(own);
 
   rts.update(frameDt);
-  environment.update(rts.camera, rts.target, rts.viewDistance);
+  environment.update(rts.camera, rts.target, rts.viewDistance, world.tick);
+  fog.update(frameDt);
+  if (frame % 6 === 0) fog.tintInstances(doodads);
   soundFx.update(rts.target.x, -rts.target.z, rts.viewDistance);
   const alpha = accumulator / TICK_DT;
   // A selected enemy or creep gets the selection ring too (it is only inspected, not ordered).
-  if (input.focus?.kind === 'unit' && !world.unit(input.focus.id)) input.focus = undefined;
+  // An inspected unit that sinks or slips into the fog is deselected, as in Warcraft.
+  if (input.focus?.kind === 'unit') {
+    const u = world.unit(input.focus.id);
+    if (!u || (u.kind === 'ship' && !world.seenBy(ownTeam, u))) input.focus = undefined;
+  }
   const ringed = input.focus?.kind === 'unit' ? new Set([...input.selected, input.focus.id]) : input.selected;
   shipViews.update(alpha, now / 1000, ringed, frameDt);
   projectileViews.update(alpha);

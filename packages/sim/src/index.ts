@@ -9,3 +9,4 @@ export * from './buffs.ts';
 export * from './heroes.ts';
 export * from './goods.ts';
 export * from './creeps.ts';
+export * from './vision.ts';

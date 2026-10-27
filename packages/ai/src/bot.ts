@@ -154,10 +154,16 @@ export class Bot {
     if (pick) this.match.issue({ kind: 'learn', player: this.player, abilityId: pick.id });
   }
 
-  /** Enemy ships and structures near a point; neutral creeps are left to the auto-firing weapons. */
+  /**
+   * Enemy ships and structures near a point that the bot's side can see (fog of war: bots play
+   * with what a player would know); neutral creeps are left to the auto-firing weapons.
+   */
   private enemiesWithin(at: Vec2, radius: number): UnitEntity[] {
     const out: UnitEntity[] = [];
-    for (const u of this.match.world.allUnits()) if (u.team !== this.side && u.team !== 'neutral' && u.hp > 0 && distance(at, u) <= radius) out.push(u);
+    const world = this.match.world;
+    for (const u of world.allUnits()) {
+      if (u.team !== this.side && u.team !== 'neutral' && u.hp > 0 && distance(at, u) <= radius && world.visibleTo(this.side, u)) out.push(u);
+    }
     return out;
   }
 

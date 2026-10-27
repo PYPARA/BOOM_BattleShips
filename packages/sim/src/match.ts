@@ -148,13 +148,19 @@ export class Match {
   /** The goblin merchant that appears where the boss died, and when it leaves. */
   private goblin?: { entityId: number; until: number };
 
-  constructor(world: World, data: MatchData, options: { mode?: GameMode; players: number[] }) {
+  constructor(world: World, data: MatchData, options: { mode?: GameMode; players: number[]; fog?: boolean }) {
     this.world = world;
     this.mode = options.mode ?? 'fast';
     this.units = new Map(data.units.map((u) => [u.id, u]));
     this.items = new Map(data.items.map((i) => [i.id, i]));
     this.rects = new Map(data.map.rects.map((r) => [r.name, { x: (r.minX + r.maxX) / 2, y: (r.minY + r.maxY) / 2 }]));
     for (const r of data.map.rects) this.rectBounds.set(r.name, r);
+    // Fog of war; each side always sees its own harbour (CreateFogModifierRectBJ in war3map.j).
+    this.world.vision.enabled = options.fog ?? true;
+    for (const [team, rect] of [['south', 'South_Harbour'], ['north', 'North_Harbour']] as const) {
+      const r = this.rectBounds.get(rect);
+      if (r) this.world.vision.addAlwaysVisible(team, r);
+    }
     this.creeps = new Creeps(this.world, this.rectBounds);
     // §2: fast mode keeps the west channel shut; standard opens it from the start.
     const channel = this.rectBounds.get(WEST_CHANNEL);

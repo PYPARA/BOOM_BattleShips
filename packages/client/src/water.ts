@@ -7,6 +7,7 @@ import {
   abs, attribute, clamp, cos, float, mix, normalize, positionWorld, sin, smoothstep, time, transformNormalToView, vec2, vec3,
 } from 'three/tsl';
 import type { Terrain } from '@boom/gamedata';
+import type { FogLayer } from './fog.ts';
 import { SEA_LEVEL } from './space.ts';
 
 /** Open sea beyond the map edge extends this far, so the horizon is never bare. */
@@ -44,7 +45,7 @@ function createWaterGeometry(terrain: Terrain): THREE.BufferGeometry {
   return geometry;
 }
 
-export function createWater(terrain: Terrain): THREE.Mesh {
+export function createWater(terrain: Terrain, fog?: FogLayer): THREE.Mesh {
   const depth = attribute<'float'>('depth', 'float');
   const mapXY = vec2(positionWorld.x, positionWorld.z.negate());
 
@@ -68,7 +69,8 @@ export function createWater(terrain: Terrain): THREE.Mesh {
   const crest = smoothstep(0.82, 1.0, abs(w1.mul(w2).mul(w3))).mul(0.06);
 
   const material = new THREE.MeshStandardNodeMaterial({ transparent: true, roughness: 0.18, metalness: 0.05 });
-  material.colorNode = mix(waterColor, vec3(0.95, 0.97, 0.97), clamp(foam.add(crest), 0, 1));
+  const surface = mix(waterColor, vec3(0.95, 0.97, 0.97), clamp(foam.add(crest), 0, 1));
+  material.colorNode = fog ? surface.mul(fog.shade()) : surface;
   material.normalNode = transformNormalToView(normal);
   material.opacityNode = mix(float(0.6), float(0.96), smoothstep(0, 90, depth));
   const mesh = new THREE.Mesh(createWaterGeometry(terrain), material);

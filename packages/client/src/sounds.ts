@@ -39,6 +39,8 @@ export class SoundFx {
     const { world } = this.match;
     const me = this.match.players.get(this.player)!;
     for (const e of events) {
+      // Nothing is heard from inside the fog (the player's own events always are).
+      if ((e.kind === 'cast' || e.kind === 'hit' || e.kind === 'death') && !world.vision.sees(me.team, e.x, e.y)) continue;
       switch (e.kind) {
         case 'cast': {
           if (e.abilityId.startsWith('@')) { setTimeout(() => this.audio.play('bigExplosion', e), 4000); break; }

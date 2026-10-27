@@ -37,6 +37,8 @@ export interface Unit {
   bounty: { base: number; dice: number; sides: number };
   level?: number;
   sight?: number;
+  /** Sight radius at night (Warcraft's nsight). */
+  nightSight?: number;
   moveType?: string;
   targetedAs: string[];
   abilities: Rawcode[];

@@ -20,6 +20,7 @@
     },
     "level": 5,
     "sight": 1800,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -84,6 +85,7 @@
     },
     "level": 5,
     "sight": 1800,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -149,6 +151,7 @@
     },
     "level": 5,
     "sight": 1800,
+    "nightSight": 900,
     "moveType": "horse",
     "targetedAs": [
       "ground"
@@ -214,6 +217,7 @@
     },
     "level": 5,
     "sight": 1800,
+    "nightSight": 800,
     "moveType": "horse",
     "targetedAs": [
       "ground"
@@ -280,6 +284,7 @@
     },
     "level": 5,
     "sight": 1800,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -344,6 +349,7 @@
     },
     "level": 1,
     "sight": 900,
+    "nightSight": 600,
     "moveType": "foot",
     "targetedAs": [
       "structure"
@@ -404,6 +410,7 @@
     },
     "level": 1,
     "sight": 900,
+    "nightSight": 600,
     "moveType": "foot",
     "targetedAs": [
       "structure"
@@ -464,6 +471,7 @@
     },
     "level": 1,
     "sight": 900,
+    "nightSight": 600,
     "moveType": "foot",
     "targetedAs": [
       "structure"
@@ -524,6 +532,7 @@
     },
     "level": 2,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -589,6 +598,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 600,
     "targetedAs": [
       "structure"
     ],
@@ -628,6 +638,7 @@
     },
     "level": 2,
     "sight": 1400,
+    "nightSight": 1200,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -689,6 +700,7 @@
     },
     "level": 5,
     "sight": 1600,
+    "nightSight": 800,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -751,6 +763,7 @@
     },
     "level": 4,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -815,6 +828,7 @@
     },
     "level": 1,
     "sight": 1000,
+    "nightSight": 750,
     "moveType": "foot",
     "targetedAs": [
       "structure"
@@ -876,6 +890,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 600,
     "targetedAs": [
       "structure"
     ],
@@ -915,6 +930,7 @@
     },
     "level": 4,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -978,6 +994,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 600,
     "targetedAs": [
       "structure"
     ],
@@ -1017,6 +1034,7 @@
     },
     "level": 2,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -1082,6 +1100,7 @@
     },
     "level": 2,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -1148,6 +1167,7 @@
     },
     "level": 2,
     "sight": 1600,
+    "nightSight": 800,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -1206,6 +1226,7 @@
     },
     "level": 3,
     "sight": 1600,
+    "nightSight": 1000,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -1268,6 +1289,7 @@
     },
     "level": 2,
     "sight": 1200,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -1325,6 +1347,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 600,
     "targetedAs": [
       "structure"
     ],
@@ -1368,6 +1391,7 @@
     },
     "level": 2,
     "sight": 1600,
+    "nightSight": 800,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -1425,6 +1449,7 @@
     },
     "level": 4,
     "sight": 1600,
+    "nightSight": 800,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -1488,6 +1513,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 600,
     "targetedAs": [
       "structure"
     ],
@@ -1529,6 +1555,7 @@
     },
     "level": 6,
     "sight": 1200,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -1597,6 +1624,7 @@
     },
     "level": 3,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -1663,6 +1691,7 @@
     },
     "level": 7,
     "sight": 1200,
+    "nightSight": 1000,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -1722,6 +1751,7 @@
     },
     "level": 2,
     "sight": 900,
+    "nightSight": 600,
     "moveType": "foot",
     "targetedAs": [
       "structure"
@@ -1787,6 +1817,7 @@
     },
     "level": 3,
     "sight": 900,
+    "nightSight": 600,
     "moveType": "foot",
     "targetedAs": [
       "structure"
@@ -1850,6 +1881,7 @@
     },
     "level": 1,
     "sight": 900,
+    "nightSight": 600,
     "moveType": "foot",
     "targetedAs": [
       "structure"
@@ -1915,6 +1947,7 @@
     },
     "level": 3,
     "sight": 1900,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "structure"
@@ -1992,6 +2025,7 @@
     },
     "level": 2,
     "sight": 1200,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -2048,6 +2082,7 @@
     },
     "level": 1,
     "sight": 1000,
+    "nightSight": 750,
     "moveType": "hover",
     "targetedAs": [
       "ground"
@@ -2091,6 +2126,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 600,
     "targetedAs": [
       "structure"
     ],
@@ -2130,6 +2166,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 600,
     "targetedAs": [
       "structure"
     ],
@@ -2233,6 +2270,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 600,
     "targetedAs": [
       "structure"
     ],
@@ -2273,6 +2311,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 600,
     "targetedAs": [
       "structure"
     ],
@@ -2316,6 +2355,7 @@
       "sides": 0
     },
     "sight": 1000,
+    "nightSight": 750,
     "targetedAs": [
       "structure"
     ],
@@ -2358,6 +2398,7 @@
     },
     "level": 9,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -2416,6 +2457,7 @@
       "sides": 0
     },
     "sight": 350,
+    "nightSight": 350,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -2454,6 +2496,7 @@
     },
     "level": 4,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -2511,6 +2554,7 @@
     },
     "level": 8,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -2582,6 +2626,7 @@
     },
     "level": 15,
     "sight": 1600,
+    "nightSight": 1000,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -2639,6 +2684,7 @@
       "sides": 0
     },
     "sight": 300,
+    "nightSight": 300,
     "targetedAs": [
       "structure"
     ],
@@ -2690,6 +2736,7 @@
       "sides": 0
     },
     "sight": 350,
+    "nightSight": 350,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -2728,6 +2775,7 @@
     },
     "level": 2,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -2781,6 +2829,7 @@
     },
     "level": 2,
     "sight": 800,
+    "nightSight": 600,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -2836,6 +2885,7 @@
     },
     "level": 6,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -2891,6 +2941,7 @@
     },
     "level": 5,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -2945,6 +2996,7 @@
     },
     "level": 4,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -2999,6 +3051,7 @@
     },
     "level": 4,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -3052,6 +3105,7 @@
     },
     "level": 6,
     "sight": 1400,
+    "nightSight": 1000,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -3110,6 +3164,7 @@
     },
     "level": 7,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "fly",
     "targetedAs": [
       "ground"
@@ -3165,6 +3220,7 @@
     },
     "level": 5,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -3220,6 +3276,7 @@
       "sides": 0
     },
     "sight": 350,
+    "nightSight": 350,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -3257,6 +3314,7 @@
       "sides": 0
     },
     "sight": 350,
+    "nightSight": 350,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -3295,6 +3353,7 @@
     },
     "level": 5,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -3351,6 +3410,7 @@
     },
     "level": 5,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -3406,6 +3466,7 @@
     },
     "level": 8,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -3462,6 +3523,7 @@
     },
     "level": 4,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -3514,6 +3576,7 @@
       "sides": 0
     },
     "sight": 500,
+    "nightSight": 350,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -3552,6 +3615,7 @@
     },
     "level": 6,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -3619,6 +3683,7 @@
       "sides": 0
     },
     "sight": 350,
+    "nightSight": 350,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -3657,6 +3722,7 @@
     },
     "level": 8,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -3715,6 +3781,7 @@
     },
     "level": 6,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -3771,6 +3838,7 @@
     },
     "level": 4,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -3825,6 +3893,7 @@
     },
     "level": 2,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -3881,6 +3950,7 @@
     },
     "level": 2,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -4003,6 +4073,7 @@
     },
     "level": 9,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -4060,6 +4131,7 @@
     },
     "level": 5,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -4116,6 +4188,7 @@
     },
     "level": 6,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -4173,6 +4246,7 @@
     },
     "level": 5,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -4230,6 +4304,7 @@
     },
     "level": 4,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -4283,6 +4358,7 @@
     },
     "level": 5,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -4342,6 +4418,7 @@
     },
     "level": 7,
     "sight": 1600,
+    "nightSight": 1000,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -4406,6 +4483,7 @@
     },
     "level": 6,
     "sight": 1600,
+    "nightSight": 1000,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -4449,6 +4527,7 @@
     },
     "level": 2,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -4509,6 +4588,7 @@
       "sides": 0
     },
     "sight": 1500,
+    "nightSight": 1500,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -4548,6 +4628,7 @@
       "sides": 0
     },
     "sight": 2200,
+    "nightSight": 2200,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -4587,6 +4668,7 @@
       "sides": 0
     },
     "sight": 1000,
+    "nightSight": 1000,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -4626,6 +4708,7 @@
       "sides": 0
     },
     "sight": 350,
+    "nightSight": 350,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -4663,6 +4746,7 @@
       "sides": 0
     },
     "sight": 350,
+    "nightSight": 350,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -4700,6 +4784,7 @@
       "sides": 0
     },
     "sight": 350,
+    "nightSight": 350,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -4737,6 +4822,7 @@
       "sides": 0
     },
     "sight": 350,
+    "nightSight": 350,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -4775,6 +4861,7 @@
     },
     "level": 6,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -4840,6 +4927,7 @@
     },
     "level": 8,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "hover",
     "targetedAs": [
       "ground"
@@ -4896,6 +4984,7 @@
     },
     "level": 3,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -4939,6 +5028,7 @@
     },
     "level": 5,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -4992,6 +5082,7 @@
     },
     "level": 1,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -5046,6 +5137,7 @@
     },
     "level": 1,
     "sight": 800,
+    "nightSight": 600,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -5098,6 +5190,7 @@
       "sides": 0
     },
     "sight": 350,
+    "nightSight": 350,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -5136,6 +5229,7 @@
     },
     "level": 5,
     "sight": 1200,
+    "nightSight": 800,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -5190,6 +5284,7 @@
     },
     "level": 9,
     "sight": 1200,
+    "nightSight": 800,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -5246,6 +5341,7 @@
       "sides": 0
     },
     "sight": 350,
+    "nightSight": 350,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -5283,6 +5379,7 @@
       "sides": 0
     },
     "sight": 350,
+    "nightSight": 350,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -5320,6 +5417,7 @@
       "sides": 0
     },
     "sight": 350,
+    "nightSight": 350,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -5358,6 +5456,7 @@
     },
     "level": 3,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -5414,6 +5513,7 @@
     },
     "level": 3,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -5470,6 +5570,7 @@
     },
     "level": 7,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -5526,6 +5627,7 @@
       "sides": 0
     },
     "sight": 350,
+    "nightSight": 350,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -5564,6 +5666,7 @@
     },
     "level": 5,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -5626,6 +5729,7 @@
     },
     "level": 5,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -5680,6 +5784,7 @@
     },
     "level": 5,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -5733,6 +5838,7 @@
     },
     "level": 15,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -5794,6 +5900,7 @@
     },
     "level": 7,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -5849,6 +5956,7 @@
       "sides": 0
     },
     "sight": 350,
+    "nightSight": 350,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -5887,6 +5995,7 @@
     },
     "level": 2,
     "sight": 1500,
+    "nightSight": 1200,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -5929,6 +6038,7 @@
     },
     "level": 6,
     "sight": 1600,
+    "nightSight": 1200,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -5989,6 +6099,7 @@
     },
     "level": 1,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -6043,6 +6154,7 @@
     },
     "level": 8,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -6099,6 +6211,7 @@
     },
     "level": 6,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -6155,6 +6268,7 @@
     },
     "level": 1,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -6193,6 +6307,7 @@
       "sides": 0
     },
     "sight": 1600,
+    "nightSight": 1600,
     "moveType": "float",
     "targetedAs": [
       "ward"
@@ -6231,6 +6346,7 @@
       "sides": 0
     },
     "sight": 600,
+    "nightSight": 600,
     "moveType": "foot",
     "targetedAs": [
       "ward"
@@ -6304,6 +6420,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 600,
     "targetedAs": [
       "structure"
     ],
@@ -6382,6 +6499,7 @@
     },
     "level": 1,
     "sight": 800,
+    "nightSight": 600,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -6440,6 +6558,7 @@
     },
     "level": 1,
     "sight": 1400,
+    "nightSight": 900,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -6500,6 +6619,7 @@
     },
     "level": 5,
     "sight": 1100,
+    "nightSight": 800,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -6557,6 +6677,7 @@
     },
     "level": 5,
     "sight": 1200,
+    "nightSight": 900,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -6615,6 +6736,7 @@
     },
     "level": 6,
     "sight": 1400,
+    "nightSight": 1100,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -6673,6 +6795,7 @@
     },
     "level": 6,
     "sight": 1400,
+    "nightSight": 1100,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -6731,6 +6854,7 @@
     },
     "level": 8,
     "sight": 1400,
+    "nightSight": 1100,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -6794,6 +6918,7 @@
     },
     "level": 7,
     "sight": 1600,
+    "nightSight": 1300,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -6852,6 +6977,7 @@
     },
     "level": 7,
     "sight": 1600,
+    "nightSight": 1300,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -6911,6 +7037,7 @@
     },
     "level": 8,
     "sight": 1800,
+    "nightSight": 1400,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -6970,6 +7097,7 @@
     },
     "level": 8,
     "sight": 1800,
+    "nightSight": 1400,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -7028,6 +7156,7 @@
     },
     "level": 10,
     "sight": 1800,
+    "nightSight": 1800,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -7087,6 +7216,7 @@
     },
     "level": 5,
     "sight": 1600,
+    "nightSight": 1300,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -7133,6 +7263,7 @@
     },
     "level": 5,
     "sight": 1300,
+    "nightSight": 1000,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -7192,6 +7323,7 @@
     },
     "level": 9,
     "sight": 1800,
+    "nightSight": 1400,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -7252,6 +7384,7 @@
     },
     "level": 9,
     "sight": 1800,
+    "nightSight": 1400,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -7311,6 +7444,7 @@
     },
     "level": 9,
     "sight": 1000,
+    "nightSight": 1000,
     "moveType": "float",
     "targetedAs": [
       "ward"
@@ -7377,6 +7511,7 @@
     },
     "level": 9,
     "sight": 1700,
+    "nightSight": 1400,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -7437,6 +7572,7 @@
     },
     "level": 9,
     "sight": 1800,
+    "nightSight": 1400,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -7496,6 +7632,7 @@
     },
     "level": 9,
     "sight": 1800,
+    "nightSight": 1400,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -7554,6 +7691,7 @@
     },
     "level": 8,
     "sight": 1800,
+    "nightSight": 1400,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -7612,6 +7750,7 @@
     },
     "level": 6,
     "sight": 1400,
+    "nightSight": 1100,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -7670,6 +7809,7 @@
     },
     "level": 8,
     "sight": 1800,
+    "nightSight": 1400,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -7729,6 +7869,7 @@
     },
     "level": 6,
     "sight": 1200,
+    "nightSight": 900,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -7787,6 +7928,7 @@
     },
     "level": 5,
     "sight": 1300,
+    "nightSight": 1000,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -7845,6 +7987,7 @@
     },
     "level": 6,
     "sight": 1500,
+    "nightSight": 1200,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -7904,6 +8047,7 @@
     },
     "level": 6,
     "sight": 1600,
+    "nightSight": 1300,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -7963,6 +8107,7 @@
     },
     "level": 6,
     "sight": 1700,
+    "nightSight": 1300,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -8022,6 +8167,7 @@
     },
     "level": 6,
     "sight": 1500,
+    "nightSight": 1200,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -8080,6 +8226,7 @@
     },
     "level": 8,
     "sight": 1800,
+    "nightSight": 1400,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -8139,6 +8286,7 @@
     },
     "level": 7,
     "sight": 1800,
+    "nightSight": 1400,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -8198,6 +8346,7 @@
     },
     "level": 8,
     "sight": 1800,
+    "nightSight": 1400,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -8257,6 +8406,7 @@
     },
     "level": 8,
     "sight": 1800,
+    "nightSight": 1600,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -8316,6 +8466,7 @@
     },
     "level": 6,
     "sight": 1800,
+    "nightSight": 1400,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -8374,6 +8525,7 @@
     },
     "level": 8,
     "sight": 1800,
+    "nightSight": 1400,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -8434,6 +8586,7 @@
     },
     "level": 5,
     "sight": 1800,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -8495,6 +8648,7 @@
     },
     "level": 8,
     "sight": 1800,
+    "nightSight": 1400,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -8552,6 +8706,7 @@
     },
     "level": 5,
     "sight": 1800,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -8617,6 +8772,7 @@
     },
     "level": 3,
     "sight": 1900,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "structure"
@@ -8676,6 +8832,7 @@
     },
     "level": 3,
     "sight": 1900,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "structure"
@@ -8735,6 +8892,7 @@
     },
     "level": 3,
     "sight": 1900,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "structure"
@@ -8794,6 +8952,7 @@
     },
     "level": 3,
     "sight": 1900,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "structure"
@@ -8853,6 +9012,7 @@
     },
     "level": 7,
     "sight": 1200,
+    "nightSight": 1000,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -8908,6 +9068,7 @@
     },
     "level": 1,
     "sight": 800,
+    "nightSight": 600,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -8978,6 +9139,7 @@
     },
     "level": 4,
     "sight": 1000,
+    "nightSight": 800,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -9035,6 +9197,7 @@
     },
     "level": 2,
     "sight": 900,
+    "nightSight": 700,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -9095,6 +9258,7 @@
     },
     "level": 5,
     "sight": 1000,
+    "nightSight": 800,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -9152,6 +9316,7 @@
     },
     "level": 7,
     "sight": 1100,
+    "nightSight": 900,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -9208,6 +9373,7 @@
     },
     "level": 6,
     "sight": 1100,
+    "nightSight": 900,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -9264,6 +9430,7 @@
     },
     "level": 1,
     "sight": 900,
+    "nightSight": 700,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -9324,6 +9491,7 @@
     },
     "level": 1,
     "sight": 1500,
+    "nightSight": 1200,
     "targetedAs": [
       "structure"
     ],
@@ -9408,6 +9576,7 @@
       "sides": 0
     },
     "sight": 1400,
+    "nightSight": 1100,
     "targetedAs": [
       "structure"
     ],
@@ -9470,6 +9639,7 @@
     },
     "level": 1,
     "sight": 1600,
+    "nightSight": 1300,
     "targetedAs": [
       "structure"
     ],
@@ -9543,6 +9713,7 @@
     },
     "level": 1,
     "sight": 500,
+    "nightSight": 500,
     "moveType": "fly",
     "targetedAs": [
       "ground"
@@ -9584,6 +9755,7 @@
     },
     "level": 1,
     "sight": 500,
+    "nightSight": 500,
     "moveType": "fly",
     "targetedAs": [
       "ground"
@@ -9625,6 +9797,7 @@
     },
     "level": 1,
     "sight": 500,
+    "nightSight": 500,
     "moveType": "fly",
     "targetedAs": [
       "ground"
@@ -9666,6 +9839,7 @@
     },
     "level": 1,
     "sight": 1800,
+    "nightSight": 1100,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -9707,6 +9881,7 @@
     },
     "level": 1,
     "sight": 800,
+    "nightSight": 600,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -9779,6 +9954,7 @@
     },
     "level": 5,
     "sight": 1000,
+    "nightSight": 800,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -9839,6 +10015,7 @@
     },
     "level": 1,
     "sight": 1800,
+    "nightSight": 1100,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -9908,6 +10085,7 @@
     },
     "level": 1,
     "sight": 1800,
+    "nightSight": 1100,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -9965,6 +10143,7 @@
     },
     "level": 7,
     "sight": 1100,
+    "nightSight": 900,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -10025,6 +10204,7 @@
     },
     "level": 1,
     "sight": 1600,
+    "nightSight": 1300,
     "targetedAs": [
       "structure"
     ],
@@ -10087,6 +10267,7 @@
     },
     "level": 5,
     "sight": 1000,
+    "nightSight": 800,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -10146,6 +10327,7 @@
     },
     "level": 7,
     "sight": 1100,
+    "nightSight": 900,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -10205,6 +10387,7 @@
     },
     "level": 10,
     "sight": 1100,
+    "nightSight": 900,
     "moveType": "float",
     "targetedAs": [
       "ground",
@@ -10387,6 +10570,7 @@
     },
     "level": 1,
     "sight": 900,
+    "nightSight": 700,
     "moveType": "float",
     "targetedAs": [
       "ancient",
@@ -10428,6 +10612,7 @@
     },
     "level": 1,
     "sight": 1600,
+    "nightSight": 1300,
     "targetedAs": [
       "structure"
     ],
@@ -10483,6 +10668,7 @@
     },
     "level": 1,
     "sight": 900,
+    "nightSight": 700,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -10630,6 +10816,7 @@
     },
     "level": 1,
     "sight": 1600,
+    "nightSight": 1300,
     "targetedAs": [
       "structure"
     ],
@@ -10691,6 +10878,7 @@
     },
     "level": 1,
     "sight": 1600,
+    "nightSight": 1300,
     "targetedAs": [
       "structure"
     ],
@@ -10811,6 +10999,7 @@
     },
     "level": 1,
     "sight": 1800,
+    "nightSight": 1100,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -10849,6 +11038,7 @@
       "sides": 0
     },
     "sight": 1800,
+    "nightSight": 1800,
     "targetedAs": [
       "structure"
     ],
@@ -10921,6 +11111,7 @@
       "sides": 0
     },
     "sight": 1200,
+    "nightSight": 1200,
     "targetedAs": [
       "structure"
     ],
@@ -10972,6 +11163,7 @@
       "sides": 0
     },
     "sight": 1200,
+    "nightSight": 1200,
     "targetedAs": [
       "structure"
     ],
@@ -11023,6 +11215,7 @@
       "sides": 1
     },
     "sight": 1000,
+    "nightSight": 1000,
     "targetedAs": [
       "structure"
     ],
@@ -11092,6 +11285,7 @@
     },
     "level": 2,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -11150,6 +11344,7 @@
       "sides": 0
     },
     "sight": 800,
+    "nightSight": 800,
     "targetedAs": [
       "structure"
     ],
@@ -11220,6 +11415,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 800,
     "targetedAs": [
       "structure"
     ],
@@ -11257,6 +11453,7 @@
       "sides": 0
     },
     "sight": 1200,
+    "nightSight": 1200,
     "targetedAs": [
       "structure"
     ],
@@ -11308,6 +11505,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 800,
     "targetedAs": [
       "structure"
     ],
@@ -11351,6 +11549,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 800,
     "targetedAs": [
       "structure"
     ],
@@ -11388,6 +11587,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 800,
     "targetedAs": [
       "structure"
     ],
@@ -11439,6 +11639,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 800,
     "targetedAs": [
       "structure"
     ],
@@ -11489,6 +11690,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 800,
     "targetedAs": [
       "structure"
     ],
@@ -11539,6 +11741,7 @@
       "sides": 1
     },
     "sight": 1200,
+    "nightSight": 1000,
     "targetedAs": [
       "structure"
     ],
@@ -11579,6 +11782,7 @@
       "sides": 0
     },
     "sight": 1200,
+    "nightSight": 1200,
     "targetedAs": [
       "structure"
     ],
@@ -11630,6 +11834,7 @@
       "sides": 0
     },
     "sight": 1200,
+    "nightSight": 1200,
     "targetedAs": [
       "structure"
     ],
@@ -11682,6 +11887,7 @@
     },
     "level": 8,
     "sight": 200,
+    "nightSight": 200,
     "moveType": "amph",
     "targetedAs": [
       "ward"
@@ -11719,6 +11925,7 @@
       "sides": 0
     },
     "sight": 1200,
+    "nightSight": 1200,
     "targetedAs": [
       "structure"
     ],
@@ -11769,6 +11976,7 @@
     },
     "level": 4,
     "sight": 1200,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -11809,6 +12017,7 @@
     },
     "level": 4,
     "sight": 1200,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -11849,6 +12058,7 @@
     },
     "level": 4,
     "sight": 1200,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -11889,6 +12099,7 @@
     },
     "level": 15,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "float",
     "targetedAs": [
       "ground",
@@ -12004,6 +12215,7 @@
       "sides": 1
     },
     "sight": 1200,
+    "nightSight": 1000,
     "targetedAs": [
       "structure"
     ],
@@ -12041,6 +12253,7 @@
       "sides": 1
     },
     "sight": 1200,
+    "nightSight": 1000,
     "targetedAs": [
       "structure"
     ],
@@ -12088,6 +12301,7 @@
     },
     "level": 4,
     "sight": 150,
+    "nightSight": 150,
     "moveType": "amph",
     "targetedAs": [
       "ward"
@@ -12126,6 +12340,7 @@
     },
     "level": 6,
     "sight": 200,
+    "nightSight": 200,
     "moveType": "amph",
     "targetedAs": [
       "ward"
@@ -12163,6 +12378,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 800,
     "targetedAs": [
       "structure"
     ],
@@ -12215,6 +12431,7 @@
     },
     "level": 6,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -12272,6 +12489,7 @@
     },
     "level": 9,
     "sight": 800,
+    "nightSight": 600,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -12329,6 +12547,7 @@
     },
     "level": 6,
     "sight": 800,
+    "nightSight": 600,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -12384,6 +12603,7 @@
       "sides": 0
     },
     "sight": 1200,
+    "nightSight": 1200,
     "targetedAs": [
       "structure"
     ],
@@ -12435,6 +12655,7 @@
       "sides": 1
     },
     "sight": 900,
+    "nightSight": 800,
     "targetedAs": [
       "structure"
     ],
@@ -12487,6 +12708,7 @@
     },
     "level": 8,
     "sight": 200,
+    "nightSight": 200,
     "moveType": "amph",
     "targetedAs": [
       "ward"
@@ -12524,6 +12746,7 @@
       "sides": 1
     },
     "sight": 900,
+    "nightSight": 800,
     "targetedAs": [
       "structure"
     ],
@@ -12575,6 +12798,7 @@
       "sides": 0
     },
     "sight": 1200,
+    "nightSight": 1200,
     "targetedAs": [
       "structure"
     ],
@@ -12613,6 +12837,7 @@
       "sides": 1
     },
     "sight": 900,
+    "nightSight": 800,
     "targetedAs": [
       "structure"
     ],
@@ -12664,6 +12889,7 @@
       "sides": 0
     },
     "sight": 900,
+    "nightSight": 800,
     "targetedAs": [
       "structure"
     ],
@@ -12713,6 +12939,7 @@
     },
     "level": 1,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "fly",
     "targetedAs": [
       "air"
@@ -12769,6 +12996,7 @@
     },
     "level": 15,
     "sight": 1400,
+    "nightSight": 1400,
     "moveType": "amph",
     "targetedAs": [
       "ground"
@@ -12828,6 +13056,7 @@
     },
     "level": 15,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "float",
     "targetedAs": [
       "ground",
@@ -12868,6 +13097,7 @@
     },
     "level": 2,
     "sight": 1400,
+    "nightSight": 800,
     "moveType": "foot",
     "targetedAs": [
       "ground"
@@ -12931,6 +13161,7 @@
     },
     "level": 5,
     "sight": 400,
+    "nightSight": 400,
     "moveType": "float",
     "targetedAs": [
       "ward"
@@ -12984,6 +13215,7 @@
     },
     "level": 4,
     "sight": 400,
+    "nightSight": 400,
     "moveType": "float",
     "targetedAs": [
       "ward"
@@ -13037,6 +13269,7 @@
     },
     "level": 3,
     "sight": 400,
+    "nightSight": 400,
     "moveType": "float",
     "targetedAs": [
       "ward"
@@ -13090,6 +13323,7 @@
     },
     "level": 4,
     "sight": 1200,
+    "nightSight": 800,
     "moveType": "float",
     "targetedAs": [
       "ground"
@@ -13129,6 +13363,7 @@
     },
     "level": 5,
     "sight": 400,
+    "nightSight": 400,
     "moveType": "float",
     "targetedAs": [
       "ward"
@@ -13181,6 +13416,7 @@
       "sides": 0
     },
     "sight": 1200,
+    "nightSight": 1200,
     "targetedAs": [
       "structure"
     ],
@@ -13428,6 +13664,7 @@
     },
     "level": 6,
     "sight": 1600,
+    "nightSight": 800,
     "moveType": "fly",
     "targetedAs": [
       "air"

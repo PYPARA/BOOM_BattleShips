@@ -101,6 +101,8 @@ export class CombatFx {
   onEvents(events: MatchEvent[]): void {
     const { world } = this.match;
     for (const e of events) {
+      if ('x' in e && 'y' in e && e.kind !== 'gold' && !this.sees(e.x as number, e.y as number)) continue;
+      if (e.kind === 'zap' && !this.sees(e.toX, e.toY)) continue;
       if (e.kind === 'cast') {
         const caster = world.unit(e.casterId);
         if (e.abilityId.startsWith('@')) { this.fx.after(4, () => this.fx.explosion(e.x, e.y, 120)); continue; } // ground missile
@@ -133,7 +135,12 @@ export class CombatFx {
   }
 
   private visible(u: UnitEntity): boolean {
-    return u.team === this.team || this.match.world.visibleTo(this.team, u);
+    return this.match.world.seenBy(this.team, u);
+  }
+
+  /** Whether the side sees a spot (effects in the fog are not shown). */
+  private sees(x: number, y: number): boolean {
+    return this.match.world.vision.sees(this.team, x, y);
   }
 
   /** Per-frame visuals for status effects: shields, stuns, burns, frost, healing. */

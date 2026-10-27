@@ -2,7 +2,7 @@
 // naming the shops in reach (trading happens by clicking a shop: selection.ts), and the
 // scoreboard while Tab is held.
 import type { Item, Unit, Weapon } from '@boom/gamedata';
-import { TICK_RATE, type Match, type MatchEvent } from '@boom/sim';
+import { isNight, TICK_RATE, timeOfDay, type Match, type MatchEvent } from '@boom/sim';
 import { clean } from './info.ts';
 import { icon } from './tooltip.ts';
 
@@ -160,7 +160,7 @@ export class Hud {
     const score = (team: string) => players.filter((q) => q.team === team).reduce((s, q) => s + q.kills, 0);
     const top = `<span class="gold" title="金钱">${p.gold}</span>
       <span class="score"><b class="south">${score('south')}</b> : <b class="north">${score('north')}</b></span>
-      <span class="clock">${clock}</span><span class="kd" title="击沉 / 阵亡">${p.kills} / ${p.deaths}</span>`;
+      <span class="clock">${clock}</span><span class="tod" title="${isNight(this.match.world.tick) ? '夜晚：视野变短' : '白天'}">${isNight(this.match.world.tick) ? '☾' : '☀'} ${String(Math.floor(timeOfDay(this.match.world.tick))).padStart(2, '0')}:00</span><span class="kd" title="击沉 / 阵亡">${p.kills} / ${p.deaths}</span>`;
     if (top !== this.topKey) { this.topKey = top; this.top.innerHTML = top; }
 
     const wait = p.respawnAt !== undefined ? Math.ceil((p.respawnAt - this.match.world.tick) / TICK_RATE) : 0;

@@ -7,6 +7,7 @@ import { AbilitySystem } from './abilities.ts';
 import { dropExpired, hasBuff, strongest, type Buff } from './buffs.ts';
 import { DamageTable, parseTargets, type TargetFilter } from './combat.ts';
 import { Goods, SUBMARINES, type WeaponSpecial } from './goods.ts';
+import { isNight, Vision } from './vision.ts';
 import type { HeroState } from './heroes.ts';
 import { createRng, distance, turnToward, wrapAngle, type Vec2 } from './math.ts';
 import type { PathGrid } from './pathing.ts';
@@ -201,6 +202,8 @@ export class World {
   readonly random: () => number;
   readonly abilities: AbilitySystem;
   readonly goods: Goods;
+  /** Fog of war: what each side currently sees. */
+  readonly vision: Vision;
   private readonly shipTypes: Map<string, Ship>;
   private readonly unitTypes: Map<string, Unit>;
   private readonly weaponTypes: Map<string, Weapon>;
@@ -215,6 +218,7 @@ export class World {
     this.damage = new DamageTable(data.misc);
     this.random = createRng(seed);
     this.goods = new Goods(data.items ?? [], data.weapons, data.ships);
+    this.vision = new Vision({ minX: grid.originX, minY: grid.originY, maxX: grid.originX + grid.width * grid.cellSize, maxY: grid.originY + grid.height * grid.cellSize });
     this.abilities = new AbilitySystem(this, data.abilities ?? [], data.items ?? [], data.misc ?? {});
   }
 
@@ -333,6 +337,7 @@ export class World {
     }
     for (const command of this.pending.splice(0)) this.apply(command);
     this.abilities.tick();
+    this.updateVision();
     for (const u of this.ships.values()) if (!u.frozen && !hasBuff(u, 'stun')) this.think(u);
     for (const u of this.ships.values()) {
       if (u.frozen || hasBuff(u, 'stun') || hasBuff(u, 'root')) u.speed = 0; else this.move(u);
@@ -368,10 +373,32 @@ export class World {
     return out;
   }
 
-  /** Whether `team` can target `u`: swarms never, invisible ships only when revealed. */
+  /** Whether `team` can target `u`: swarms never; others when seen (fog, invisibility). */
   visibleTo(team: Team, u: UnitEntity): boolean {
-    if (u.locust) return false;
+    return !u.locust && this.seenBy(team, u);
+  }
+
+  /**
+   * Whether `team` sees `u`: its own units always, others inside its vision (fog of war) and,
+   * when invisible, only if revealed. Neutral creeps see everything.
+   */
+  seenBy(team: Team, u: UnitEntity): boolean {
+    if (team === 'neutral' || u.team === team) return true;
+    if (this.vision.enabled && this.vision.version === 0) this.updateVision(true); // first look before any step
+    if (!this.vision.sees(team, u.x, u.y)) return false;
     return !hasBuff(u, 'invisible') || this.abilities.revealed(u, team);
+  }
+
+  /** Each side's sight: day or night radius of every ship and building it owns. */
+  private updateVision(force = false): void {
+    const night = isNight(this.tick);
+    const viewers = [];
+    for (const u of this.allUnits()) {
+      if (u.team === 'neutral') continue;
+      const type = this.unitTypes.get(u.typeId);
+      viewers.push({ team: u.team, x: u.x, y: u.y, hp: u.hp, sight: (night ? type?.nightSight ?? type?.sight : type?.sight) ?? 800 });
+    }
+    this.vision.update(this.tick, viewers, force);
   }
 
   canTarget(filter: TargetFilter, target: UnitEntity): boolean {

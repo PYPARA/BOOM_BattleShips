@@ -7,6 +7,7 @@ import {
   abs, attribute, clamp, cross, dFdx, dFdy, dot, float, mix, normalize, positionWorld, pow, smoothstep, texture, vec2, vec3, vec4,
 } from 'three/tsl';
 import type { Terrain } from '@boom/gamedata';
+import type { FogLayer } from './fog.ts';
 import { SEA_LEVEL } from './space.ts';
 
 /** Texture per Lordaeron Summer ground tile; the order is the weight channel order. */
@@ -30,7 +31,7 @@ const hash = (x: number, y: number) => {
   return (s - Math.floor(s)) * 2 - 1;
 };
 
-export function createTerrainMesh(terrain: Terrain): THREE.Mesh {
+export function createTerrainMesh(terrain: Terrain, fog?: FogLayer): THREE.Mesh {
   const { width: w, height: h } = terrain;
   // Fine grid: every corner plus the midpoints between corners (half-cell spacing).
   const fw = w * 2 - 1, fh = h * 2 - 1;
@@ -81,7 +82,8 @@ export function createTerrainMesh(terrain: Terrain): THREE.Mesh {
   geometry.computeVertexNormals();
 
   const material = new THREE.MeshStandardNodeMaterial({ roughness: 0.95, metalness: 0 });
-  material.colorNode = groundColor();
+  const ground = groundColor();
+  material.colorNode = fog ? vec4(ground.rgb.mul(fog.shade()), 1) : ground;
   const mesh = new THREE.Mesh(geometry, material);
   mesh.name = 'terrain';
   mesh.receiveShadow = true;

@@ -1,7 +1,7 @@
 // Keeps one 3D object per simulated ship, interpolating between ticks and adding
 // cosmetic motion (bobbing, leaning into turns) that the simulation does not model.
 import * as THREE from 'three/webgpu';
-import { hasBuff, wrapAngle, type ShipEntity, type Team, type World } from '@boom/sim';
+import { wrapAngle, type ShipEntity, type Team, type World } from '@boom/sim';
 import { glbModel } from './models/glb.ts';
 import { shipModels } from './models/index.ts';
 import { withEngineRig } from './models/rigs.ts';
@@ -110,7 +110,8 @@ export class ShipViews {
       view.model.rotation.x = view.roll + Math.sin(time * 1.1 + phase) * 0.03;
       view.model.rotation.z = Math.sin(time * 0.9 + phase) * 0.025;
       view.ring.visible = selected.has(ship.id);
-      view.root.visible = ship.team === this.team || !hasBuff(ship, 'invisible') || this.world.abilities.revealed(ship, this.team);
+      // Fog of war and invisibility: enemies show only while the side sees them.
+      view.root.visible = this.world.seenBy(this.team, ship);
     }
     // Sunk ships list over and slide under before their view is dropped.
     for (const [id, view] of this.views) {

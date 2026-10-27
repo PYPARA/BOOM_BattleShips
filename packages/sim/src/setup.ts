@@ -38,6 +38,6 @@ export function createWorld(data: GameData, seed = 1): World {
 }
 
 /** A full match: structures placed, the given player slots each with a starting ship. */
-export function createMatch(data: GameData, options: { players: number[]; mode?: GameMode; seed?: number }): Match {
+export function createMatch(data: GameData, options: { players: number[]; mode?: GameMode; seed?: number; fog?: boolean }): Match {
   return new Match(createWorld(data, options.seed), data, options);
 }

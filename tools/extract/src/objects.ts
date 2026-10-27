@@ -70,6 +70,7 @@ export function buildUnits(src: ObjectSources): Unit[] {
       bounty: { base: num(bal.bountyplus) ?? 0, dice: num(bal.bountydice) ?? 0, sides: num(bal.bountysides) ?? 0 },
       level: num(bal.level),
       sight: num(bal.sight),
+      nightSight: num(bal.nsight),
       moveType: data.movetp as string | undefined,
       targetedAs: splitList(data.targType),
       abilities: splitList(abil.abilList),
