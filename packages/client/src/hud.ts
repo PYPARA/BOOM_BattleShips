@@ -12,6 +12,14 @@ export interface HudData {
   weapons: Weapon[];
 }
 
+/** Kills in a row without dying (DotA-style calls, as players of the map know them). */
+const STREAKS: Record<number, string> = {
+  3: '大杀特杀！', 4: '主宰比赛！', 5: '杀人如麻！', 6: '无人能挡！', 7: '变态杀戮！', 8: '妖怪般的杀戮！', 9: '如同神一般！', 10: '超越神的杀戮！',
+};
+/** Kills within MULTI_KILL_MS of each other. */
+const MULTI: Record<number, string> = { 2: '双杀！', 3: '三杀！', 4: '疯狂杀戮！', 5: '暴走！' };
+const MULTI_KILL_MS = 10_000;
+
 export class Hud {
   private readonly top: HTMLElement;
   private readonly respawn: HTMLElement;
@@ -19,6 +27,12 @@ export class Hud {
   private readonly toast: HTMLElement;
   private readonly banner: HTMLElement;
   private readonly board: HTMLElement;
+  private readonly feed: HTMLElement;
+  private readonly announce: HTMLElement;
+  private announceUntil = 0;
+  private firstBlood = false;
+  /** Per player: kills since last death, and the recent kill times for multi-kills. */
+  private readonly streaks = new Map<number, { streak: number; recent: number[] }>();
   private readonly weapons: Map<string, Weapon>;
   private shopKey = '';
   private topKey = '';
@@ -43,6 +57,8 @@ export class Hud {
     this.toast = el('toast');
     this.banner = el('banner');
     this.board = el('scoreboard');
+    this.feed = el('killfeed');
+    this.announce = el('announce');
     this.shop.addEventListener('click', (e) => {
       const b = (e.target as HTMLElement).closest('button');
       if (!b?.dataset.cmd) return;
@@ -78,6 +94,7 @@ export class Hud {
       if (e.kind === 'denied' && e.player === this.player) this.say(e.reason, now, 2500);
       if (e.kind === 'westChannel') this.say(e.open ? '西侧航道短暂开放！（120 秒）' : '西侧航道已关闭', now, 3500);
       if (e.kind === 'levelUp' && e.player === this.player) this.say(`升到 ${e.level} 级！`, now, 2000);
+      if (e.kind === 'death' && (e.hero || e.structure)) this.onKill(e, now);
       if (e.kind === 'victory') {
         const won = this.match.players.get(this.player)?.team === e.winner;
         this.banner.textContent = won ? '胜利！敌方主基地已被摧毁' : '战败……我方主基地被摧毁';
@@ -86,7 +103,47 @@ export class Hud {
     }
   }
 
+  private playerName(index: number): string {
+    const p = this.match.players.get(index);
+    if (!p || index < 2) return index === 0 ? '南方舰队' : index === 1 ? '北方舰队' : '中立';
+    const ship = clean(this.match.world.shipType(p.shipTypeId)?.name);
+    return `${index === this.player ? '你' : `玩家 ${index - 1}`}（${ship}）`;
+  }
+
+  private onKill(e: Extract<MatchEvent, { kind: 'death' }>, now: number): void {
+    const victim = this.match.players.get(e.owner);
+    const killer = this.match.players.get(e.killerOwner);
+    const side = (team?: string) => (team === 'south' ? 'south' : team === 'north' ? 'north' : '');
+    const name = e.structure ? `${side(victim?.team) === 'south' ? '南方' : '北方'}${this.unitName(e.typeId)}` : this.playerName(e.owner);
+    const line = document.createElement('div');
+    line.innerHTML = `<b class="${side(killer?.team)}">${this.playerName(e.killerOwner)}</b> ${e.structure ? '摧毁了' : '击沉了'} <b class="${side(victim?.team)}">${name}</b>`;
+    this.feed.prepend(line);
+    while (this.feed.children.length > 5) this.feed.lastElementChild!.remove();
+    setTimeout(() => line.classList.add('old'), 8000);
+    if (e.structure) return;
+
+    // Streaks: the victim's ends, the killer's grows.
+    const ended = this.streaks.get(e.owner)?.streak ?? 0;
+    this.streaks.set(e.owner, { streak: 0, recent: [] });
+    if (!killer || e.killerOwner < 2 || killer.team === victim?.team) return;
+    const k = this.streaks.get(e.killerOwner) ?? { streak: 0, recent: [] };
+    k.streak++;
+    k.recent = [...k.recent.filter((t) => now - t < MULTI_KILL_MS), now];
+    this.streaks.set(e.killerOwner, k);
+    const who = this.playerName(e.killerOwner);
+    let call: string | undefined;
+    if (!this.firstBlood) { this.firstBlood = true; call = '第一滴血！'; }
+    else if (MULTI[Math.min(5, k.recent.length)] && k.recent.length >= 2) call = MULTI[Math.min(5, k.recent.length)];
+    else if (k.streak >= 3) call = STREAKS[Math.min(10, k.streak)];
+    else if (ended >= 3) call = `终结了 ${this.playerName(e.owner)} 的连杀！`;
+    if (!call) return;
+    this.announce.innerHTML = `<strong>${call}</strong><small>${who}</small>`;
+    this.announce.className = `announce show ${side(killer.team)}`;
+    this.announceUntil = now + 3000;
+  }
+
   update(now: number): void {
+    if (now > this.announceUntil) this.announce.classList.remove('show');
     const p = this.match.players.get(this.player)!;
     const ship = this.match.world.ships.get(p.shipId ?? -1);
     this.toast.classList.toggle('show', now < this.toastUntil);

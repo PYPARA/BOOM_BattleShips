@@ -377,6 +377,7 @@ export class AbilitySystem {
           .sort((a, b) => distance(a, from) - distance(b, from))[0];
         if (!next) break;
         hit.add(next.id);
+        this.world.events.push({ kind: 'zap', abilityId: 'weapon:bounce', fromX: from.x, fromY: from.y, toX: next.x, toY: next.y });
         this.world.dealDamage(next, p.damage, p.attackType, p.owner, p.sourceId, !sp.ignoresPlating);
         from = next;
       }
@@ -885,10 +886,13 @@ export class AbilitySystem {
       case 'AOcl': { // 跳跃闪电 / 死亡能量: jumps to the nearest enemy not yet hit
         const hit = new Set<number>();
         let current: UnitEntity | undefined = target!;
+        let prev: Vec2 = u;
         for (let i = 0; i <= num('B') && current; i++) {
+          this.world.events.push({ kind: 'zap', abilityId, fromX: prev.x, fromY: prev.y, toX: current.x, toY: current.y });
           this.world.dealDamage(current, num('A'), 'ability', u.owner, u.id);
           hit.add(current.id);
           const from: UnitEntity = current;
+          prev = { x: from.x, y: from.y };
           current = this.enemiesNear(u, from, level.area || 700)
             .filter((e) => !hit.has(e.id) && this.world.visibleTo(u.team, e))
             .sort((a2, b2) => distance(a2, from) - distance(b2, from))[0];
@@ -905,6 +909,7 @@ export class AbilitySystem {
           return e === target || (along > 0 && across <= (end * along) / len + e.bodyRadius * 0.5);
         });
         for (const e of inCone.sort((a2, b2) => distance(a2, u) - distance(b2, u)).slice(0, num('B') || 8)) {
+          this.world.events.push({ kind: 'zap', abilityId, fromX: u.x, fromY: u.y, toX: e.x, toY: e.y });
           this.world.dealDamage(e, num('A'), 'ability', u.owner, u.id);
         }
         break;

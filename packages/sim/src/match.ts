@@ -101,12 +101,16 @@ export type MatchEvent =
   | { kind: 'gold'; player: number; amount: number; reason: string; x?: number; y?: number }
   | { kind: 'denied'; player: number; reason: string }
   | { kind: 'respawn'; player: number; shipId: number }
-  | { kind: 'death'; unitId: number; typeId: string; owner: number; x: number; y: number }
+  | { kind: 'death'; unitId: number; typeId: string; owner: number; x: number; y: number; killerOwner: number; hero: boolean; structure: boolean }
   | { kind: 'victory'; winner: Team }
   | { kind: 'repair'; player: number; active: boolean }
   | { kind: 'westChannel'; open: boolean }
   | { kind: 'levelUp'; player: number; level: number }
-  | { kind: 'cast'; casterId: number; abilityId: string; x: number; y: number };
+  | { kind: 'cast'; casterId: number; abilityId: string; x: number; y: number }
+  // Combat feedback for the renderer, passed through from the world.
+  | { kind: 'shot'; projectileId: number; sourceId: number; targetId: number }
+  | { kind: 'hit'; targetId: number; sourceOwner: number; damage: number; attackType: string; x: number; y: number }
+  | { kind: 'zap'; abilityId: string; fromX: number; fromY: number; toX: number; toY: number };
 
 export interface MatchData {
   units: Unit[];
@@ -259,13 +263,16 @@ export class Match {
   private consumeWorldEvents(): void {
     for (const e of this.world.events) {
       if (e.kind === 'hit') this.noteDamage(e.targetId, e.sourceOwner);
-      if (e.kind === 'cast') this.events.push(e);
+      if (e.kind === 'cast' || e.kind === 'shot' || e.kind === 'hit' || e.kind === 'zap') this.events.push(e);
       if (e.kind === 'itemUsed') {
         const p = [...this.players.values()].find((q) => q.shipId === e.unitId);
         if (p) p.items = [...(this.world.ships.get(e.unitId)?.items ?? [])];
       }
       if (e.kind === 'death') {
-        this.events.push({ kind: 'death', unitId: e.unit.id, typeId: e.unit.typeId, owner: e.unit.owner, x: e.unit.x, y: e.unit.y });
+        this.events.push({
+          kind: 'death', unitId: e.unit.id, typeId: e.unit.typeId, owner: e.unit.owner, x: e.unit.x, y: e.unit.y,
+          killerOwner: e.killerOwner, hero: e.unit.isHero && !e.unit.illusion && !e.unit.summoned, structure: e.unit.kind === 'structure',
+        });
         if (!e.unit.illusion) this.onDeath(e.unit, e.killerOwner, e.killerId);
       }
       if (e.kind === 'reward') {

@@ -1,11 +1,14 @@
-// A 2D canvas over the 3D view for health bars, floating gold numbers and hit flashes;
+// A 2D canvas over the 3D view for health bars, status tags, floating gold and damage numbers;
 // far cheaper than a mesh per bar.
 import * as THREE from 'three/webgpu';
 import type { Match, MatchEvent, UnitEntity } from '@boom/sim';
 import { SEA_LEVEL } from './space.ts';
 
-interface Floater { text: string; color: string; x: number; y: number; z: number; born: number }
-interface Burst { x: number; y: number; z: number; born: number; size: number; ring?: string }
+interface Floater {
+  text: string; color: string; x: number; y: number; z: number; born: number; size: number;
+  /** Damage numbers on the same target within a few frames add up instead of stacking. */
+  targetId?: number; amount?: number; drift?: number;
+}
 
 /** Short labels shown over a unit's health bar while a status effect is on it. */
 const BUFF_TAGS: Partial<Record<string, [string, string]>> = {
@@ -15,13 +18,13 @@ const BUFF_TAGS: Partial<Record<string, [string, string]>> = {
 };
 
 const FLOAT_MS = 1400;
-const BURST_MS = 650;
+/** Hits on one target closer together than this merge into one number. */
+const MERGE_MS = 180;
 
 export class Overlay {
   private readonly canvas: HTMLCanvasElement;
   private readonly ctx: CanvasRenderingContext2D;
   private readonly floaters: Floater[] = [];
-  private readonly bursts: Burst[] = [];
   private readonly v = new THREE.Vector3();
   private readonly match: Match;
   private readonly player: number;
@@ -39,14 +42,27 @@ export class Overlay {
   onEvents(events: MatchEvent[], now: number): void {
     for (const e of events) {
       if (e.kind === 'gold' && e.player === this.player && e.x !== undefined) {
-        this.floaters.push({ text: `+${e.amount}`, color: '#ffd84a', x: e.x, y: e.y!, z: SEA_LEVEL + 80, born: now });
+        this.floaters.push({ text: `+${e.amount}`, color: '#ffd84a', x: e.x, y: e.y!, z: SEA_LEVEL + 80, born: now, size: 15 });
       }
-      if (e.kind === 'death') this.bursts.push({ x: e.x, y: e.y, z: SEA_LEVEL + 20, born: now, size: e.typeId.startsWith('n') || e.typeId.startsWith('h01') ? 90 : 50 });
-      if (e.kind === 'cast') {
-        const area = this.match.world.abilities.byId.get(e.abilityId)?.levels[0]?.area ?? 0;
-        this.bursts.push({ x: e.x, y: e.y, z: SEA_LEVEL + 5, born: now, size: Math.max(80, area), ring: '#9fd8ff' });
-      }
+      if (e.kind === 'hit' && e.damage >= 1) this.damage(e.targetId, e.sourceOwner, e.damage, e.attackType, e.x, e.y, now);
+
     }
+  }
+
+  /** Damage the player dealt (white, skills yellow) or took (red), merged per target. */
+  private damage(targetId: number, sourceOwner: number, amount: number, attackType: string, x: number, y: number, now: number): void {
+    const target = this.match.world.unit(targetId);
+    const taken = target?.owner === this.player;
+    if (sourceOwner !== this.player && !taken) return;
+    const recent = this.floaters.find((f) => f.targetId === targetId && now - f.born < MERGE_MS);
+    const total = (recent?.amount ?? 0) + amount;
+    const skill = attackType === 'ability' || attackType === 'pure';
+    const f = recent ?? { text: '', color: '', x, y, z: SEA_LEVEL + 110, born: now, size: 14, targetId, drift: (Math.random() - 0.5) * 30 };
+    f.amount = total;
+    f.text = taken ? `-${Math.round(total)}` : `${Math.round(total)}`;
+    f.color = taken ? '#ff6a5a' : skill ? '#ffd84a' : '#ffffff';
+    f.size = Math.min(26, 13 + Math.log10(Math.max(1, total)) * 4);
+    if (!recent) this.floaters.push(f);
   }
 
   private project(x: number, y: number, z: number, camera: THREE.Camera): [number, number] | undefined {
@@ -85,12 +101,6 @@ export class Overlay {
     }
   }
 
-  /** World-space radius → screen pixels at a point, for area rings. */
-  private screenRadius(x: number, y: number, radius: number, camera: THREE.Camera): number {
-    const a = this.project(x, y, SEA_LEVEL, camera), b = this.project(x + radius, y, SEA_LEVEL, camera);
-    return a && b ? Math.hypot(b[0] - a[0], b[1] - a[1]) : 0;
-  }
-
   draw(camera: THREE.Camera, now: number): void {
     const dpr = Math.min(devicePixelRatio, 2);
     if (this.canvas.width !== innerWidth * dpr || this.canvas.height !== innerHeight * dpr) {
@@ -106,29 +116,6 @@ export class Overlay {
       if (u.hp < u.maxHp || u.isHero) this.bar(u, camera);
     }
 
-    for (let i = this.bursts.length - 1; i >= 0; i--) {
-      const b = this.bursts[i]!;
-      const t = (now - b.born) / BURST_MS;
-      if (t >= 1) { this.bursts.splice(i, 1); continue; }
-      const at = this.project(b.x, b.y, b.z, camera);
-      if (!at) continue;
-      ctx.beginPath();
-      if (b.ring) {
-        // Area skills: a ring growing to the ability's radius.
-        ctx.arc(at[0], at[1], this.screenRadius(b.x, b.y, b.size, camera) * (0.4 + 0.6 * t), 0, Math.PI * 2);
-        ctx.strokeStyle = b.ring;
-        ctx.globalAlpha = 1 - t;
-        ctx.lineWidth = 3;
-        ctx.stroke();
-        ctx.globalAlpha = 1;
-        continue;
-      }
-      ctx.arc(at[0], at[1], b.size * (0.3 + t) * (1100 / Math.max(600, camera.position.y)), 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,${Math.round(180 - 120 * t)},60,${0.55 * (1 - t)})`;
-      ctx.fill();
-    }
-
-    ctx.font = 'bold 15px system-ui, sans-serif';
     ctx.textAlign = 'center';
     for (let i = this.floaters.length - 1; i >= 0; i--) {
       const f = this.floaters[i]!;
@@ -136,11 +123,16 @@ export class Overlay {
       if (t >= 1) { this.floaters.splice(i, 1); continue; }
       const at = this.project(f.x, f.y, f.z, camera);
       if (!at) continue;
+      // Pop in, then rise and fade.
+      const pop = t < 0.1 ? 1 + (0.1 - t) * 4 : 1;
+      ctx.font = `800 ${Math.round(f.size * pop)}px system-ui, sans-serif`;
       ctx.globalAlpha = 1 - t * t;
-      ctx.fillStyle = '#000a';
-      ctx.fillText(f.text, at[0] + 1, at[1] - t * 40 + 1);
+      const sx = at[0] + (f.drift ?? 0) * t, sy = at[1] - t * 46;
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#000b';
+      ctx.strokeText(f.text, sx, sy);
       ctx.fillStyle = f.color;
-      ctx.fillText(f.text, at[0], at[1] - t * 40);
+      ctx.fillText(f.text, sx, sy);
       ctx.globalAlpha = 1;
     }
   }

@@ -3,7 +3,9 @@ import { Bot, type Difficulty } from '@boom/ai';
 import { createMatch, TICK_DT } from '@boom/sim';
 import { RtsCamera } from './camera.ts';
 import { loadData } from './data.ts';
+import { Effects } from './effects.ts';
 import { Environment } from './environment.ts';
+import { CombatFx } from './fx.ts';
 import { Hud } from './hud.ts';
 import { Info } from './info.ts';
 import { SelectionInput } from './input.ts';
@@ -71,10 +73,13 @@ for (const s of world.structures.values()) {
 }
 
 // Handy in the browser console while developing.
-if (import.meta.env.DEV) Object.assign(window, { boom: { scene, match, world, renderer, get rts() { return rts; } } });
+if (import.meta.env.DEV) Object.assign(window, { boom: { scene, match, world, renderer, get rts() { return rts; }, get effects() { return effects; }, get hud() { return hudPanel; }, get overlay() { return overlay; } } });
 
 const shipViews = new ShipViews(world, match.players.get(PLAYER)!.team);
 scene.add(shipViews.group);
+const effects = new Effects();
+scene.add(effects.group);
+const combatFx = new CombatFx(effects, match, match.players.get(PLAYER)!.team);
 const projectileViews = new ProjectileViews(world);
 scene.add(projectileViews.mesh);
 const overlay = new Overlay(match, PLAYER);
@@ -148,6 +153,7 @@ renderer.setAnimationLoop(() => {
     for (const bot of bots) bot.update();
     match.step();
     overlay.onEvents(match.events, now);
+    combatFx.onEvents(match.events);
     hudPanel.onEvents(match.events, now);
     for (const e of match.events) {
       if (e.kind === 'death') buildingMeshes.get(e.unitId)?.removeFromParent();
@@ -171,6 +177,8 @@ renderer.setAnimationLoop(() => {
   const alpha = accumulator / TICK_DT;
   shipViews.update(alpha, now / 1000, input.selected, frameDt);
   projectileViews.update(alpha);
+  combatFx.update();
+  effects.update(frameDt, rts.camera);
 
   if (input.lastOrder) {
     const age = (now - input.lastOrder.at) / 600;

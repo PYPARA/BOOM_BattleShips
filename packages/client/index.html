@@ -155,6 +155,21 @@
       .tip-next { margin-top: 6px; padding-top: 5px; border-top: 1px solid #ffffff1a; color: var(--gold); font-weight: 600; font-size: 11px; }
       .tip-list, .tip-note { margin-top: 5px; color: var(--dim); font-size: 11px; }
 
+      /* Kill feed and announcements. */
+      .killfeed { position: fixed; right: 12px; top: 56px; display: flex; flex-direction: column; gap: 3px; align-items: flex-end; pointer-events: none; font: 12px system-ui, sans-serif; }
+      .killfeed div { padding: 3px 9px; border-radius: 5px; background: #0b131ad0; border: 1px solid #ffffff14; color: var(--text); transition: opacity 1s; }
+      .killfeed div.old { opacity: 0; }
+      .killfeed .south { color: var(--south); } .killfeed .north { color: var(--north); }
+      .announce {
+        position: fixed; left: 50%; top: 22%; transform: translate(-50%, -50%) scale(0.8); opacity: 0; pointer-events: none; text-align: center;
+        transition: opacity 0.25s, transform 0.25s cubic-bezier(.2,1.6,.4,1); font-family: system-ui, sans-serif;
+      }
+      .announce.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      .announce strong { display: block; font-size: 38px; font-weight: 900; letter-spacing: 2px; color: #ffe08a; text-shadow: 0 0 18px #ff9a2a, 0 3px 0 #6b2a00, 0 0 4px #000; }
+      .announce.south strong { color: #bfe0ff; text-shadow: 0 0 18px #3f7fe0, 0 3px 0 #0b2a5a, 0 0 4px #000; }
+      .announce.north strong { color: #ffd0c8; text-shadow: 0 0 18px #e0483c, 0 3px 0 #5a0b0b, 0 0 4px #000; }
+      .announce small { display: block; margin-top: 4px; font-size: 14px; color: #fff; text-shadow: 0 1px 3px #000; }
+
       /* Scoreboard (hold Tab). */
       .scoreboard {
         position: fixed; left: 50%; top: 60px; transform: translateX(-50%); display: none; padding: 10px 16px 14px; min-width: 640px;

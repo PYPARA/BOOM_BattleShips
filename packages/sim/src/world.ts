@@ -163,7 +163,9 @@ export interface Projectile {
 
 export type WorldEvent =
   | { kind: 'shot'; projectileId: number; sourceId: number; targetId: number }
-  | { kind: 'hit'; targetId: number; sourceOwner: number; damage: number }
+  | { kind: 'hit'; targetId: number; sourceOwner: number; damage: number; attackType: string; x: number; y: number }
+  /** A bolt between two points (chain lightning jumps, bouncing shots), for the renderer. */
+  | { kind: 'zap'; abilityId: string; fromX: number; fromY: number; toX: number; toY: number }
   | { kind: 'death'; unit: UnitEntity; killerOwner: number; killerId: number }
   | { kind: 'cast'; casterId: number; abilityId: string; x: number; y: number }
   /** A consumable left the inventory; match.ts mirrors it into the player's item list. */
@@ -532,7 +534,7 @@ export class World {
       ? amount
       : this.damage.damage(amount, attackType, target.armorType, target.armor - strongest(target, 'armorDown')) * (plating ? target.damageTaken : 1);
     target.hp -= dealt;
-    this.events.push({ kind: 'hit', targetId: target.id, sourceOwner, damage: dealt });
+    this.events.push({ kind: 'hit', targetId: target.id, sourceOwner, damage: dealt, attackType, x: target.x, y: target.y });
     if (target.hp > 0) { this.abilities.onDamaged(target); return; }
     target.hp = 0;
     this.remove(target.id);
