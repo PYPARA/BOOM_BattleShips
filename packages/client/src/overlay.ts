@@ -11,6 +11,7 @@ interface Burst { x: number; y: number; z: number; born: number; size: number; r
 const BUFF_TAGS: Partial<Record<string, [string, string]>> = {
   stun: ['晕', '#ffd84a'], root: ['定', '#c9a35a'], silence: ['沉默', '#c58cff'], slow: ['慢', '#7ab8ff'],
   haste: ['加速', '#7dffb0'], invulnerable: ['无敌', '#ffffff'], dot: ['灼烧', '#ff8a4a'], hot: ['回复', '#7dff8a'],
+  invisible: ['隐形', '#b9c6d8'], armorDown: ['破甲', '#ff6a6a'], disarm: ['变异', '#e59cff'],
 };
 
 const FLOAT_MS = 1400;
@@ -99,7 +100,11 @@ export class Overlay {
     const { ctx } = this;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, innerWidth, innerHeight);
-    for (const u of this.match.world.allUnits()) if (u.hp < u.maxHp || u.isHero) this.bar(u, camera);
+    const team = this.match.players.get(this.player)?.team;
+    for (const u of this.match.world.allUnits()) {
+      if (u.locust || (team && u.team !== team && !this.match.world.visibleTo(team, u))) continue;
+      if (u.hp < u.maxHp || u.isHero) this.bar(u, camera);
+    }
 
     for (let i = this.bursts.length - 1; i >= 0; i--) {
       const b = this.bursts[i]!;

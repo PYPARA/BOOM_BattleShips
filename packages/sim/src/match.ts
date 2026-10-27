@@ -14,10 +14,10 @@ const STARTING_GOLD = 400;
 /** §5: hero bounty by the dead ship's price. */
 const HERO_BOUNTY: [number, number][] = [[9000, 600], [7000, 500], [5000, 400], [3000, 350], [1500, 300], [1000, 250], [500, 200], [0, 150]];
 /**
- * How close a ship must be to a shop to trade. Not in the map data: tuned so a ship anywhere in
- * its home harbour reaches every home shop (they sit up to ~1250 from the start points).
+ * How close a ship must be to a shop to trade. Not in the map data: tuned so a ship at its
+ * spawn reaches every home shop on both sides (the farthest, the north weapon shop, is 1408).
  */
-export const SHOP_RANGE = 1300;
+export const SHOP_RANGE = 1450;
 /** §6/§7: selling ships and items refunds this share of the price. */
 const RESALE = 0.6;
 const ASSIST_WINDOW_TICKS = 10 * TICK_RATE;
@@ -28,7 +28,7 @@ const RESPAWN_SHIELD_TICKS = 5 * TICK_RATE;
  * rate is not in the data; this restores a ship in about 12 seconds.
  */
 const REPAIR_RATE = 1 / 12;
-const REPAIR_RECTS = { south: { station: 'Repair_Station_South', out: 'Repair_Out_South' }, north: { station: 'Repair_Station_North', out: 'Repair_Out_North' } } as const;
+export const REPAIR_RECTS = { south: { station: 'Repair_Station_South', out: 'Repair_Out_South' }, north: { station: 'Repair_Station_North', out: 'Repair_Out_North' } } as const;
 /** §3: the west channel, shut in fast mode and opened for 120 s when a whole side is down. */
 const WEST_CHANNEL = 'Left_Path';
 const WEST_CHANNEL_OPEN_TICKS = 120 * TICK_RATE;
@@ -48,14 +48,14 @@ const WAVES = [
 const SUPER_SHIP = 'h018';
 
 /** The two lanes: each side's shipyard and harbour. Handles are the map's preplaced unit names. */
-const LANES = [
+export const LANES = [
   { south: { yard: 'gg_unit_n003_0024', harbour: 'Harbour1_South' }, north: { yard: 'gg_unit_n003_0016', harbour: 'Harbour1_North' } },
   { south: { yard: 'gg_unit_n003_0025', harbour: 'Harbour2_South' }, north: { yard: 'gg_unit_n003_0017', harbour: 'Harbour2_North' } },
 ] as const;
-const BASES = { south: 'gg_unit_n000_0020', north: 'gg_unit_n000_0018' } as const;
+export const BASES = { south: 'gg_unit_n000_0020', north: 'gg_unit_n000_0018' } as const;
 const RESPAWN_RECTS = { south: 'SouthRespawn', north: 'NorthRespawn' } as const;
 /** Fleet (computer) player of each side; NPC ships and structures belong to it. */
-const FLEET = { south: 0, north: 1 } as const;
+export const FLEET = { south: 0, north: 1 } as const;
 
 export interface PlayerState {
   index: number;
@@ -162,6 +162,33 @@ export class Match {
     return { index: FLEET[team], team, gold: 0, kills: 0, deaths: 0, deathStreak: 0, shipTypeId: '', items: [], hero: newHero() };
   }
 
+  /** Center of a named map region (harbours, repair stations, …). */
+  rectCenter(name: string): Vec2 {
+    return this.rect(name);
+  }
+
+  itemPrice(itemId: string): number {
+    return this.items.get(itemId)?.goldCost ?? Infinity;
+  }
+
+  item(itemId: string): Item | undefined {
+    return this.items.get(itemId);
+  }
+
+  unitPrice(typeId: string): number {
+    return this.units.get(typeId)?.goldCost ?? Infinity;
+  }
+
+  /** Shops a player's side may use (own side or neutral, still standing), wherever the ship is. */
+  friendlyShops(player: number): Shop[] {
+    const team = this.players.get(player)?.team;
+    return this.shops.filter((s) => {
+      if (s.entityId !== undefined && !this.world.structures.has(s.entityId)) return false;
+      const side = teamOfPlayer(s.owner);
+      return side === 'neutral' || side === team;
+    });
+  }
+
   private rect(name: string): Vec2 {
     const r = this.rects.get(name);
     if (!r) throw new Error(`Missing rect ${name}`);
@@ -172,14 +199,16 @@ export class Match {
     for (const p of placements) {
       const unit = this.units.get(p.id);
       if (!unit?.isBuilding || p.id === 'hhou') continue;
-      const sells = unit.sellsUnits.length > 0 || unit.sellsItems.length > 0;
+      // Only priced goods make a shop; towers list free quest tokens handed out by triggers.
+      const sellsItems = unit.sellsItems.filter((id) => (this.items.get(id)?.goldCost ?? 0) > 0);
+      const sells = unit.sellsUnits.length > 0 || sellsItems.length > 0;
       // The fleets' buildings are combat units; neutral shops are just trading posts.
       if (p.player === 0 || p.player === 1) {
         const s = this.world.spawnStructure(p.id, p.player, p.x, p.y, (p.facing * Math.PI) / 180, p.handle);
         if (p.handle) this.handles.set(p.handle, s.id);
-        if (sells) this.shops.push({ unitId: p.id, entityId: s.id, owner: p.player, x: p.x, y: p.y, sellsUnits: unit.sellsUnits, sellsItems: unit.sellsItems });
+        if (sells) this.shops.push({ unitId: p.id, entityId: s.id, owner: p.player, x: p.x, y: p.y, sellsUnits: unit.sellsUnits, sellsItems });
       } else if (sells) {
-        this.shops.push({ unitId: p.id, owner: p.player, x: p.x, y: p.y, sellsUnits: unit.sellsUnits, sellsItems: unit.sellsItems });
+        this.shops.push({ unitId: p.id, owner: p.player, x: p.x, y: p.y, sellsUnits: unit.sellsUnits, sellsItems });
       }
     }
   }
@@ -236,7 +265,13 @@ export class Match {
       }
       if (e.kind === 'death') {
         this.events.push({ kind: 'death', unitId: e.unit.id, typeId: e.unit.typeId, owner: e.unit.owner, x: e.unit.x, y: e.unit.y });
-        this.onDeath(e.unit, e.killerOwner, e.killerId);
+        if (!e.unit.illusion) this.onDeath(e.unit, e.killerOwner, e.killerId);
+      }
+      if (e.kind === 'reward') {
+        const p = this.players.get(e.player);
+        if (!p) continue;
+        if (e.gold > 0) this.give(e.player, e.gold, 'skill', e);
+        if (e.xp > 0 && gainXp(p.hero, e.xp) > 0) this.events.push({ kind: 'levelUp', player: p.index, level: p.hero.level });
       }
     }
     this.world.events = [];

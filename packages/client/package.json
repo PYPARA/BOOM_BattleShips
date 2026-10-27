@@ -9,6 +9,7 @@
     "typecheck": "tsc -p ."
   },
   "dependencies": {
+    "@boom/ai": "workspace:*",
     "@boom/gamedata": "workspace:*",
     "@boom/sim": "workspace:*",
     "three": "^0.186.1"

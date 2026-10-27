@@ -124,6 +124,12 @@ export interface UnitEntity {
   pendingCast?: { abilityId: string; targetId?: number; point?: Vec2; itemSlot?: number };
   /** Summons and mines disappear at this tick. */
   expiresAt?: number;
+  /** Summoned by a skill (dispel hurts it). */
+  summoned?: boolean;
+  /** A skill-made copy of a ship (假目标, 分身, 造影): fights, but its death gives nothing. */
+  illusion?: boolean;
+  /** Cannot be targeted by anything (小艇 swarms, Warcraft's Locust). */
+  locust?: boolean;
   /** State at the start of the current tick, for render interpolation. */
   prevX: number;
   prevY: number;
@@ -152,7 +158,9 @@ export type WorldEvent =
   | { kind: 'death'; unit: UnitEntity; killerOwner: number; killerId: number }
   | { kind: 'cast'; casterId: number; abilityId: string; x: number; y: number }
   /** A consumable left the inventory; match.ts mirrors it into the player's item list. */
-  | { kind: 'itemUsed'; unitId: number; slot: number };
+  | { kind: 'itemUsed'; unitId: number; slot: number }
+  /** Gold and experience granted by a skill (打捞, 同化). */
+  | { kind: 'reward'; player: number; gold: number; xp: number; x: number; y: number };
 
 export type Command =
   | { kind: 'move'; unitIds: number[]; x: number; y: number }
@@ -325,8 +333,14 @@ export class World {
 
   private enemiesOf(u: UnitEntity): Iterable<UnitEntity> {
     const out: UnitEntity[] = [];
-    for (const other of this.allUnits()) if (other.team !== u.team && other.hp > 0) out.push(other);
+    for (const other of this.allUnits()) if (other.team !== u.team && other.hp > 0 && this.visibleTo(u.team, other)) out.push(other);
     return out;
+  }
+
+  /** Whether `team` can target `u`: swarms never, invisible ships only when revealed. */
+  visibleTo(team: Team, u: UnitEntity): boolean {
+    if (u.locust) return false;
+    return !hasBuff(u, 'invisible') || this.abilities.revealed(u, team);
   }
 
   private canTarget(filter: TargetFilter, target: UnitEntity): boolean {
@@ -346,7 +360,7 @@ export class World {
     if (u.order.kind !== 'attackMove' || u.attacks.length === 0) return;
     const range = Math.max(...u.attacks.map((a) => a.range));
     const current = this.unit(u.targetId);
-    if (!current || current.hp <= 0 || this.reach(u, current) > range + ACQUIRE_BONUS) {
+    if (!current || current.hp <= 0 || current.team === u.team || !this.visibleTo(u.team, current) || this.reach(u, current) > range + ACQUIRE_BONUS) {
       u.targetId = undefined;
       let best: UnitEntity | undefined;
       let bestD = range + ACQUIRE_BONUS;
@@ -414,13 +428,14 @@ export class World {
 
   /** Fires every ready attack and weapon. */
   private fight(u: UnitEntity): void {
-    if (u.hp <= 0 || u.frozen || hasBuff(u, 'stun')) return;
+    if (u.hp <= 0 || u.frozen || hasBuff(u, 'stun') || hasBuff(u, 'disarm')) return;
     const bonus = 1 + strongest(u, 'damageBonus');
+    let fired = false;
     for (const a of u.attacks) {
       if (this.tick < a.readyAt) continue;
       // Structures and idle units pick the nearest valid enemy; attack-movers use their target.
       let target = this.unit(u.targetId);
-      if (!target || target.hp <= 0 || !this.canTarget(a.filter, target) || this.reach(u, target) > a.range) {
+      if (!target || target.hp <= 0 || target.team === u.team || !this.visibleTo(u.team, target) || !this.canTarget(a.filter, target) || this.reach(u, target) > a.range) {
         target = undefined;
         let bestD = a.range;
         for (const e of this.enemiesOf(u)) {
@@ -433,6 +448,7 @@ export class World {
       let roll = a.damageBase + u.bonusDamage + Array.from({ length: a.dice }, () => 1 + Math.floor(this.random() * a.sides)).reduce((s, v) => s + v, 0);
       if (u.critChance > 0 && this.random() < u.critChance) roll *= u.critMultiplier;
       this.shoot(u, target, roll * bonus, a.attackType);
+      fired = true;
       a.readyAt = this.tick + Math.round((a.cooldown / (1 + u.attackSpeedBonus)) * TICK_RATE);
     }
     for (const w of u.weapons) {
@@ -441,9 +457,13 @@ export class World {
       for (const e of this.enemiesOf(u)) if (this.canTarget(w.filter, e) && this.reach(u, e) <= w.range) candidates.push(e);
       if (candidates.length === 0) continue;
       const target = candidates[Math.floor(this.random() * candidates.length)]!;
-      this.shoot(u, target, w.damage * bonus, 'spells');
+      const crit = u.critChance > 0 && this.random() < u.critChance ? u.critMultiplier : 1;
+      this.shoot(u, target, w.damage * bonus * crit, 'spells');
+      fired = true;
       w.readyAt = this.tick + Math.round(w.cooldown * TICK_RATE);
     }
+    // Attacking gives away an invisible ship.
+    if (fired && u.buffs.length) u.buffs = u.buffs.filter((b) => b.kind !== 'invisible');
   }
 
   private shoot(source: UnitEntity, target: UnitEntity, damage: number, attackType: string): void {
@@ -480,12 +500,13 @@ export class World {
     if (target.hp <= 0 || target.invulnerable || hasBuff(target, 'invulnerable')) return;
     const dealt = attackType === 'ability' || attackType === 'pure'
       ? amount
-      : this.damage.damage(amount, attackType, target.armorType, target.armor) * target.damageTaken;
+      : this.damage.damage(amount, attackType, target.armorType, target.armor - strongest(target, 'armorDown')) * target.damageTaken;
     target.hp -= dealt;
     this.events.push({ kind: 'hit', targetId: target.id, sourceOwner, damage: dealt });
-    if (target.hp > 0) return;
+    if (target.hp > 0) { this.abilities.onDamaged(target); return; }
     target.hp = 0;
     this.remove(target.id);
+    this.abilities.onDeath(target, sourceId);
     this.events.push({ kind: 'death', unit: target, killerOwner: sourceOwner, killerId: sourceId });
   }
 

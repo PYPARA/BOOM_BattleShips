@@ -1,4 +1,5 @@
 import * as THREE from 'three/webgpu';
+import { Bot, type Difficulty } from '@boom/ai';
 import { createMatch, TICK_DT } from '@boom/sim';
 import { RtsCamera } from './camera.ts';
 import { loadData } from './data.ts';
@@ -28,7 +29,11 @@ const [data] = await Promise.all([loadData(), loadGlbModels()]);
 const params = new URLSearchParams(location.search);
 // `?mode=standard` plays the league rules (60 gold salary, west channel open); fast is the map's default.
 const mode = params.get('mode') === 'standard' ? 'standard' : 'fast';
-const match = createMatch(data, { players: [PLAYER], mode, seed: Date.now() % 100000 });
+// Full 5v5: the local player plus nine computer players. `?ai=easy|normal|hard`, `?solo` for none.
+const difficulty = (['easy', 'normal', 'hard'] as const).find((d) => d === params.get('ai')) ?? ('normal' as Difficulty);
+const slots = params.has('solo') ? [PLAYER] : [2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+const match = createMatch(data, { players: slots, mode, seed: Date.now() % 100000 });
+const bots = slots.filter((p) => p !== PLAYER).map((p) => new Bot(match, p, { difficulty }));
 const world = match.world;
 // `?gold=20000` starts with extra gold, for trying ships while developing.
 if (import.meta.env.DEV && params.has('gold')) match.players.get(PLAYER)!.gold = Number(params.get('gold')) || 20000;
@@ -65,7 +70,7 @@ for (const s of world.structures.values()) {
 // Handy in the browser console while developing.
 if (import.meta.env.DEV) Object.assign(window, { boom: { scene, match, world, renderer, get rts() { return rts; } } });
 
-const shipViews = new ShipViews(world);
+const shipViews = new ShipViews(world, match.players.get(PLAYER)!.team);
 scene.add(shipViews.group);
 const projectileViews = new ProjectileViews(world);
 scene.add(projectileViews.mesh);
@@ -109,6 +114,7 @@ renderer.setAnimationLoop(() => {
   accumulator += frameDt;
   let ticks = 0;
   while (accumulator >= TICK_DT && ticks < MAX_TICKS_PER_FRAME) {
+    for (const bot of bots) bot.update();
     match.step();
     overlay.onEvents(match.events, now);
     hudPanel.onEvents(match.events, now);

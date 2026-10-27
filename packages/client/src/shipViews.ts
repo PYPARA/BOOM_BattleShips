@@ -1,7 +1,7 @@
 // Keeps one 3D object per simulated ship, interpolating between ticks and adding
 // cosmetic motion (bobbing, leaning into turns) that the simulation does not model.
 import * as THREE from 'three/webgpu';
-import { wrapAngle, type ShipEntity, type World } from '@boom/sim';
+import { hasBuff, wrapAngle, type ShipEntity, type Team, type World } from '@boom/sim';
 import { glbModel } from './models/glb.ts';
 import { shipModels } from './models/index.ts';
 import { withEngineRig } from './models/rigs.ts';
@@ -25,9 +25,12 @@ export class ShipViews {
   readonly group = new THREE.Group();
   private readonly views = new Map<number, ShipView>();
   private readonly world: World;
+  /** The local player's side: enemy ships it cannot see (invisible) are not drawn. */
+  private readonly team: Team;
 
-  constructor(world: World) {
+  constructor(world: World, team: Team) {
     this.world = world;
+    this.team = team;
     this.group.name = 'ships';
   }
 
@@ -70,6 +73,7 @@ export class ShipViews {
       view.model.rotation.x = view.roll + Math.sin(time * 1.1 + phase) * 0.03;
       view.model.rotation.z = Math.sin(time * 0.9 + phase) * 0.025;
       view.ring.visible = selected.has(ship.id);
+      view.root.visible = ship.team === this.team || !hasBuff(ship, 'invisible') || this.world.abilities.revealed(ship, this.team);
     }
     // Sunk ships list over and slide under before their view is dropped.
     for (const [id, view] of this.views) {

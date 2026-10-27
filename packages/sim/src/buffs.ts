@@ -19,7 +19,13 @@ export type BuffKind =
   /** Outgoing damage × (1 + value) (war drums); refreshed each tick by the aura owner. */
   | 'damageBonus'
   /** Marked by a spy (领主 派遣间谍) of `sourceOwner`. */
-  | 'spied';
+  | 'spied'
+  /** Cannot be targeted by enemies unless revealed; attacking ends it. */
+  | 'invisible'
+  /** Armor − value; also keeps the target visible to `sourceOwner`'s team (影随行). */
+  | 'armorDown'
+  /** Cannot attack (变异). */
+  | 'disarm';
 
 export interface Buff {
   kind: BuffKind;
