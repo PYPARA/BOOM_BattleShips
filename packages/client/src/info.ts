@@ -86,12 +86,19 @@ export class Info {
 
   item(id: string, slot?: number): string {
     const w = this.data.weapons.get(id);
-    if (w) return this.weapon(w) + this.sellNote(id, slot);
+    const goods = this.match.world.goods;
+    if (w) {
+      const manual = goods.manualOnly.has(id) ? '手动齐射：按物品键后点选区域' : w.mode === 'salvo' ? '自动单发；按物品键可手动齐射' : '';
+      const special = goods.uniqueGroup.get(id) === '特殊武器' ? '特殊武器：只能携带一件' : '';
+      return this.weapon(w) + [manual, special].filter(Boolean).map((t) => `<div class="tip-note">${t}</div>`).join('') + this.sellNote(id, slot);
+    }
     const i = this.data.items.get(id);
     if (!i) return '';
     const active = this.match.activeItemAbility(id);
-    const kind = active ? (i.perishable ? '消耗品 · 主动使用' : '主动使用') : '被动';
-    return head(i.name, kind, i.goldCost) + text(i.description) + this.sellNote(id, slot);
+    const instant = goods.purchases.has(id);
+    const charges = this.state.hero.charges[id] ?? goods.charges.get(id);
+    const kind = instant ? '购买后立即生效，不占物品栏' : active ? (i.perishable ? '消耗品 · 主动使用' : '主动使用') : '被动';
+    return head(i.name, `${kind}${charges ? ` · ${slot !== undefined ? '剩余' : ''} ${charges} 次` : ''}`, i.goldCost) + text(i.description) + this.sellNote(id, slot);
   }
 
   private sellNote(id: string, slot?: number): string {
@@ -103,16 +110,17 @@ export class Info {
   /** A ship skill: the current level, and the next one when it can be learned. */
   skill(a: Ability): string {
     const hero = this.state.hero;
-    const level = hero.learned[a.id] ?? 0;
+    const bought = !hero.learned[a.id] && !!hero.granted[a.id];
+    const level = hero.learned[a.id] || hero.granted[a.id] || 0;
     const passive = this.match.world.abilities.targeting(a.id) === 'passive';
     const now = a.levels[level - 1];
     const next = a.levels[level];
     const wait = Math.max(0, Math.ceil(((hero.readyAt[a.id] ?? 0) - this.match.world.tick) / TICK_RATE));
     const need = (a.requiredLevel ?? 1) + level * (a.levelSkip ?? 2);
-    const sub = `${passive ? '被动' : `主动 · 快捷键 ${a.hotkey ?? '—'}`} · 等级 ${level}/${a.levels.length}${wait ? ` · 冷却 ${wait} 秒` : ''}`;
+    const sub = `${bought ? '购买获得 · ' : ''}${passive ? '被动' : `主动 · 快捷键 ${a.hotkey ?? '—'}`} · 等级 ${level}/${a.levels.length}${wait ? ` · 冷却 ${wait} 秒` : ''}`;
     let html = head(a.name, sub);
     if (now) html += text(now.description);
-    if (next) {
+    if (next && !bought) {
       html += `<div class="tip-next">${level ? '下一级' : '学习后'}${canLearn(hero, a) ? '' : `（需要船只等级 ${need}）`}</div>`;
       html += text(level ? next.description.split('\n').filter((l) => l.startsWith('-')).join('\n') || next.description : next.description);
     }

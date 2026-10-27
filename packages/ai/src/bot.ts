@@ -164,8 +164,8 @@ export class Bot {
     if (this.random() > this.settings.castChance) return;
     const abilities = this.match.world.abilities;
     const hero = this.state.hero;
-    for (const a of abilities.skillsOf(ship.typeId)) {
-      const n = hero.learned[a.id] ?? 0;
+    for (const a of [...abilities.skillsOf(ship.typeId), ...abilities.grantedOf(ship)]) {
+      const n = hero.learned[a.id] || hero.granted[a.id] || 0;
       if (!n || abilities.castBlocker(ship, a.id)) continue;
       const level = a.levels[n - 1]!;
       const kind = abilities.targeting(a.id);

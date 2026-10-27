@@ -17,10 +17,20 @@ export interface HeroState {
   learned: Record<string, number>;
   /** Tick when each ability or item cooldown group (`item:<group>`) is ready again. */
   readyAt: Record<string, number>;
+  /** Skills the ship has besides its learnable ones (bought 船只特殊能力, submarine gear), by level. */
+  granted: Record<string, number>;
+  /** Uses left on multi-use consumables, by item id. */
+  charges: Record<string, number>;
+  /** Max HP from hull blueprints, by ship type (once per ship). */
+  hullBonus: Record<string, number>;
+  /** Upgrade value bought for the current ship (the map's hero INT − 1), refunded at 60 gold a point. */
+  invested: number;
+  /** The player's submarine researches (高爆弹头 …), by item id. */
+  techs: string[];
 }
 
 export function newHero(): HeroState {
-  return { xp: 0, level: 1, learned: {}, readyAt: {} };
+  return { xp: 0, level: 1, learned: {}, readyAt: {}, granted: {}, charges: {}, hullBonus: {}, invested: 0, techs: [] };
 }
 
 /**

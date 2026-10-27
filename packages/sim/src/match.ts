@@ -4,6 +4,7 @@
 import type { Item, MapInfo, Placement, Unit } from '@boom/gamedata';
 import { gainXp, HERO_XP_RANGE, killXp, newHero, type HeroState } from './heroes.ts';
 import { distance, type Vec2 } from './math.ts';
+import { DEFAULT_GRANTS, SUBMARINES } from './goods.ts';
 import { teamOfPlayer, TICK_RATE, type Team, type UnitEntity, type World } from './world.ts';
 
 export type GameMode = 'standard' | 'fast';
@@ -519,6 +520,7 @@ export class Match {
     const spot = this.world.grid.nearestSailable(at.x, at.y, radius) ?? at;
     const ship = this.world.spawnShip(p.shipTypeId, index, spot.x, spot.y, p.team === 'south' ? Math.PI / 2 : -Math.PI / 2);
     ship.hero = p.hero;
+    for (const [id, level] of Object.entries(DEFAULT_GRANTS[p.shipTypeId] ?? {})) p.hero.granted[id] ??= level;
     this.world.setItems(ship, p.items);
     p.shipId = ship.id;
     return ship;
@@ -563,9 +565,81 @@ export class Match {
     if (base) this.world.attackMove(ship, [{ x: base.x, y: base.y }]);
   }
 
-  /** The usable ability of an item (blink, repair kit), if it has one. */
+  /** The usable ability of an item (blink, repair kit), if it has one; `@<item>` for scripted ones. */
   activeItemAbility(itemId: string | undefined): string | undefined {
+    if (itemId && this.world.goods.groundMissiles.has(itemId)) return `@${itemId}`;
     return this.items.get(itemId ?? '')?.abilities.find((id) => this.world.abilities.targeting(id) !== 'passive');
+  }
+
+  /**
+   * Goods used up on purchase (UP_Unit, Buy_QianShui_Item, 船只特殊能力 in war3map.j). Returns a
+   * refusal, or undefined once applied. The gold is taken by the caller.
+   */
+  private applyPurchase(p: PlayerState, ship: UnitEntity, itemId: string): string | undefined {
+    const buy = this.world.goods.purchases.get(itemId);
+    if (!buy) return undefined;
+    const hero = p.hero;
+    switch (buy.kind) {
+      case 'upgrade': {
+        const pair = buy.pairs.find(([from]) => p.items.includes(from));
+        if (!pair) return `需要先装备${this.items.get(buy.pairs[0]![0])?.name ?? '对应的武器'}`;
+        p.items[p.items.indexOf(pair[0])] = pair[1];
+        break;
+      }
+      case 'combine': {
+        const left = [...p.items];
+        for (const id of buy.needs) {
+          const i = left.indexOf(id);
+          if (i < 0) return `合成需要：${buy.needs.map((n) => this.items.get(n)?.name ?? n).join('、')}`;
+          left.splice(i, 1);
+        }
+        p.items = [...left, buy.to];
+        break;
+      }
+      case 'hull': {
+        const bonus = buy.bonus[p.shipTypeId];
+        if (!bonus) return '您的船不符合改装要求';
+        if (hero.hullBonus[p.shipTypeId]) return '每艘船只能升级一次';
+        hero.hullBonus[p.shipTypeId] = bonus;
+        break;
+      }
+      case 'shipSkill': {
+        if (buy.ships && !buy.ships.includes(p.shipTypeId)) return '您的船不符合改装要求';
+        const a = this.world.abilities.byId.get(buy.abilityId);
+        const now = hero.granted[buy.abilityId] ?? 0;
+        if (now === 0 && Object.keys(hero.granted).some((id) => this.world.goods.isShipSkill(id))) return '每艘船只能安装一种特殊能力';
+        if (now >= (a?.levels.length ?? 1)) return '已经是最高等级';
+        hero.granted[buy.abilityId] = now + 1;
+        hero.invested += 2;
+        break;
+      }
+      case 'subTech':
+        if (!SUBMARINES.has(p.shipTypeId)) return '非潜水艇，不能安装';
+        if (hero.techs.includes(itemId)) return '已经安装过了';
+        hero.techs.push(itemId);
+        hero.invested += buy.value;
+        break;
+      case 'subSkill': {
+        if (!SUBMARINES.has(p.shipTypeId)) return '非潜水艇，不能安装';
+        const now = hero.granted[buy.abilityId] ?? 0;
+        const next = buy.level || now + 1;
+        const max = this.world.abilities.byId.get(buy.abilityId)?.levels.length ?? 1;
+        if (now >= next || next > max) return '已经安装过了';
+        hero.granted[buy.abilityId] = next;
+        hero.invested += buy.value;
+        break;
+      }
+      case 'reset': {
+        // 重设技能: skill points back, bought ship skills removed and refunded.
+        p.gold += hero.invested * 60;
+        hero.invested = 0;
+        hero.learned = {};
+        for (const id of Object.keys(hero.granted)) if (this.world.goods.isShipSkill(id)) delete hero.granted[id];
+        break;
+      }
+    }
+    this.world.setItems(ship, p.items);
+    return undefined;
   }
 
   private apply(c: MatchCommand): void {
@@ -598,27 +672,48 @@ export class Match {
       const price = this.units.get(c.typeId)?.goldCost ?? Infinity;
       const refund = Math.floor((this.units.get(p.shipTypeId)?.goldCost ?? 0) * RESALE);
       if (p.gold + refund < price) return this.deny(c.player, '金钱不足');
-      p.gold += refund - price;
+      // The old hull's bought upgrades are sold with it (60 gold per upgrade point, as the map does).
+      p.gold += refund - price + p.hero.invested * 60;
       p.shipTypeId = c.typeId;
       // A new hull keeps the captain's experience but its skills are learned afresh.
       p.hero.learned = {};
       p.hero.readyAt = {};
+      p.hero.granted = { ...DEFAULT_GRANTS[c.typeId] };
+      p.hero.invested = 0;
       const at = { x: ship.x, y: ship.y };
       this.world.remove(ship.id);
       this.spawnPlayerShip(p.index, at);
     } else if (c.kind === 'buyItem') {
       if (!shops.some((s) => s.sellsItems.includes(c.itemId))) return this.deny(c.player, '附近没有出售这件物品的商店');
       const price = this.items.get(c.itemId)?.goldCost ?? Infinity;
-      if (p.items.length >= 6) return this.deny(c.player, '物品栏已满');
       if (p.gold < price) return this.deny(c.player, '金钱不足');
+      const goods = this.world.goods;
+      if (goods.purchases.has(c.itemId)) {
+        const refused = this.applyPurchase(p, ship, c.itemId);
+        if (refused) return this.deny(c.player, refused);
+        p.gold -= price;
+        return;
+      }
+      // Multi-use consumables stack their charges in one slot.
+      const uses = goods.charges.get(c.itemId);
+      if (uses && p.items.includes(c.itemId)) {
+        p.gold -= price;
+        p.hero.charges[c.itemId] = (p.hero.charges[c.itemId] ?? 0) + uses;
+        return;
+      }
+      if (p.items.length >= 6) return this.deny(c.player, '物品栏已满');
+      const group = goods.uniqueGroup.get(c.itemId);
+      if (group && p.items.some((id) => goods.uniqueGroup.get(id) === group)) return this.deny(c.player, `只能携带一个${group}`);
       p.gold -= price;
       p.items.push(c.itemId);
+      if (uses) p.hero.charges[c.itemId] = uses;
       this.world.setItems(ship, p.items);
     } else if (c.kind === 'sellItem') {
       const itemId = p.items[c.slot];
       if (!itemId) return;
       if (shops.length === 0) return this.deny(c.player, '要在商店附近才能出售');
       p.items.splice(c.slot, 1);
+      delete p.hero.charges[itemId];
       p.gold += Math.floor((this.items.get(itemId)?.goldCost ?? 0) * RESALE);
       this.world.setItems(ship, p.items);
     }

@@ -7,3 +7,4 @@ export * from './match.ts';
 export * from './abilities.ts';
 export * from './buffs.ts';
 export * from './heroes.ts';
+export * from './goods.ts';

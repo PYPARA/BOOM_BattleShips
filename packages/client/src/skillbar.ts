@@ -59,9 +59,10 @@ export class SkillBar {
     return this.match.world.ships.get(this.match.players.get(this.player)?.shipId ?? -1);
   }
 
+  /** Learnable skills, then skills bought for the ship (船只特殊能力, submarine gear). */
   private skills(): Ability[] {
     const ship = this.ship();
-    return ship ? this.match.world.abilities.skillsOf(ship.typeId) : [];
+    return ship ? [...this.match.world.abilities.skillsOf(ship.typeId), ...this.match.world.abilities.grantedOf(ship)] : [];
   }
 
   private begin(abilityId: string, itemSlot?: number): void {
@@ -140,15 +141,16 @@ export class SkillBar {
       </div>`;
 
     const skills = this.skills().map((a) => {
-      const level = hero.learned[a.id] ?? 0;
+      const bought = !hero.learned[a.id] && !!hero.granted[a.id];
+      const level = hero.learned[a.id] || hero.granted[a.id] || 0;
       const passive = abilities.targeting(a.id) === 'passive';
       const dots = Array.from({ length: a.levels.length }, (_, i) => `<i class="${i < level ? 'on' : ''}"></i>`).join('');
       const cooldown = a.levels[Math.max(0, level - 1)]?.cooldown ?? 0;
-      return `<div class="slot skill${level ? '' : ' unlearned'}${passive ? ' passive' : ''}">
+      return `<div class="slot skill${level ? '' : ' unlearned'}${passive ? ' passive' : ''}${bought ? ' bought' : ''}">
           <button data-cast="${a.id}" data-tip="skill:${a.id}" ${level && !passive ? '' : 'disabled'}>
             ${icon('skill', a.id, clean(a.name))}${a.hotkey && !passive ? `<kbd>${a.hotkey}</kbd>` : ''}${this.sweep(hero.readyAt[a.id], cooldown)}
           </button><span class="dots">${dots}</span>
-          ${canLearn(hero, a) ? `<button class="learn" data-learn="${a.id}" data-tip="skill:${a.id}">+</button>` : ''}
+          ${!bought && canLearn(hero, a) ? `<button class="learn" data-learn="${a.id}" data-tip="skill:${a.id}">+</button>` : ''}
         </div>`;
     });
 
@@ -161,7 +163,7 @@ export class SkillBar {
       const cooldown = active ? abilities.byId.get(active)?.levels[0]?.cooldown ?? 0 : 0;
       const kind = this.match.world.weaponType(id) ? 'weapon' : 'item';
       return `<button class="slot item${active ? ' active' : ''}" data-item="${i}" data-tip="slot:${i}">
-          ${icon(kind, id, clean(item?.name))}<kbd>${i + 1}</kbd>${this.sweep(hero.readyAt[group], cooldown)}
+          ${icon(kind, id, clean(item?.name))}<kbd>${i + 1}</kbd>${hero.charges[id] ? `<span class="charges">${hero.charges[id]}</span>` : ''}${this.sweep(hero.readyAt[group], cooldown)}
         </button>`;
     });
 

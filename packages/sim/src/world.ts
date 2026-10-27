@@ -6,6 +6,7 @@ import type { Ability, Item, Ship, Unit, Weapon } from '@boom/gamedata';
 import { AbilitySystem } from './abilities.ts';
 import { dropExpired, hasBuff, strongest, type Buff } from './buffs.ts';
 import { DamageTable, parseTargets, type TargetFilter } from './combat.ts';
+import { Goods, SUBMARINES, type WeaponSpecial } from './goods.ts';
 import type { HeroState } from './heroes.ts';
 import { createRng, distance, turnToward, wrapAngle, type Vec2 } from './math.ts';
 import type { PathGrid } from './pathing.ts';
@@ -59,6 +60,9 @@ export interface WeaponSlot {
   cooldown: number;
   filter: TargetFilter;
   readyAt: number;
+  /** Fires only when used by hand (反潜火箭). */
+  manual?: boolean;
+  special?: WeaponSpecial;
 }
 
 export type Order =
@@ -130,6 +134,10 @@ export interface UnitEntity {
   illusion?: boolean;
   /** Cannot be targeted by anything (小艇 swarms, Warcraft's Locust). */
   locust?: boolean;
+  /** A mine or a submarine: only anti-submarine weapons (and normal ones, for the surfaced sub) hit it. */
+  ward?: boolean;
+  /** Reveals invisible enemies within this range (探测者, 观察员, 声纳, 探测器). */
+  detects?: number;
   /** State at the start of the current tick, for render interpolation. */
   prevX: number;
   prevY: number;
@@ -150,6 +158,7 @@ export interface Projectile {
   prevY: number;
   damage: number;
   attackType: string;
+  special?: WeaponSpecial;
 }
 
 export type WorldEvent =
@@ -187,6 +196,7 @@ export class World {
   readonly damage: DamageTable;
   readonly random: () => number;
   readonly abilities: AbilitySystem;
+  readonly goods: Goods;
   private readonly shipTypes: Map<string, Ship>;
   private readonly unitTypes: Map<string, Unit>;
   private readonly weaponTypes: Map<string, Weapon>;
@@ -200,6 +210,7 @@ export class World {
     this.weaponTypes = new Map(data.weapons.map((w) => [w.id, w]));
     this.damage = new DamageTable(data.misc);
     this.random = createRng(seed);
+    this.goods = new Goods(data.items ?? [], data.weapons, data.ships);
     this.abilities = new AbilitySystem(this, data.abilities ?? [], data.items ?? [], data.misc ?? {});
   }
 
@@ -254,15 +265,19 @@ export class World {
       id: this.nextId++, typeId: unit.id, owner, team: teamOfPlayer(owner), kind, isHero: unit.isHero,
       x, y, facing, speed: 0, maxSpeed: 0, turnSpeed: 0, pathRadius: 0, bodyRadius: 0, path: [], order: { kind: 'idle' },
       hp: unit.hp, maxHp: unit.hp, armor: unit.armor, armorType: unit.armorType ?? 'none', regen: unit.regenHp,
-      attacks: unit.attacks.map((a) => ({
-        damageBase: a.damageBase, dice: a.dice, sides: a.sides, range: a.range, cooldown: a.cooldown,
-        attackType: a.attackType ?? 'normal', filter: parseTargets(a.targets), readyAt: 0,
-      })),
+      attacks: this.attackSlots(unit),
       weapons: [], items: [], upgrades: unit.upgrades ?? [],
       bonusDamage: 0, attackSpeedBonus: 0, critChance: 0, critMultiplier: 1, invulnerable: false, frozen: false,
       buffs: [], base: { maxHp: unit.hp, regen: unit.regenHp, speed: unit.speed, armor: unit.armor }, damageTaken: 1,
       prevX: x, prevY: y, prevFacing: facing,
     };
+  }
+
+  private attackSlots(unit: Unit): AttackSlot[] {
+    return unit.attacks.map((a) => ({
+      damageBase: a.damageBase, dice: a.dice, sides: a.sides, range: a.range, cooldown: a.cooldown,
+      attackType: a.attackType ?? 'normal', filter: parseTargets(a.targets), readyAt: 0,
+    }));
   }
 
   /** Puts weapon items in a ship's inventory (at most six); non-weapon items are kept but inert for now. */
@@ -271,8 +286,20 @@ export class World {
     ship.weapons = ship.items.flatMap((itemId) => {
       const w = this.weaponTypes.get(itemId);
       if (!w) return [];
-      return [{ itemId, damage: Number(w.damage) || 0, range: w.range, cooldown: Math.max(0.1, w.cooldown), filter: parseTargets(w.targets), readyAt: 0 }];
+      return [{
+        itemId, damage: Number(w.damage) || 0, range: w.range, cooldown: Math.max(0.1, w.cooldown), filter: parseTargets(w.targets), readyAt: 0,
+        manual: this.goods.manualOnly.has(itemId), special: this.goods.specials.get(itemId),
+      }];
     });
+    // Submarine research: better torpedoes and weapons.
+    if (SUBMARINES.has(ship.typeId) && ship.hero) {
+      ship.attacks = this.attackSlots(this.unitTypes.get(ship.typeId)!);
+      const techs = ship.hero.techs.map((id) => this.goods.purchases.get(id)).flatMap((p) => (p?.kind === 'subTech' ? [p.tech] : []));
+      for (const t of techs) {
+        for (const w of ship.weapons) { w.damage += t.damage ?? 0; w.range += t.range ?? 0; w.cooldown /= t.rate ?? 1; }
+        for (const a of ship.attacks) { a.damageBase += t.damage ?? 0; a.range += t.range ?? 0; a.cooldown /= t.rate ?? 1; }
+      }
+    }
     this.abilities.refreshStats(ship);
   }
 
@@ -343,7 +370,9 @@ export class World {
     return !hasBuff(u, 'invisible') || this.abilities.revealed(u, team);
   }
 
-  private canTarget(filter: TargetFilter, target: UnitEntity): boolean {
+  canTarget(filter: TargetFilter, target: UnitEntity): boolean {
+    if (filter.wards && (target.ward || SUBMARINES.has(target.typeId))) return true;
+    if (target.ward) return false;
     if (target.kind === 'structure' ? !filter.structures : !filter.ships) return false;
     if (filter.heroesOnly && !target.isHero) return false;
     if (filter.noHeroes && target.isHero) return false;
@@ -452,13 +481,13 @@ export class World {
       a.readyAt = this.tick + Math.round((a.cooldown / (1 + u.attackSpeedBonus)) * TICK_RATE);
     }
     for (const w of u.weapons) {
-      if (this.tick < w.readyAt) continue;
+      if (w.manual || this.tick < w.readyAt) continue;
       const candidates: UnitEntity[] = [];
       for (const e of this.enemiesOf(u)) if (this.canTarget(w.filter, e) && this.reach(u, e) <= w.range) candidates.push(e);
       if (candidates.length === 0) continue;
       const target = candidates[Math.floor(this.random() * candidates.length)]!;
       const crit = u.critChance > 0 && this.random() < u.critChance ? u.critMultiplier : 1;
-      this.shoot(u, target, w.damage * bonus * crit, 'spells');
+      this.shoot(u, target, w.damage * bonus * crit, 'spells', w.special);
       fired = true;
       w.readyAt = this.tick + Math.round(w.cooldown * TICK_RATE);
     }
@@ -466,10 +495,10 @@ export class World {
     if (fired && u.buffs.length) u.buffs = u.buffs.filter((b) => b.kind !== 'invisible');
   }
 
-  private shoot(source: UnitEntity, target: UnitEntity, damage: number, attackType: string): void {
+  private shoot(source: UnitEntity, target: UnitEntity, damage: number, attackType: string, special?: WeaponSpecial): void {
     const p: Projectile = {
       id: this.nextId++, sourceId: source.id, owner: source.owner, targetId: target.id,
-      x: source.x, y: source.y, prevX: source.x, prevY: source.y, damage, attackType,
+      x: source.x, y: source.y, prevX: source.x, prevY: source.y, damage, attackType, special,
     };
     this.projectiles.set(p.id, p);
     this.events.push({ kind: 'shot', projectileId: p.id, sourceId: source.id, targetId: target.id });
@@ -487,7 +516,8 @@ export class World {
         continue;
       }
       this.projectiles.delete(p.id);
-      this.dealDamage(target, p.damage, p.attackType, p.owner, p.sourceId);
+      this.dealDamage(target, p.damage, p.attackType, p.owner, p.sourceId, !p.special?.ignoresPlating);
+      if (p.special) this.abilities.weaponHit(p, target);
     }
   }
 
@@ -496,11 +526,11 @@ export class World {
    * scaled by hull plating (damageTaken). Attack type 'ability' is spell damage that ignores
    * armor and plating; 'pure' ignores everything (间谍破坏).
    */
-  dealDamage(target: UnitEntity, amount: number, attackType: string, sourceOwner: number, sourceId: number): void {
+  dealDamage(target: UnitEntity, amount: number, attackType: string, sourceOwner: number, sourceId: number, plating = true): void {
     if (target.hp <= 0 || target.invulnerable || hasBuff(target, 'invulnerable')) return;
     const dealt = attackType === 'ability' || attackType === 'pure'
       ? amount
-      : this.damage.damage(amount, attackType, target.armorType, target.armor - strongest(target, 'armorDown')) * target.damageTaken;
+      : this.damage.damage(amount, attackType, target.armorType, target.armor - strongest(target, 'armorDown')) * (plating ? target.damageTaken : 1);
     target.hp -= dealt;
     this.events.push({ kind: 'hit', targetId: target.id, sourceOwner, damage: dealt });
     if (target.hp > 0) { this.abilities.onDamaged(target); return; }

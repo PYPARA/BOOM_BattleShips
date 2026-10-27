@@ -3,9 +3,11 @@
 // See docs/mechanics/ship-skills.md for the per-ship list.
 import type { Ability, AbilityLevel, Item } from '@boom/gamedata';
 import { addBuff, hasBuff, type BuffKind } from './buffs.ts';
+import { parseTargets } from './combat.ts';
+import { SUBMARINES } from './goods.ts';
 import { canLearn, newHero } from './heroes.ts';
 import { distance, type Vec2 } from './math.ts';
-import { teamOfPlayer, TICK_DT, TICK_RATE, type Team, type UnitEntity, type World } from './world.ts';
+import { teamOfPlayer, TICK_DT, TICK_RATE, type Projectile, type Team, type UnitEntity, type World } from './world.ts';
 
 export type Targeting = 'unit' | 'ally' | 'point' | 'instant' | 'passive';
 
@@ -19,6 +21,8 @@ const TARGETING: Record<string, Targeting> = {
   Absk: 'instant', AHwe: 'instant', AHtc: 'instant', AOws: 'instant', AOvd: 'instant', AEsf: 'instant', ANcl: 'instant', AIhe: 'instant',
   AHds: 'instant', Aivs: 'instant', AIvi: 'instant', AOmi: 'instant', AEtq: 'instant', AEfk: 'instant', ANto: 'instant', AUls: 'instant',
   AIsa: 'instant',
+  // Bought ship skills and item abilities.
+  Acri: 'unit', ANab: 'unit', Asta: 'point', Afla: 'point', ANwm: 'point', AIbl: 'point',
 };
 
 /**
@@ -37,7 +41,10 @@ interface HeroConstants { hpPerStr: number; regenPerStr: number }
 interface Scheduled { at: number; run: () => void }
 
 /** A mine (水雷) waiting for an enemy to come close (Asds Kaboom! data). */
-interface Mine { unitId: number; trigger: number; fullRadius: number; full: number; partialRadius: number; partial: number }
+interface Mine { unitId: number; trigger: number; fullRadius: number; full: number; partialRadius: number; partial: number; stun?: number }
+
+/** An area a team can see into for a while (照明弹). */
+interface RevealZone { x: number; y: number; radius: number; team: Team; until: number }
 
 /** A summon that hunts enemies near its master (小艇 swarms, 龙卷风, illusions), within `leash`. */
 interface Follower { masterId: number; leash: number }
@@ -54,6 +61,7 @@ export class AbilitySystem {
   private readonly mines = new Map<number, Mine>();
   private readonly followers = new Map<number, Follower>();
   private wrecks: Wreck[] = [];
+  private zones: RevealZone[] = [];
   /** 镇魂曲 kill counters per ship. */
   private readonly requiem = new Map<number, number>();
   /** Built-in abilities per unit type (summons carry auras such as 建筑物破坏光环). */
@@ -67,7 +75,13 @@ export class AbilitySystem {
   }
 
   targeting(abilityId: string): Targeting {
+    if (abilityId.startsWith('@')) return 'instant'; // scripted item actions (对地导弹)
     return TARGETING[this.byId.get(abilityId)?.baseCode ?? ''] ?? 'passive';
+  }
+
+  /** Skills the ship has besides its learnable ones: bought ship skills and submarine gear. */
+  grantedOf(u: UnitEntity): Ability[] {
+    return Object.keys(u.hero?.granted ?? {}).map((id) => this.byId.get(id)).filter((a): a is Ability => !!a);
   }
 
   /** Skills a ship type can learn, in learn-menu order. */
@@ -76,7 +90,7 @@ export class AbilitySystem {
   }
 
   private level(u: UnitEntity, abilityId: string): AbilityLevel | undefined {
-    const n = u.hero?.learned[abilityId] ?? 0;
+    const n = u.hero?.learned[abilityId] || u.hero?.granted[abilityId] || 0;
     return n > 0 ? this.byId.get(abilityId)?.levels[n - 1] : undefined;
   }
 
@@ -84,7 +98,15 @@ export class AbilitySystem {
 
   /** Recomputes live stats from base values, learned passives and carried items. */
   refreshStats(u: UnitEntity): void {
-    let maxHp = u.base.maxHp, regen = u.base.regen, speedPct = 0, speedFlat = 0, taken = 1, crit = 0, critMultiplier = 1;
+    let maxHp = u.base.maxHp + (u.hero?.hullBonus[u.typeId] ?? 0), regen = u.base.regen, speedPct = 0, speedFlat = 0, taken = 1, crit = 0, critMultiplier = 1;
+    let detects = 0;
+    // Submarine research (推进器, 声纳).
+    if (SUBMARINES.has(u.typeId)) {
+      for (const id of u.hero?.techs ?? []) {
+        const p = this.world.goods.purchases.get(id);
+        if (p?.kind === 'subTech') { speedFlat += p.tech.speed ?? 0; detects = Math.max(detects, p.tech.detect ?? 0); }
+      }
+    }
     const passive = (a: Ability, level: AbilityLevel) => {
       const d = level.data;
       switch (a.baseCode) {
@@ -100,6 +122,7 @@ export class AbilitySystem {
         case 'AIms': speedFlat += Number(d.A ?? 0); break;
         case 'AIdd': taken = Math.min(taken, Number(d.E ?? 1)); break; // 船甲减伤
         case 'AOcr': crit = Number(d.A ?? 0) / 100; critMultiplier = Number(d.B ?? 1); break; // 致命一击
+        case 'Adet': detects = Math.max(detects, level.range || 900); break; // 探测者, 观察员
       }
     };
     for (const [id, n] of Object.entries(u.hero?.learned ?? {})) {
@@ -121,6 +144,7 @@ export class AbilitySystem {
     u.damageTaken = taken;
     // NPC ships get their crit from levelling up (Match), player ships from 致命一击.
     if (u.hero) { u.critChance = crit; u.critMultiplier = critMultiplier; }
+    if (u.hero || detects) u.detects = detects || undefined;
   }
 
   // Learning and casting --------------------------------------------------------------------
@@ -176,7 +200,8 @@ export class AbilitySystem {
   }
 
   private castRange(u: UnitEntity, cast: NonNullable<UnitEntity['pendingCast']>): number {
-    const a = this.byId.get(cast.abilityId)!;
+    const a = this.byId.get(cast.abilityId);
+    if (!a) return Infinity;
     const level = cast.itemSlot !== undefined ? a.levels[0] : this.level(u, cast.abilityId);
     if (a.baseCode === 'AEbl') return Infinity; // blink goes as far as it can, capped by DataA
     if (a.baseCode === 'AHbz' && this.tipNumber(level, '最大距离')) return Infinity; // 风贝跳跃 jumps the same way
@@ -215,6 +240,7 @@ export class AbilitySystem {
 
     if (now % 10 === 0) this.steerFollowers();
     if (now % 200 === 0) this.wrecks = this.wrecks.filter((w) => now - w.tick < 60 * TICK_RATE);
+    if (this.zones.length) this.zones = this.zones.filter((z) => z.until > now);
 
     for (const [id, mine] of this.mines) {
       const unit = this.world.unit(id);
@@ -222,7 +248,8 @@ export class AbilitySystem {
       if (this.enemiesNear(unit, unit, mine.trigger).length === 0) continue;
       this.mines.delete(id);
       for (const e of this.enemiesNear(unit, unit, mine.partialRadius)) {
-        this.world.dealDamage(e, distance(unit, e) <= mine.fullRadius ? mine.full : mine.partial, 'ability', unit.owner, unit.id);
+        if (mine.stun) this.buff(e, 'stun', mine.stun, 0, unit, 'Asta');
+        else this.world.dealDamage(e, distance(unit, e) <= mine.fullRadius ? mine.full : mine.partial, 'ability', unit.owner, unit.id);
       }
       this.world.remove(id);
     }
@@ -254,6 +281,9 @@ export class AbilitySystem {
             if (!e.buffs.some((b) => b.kind === 'dot' && b.abilityId === a.id)) this.buff(e, 'dot', Number(d.A ?? 120), Number(d.B ?? 0), u, a.id);
           }
           break;
+        case 'Aoar': // 雅典娜女神 figurehead: regeneration aura
+          for (const ally of this.alliesNear(u, u, area || 900)) ally.hp = Math.min(ally.maxHp, ally.hp + Number(d.A ?? 0) * TICK_DT);
+          break;
         case 'Arpl': // 战场支援: heal allies every few seconds
           if ((now + u.id) % Math.round((Number(d.E ?? 5) || 5) * TICK_RATE) !== 0) break;
           for (const ally of this.alliesNear(u, u, area || 800)) ally.hp = Math.min(ally.maxHp, ally.hp + Number(d.A ?? 0));
@@ -282,6 +312,14 @@ export class AbilitySystem {
       if (a && n > 0 && this.targeting(id) === 'passive') run(a, a.levels[n - 1]!);
     }
     for (const a of this.intrinsicOf(u.typeId)) run(a, a.levels[0]!);
+    for (const itemId of u.items) {
+      // Cannons the weapon table does not list (真红之箭 …) fire through their 小炮-style ability.
+      const autoGun = !this.world.weaponType(itemId);
+      for (const id of this.items.get(itemId)?.abilities ?? []) {
+        const a = this.byId.get(id);
+        if (a?.baseCode === 'Aoar' || (autoGun && a?.baseCode === 'Apxf')) run(a, a.levels[0]!);
+      }
+    }
   }
 
   private intrinsicOf(typeId: string): Ability[] {
@@ -316,14 +354,33 @@ export class AbilitySystem {
   /** Detection (探测者) and 影随行 reveal invisible ships to a team. */
   revealed(u: UnitEntity, team: Team): boolean {
     if (u.buffs.some((b) => b.kind === 'armorDown' && teamOfPlayer(b.sourceOwner) === team)) return true;
-    for (const v of this.world.ships.values()) {
-      if (v.team !== team || !v.hero) continue;
-      for (const [id, n] of Object.entries(v.hero.learned)) {
-        const a = this.byId.get(id);
-        if (a?.baseCode === 'Adet' && n > 0 && distance(v, u) <= (a.levels[n - 1]!.range || 1100)) return true;
+    for (const z of this.zones) if (z.team === team && distance(z, u) <= z.radius) return true;
+    for (const v of this.world.allUnits()) if (v.detects && v.team === team && distance(v, u) <= v.detects) return true;
+    return false;
+  }
+
+  /** On-hit effects of the special weapons (腐蚀, 燃烧, 弹射). */
+  weaponHit(p: Projectile, target: UnitEntity): void {
+    const sp = p.special!;
+    const source = this.world.unit(p.sourceId);
+    if (!source) return;
+    if (sp.corrode) {
+      this.buff(target, 'slow', sp.corrode.seconds, sp.corrode.slow, source, 'weapon:corrode');
+      this.buff(target, 'dot', sp.corrode.seconds, sp.corrode.dps, source, 'weapon:corrode');
+    }
+    if (sp.burn) for (const e of this.enemiesNear(source, target, sp.burn.radius)) this.buff(e, 'dot', sp.burn.seconds, sp.burn.dps, source, 'weapon:burn');
+    if (sp.bounce) {
+      const hit = new Set([target.id]);
+      let from: UnitEntity = target;
+      for (let i = 1; i < sp.bounce.targets; i++) {
+        const next = this.enemiesNear(source, from, sp.bounce.radius).filter((e) => !hit.has(e.id) && this.world.visibleTo(source.team, e))
+          .sort((a, b) => distance(a, from) - distance(b, from))[0];
+        if (!next) break;
+        hit.add(next.id);
+        this.world.dealDamage(next, p.damage, p.attackType, p.owner, p.sourceId, !sp.ignoresPlating);
+        from = next;
       }
     }
-    return false;
   }
 
   onDamaged(u: UnitEntity): void {
@@ -381,6 +438,9 @@ export class AbilitySystem {
     const s = this.world.spawnShip(typeId, master.owner, spot.x, spot.y, master.facing);
     s.summoned = true;
     s.expiresAt = this.world.tick + Math.round(seconds * TICK_RATE);
+    // Wards, hawks and helicopters see invisible ships (Adet, Atru, the helicopters' 声纳).
+    const seers = (this.world.unitType(typeId)?.abilities ?? []).map((id) => this.byId.get(id)?.baseCode);
+    if (seers.some((c) => c === 'Adet' || c === 'Atru' || c === 'Agyv')) s.detects = 900;
     if (still) { s.maxSpeed = 0; this.world.attackMove(s, [{ x: s.x, y: s.y }]); }
     else this.followers.set(s.id, { masterId: master.id, leash });
     return s;
@@ -433,7 +493,47 @@ export class AbilitySystem {
     return m ? Number(m[1]) : 0;
   }
 
+  /**
+   * A missile salvo: C missiles, B seconds apart, each landing at a random spot in the area and
+   * hitting what the weapon can target there. 反舰火箭 also hits allies (误伤), not the shooter.
+   */
+  private salvo(u: UnitEntity, level: AbilityLevel, point: Vec2, itemSlot: number | undefined): void {
+    const weapon = itemSlot !== undefined ? this.world.weaponType(u.items[itemSlot] ?? '') : undefined;
+    const filter = parseTargets(weapon?.targets ?? level.targets);
+    const friendlyFire = /误伤/.test(weapon?.description ?? '');
+    const shots = Number(level.data.C ?? 10) || 10, every = Number(level.data.B ?? 0.25) || 0.25, damage = Number(level.data.A ?? 0);
+    const area = level.area || 300;
+    for (let i = 0; i < shots; i++) {
+      this.schedule(i * every, () => {
+        const r = area * Math.sqrt(this.world.random()), t = this.world.random() * Math.PI * 2;
+        const at = { x: point.x + Math.cos(t) * r, y: point.y + Math.sin(t) * r };
+        for (const v of [...this.world.allUnits()]) {
+          if (v === u || v.hp <= 0 || distance(v, at) > 120 + v.bodyRadius * 0.5) continue;
+          if (v.team === u.team && !friendlyFire) continue;
+          if (this.world.canTarget(filter, v)) this.world.dealDamage(v, damage, 'spells', u.owner, u.id);
+        }
+      });
+    }
+  }
+
+  /** Item actions the map scripts: ground missiles strike a random enemy building. */
+  private scriptedItem(u: UnitEntity, itemId: string, itemSlot: number): void {
+    const damage = this.world.goods.groundMissiles.get(itemId);
+    if (damage) {
+      const targets = [...this.world.structures.values()].filter((b) => b.team !== u.team && b.team !== 'neutral');
+      const hit = targets[Math.floor(this.world.random() * targets.length)];
+      if (hit) {
+        this.schedule(4, () => { if (this.world.unit(hit.id)) this.world.dealDamage(hit, damage, 'ability', u.owner, u.id); });
+        this.world.events.push({ kind: 'cast', casterId: u.id, abilityId: `@${itemId}`, x: hit.x, y: hit.y });
+      }
+    }
+    u.hero ??= newHero();
+    u.hero.readyAt[this.cooldownKey(u, `@${itemId}`, itemSlot)] = this.world.tick + 5 * TICK_RATE;
+    this.consume(u, itemSlot);
+  }
+
   private execute(u: UnitEntity, abilityId: string, target: UnitEntity | undefined, point: Vec2 | undefined, itemSlot?: number): void {
+    if (abilityId.startsWith('@')) { this.scriptedItem(u, abilityId.slice(1), itemSlot!); return; }
     const a = this.byId.get(abilityId)!;
     const level = itemSlot !== undefined ? a.levels[0]! : this.level(u, abilityId)!;
     const d = level.data;
@@ -536,6 +636,7 @@ export class AbilitySystem {
           summon.expiresAt = this.world.tick + Math.round((level.duration ?? 30) * TICK_RATE);
           if (mineAbility) {
             const m = mineAbility.levels[0]!;
+            summon.ward = true;
             summon.maxSpeed = 0;
             summon.attacks = [];
             this.mines.set(summon.id, {
@@ -570,6 +671,40 @@ export class AbilitySystem {
       }
       case 'AIhe': // 修理木: instant repair
         u.hp = Math.min(u.maxHp, u.hp + num('A'));
+        break;
+
+      // Bought ship skills and item abilities -------------------------------------------------
+      case 'Asta': { // 震荡雷: a hidden mine that stuns whoever comes close
+        for (const typeId of level.units) {
+          const mine = this.summon(u, typeId, point!, level.duration ?? 150, 0, true);
+          if (!mine) continue;
+          mine.ward = true;
+          mine.attacks = [];
+          this.buff(mine, 'invisible', level.duration ?? 150, 0, u, abilityId);
+          this.mines.set(mine.id, { unitId: mine.id, trigger: Math.min(300, num('B') || 300), fullRadius: 0, full: 0, partialRadius: num('C') || 700, partial: 0, stun: level.heroDuration || 8 });
+        }
+        break;
+      }
+      case 'Acri': // 减速
+        this.buff(target!, 'slow', this.duration(level, target!), num('A'), u, abilityId);
+        break;
+      case 'ANab': // 酸毒炸弹: acid around the target, burning and eating armor
+        for (const e of this.enemiesNear(u, target!, level.area || 400)) {
+          this.buff(e, 'dot', this.duration(level, e), num('D'), u, abilityId);
+          this.buff(e, 'armorDown', this.duration(level, e), num('C'), u, abilityId);
+        }
+        break;
+      case 'Afla': // 照明弹: light up an area for the team
+        this.zones.push({ x: point!.x, y: point!.y, radius: level.area || 1200, team: u.team, until: this.world.tick + Math.round((level.duration || 7) * TICK_RATE) });
+        break;
+      case 'ANwm': // 探测器 / 战鹰: a ward or hawk that watches the area
+        for (const typeId of level.units) this.summon(u, typeId, point!, level.duration || 60, 600, (this.world.unitType(typeId)?.speed ?? 0) === 0);
+        break;
+      case 'AIbl': // 岸防哨塔: build a tower at the spot
+        for (const typeId of level.units) {
+          const spot = this.world.grid.nearestSailable(point!.x, point!.y, 30) ?? point!;
+          this.world.spawnStructure(typeId, u.owner, spot.x, spot.y);
+        }
         break;
 
       // M5: the remaining ship skills ------------------------------------------------------
@@ -701,7 +836,8 @@ export class AbilitySystem {
         this.buff(target!, 'root', this.duration(level, target!), 0, u, abilityId);
         this.buff(target!, 'dot', this.duration(level, target!), num('A'), u, abilityId);
         break;
-      case 'ANcs': // 轰天雷: rockets over the area, then a stun
+      case 'ANcs': // 轰天雷: rockets over the area, then a stun; weapon salvos (反舰火箭 …) and 潜射巡航导弹
+        if (itemSlot !== undefined || a.id === 'A02H') { this.salvo(u, level, point!, itemSlot); break; }
         for (const e of this.enemiesNear(u, point!, level.area ?? 0)) {
           this.world.dealDamage(e, this.tipNumber(level, '杀伤力') || num('A'), 'ability', u.owner, u.id);
           this.buff(e, 'stun', this.duration(level, e), 0, u, abilityId);
@@ -801,8 +937,16 @@ export class AbilitySystem {
       }
     }
 
-    // Single-use items are consumed.
-    if (itemSlot !== undefined && this.items.get(u.items[itemSlot] ?? '')?.perishable) {
+    if (itemSlot !== undefined) this.consume(u, itemSlot);
+  }
+
+  /** Single-use items are used up; multi-use ones lose a charge. */
+  private consume(u: UnitEntity, itemSlot: number): void {
+    const itemId = u.items[itemSlot] ?? '';
+    const charges = u.hero?.charges[itemId];
+    if (charges !== undefined && charges > 1) { u.hero!.charges[itemId] = charges - 1; return; }
+    if (u.hero) delete u.hero.charges[itemId];
+    if (this.items.get(itemId)?.perishable || this.world.goods.groundMissiles.has(itemId)) {
       u.items.splice(itemSlot, 1);
       this.world.setItems(u, u.items);
       this.world.events.push({ kind: 'itemUsed', unitId: u.id, slot: itemSlot });

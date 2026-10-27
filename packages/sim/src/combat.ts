@@ -55,11 +55,13 @@ export interface TargetFilter {
   /** Only heroes (player ships), e.g. the towers' anti-hero attack. */
   heroesOnly: boolean;
   noHeroes: boolean;
+  /** Submarines and mines (深水炸弹, 反潜火箭). */
+  wards: boolean;
 }
 
 export function parseTargets(flags: string[]): TargetFilter {
   const has = (...names: string[]) => names.some((n) => flags.includes(n));
   const structures = has('structure', '建筑', '建筑物');
   const ships = has('ground', 'air', 'hero', '船只', '空中', '英雄', '敌方单位') || (!structures && !has('ward', '潜水艇', '水雷'));
-  return { ships, structures, heroesOnly: flags.includes('hero') && !has('ground'), noHeroes: flags.includes('nonhero') };
+  return { ships, structures, heroesOnly: flags.includes('hero') && !has('ground'), noHeroes: flags.includes('nonhero'), wards: has('ward', '潜水艇', '水雷') };
 }
