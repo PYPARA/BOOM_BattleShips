@@ -4,6 +4,7 @@ import { createMatch, TICK_DT } from '@boom/sim';
 import { RtsCamera } from './camera.ts';
 import { loadData } from './data.ts';
 import { Hud } from './hud.ts';
+import { Info } from './info.ts';
 import { SelectionInput } from './input.ts';
 import { Minimap } from './minimap.ts';
 import { loadGlbModels } from './models/glb.ts';
@@ -14,6 +15,7 @@ import { ShipViews } from './shipViews.ts';
 import { SkillBar } from './skillbar.ts';
 import { SEA_LEVEL, toThree } from './space.ts';
 import { createTerrainMesh } from './terrain.ts';
+import { Tooltip } from './tooltip.ts';
 import { createWater } from './water.ts';
 
 /** Local player slot: the first southern player. */
@@ -23,7 +25,6 @@ const MAX_TICKS_PER_FRAME = 5;
 
 const container = document.getElementById('app')!;
 const hud = document.getElementById('hud')!;
-const info = document.getElementById('info')!;
 
 const [data] = await Promise.all([loadData(), loadGlbModels()]);
 const params = new URLSearchParams(location.search);
@@ -76,6 +77,16 @@ const projectileViews = new ProjectileViews(world);
 scene.add(projectileViews.mesh);
 const overlay = new Overlay(match, PLAYER);
 const hudPanel = new Hud(match, PLAYER, data);
+const shipTypes = new Map(data.ships.map((s) => [s.id, s]));
+const info = new Info(match, PLAYER, { ships: shipTypes, units: data.unitsById, items: data.itemsById, weapons: new Map(data.weapons.map((w) => [w.id, w])) });
+const tooltip = new Tooltip((key) => {
+  const [kind, id = ''] = key.split(':');
+  if (kind === 'ship') return info.ship(id);
+  if (kind === 'item') return info.item(id);
+  if (kind === 'skill') { const a = world.abilities.byId.get(id); return a ? info.skill(a) : ''; }
+  if (kind === 'slot') { const itemId = match.players.get(PLAYER)!.items[Number(id)]; return itemId ? info.item(itemId, Number(id)) : ''; }
+  return '';
+});
 
 const rts = new RtsCamera(renderer.domElement, data.map.bounds);
 // Created before selection input so its capture-phase listener sees targeting clicks first.
@@ -96,12 +107,30 @@ const marker = new THREE.Mesh(
 marker.rotation.x = -Math.PI / 2;
 scene.add(marker);
 
+// Units under the cursor get a tooltip too (only over the 3D view, not the UI).
+const pointer = { x: 0, y: 0, overCanvas: false };
+renderer.domElement.addEventListener('pointermove', (e) => { pointer.x = e.clientX; pointer.y = e.clientY; pointer.overCanvas = true; });
+renderer.domElement.addEventListener('pointerleave', () => { pointer.overCanvas = false; tooltip.hover(undefined); });
+const ownTeam = match.players.get(PLAYER)!.team;
+function hoverUnit(): void {
+  const at = pointer.overCanvas ? rts.screenToSea(pointer.x, pointer.y) : undefined;
+  let best: { d: number; html: string } | undefined;
+  if (at) {
+    for (const u of world.allUnits()) {
+      if (u.locust || (u.team !== ownTeam && !world.visibleTo(ownTeam, u))) continue;
+      const d = Math.hypot(u.x - at.x, u.y - at.y);
+      if (d < Math.max(50, u.bodyRadius * 1.2) && (!best || d < best.d)) best = { d, html: info.unit(u) };
+    }
+  }
+  tooltip.hover(best?.html);
+}
+
 window.addEventListener('resize', () => {
   rts.resize(window.innerWidth, window.innerHeight);
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-const shipTypes = new Map(data.ships.map((s) => [s.id, s]));
+let frame = 0;
 let accumulator = 0;
 let last = performance.now();
 let fps = 60;
@@ -156,13 +185,6 @@ renderer.setAnimationLoop(() => {
   hudPanel.update(now);
   skillBar.update();
 
-  const selected = [...input.selected].map((id) => world.ships.get(id)).filter((s) => s !== undefined);
-  info.textContent = selected
-    .map((s) => {
-      const type = shipTypes.get(s.typeId);
-      if (!type) return '';
-      return `${type.name}（${type.hullClass}，${type.size}）  航速 ${(s.speed / 10).toFixed(1)}/${type.speed / 10} 节  转向 ${type.turnRate}`;
-    })
-    .join('\n');
+  if (++frame % 6 === 0) { hoverUnit(); tooltip.refresh(); }
   hud.textContent = `${data.map.version} · ${backendName} · ${fps.toFixed(0)} FPS`;
 });

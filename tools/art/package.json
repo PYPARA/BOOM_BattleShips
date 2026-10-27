@@ -5,7 +5,8 @@
   "scripts": {
     "generate": "node src/generate.ts",
     "typecheck": "tsc -p .",
-    "pull-aha": "node src/pull-aha.ts"
+    "pull-aha": "node src/pull-aha.ts",
+    "icons": "node src/icons.ts"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",

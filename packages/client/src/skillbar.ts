@@ -1,10 +1,11 @@
-// Skill bar and inventory for the player's ship: learn (+), cast with hotkeys or clicks,
-// unit/point targeting, cooldowns, and usable items (1–6).
+// Bottom command panel for the player's ship: portrait with health and experience, skills
+// (learn with +, cast with hotkeys or clicks, unit/point targeting, cooldown sweep) and the six
+// item slots (1–6 to use, right-click near a shop to sell). Hover anything for its tooltip.
 import type { Ability, Item } from '@boom/gamedata';
 import { canLearn, skillPoints, TICK_RATE, xpForLevel, type Match } from '@boom/sim';
 import type { RtsCamera } from './camera.ts';
-
-const clean = (s: string) => s.replace(/\|c[0-9a-fA-F]{8}|\|r/g, '').replace(/^[.!~_@]+/, '').trim();
+import { clean } from './info.ts';
+import { icon } from './tooltip.ts';
 
 interface Targeting { abilityId: string; itemSlot?: number; kind: 'unit' | 'ally' | 'point'; label: string }
 
@@ -23,15 +24,20 @@ export class SkillBar {
     this.player = player;
     this.items = items;
     this.rts = rts;
-    this.bar = Object.assign(document.body.appendChild(document.createElement('div')), { className: 'skillbar' });
+    this.bar = Object.assign(document.body.appendChild(document.createElement('div')), { className: 'command' });
     this.hint = Object.assign(document.body.appendChild(document.createElement('div')), { className: 'target-hint' });
 
     this.bar.addEventListener('click', (e) => {
       const b = (e.target as HTMLElement).closest('button');
       if (!b) return;
       if (b.dataset.learn) this.match.issue({ kind: 'learn', player, abilityId: b.dataset.learn });
-      if (b.dataset.cast) this.begin(b.dataset.cast);
-      if (b.dataset.item) this.beginItem(Number(b.dataset.item));
+      else if (b.dataset.cast) this.begin(b.dataset.cast);
+      else if (b.dataset.item) this.beginItem(Number(b.dataset.item));
+    });
+    this.bar.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      const b = (e.target as HTMLElement).closest('button');
+      if (b?.dataset.item && this.match.shopsInReach(player).length) this.match.issue({ kind: 'sellItem', player, slot: Number(b.dataset.item) });
     });
     // Targeting clicks are taken before selection sees them.
     canvas.addEventListener('pointerdown', (e) => {
@@ -104,42 +110,62 @@ export class SkillBar {
     else this.match.issue({ kind: 'useItem', player: this.player, slot: t.itemSlot, ...target });
   }
 
+  /** Cooldown sweep: the share still waiting, rounded so the panel only redraws on visible change. */
+  private sweep(readyAt: number | undefined, total: number): string {
+    const left = (readyAt ?? 0) - this.match.world.tick;
+    if (left <= 0 || total <= 0) return '';
+    const share = Math.min(1, left / (total * TICK_RATE));
+    return `<span class="cd" style="--p:${Math.ceil(share * 50) / 50}">${Math.ceil(left / TICK_RATE)}</span>`;
+  }
+
   update(): void {
     const ship = this.ship();
     const p = this.match.players.get(this.player)!;
     const hero = p.hero;
-    const tick = this.match.world.tick;
     const abilities = this.match.world.abilities;
-    const parts: string[] = [];
-    if (ship) {
-      for (const a of this.skills()) {
-        const level = hero.learned[a.id] ?? 0;
-        const passive = abilities.targeting(a.id) === 'passive';
-        const wait = Math.max(0, Math.ceil(((hero.readyAt[a.id] ?? 0) - tick) / TICK_RATE));
-        const learnable = canLearn(hero, a);
-        const dots = Array.from({ length: a.levels.length }, (_, i) => (i < level ? '●' : '○')).join('');
-        parts.push(`<div class="skill${level ? '' : ' unlearned'}${passive ? ' passive' : ''}">
-          <button data-cast="${a.id}" ${level && !passive ? '' : 'disabled'} title="${clean(a.levels[Math.max(0, level - 1)]?.description ?? '').replace(/"/g, '')}">
-            <span class="name">${clean(a.name)}</span>${a.hotkey && !passive ? `<kbd>${a.hotkey}</kbd>` : ''}
-            <span class="dots">${dots}</span>${wait ? `<span class="cd">${wait}</span>` : ''}
-          </button>${learnable ? `<button class="learn" data-learn="${a.id}" title="学习">+</button>` : ''}
-        </div>`);
-      }
-      parts.push('<span class="divider"></span>');
-      for (let i = 0; i < 6; i++) {
-        const itemId = p.items[i];
-        const item = itemId ? this.items.get(itemId) : undefined;
-        const active = this.match.activeItemAbility(itemId);
-        const group = `item:${item?.cooldownGroup ?? itemId}`;
-        const wait = Math.max(0, Math.ceil(((hero.readyAt[group] ?? 0) - tick) / TICK_RATE));
-        parts.push(item
-          ? `<button class="item${active ? '' : ' inert'}" data-item="${i}" ${active ? '' : 'disabled'}><kbd>${i + 1}</kbd>${clean(item.name)}${wait ? `<span class="cd">${wait}</span>` : ''}</button>`
-          : '<span class="item empty"></span>');
-      }
-    }
-    const next = xpForLevel(hero.level + 1);
-    const header = `<div class="level">Lv ${hero.level}<small>${Math.floor(hero.xp)}/${next} 经验${skillPoints(hero) > 0 ? ` · 技能点 ${skillPoints(hero)}` : ''}</small></div>`;
-    const html = header + parts.join('');
+    const type = this.match.world.shipType(p.shipTypeId);
+
+    const prev = xpForLevel(hero.level), next = xpForLevel(hero.level + 1);
+    const xpShare = hero.level >= 25 ? 1 : (hero.xp - prev) / Math.max(1, next - prev);
+    const hpShare = ship ? ship.hp / ship.maxHp : 0;
+    const points = skillPoints(hero);
+    const portrait = `<div class="portrait" data-tip="ship:${p.shipTypeId}">
+        ${icon('ship', p.shipTypeId, type?.name ?? '')}<span class="lv">${hero.level}</span>
+      </div>
+      <div class="vitals">
+        <div class="name">${clean(type?.name)}<small>${type?.hullClass ?? ''} · ${type?.size ?? ''}</small></div>
+        <div class="bar hp"><i style="width:${(hpShare * 100).toFixed(1)}%"></i><span>${ship ? `${Math.ceil(ship.hp)} / ${Math.round(ship.maxHp)}` : '沉没'}</span></div>
+        <div class="bar xp"><i style="width:${(xpShare * 100).toFixed(1)}%"></i><span>${hero.level >= 25 ? '满级' : `经验 ${Math.floor(hero.xp - prev)} / ${next - prev}`}${points > 0 ? ` · 技能点 ${points}` : ''}</span></div>
+        ${ship ? `<div class="stats"><span title="护甲">🛡 ${ship.armor.toFixed(1)}</span><span title="航速">⛵ ${Math.round(ship.maxSpeed)}</span>${ship.damageTaken < 1 ? `<span title="船甲减伤">⚓ −${Math.round((1 - ship.damageTaken) * 100)}%</span>` : ''}<span title="武器数量">💥 ${ship.weapons.length}</span></div>` : ''}
+      </div>`;
+
+    const skills = this.skills().map((a) => {
+      const level = hero.learned[a.id] ?? 0;
+      const passive = abilities.targeting(a.id) === 'passive';
+      const dots = Array.from({ length: a.levels.length }, (_, i) => `<i class="${i < level ? 'on' : ''}"></i>`).join('');
+      const cooldown = a.levels[Math.max(0, level - 1)]?.cooldown ?? 0;
+      return `<div class="slot skill${level ? '' : ' unlearned'}${passive ? ' passive' : ''}">
+          <button data-cast="${a.id}" data-tip="skill:${a.id}" ${level && !passive ? '' : 'disabled'}>
+            ${icon('skill', a.id, clean(a.name))}${a.hotkey && !passive ? `<kbd>${a.hotkey}</kbd>` : ''}${this.sweep(hero.readyAt[a.id], cooldown)}
+          </button><span class="dots">${dots}</span>
+          ${canLearn(hero, a) ? `<button class="learn" data-learn="${a.id}" data-tip="skill:${a.id}">+</button>` : ''}
+        </div>`;
+    });
+
+    const slots = Array.from({ length: 6 }, (_, i) => {
+      const id = p.items[i];
+      if (!id) return '<span class="slot item empty"></span>';
+      const item = this.items.get(id);
+      const active = this.match.activeItemAbility(id);
+      const group = `item:${item?.cooldownGroup ?? id}`;
+      const cooldown = active ? abilities.byId.get(active)?.levels[0]?.cooldown ?? 0 : 0;
+      const kind = this.match.world.weaponType(id) ? 'weapon' : 'item';
+      return `<button class="slot item${active ? ' active' : ''}" data-item="${i}" data-tip="slot:${i}">
+          ${icon(kind, id, clean(item?.name))}<kbd>${i + 1}</kbd>${this.sweep(hero.readyAt[group], cooldown)}
+        </button>`;
+    });
+
+    const html = `<div class="hero">${portrait}</div><div class="skills">${skills.join('')}</div><div class="items">${slots.join('')}</div>`;
     if (html !== this.key) {
       this.key = html;
       this.bar.innerHTML = html;

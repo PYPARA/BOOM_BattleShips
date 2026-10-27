@@ -1,0 +1,1670 @@
+[
+ {
+  "kind": "ship",
+  "id": "H000",
+  "name": "水手",
+  "subject": "a sailing warship portrait seen from the front-left: A small, cheap wooden launch boat with a single small cannon mounted at the bow, a tiny tiller at the stern and a coil of rope on deck, simple and humble"
+ },
+ {
+  "kind": "ship",
+  "id": "H00D",
+  "name": "巴拿马",
+  "subject": "a sailing warship portrait seen from the front-left: A small round-bellied merchant cog loaded with cargo crates, sacks and barrels lashed on deck, a little covered cargo hold, peaceful trading vessel"
+ },
+ {
+  "kind": "ship",
+  "id": "H001",
+  "name": "圣战者",
+  "subject": "a sailing warship portrait seen from the front-left: A fast armored skiff with an iron-reinforced pointed ram bow, low sleek hull, a few powder kegs strapped near the bow, built for daring suicide charges"
+ },
+ {
+  "kind": "ship",
+  "id": "H01A",
+  "name": "渔船",
+  "subject": "a sailing warship portrait seen from the front-left: A sturdy fishing boat with a net winch, piled fishing nets and floats, a small wheelhouse, and a carved orca figurehead at the bow"
+ },
+ {
+  "kind": "ship",
+  "id": "H01B",
+  "name": "飞鱼",
+  "subject": "a sailing warship portrait seen from the front-left: A sleek steam-powered launch with fin-shaped armored side plates like a flying fish, a short smokestack and a small engine housing, fast and tough"
+ },
+ {
+  "kind": "ship",
+  "id": "H003",
+  "name": "拦截者",
+  "subject": "a sailing warship portrait seen from the front-left: A narrow fast naval frigate with twin fuel boilers and exhaust pipes at the stern, a sharp bow, a light deck cannon, built for speed"
+ },
+ {
+  "kind": "ship",
+  "id": "H004",
+  "name": "守护者",
+  "subject": "a sailing warship portrait seen from the front-left: A practical engineering ship with a deck crane, a repair workshop cabin with tool racks, spare planks, and naval mine racks at the stern"
+ },
+ {
+  "kind": "ship",
+  "id": "H01K",
+  "name": "执法者",
+  "subject": "a sailing warship portrait seen from the front-left: An elegant royal gunboat with a white hull and gold trim, twin forward deck guns, a polished command cabin and royal crest on the bow"
+ },
+ {
+  "kind": "ship",
+  "id": "H016",
+  "name": "龟船",
+  "subject": "a sailing warship portrait seen from the front-left: A Joseon-era Korean turtle warship: a fully enclosed curved armored roof covered in iron spikes like a turtle shell, a carved dragon head at the bow, rows of small gun ports along both sides, sturdy dark wooden hull"
+ },
+ {
+  "kind": "ship",
+  "id": "H007",
+  "name": "破坏者",
+  "subject": "a sailing warship portrait seen from the front-left: A mysterious cruiser that looks like a patched-together shipwreck, mismatched hull planks and iron plates, broken railings, boarding hooks and grapples, eerie and chaotic"
+ },
+ {
+  "kind": "ship",
+  "id": "H006",
+  "name": "支配者",
+  "subject": "a sailing warship portrait seen from the front-left: A solid medium cruiser with a large copper electromagnetic coil tower on the deck, cables running along the hull, a few cannons"
+ },
+ {
+  "kind": "ship",
+  "id": "H01C",
+  "name": "私掠者",
+  "subject": "a sailing warship portrait seen from the front-left: A privateer raider with flamethrower nozzles and fuel tanks at the bow, heavy chains and shackles hanging from the sides, a treasure chest on deck"
+ },
+ {
+  "kind": "ship",
+  "id": "H01D",
+  "name": "影子战舰",
+  "subject": "a sailing warship portrait seen from the front-left: A strange shimmering warship covered in polished crystal and mirror panels that reflect light, faceted angular hull, mysterious and glittering"
+ },
+ {
+  "kind": "ship",
+  "id": "H01H",
+  "name": "元素战舰",
+  "subject": "a sailing warship portrait seen from the front-left: A living nature-magic warship whose hull is made of twisted living wood covered in moss, small trees growing on deck, mossy boulders and glowing green runes"
+ },
+ {
+  "kind": "ship",
+  "id": "H01V",
+  "name": "田鼠",
+  "subject": "a sailing warship portrait seen from the front-left: A compact, extremely heavily armored low-profile ironclad with one huge rotating gun turret in the middle, thick sloped steel armor, small but unstoppable"
+ },
+ {
+  "kind": "ship",
+  "id": "H009",
+  "name": "主宰者",
+  "subject": "a sailing warship portrait seen from the front-left: A colossal floating fortress battleship with thick dark armor plates, multiple decks of cannons, a heavy tower, and a carved kraken totem at the bow"
+ },
+ {
+  "kind": "ship",
+  "id": "H01O",
+  "name": "掘墓人",
+  "subject": "a sailing warship portrait seen from the front-left: An undead ship whose hull is built from giant bones and ribs, exposed rib cage sides, green ghostly lanterns, a smoking volcanic vent in the middle of the deck, plague barrels"
+ },
+ {
+  "kind": "ship",
+  "id": "H01L",
+  "name": "月光",
+  "subject": "a sailing warship portrait seen from the front-left: An ancient eastern magic warship with a crescent-moon shaped hull, silver and deep blue lacquer, hanging paper lanterns, moon symbols and carved clouds"
+ },
+ {
+  "kind": "ship",
+  "id": "H005",
+  "name": "鹦鹉螺",
+  "subject": "a sailing warship portrait seen from the front-left: A Victorian brass submarine with a riveted cigar-shaped hull, nautilus-shell spiral ornaments, a conning tower with round portholes, side fins and a propeller"
+ },
+ {
+  "kind": "ship",
+  "id": "H008",
+  "name": "领主",
+  "subject": "a sailing warship portrait seen from the front-left: A massive dark iron battleship with a fortified stone-and-iron keep in the middle of the deck, a heavy reinforced ram at the bow, frost-blue crystal ornaments on the keep, broadside cannon ports along the hull, intimidating ruler of the sea"
+ },
+ {
+  "kind": "ship",
+  "id": "H00X",
+  "name": "腓尼基",
+  "subject": "a sailing warship portrait seen from the front-left: An ancient Mediterranean bronze-age war galley with a bronze ram, rows of oars, painted eyes on the bow, flaming braziers along the deck, surrounded by fire"
+ },
+ {
+  "kind": "ship",
+  "id": "H019",
+  "name": "邓子龙",
+  "subject": "a sailing warship portrait seen from the front-left: A huge Ming-dynasty Chinese treasure ship, multi-deck junk hull painted red and gold, a tall ornate stern castle with carved dragons, eye painted on the bow"
+ },
+ {
+  "kind": "ship",
+  "id": "H01P",
+  "name": "伊谢尔伦",
+  "subject": "a sailing warship portrait seen from the front-left: A slow mobile sea fortress: a round disc-shaped armored citadel floating on a wide hull, one giant central siege cannon, small airship docking platform on top"
+ },
+ {
+  "kind": "ship",
+  "id": "H00V",
+  "name": "大天使",
+  "subject": "a sailing warship portrait seen from the front-left: A majestic white command flagship with gilded angel-wing ornaments along the hull, a tall signal tower, large war drums on deck, radiant and noble"
+ },
+ {
+  "kind": "ship",
+  "id": "H021",
+  "name": "黄金美丽",
+  "subject": "a sailing warship portrait seen from the front-left: A cheerful small caravel with a bright sunflower-yellow hull and orange trim, a round sun-shaped carved figurehead at the bow, a small cozy cabin with round windows, adventurous and friendly"
+ },
+ {
+  "kind": "ship",
+  "id": "H00R",
+  "name": "麦哲伦",
+  "subject": "a sailing warship portrait seen from the front-left: A heavy dreadnought battleship with three enormous main gun turrets, a tall armored bridge tower, thick belt armor, big-gun battleship design"
+ },
+ {
+  "kind": "ship",
+  "id": "H015",
+  "name": "定远",
+  "subject": "a sailing warship portrait seen from the front-left: A late 19th-century Chinese ironclad battleship, twin large armored gun barbettes placed diagonally, a central superstructure with two tall funnels, black hull with buff upper works"
+ },
+ {
+  "kind": "ship",
+  "id": "H01N",
+  "name": "飞行的荷兰人",
+  "subject": "a sailing warship portrait seen from the front-left: A spectral ghost galleon from sailor legends, rotting dark wood hull with faint green ghostly glow seeping through cracks, broken lanterns, crackling lightning crystals on deck"
+ },
+ {
+  "kind": "ship",
+  "id": "H00T",
+  "name": "死神",
+  "subject": "a sailing warship portrait seen from the front-left: A fast black-and-crimson war galley with dozens of long oars, a scythe-shaped curved ram blade at the bow, skull lanterns, menacing and swift"
+ },
+ {
+  "kind": "ship",
+  "id": "H011",
+  "name": "黑色幽灵",
+  "subject": "a sailing warship portrait seen from the front-left: A sleek matte-black high-speed stealth warship with a sharp angular wave-piercing hull, low profile, faint purple glowing seams"
+ },
+ {
+  "kind": "ship",
+  "id": "H00C",
+  "name": "黑珍珠",
+  "subject": "a sailing warship portrait seen from the front-left: A large fearsome pirate galleon with a black-painted hull, a carved screaming-skull figurehead, rows of cannon ports, a tall stern castle with skull lanterns"
+ },
+ {
+  "kind": "weapon",
+  "id": "I002",
+  "name": "冲天炮",
+  "subject": "a naval ship weapon called \"冲天炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I000",
+  "name": "箭弩",
+  "subject": "a naval ship weapon called \"箭弩\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I001",
+  "name": "小炮",
+  "subject": "a naval ship weapon called \"小炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I004",
+  "name": "护卫舰炮",
+  "subject": "a naval ship weapon called \"护卫舰炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I04K",
+  "name": "巴尔干炮",
+  "subject": "a naval ship weapon called \"巴尔干炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I05L",
+  "name": "飞斧大炮",
+  "subject": "a naval ship weapon called \"飞斧大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I00G",
+  "name": "轻型火箭炮",
+  "subject": "a naval ship weapon called \"轻型火箭炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I029",
+  "name": "捕鲸炮",
+  "subject": "a naval ship weapon called \"捕鲸炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I01B",
+  "name": "连弩炮",
+  "subject": "a naval ship weapon called \"连弩炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I006",
+  "name": "火焰喷射装置 (I型)",
+  "subject": "a naval ship weapon called \"火焰喷射装置 (I型)\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I00H",
+  "name": "机关炮",
+  "subject": "a naval ship weapon called \"机关炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I03E",
+  "name": "深水炸弹",
+  "subject": "a naval ship weapon called \"深水炸弹\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I005",
+  "name": "冷冻炮",
+  "subject": "a naval ship weapon called \"冷冻炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I00O",
+  "name": "轰击大炮",
+  "subject": "a naval ship weapon called \"轰击大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I010",
+  "name": "巨石大炮",
+  "subject": "a naval ship weapon called \"巨石大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I00I",
+  "name": "火焰箭",
+  "subject": "a naval ship weapon called \"火焰箭\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I00Z",
+  "name": "旋风加农炮",
+  "subject": "a naval ship weapon called \"旋风加农炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I03K",
+  "name": "双联装深水炸弹",
+  "subject": "a naval ship weapon called \"双联装深水炸弹\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I00P",
+  "name": "攻城大炮",
+  "subject": "a naval ship weapon called \"攻城大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I00L",
+  "name": "阔剑投掷器",
+  "subject": "a naval ship weapon called \"阔剑投掷器\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I01C",
+  "name": "飞锤加农炮",
+  "subject": "a naval ship weapon called \"飞锤加农炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I03G",
+  "name": "重型火箭炮",
+  "subject": "a naval ship weapon called \"重型火箭炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I033",
+  "name": "无轨迹炮",
+  "subject": "a naval ship weapon called \"无轨迹炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I04R",
+  "name": "红衣大炮",
+  "subject": "a naval ship weapon called \"红衣大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I02W",
+  "name": "巡洋舰炮",
+  "subject": "a naval ship weapon called \"巡洋舰炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I069",
+  "name": "红箭大炮",
+  "subject": "a naval ship weapon called \"红箭大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I050",
+  "name": "EX怒火大炮",
+  "subject": "a naval ship weapon called \"EX怒火大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I01X",
+  "name": "反潜火箭",
+  "subject": "a naval ship weapon called \"反潜火箭\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I027",
+  "name": "火焰喷射装置 (II型)",
+  "subject": "a naval ship weapon called \"火焰喷射装置 (II型)\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I05N",
+  "name": "天星大炮",
+  "subject": "a naval ship weapon called \"天星大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I064",
+  "name": "海绵宝宝炮",
+  "subject": "a naval ship weapon called \"海绵宝宝炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I067",
+  "name": "海绵宝宝炮B",
+  "subject": "a naval ship weapon called \"海绵宝宝炮B\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I046",
+  "name": "声波炮",
+  "subject": "a naval ship weapon called \"声波炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I018",
+  "name": "电磁炮",
+  "subject": "a naval ship weapon called \"电磁炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I03N",
+  "name": "密集阵-6管20毫米近防炮",
+  "subject": "a naval ship weapon called \"密集阵-6管20毫米近防炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I02Z",
+  "name": "强力冷冻炮",
+  "subject": "a naval ship weapon called \"强力冷冻炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I04P",
+  "name": "格林箭",
+  "subject": "a naval ship weapon called \"格林箭\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I01D",
+  "name": "混乱大炮",
+  "subject": "a naval ship weapon called \"混乱大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I057",
+  "name": "精灵大炮",
+  "subject": "a naval ship weapon called \"精灵大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I00X",
+  "name": "燃烧弹加农炮",
+  "subject": "a naval ship weapon called \"燃烧弹加农炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I019",
+  "name": "雷神大炮",
+  "subject": "a naval ship weapon called \"雷神大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I04G",
+  "name": "轰击大炮 +改",
+  "subject": "a naval ship weapon called \"轰击大炮 +改\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I03F",
+  "name": "反舰火箭",
+  "subject": "a naval ship weapon called \"反舰火箭\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I03Y",
+  "name": "缩退炮",
+  "subject": "a naval ship weapon called \"缩退炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I00Y",
+  "name": "激光炮",
+  "subject": "a naval ship weapon called \"激光炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I02C",
+  "name": "火焰喷射装置 (III型)",
+  "subject": "a naval ship weapon called \"火焰喷射装置 (III型)\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I03W",
+  "name": "火神炮",
+  "subject": "a naval ship weapon called \"火神炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I01M",
+  "name": "碎火加农炮",
+  "subject": "a naval ship weapon called \"碎火加农炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I03B",
+  "name": "战列舰炮",
+  "subject": "a naval ship weapon called \"战列舰炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I048",
+  "name": "压缩空间炮",
+  "subject": "a naval ship weapon called \"压缩空间炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I04S",
+  "name": "蓝色光束炮",
+  "subject": "a naval ship weapon called \"蓝色光束炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I056",
+  "name": "灭日大炮",
+  "subject": "a naval ship weapon called \"灭日大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I05M",
+  "name": "死黑大炮",
+  "subject": "a naval ship weapon called \"死黑大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I05O",
+  "name": "超级天星大炮",
+  "subject": "a naval ship weapon called \"超级天星大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I031",
+  "name": "腐蚀大炮",
+  "subject": "a naval ship weapon called \"腐蚀大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I03H",
+  "name": "对地导弹",
+  "subject": "a naval ship weapon called \"对地导弹\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I049",
+  "name": "废墟大炮",
+  "subject": "a naval ship weapon called \"废墟大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I054",
+  "name": "雷神大炮增强型",
+  "subject": "a naval ship weapon called \"雷神大炮增强型\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I059",
+  "name": "高速阔剑投掷器",
+  "subject": "a naval ship weapon called \"高速阔剑投掷器\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I05B",
+  "name": "无轨迹炮改",
+  "subject": "a naval ship weapon called \"无轨迹炮改\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I05D",
+  "name": "终级精灵大炮",
+  "subject": "a naval ship weapon called \"终级精灵大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I05J",
+  "name": "真·燃烧弹加榴炮",
+  "subject": "a naval ship weapon called \"真·燃烧弹加榴炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I05K",
+  "name": "高能电磁炮",
+  "subject": "a naval ship weapon called \"高能电磁炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I065",
+  "name": "22222",
+  "subject": "a naval ship weapon called \"22222\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I066",
+  "name": "33333",
+  "subject": "a naval ship weapon called \"33333\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I06A",
+  "name": "真红之箭",
+  "subject": "a naval ship weapon called \"真红之箭\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I06J",
+  "name": "大大海绵宝宝炮",
+  "subject": "a naval ship weapon called \"大大海绵宝宝炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I06K",
+  "name": "大大海绵宝宝炮B",
+  "subject": "a naval ship weapon called \"大大海绵宝宝炮B\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I01Y",
+  "name": "慧星大炮",
+  "subject": "a naval ship weapon called \"慧星大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I05F",
+  "name": "无相大炮",
+  "subject": "a naval ship weapon called \"无相大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I05G",
+  "name": "无相大炮 (反建筑模式)",
+  "subject": "a naval ship weapon called \"无相大炮 (反建筑模式)\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I068",
+  "name": "霹雳大炮",
+  "subject": "a naval ship weapon called \"霹雳大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I05W",
+  "name": "真巨石大炮",
+  "subject": "a naval ship weapon called \"真巨石大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I05X",
+  "name": "土豪大炮",
+  "subject": "a naval ship weapon called \"土豪大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "weapon",
+  "id": "I06Q",
+  "name": "炮姐大炮",
+  "subject": "a naval ship weapon called \"炮姐大炮\" (cannon, rocket launcher, torpedo, gun or similar, as the Chinese name suggests), shown as a single object"
+ },
+ {
+  "kind": "item",
+  "id": "I007",
+  "name": "三角帆",
+  "subject": "a ship equipment item called \"三角帆\": 只能带一个帆 最简单可靠，并且使用最广泛的船帆"
+ },
+ {
+  "kind": "item",
+  "id": "I008",
+  "name": "中国帆",
+  "subject": "a ship equipment item called \"中国帆\": 只能带一个帆 中国人很早就发明了用于海上航行的帆, 独特的梯形中国斜帆能够最大效果的利用风力,并且操作十分方便.这使他优于世界上其他的帆"
+ },
+ {
+  "kind": "item",
+  "id": "I009",
+  "name": "石甲船体",
+  "subject": "a ship equipment item called \"石甲船体\": 只能带一个船甲 增加船只生命,并且能够减少船体受到的损伤，但它的重量会让船的航行速度变慢."
+ },
+ {
+  "kind": "item",
+  "id": "I00A",
+  "name": "金甲船体",
+  "subject": "a ship equipment item called \"金甲船体\": 只能带一个船甲 增加船只生命,并且能够减少船体受到的损伤.但它的重量会让船的航行速度变慢."
+ },
+ {
+  "kind": "item",
+  "id": "I00B",
+  "name": "高级维修队",
+  "subject": "a ship equipment item called \"高级维修队\": 在海上航行时自动修理你的船."
+ },
+ {
+  "kind": "item",
+  "id": "I00C",
+  "name": "小型修理木",
+  "subject": "a ship equipment item called \"小型修理木\": 用来修复小型船只"
+ },
+ {
+  "kind": "item",
+  "id": "I00D",
+  "name": "普通修理木",
+  "subject": "a ship equipment item called \"普通修理木\": 用来修船的普通木材"
+ },
+ {
+  "kind": "item",
+  "id": "I00E",
+  "name": "瑞典修理木",
+  "subject": "a ship equipment item called \"瑞典修理木\": 高品质的船只修理材料"
+ },
+ {
+  "kind": "item",
+  "id": "I00F",
+  "name": "资深观察员",
+  "subject": "a ship equipment item called \"资深观察员\": 让你的船能够侦测到视野范围内的隐形单位"
+ },
+ {
+  "kind": "item",
+  "id": "I011",
+  "name": "瑞典维修队",
+  "subject": "a ship equipment item called \"瑞典维修队\": 在海上航行时自动修理你的船."
+ },
+ {
+  "kind": "item",
+  "id": "I016",
+  "name": "钢甲船体",
+  "subject": "a ship equipment item called \"钢甲船体\": 只能带一个船甲 增加船只生命，并且能够减少船体受到的损伤.但它的重量会让船的航行速度变慢"
+ },
+ {
+  "kind": "item",
+  "id": "I017",
+  "name": "维修队",
+  "subject": "a ship equipment item called \"维修队\": 在海上航行时自动修理你的船."
+ },
+ {
+  "kind": "item",
+  "id": "I01A",
+  "name": "精灵帆",
+  "subject": "a ship equipment item called \"精灵帆\": 只能带一个帆 获得精灵祝福的帆.可以大大加快航行速度."
+ },
+ {
+  "kind": "item",
+  "id": "I01H",
+  "name": "精灵修理木",
+  "subject": "a ship equipment item called \"精灵修理木\": 完美的船只修理材料"
+ },
+ {
+  "kind": "item",
+  "id": "I01K",
+  "name": "船首像-烟雾",
+  "subject": "a ship equipment item called \"船首像-烟雾\": 只能带一个船首相 可喷出隐身烟雾让本船隐身 有效时间: 10秒 恢复耐久: 15/秒"
+ },
+ {
+  "kind": "item",
+  "id": "I01L",
+  "name": "传送器",
+  "subject": "a ship equipment item called \"传送器\": 只能以浅水为目标 用来传送一小段距离. 范围: 1200 冷却时间: 50 使用次数: 无穷的"
+ },
+ {
+  "kind": "item",
+  "id": "I01N",
+  "name": "木材",
+  "subject": "a ship equipment item called \"木材\": 木材可用来完成伐木任务和发射导弹"
+ },
+ {
+  "kind": "item",
+  "id": "I01O",
+  "name": "小型对地导弹",
+  "subject": "a ship equipment item called \"小型对地导弹\": 导弹 由导弹井发射. 目标: 随机攻击敌方建筑物 :"
+ },
+ {
+  "kind": "item",
+  "id": "I01P",
+  "name": "中型对地导弹",
+  "subject": "a ship equipment item called \"中型对地导弹\": 导弹 由导弹井发射. 目标: 随机攻击敌方建筑物 :"
+ },
+ {
+  "kind": "item",
+  "id": "I01Q",
+  "name": "大型对地导弹",
+  "subject": "a ship equipment item called \"大型对地导弹\": 导弹 由导弹井发射. 目标: 随机攻击敌方建筑物 :"
+ },
+ {
+  "kind": "item",
+  "id": "I02A",
+  "name": "新手指南",
+  "subject": "a ship equipment item called \"新手指南\": 常用指令集: *指令++提高视野 *指令--降低视野 *指令-s查看单位航速与距离 *指令-tips 新手提示 关闭 第一位置玩家在游戏1分钟内可用指令: *指"
+ },
+ {
+  "kind": "item",
+  "id": "I02I",
+  "name": "探测器",
+  "subject": "a ship equipment item called \"探测器\": 放置一个探测器用于提供视野监视附近敌人"
+ },
+ {
+  "kind": "item",
+  "id": "I02V",
+  "name": "设计图-巡洋舰炮",
+  "subject": "a ship equipment item called \"设计图-巡洋舰炮\": 物品升级设计图纸 使用本图纸可以将 护卫舰炮 改造为 巡洋舰炮"
+ },
+ {
+  "kind": "item",
+  "id": "I02X",
+  "name": "设计图-II型火焰喷射装置",
+  "subject": "a ship equipment item called \"设计图-II型火焰喷射装置\": 物品升级设计图纸 使用本图纸可以将 I型火焰喷射装置 改造为 II型"
+ },
+ {
+  "kind": "item",
+  "id": "I02Y",
+  "name": "设计图-III型火焰喷射装置",
+  "subject": "a ship equipment item called \"设计图-III型火焰喷射装置\": 物品升级设计图纸 使用本图纸可以将 II型火焰喷射装置 改造为 III型"
+ },
+ {
+  "kind": "item",
+  "id": "I030",
+  "name": "设计图-强力冷冻炮",
+  "subject": "a ship equipment item called \"设计图-强力冷冻炮\": 物品升级设计图纸 使用本图纸可以将 冷冻炮 改造为 强力冷冻炮"
+ },
+ {
+  "kind": "item",
+  "id": "I032",
+  "name": "设计图-高能电磁炮",
+  "subject": "a ship equipment item called \"设计图-高能电磁炮\": 物品升级设计图纸 使用本图纸可以将 电磁炮 改造为 高能电磁炮"
+ },
+ {
+  "kind": "item",
+  "id": "I035",
+  "name": "设计图-重型火箭炮",
+  "subject": "a ship equipment item called \"设计图-重型火箭炮\": 物品升级设计图纸 使用本图纸可以将 轻型火箭炮 改造为 重型火箭炮"
+ },
+ {
+  "kind": "item",
+  "id": "I037",
+  "name": "设计图-对地导弹",
+  "subject": "a ship equipment item called \"设计图-对地导弹\": 物品升级设计图纸 使用本图纸可以将 重型火箭炮 改造为 对地导弹 (特殊武器) 对地导弹，可自动单发，可手动控制齐射"
+ },
+ {
+  "kind": "item",
+  "id": "I038",
+  "name": "船体强化设计图 - 巡洋舰",
+  "subject": "a ship equipment item called \"船体强化设计图 - 巡洋舰\": 舰体改造设计图纸 用更先进的制造工艺和中国人发明的水密隔舱技术来大大加强船只强度和抗沉性 每艘船只能升级一次！ 使用本图纸可提高 巡洋舰 耐久度1500 影子战"
+ },
+ {
+  "kind": "item",
+  "id": "I039",
+  "name": "船体强化设计图 - 护卫舰",
+  "subject": "a ship equipment item called \"船体强化设计图 - 护卫舰\": 舰体改造设计图纸 用更先进的制造工艺和中国人发明的水密隔舱技术来大大加强船只强度和抗沉性 每艘船只能升级一次！ 使用本图纸可提高 护卫舰耐久度 900 工程舰、"
+ },
+ {
+  "kind": "item",
+  "id": "I03A",
+  "name": "船体强化设计图 - 战列舰",
+  "subject": "a ship equipment item called \"船体强化设计图 - 战列舰\": 舰体改造设计图纸 用更先进的制造工艺和中国人发明的水密隔舱技术来大大加强船只强度和抗沉性 每艘船只能升级一次！ 使用本图纸可提高 战列舰 的耐久度2000 适用"
+ },
+ {
+  "kind": "item",
+  "id": "I03C",
+  "name": "设计图-战列舰炮",
+  "subject": "a ship equipment item called \"设计图-战列舰炮\": 物品升级设计图纸 使用本图纸可以将 巡洋舰炮 改造为 战列舰炮"
+ },
+ {
+  "kind": "item",
+  "id": "I03D",
+  "name": "船体强化设计图 - 小艇类",
+  "subject": "a ship equipment item called \"船体强化设计图 - 小艇类\": 船体改造设计图纸 用更先进的制造工艺和中国人发明的水密隔舱技术来大大加强船只强度和抗沉性 每艘船只能升级一次！ 使用本图纸可提高 小艇类 耐久度500 适用船:"
+ },
+ {
+  "kind": "item",
+  "id": "I03I",
+  "name": "中型水雷布放装置",
+  "subject": "a ship equipment item called \"中型水雷布放装置\": 潜艇专用设备 购买后你的潜水艇能够布放中型水雷"
+ },
+ {
+  "kind": "item",
+  "id": "I03J",
+  "name": "大型水雷布放装置",
+  "subject": "a ship equipment item called \"大型水雷布放装置\": 潜艇专用设备 购买后你的潜水艇能够布放大型水雷"
+ },
+ {
+  "kind": "item",
+  "id": "I03L",
+  "name": "高爆弹头",
+  "subject": "a ship equipment item called \"高爆弹头\": 潜艇专用设备 高爆弹头具有更大的"
+ },
+ {
+  "kind": "item",
+  "id": "I03M",
+  "name": "潜射巡航导弹装置",
+  "subject": "a ship equipment item called \"潜射巡航导弹装置\": 潜艇专用设备 [共有 2级] 购买后可以使你的潜艇能够发射巡航导弹 (需要手动控制发射)"
+ },
+ {
+  "kind": "item",
+  "id": "I03O",
+  "name": "设计图-密集阵近防炮",
+  "subject": "a ship equipment item called \"设计图-密集阵近防炮\": 物品升级设计图纸 使用本图纸可以将 机关炮 改造为 密集阵近防炮"
+ },
+ {
+  "kind": "item",
+  "id": "I03P",
+  "name": "船体强化设计图 - 特殊船",
+  "subject": "a ship equipment item called \"船体强化设计图 - 特殊船\": 舰体改造设计图纸 用更先进的制造工艺和中国人发明的水密隔舱技术来大大加强船只强度和抗沉性 每艘船只能升级一次！ 使用本图纸可提高 特殊船 的耐久度2000 适用"
+ },
+ {
+  "kind": "item",
+  "id": "I03Q",
+  "name": "新型鱼雷燃料",
+  "subject": "a ship equipment item called \"新型鱼雷燃料\": 潜艇专用设备 新型鱼雷燃料 能够增加潜水艇鱼雷的"
+ },
+ {
+  "kind": "item",
+  "id": "I03R",
+  "name": "新型潜艇推进器",
+  "subject": "a ship equipment item called \"新型潜艇推进器\": 潜艇专用设备 能够提高潜水艇的航行速度 +10节"
+ },
+ {
+  "kind": "item",
+  "id": "I03S",
+  "name": "新型声纳装置",
+  "subject": "a ship equipment item called \"新型声纳装置\": 潜艇专用设备 新型声纳装置使潜水艇能够在水下探测到隐形单位"
+ },
+ {
+  "kind": "item",
+  "id": "I03T",
+  "name": "船首像-夜精灵",
+  "subject": "a ship equipment item called \"船首像-夜精灵\": 只能带一个船首相 受到祝福的神像 提高夜视能力 恢复耐久: 15/秒 加快航速: 3节"
+ },
+ {
+  "kind": "item",
+  "id": "I03U",
+  "name": "设计图-双联装深水炸弹",
+  "subject": "a ship equipment item called \"设计图-双联装深水炸弹\": 物品升级设计图纸 使用本图纸可以将 深水炸弹 改造为 双联装深水炸弹"
+ },
+ {
+  "kind": "item",
+  "id": "I03V",
+  "name": "精灵维修队",
+  "subject": "a ship equipment item called \"精灵维修队\": 在海上航行时自动修理你的船."
+ },
+ {
+  "kind": "item",
+  "id": "I03X",
+  "name": "设计图-火神炮",
+  "subject": "a ship equipment item called \"设计图-火神炮\": 物品升级设计图纸 使用本图纸可以将 密集阵近防炮 改造为 火神炮"
+ },
+ {
+  "kind": "item",
+  "id": "I03Z",
+  "name": "钛合金装甲船体",
+  "subject": "a ship equipment item called \"钛合金装甲船体\": 只能带一个船甲 使用强度高,重量轻,耐腐蚀的钛合金材料 增加船只生命,并且能够减少船体受到的损伤.但它的重量会让船的航行速度变慢."
+ },
+ {
+  "kind": "item",
+  "id": "I040",
+  "name": "树脂复合装甲船体",
+  "subject": "a ship equipment item called \"树脂复合装甲船体\": 只能带一个船甲 使用重量轻高强度的塑脂复合材料装甲 能够增加船只生命，减少船体受到的损伤，增加航速"
+ },
+ {
+  "kind": "item",
+  "id": "I041",
+  "name": "战鹰",
+  "subject": "a ship equipment item called \"战鹰\": 消耗品,携带数量3只战鹰 派出战鹰可以侦察附近范围内的敌人。"
+ },
+ {
+  "kind": "item",
+  "id": "I042",
+  "name": "船只特殊能力-舰载直升机",
+  "subject": "a ship equipment item called \"船只特殊能力-舰载直升机\": 船只特殊能力 [最高等级 3] 适用船型:拦截者,守护者 舰载飞行器，可以用来侦察和攻击敌人目标 等级 1"
+ },
+ {
+  "kind": "item",
+  "id": "I043",
+  "name": "船只特殊能力-震荡雷",
+  "subject": "a ship equipment item called \"船只特殊能力-震荡雷\": 船只特殊能力 [只有 1级] 适用船型:水手,拦截,守护,渔船,黑珍珠 释放一个固定隐形的震荡雷。当有敌方单位靠近震荡雷的时候会自动引爆 只能放在浅水区 有效时"
+ },
+ {
+  "kind": "item",
+  "id": "I044",
+  "name": "船只特殊能力-照明弹",
+  "subject": "a ship equipment item called \"船只特殊能力-照明弹\": 船只特殊能力 [只有 1级] 适用船型:水手,拦截,守护,执法,渔船,黑珍珠 发射一颗照明弹，探测 1200 区域 7 秒"
+ },
+ {
+  "kind": "item",
+  "id": "I045",
+  "name": "船首像-暗夜闪灵",
+  "subject": "a ship equipment item called \"船首像-暗夜闪灵\": 只能带一个船首相 受到祝福的神像 1200范围传送能力 冷却时间: 50秒 夜间额外视野 恢复耐久: 5/秒"
+ },
+ {
+  "kind": "item",
+  "id": "I04A",
+  "name": "船只特殊能力-减速",
+  "subject": "a ship equipment item called \"船只特殊能力-减速\": 船只特殊能力 [只有 1级] 适用船型:水手,拦截,守护,执法,渔船,黑珍珠 减慢目标单位50%的移动和攻击速度 持续30秒"
+ },
+ {
+  "kind": "item",
+  "id": "I04B",
+  "name": "双联装鱼雷发射管",
+  "subject": "a ship equipment item called \"双联装鱼雷发射管\": 潜艇专用设备 能够提高潜水艇鱼雷发射速度 一倍"
+ },
+ {
+  "kind": "item",
+  "id": "I04C",
+  "name": "超大型水雷布放装置",
+  "subject": "a ship equipment item called \"超大型水雷布放装置\": 潜艇专用设备 购买后你的潜水艇能够布放超大型水雷"
+ },
+ {
+  "kind": "item",
+  "id": "I04E",
+  "name": "船只特殊能力-灭火剂",
+  "subject": "a ship equipment item called \"船只特殊能力-灭火剂\": 船只特殊能力 [最高等级 3] 适用船型:水手,拦截,守护,执法,渔船,黑珍珠 喷出灭火剂对一定区域的单位进行修复。 等级 1"
+ },
+ {
+  "kind": "item",
+  "id": "I04F",
+  "name": "船只特殊能力-酸毒炸弹",
+  "subject": "a ship equipment item called \"船只特殊能力-酸毒炸弹\": 船只特殊能力 [最高等级 3] 可安装船型:水手,拦截,守护,执法,渔船,黑珍珠 酸毒炸弹对周围的敌人造成持续 15秒伤害 等级 1"
+ },
+ {
+  "kind": "item",
+  "id": "I04I",
+  "name": "设计图-轰击炮改",
+  "subject": "a ship equipment item called \"设计图-轰击炮改\": 物品升级设计图纸 使用本图纸可以将 轰击大炮 改造为 轰击炮改"
+ },
+ {
+  "kind": "item",
+  "id": "I04J",
+  "name": "假目标装置",
+  "subject": "a ship equipment item called \"假目标装置\": 潜艇专用设备 假目标装置使潜水艇能释放诱饵吸引敌人, 从而使自身有机会逃脱攻击"
+ },
+ {
+  "kind": "item",
+  "id": "I04L",
+  "name": "船首像-巨石人",
+  "subject": "a ship equipment item called \"船首像-巨石人\": 只能带一个船首相 受到庇佑的神像 损伤降低: 20% 恢复耐久: 15/秒"
+ },
+ {
+  "kind": "item",
+  "id": "I04M",
+  "name": "船首像-红龙",
+  "subject": "a ship equipment item called \"船首像-红龙\": 只能带一个船首相 受到庇佑的神像 损伤降低: 20% 加快航速: 4节"
+ },
+ {
+  "kind": "item",
+  "id": "I04N",
+  "name": "船首像-闪灵",
+  "subject": "a ship equipment item called \"船首像-闪灵\": 只能带一个船首相 受到祝福的神像 1200范围传送能力 冷却时间: 50秒 加快航速: 3节"
+ },
+ {
+  "kind": "item",
+  "id": "I04O",
+  "name": "船首像-黑龙",
+  "subject": "a ship equipment item called \"船首像-黑龙\": 只能带一个船首相 受到祝福的神像 恢复耐久: 15/秒 加快航速: 4节"
+ },
+ {
+  "kind": "item",
+  "id": "I04Q",
+  "name": "船首像-风神 (东风)",
+  "subject": "a ship equipment item called \"船首像-风神 (东风)\": 只能带一个船首相 不能和帆同时携带 受到祝福的神像 航速增加: 8节 恢复耐久: 5/秒"
+ },
+ {
+  "kind": "item",
+  "id": "I04T",
+  "name": "音乐1",
+  "subject": "a ship equipment item called \"音乐1\": 播放一段音乐: 刀锋的摇滚乐"
+ },
+ {
+  "kind": "item",
+  "id": "I04U",
+  "name": "音乐2",
+  "subject": "a ship equipment item called \"音乐2\": 播放一段音乐: 船长进行曲"
+ },
+ {
+  "kind": "item",
+  "id": "I04V",
+  "name": "音乐3",
+  "subject": "a ship equipment item called \"音乐3\": 播放一段音乐: 乡下生活"
+ },
+ {
+  "kind": "item",
+  "id": "I04W",
+  "name": "音乐4",
+  "subject": "a ship equipment item called \"音乐4\": 播放一段音乐: 大战前夕"
+ },
+ {
+  "kind": "item",
+  "id": "I04Y",
+  "name": "船首像-风神 (南风)",
+  "subject": "a ship equipment item called \"船首像-风神 (南风)\": 只能带一个船首相 不能和帆同时携带 受到祝福的神像 航速增加: 8节 损伤降低: 10%"
+ },
+ {
+  "kind": "item",
+  "id": "I04Z",
+  "name": "船首像-雅典娜女神",
+  "subject": "a ship equipment item called \"船首像-雅典娜女神\": 只能带一个船首相 受到祝福的神像 (点击可换成恢复模式) 900范围内友军单位恢复生命每秒10点 加快航速: 3节"
+ },
+ {
+  "kind": "item",
+  "id": "I051",
+  "name": "新手指南 2",
+  "subject": "a ship equipment item called \"新手指南 2\": 主基地旁有个机器人,可以给部分船选加一样新技能 所有船只可以升级,增加生命上限,在右边中部的中立港 武器升级,在基地的武器研发中心购买升级武器对应的设计图. 很"
+ },
+ {
+  "kind": "item",
+  "id": "I052",
+  "name": "生物装甲外壳",
+  "subject": "a ship equipment item called \"生物装甲外壳\": 只能带一个船甲 在船体外繁殖一层生物细胞作为装甲 能够增加船只生命，减少船体受到的损伤，并且进行自我修复"
+ },
+ {
+  "kind": "item",
+  "id": "I055",
+  "name": "设计图-雷神大炮增强型",
+  "subject": "a ship equipment item called \"设计图-雷神大炮增强型\": 物品升级设计图纸 使用本图纸可以将 雷神大炮 改造为 雷神大炮增强型"
+ },
+ {
+  "kind": "item",
+  "id": "I058",
+  "name": "精灵观察员",
+  "subject": "a ship equipment item called \"精灵观察员\": - 能够侦测到自己视野范围内的隐形单位"
+ },
+ {
+  "kind": "item",
+  "id": "I05A",
+  "name": "设计图-高速阔剑投掷器",
+  "subject": "a ship equipment item called \"设计图-高速阔剑投掷器\": 物品升级设计图纸 使用本图纸可以将 阔剑投掷器 改造为 高速阔剑投掷器"
+ },
+ {
+  "kind": "item",
+  "id": "I05C",
+  "name": "设计图-无轨迹炮改",
+  "subject": "a ship equipment item called \"设计图-无轨迹炮改\": 物品升级设计图纸 使用本图纸可以将 无轨迹炮 改造为 无轨迹炮改"
+ },
+ {
+  "kind": "item",
+  "id": "I05E",
+  "name": "设计图-终级精灵大炮",
+  "subject": "a ship equipment item called \"设计图-终级精灵大炮\": 物品升级设计图纸 使用本图纸可以将 精灵大炮 改造为 终级精灵大炮"
+ },
+ {
+  "kind": "item",
+  "id": "I05P",
+  "name": "设计图-超级天星大炮",
+  "subject": "a ship equipment item called \"设计图-超级天星大炮\": 物品升级设计图纸 使用本图纸可以将 天星大炮 改造为 超级天星大炮"
+ },
+ {
+  "kind": "item",
+  "id": "I05U",
+  "name": "船只特殊能力-重设技能",
+  "subject": "a ship equipment item called \"船只特殊能力-重设技能\": 船只特殊能力 适用船型:所有 重新分配船只的技能"
+ },
+ {
+  "kind": "item",
+  "id": "I05Z",
+  "name": "工程师",
+  "subject": "a ship equipment item called \"工程师\": 点击使用 万能的工程师既能每秒自动修复，也可每过一段时间大量修复受损船体"
+ },
+ {
+  "kind": "item",
+  "id": "I06B",
+  "name": "设计图-真红之箭",
+  "subject": "a ship equipment item called \"设计图-真红之箭\": 物品升级设计图纸 使用本图纸可以将 红箭 改造为 真红之箭"
+ },
+ {
+  "kind": "item",
+  "id": "I06C",
+  "name": "晶体装甲船体",
+  "subject": "a ship equipment item called \"晶体装甲船体\": 只能带一个船甲 船体装备后每过1分钟增加生命 10 换船后重新生长"
+ },
+ {
+  "kind": "item",
+  "id": "I06D",
+  "name": "岸防哨塔",
+  "subject": "a ship equipment item called \"岸防哨塔\": 在指定的区域建造一座岸防哨塔"
+ },
+ {
+  "kind": "item",
+  "id": "I06I",
+  "name": "合成图-红箭大炮",
+  "subject": "a ship equipment item called \"合成图-红箭大炮\": 物品合成图纸 使用本图纸可合成：红箭大炮 所需物品：冲天炮、小箭、小炮 、捕鲸炮"
+ },
+ {
+  "kind": "item",
+  "id": "I06L",
+  "name": "设计图-大大海绵宝宝炮",
+  "subject": "a ship equipment item called \"设计图-大大海绵宝宝炮\": 物品升级设计图纸 使用本图纸可以将 海绵大炮 改造为 大大海绵宝宝炮"
+ },
+ {
+  "kind": "skill",
+  "id": "A01Y",
+  "name": "船长火炮",
+  "subject": "a naval battle skill called \"船长火炮\": 船长亲自操控火炮,对目标船只造成破坏并使其失控, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A07U",
+  "name": "改良船体-小型",
+  "subject": "a naval battle skill called \"改良船体-小型\": 增加船体生命上限，并在受损后自动修复, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A03W",
+  "name": "改良船帆",
+  "subject": "a naval battle skill called \"改良船帆\": 改进帆装的操控配合来提高航行速度, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A01V",
+  "name": "防护罩",
+  "subject": "a naval battle skill called \"防护罩\": 保护商船自身在一段时间内不受任何伤害和技能影响, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A00A",
+  "name": "隐形",
+  "subject": "a naval battle skill called \"隐形\": 将船只隐藏在迷雾里，不让敌人发现, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A03U",
+  "name": "假目标",
+  "subject": "a naval battle skill called \"假目标\": 释放出商船的幻像来迷惑敌人, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A01A",
+  "name": "自杀撞击",
+  "subject": "a naval battle skill called \"自杀撞击\": 向一个敌方目标发动自杀撞击。对目标单位和周围区域造成巨大的破坏, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A00Y",
+  "name": "渔网",
+  "subject": "a naval battle skill called \"渔网\": 向一艘敌方船只射出渔网，使其一段时间无法移动, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A08I",
+  "name": "召唤虎鲸",
+  "subject": "a naval battle skill called \"召唤虎鲸\": 召唤一只虎鲸来协助战斗 虎鲸不会受到普通船只和武器的攻击, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A07V",
+  "name": "改良船体-中型",
+  "subject": "a naval battle skill called \"改良船体-中型\": 增加船体生命上限，并在受损后自动修复, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A08T",
+  "name": "打捞",
+  "subject": "a naval battle skill called \"打捞\": 新近沉没的船只会有残骸与财物漂流在海上 打捞它们获得收入，并恢复附近友军生命, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A05D",
+  "name": "飞鱼",
+  "subject": "a naval battle skill called \"飞鱼\": 向前方发射三枚飞鱼.杀伤其轨迹上的敌人 每枚杀伤力: 400, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A07K",
+  "name": "能量外壳",
+  "subject": "a naval battle skill called \"能量外壳\": 使目标单位对武器攻击及所有的技能免疫 持续 5秒, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A00N",
+  "name": "燃料加速",
+  "subject": "a naval battle skill called \"燃料加速\": 使用氮气燃料让船只持续10秒进行高速航行, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A07P",
+  "name": "燃料炸弹",
+  "subject": "a naval battle skill called \"燃料炸弹\": 使用燃料加速后立即抛下一颗炸弹杀伤周围敌人, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A01E",
+  "name": "紧急修理",
+  "subject": "a naval battle skill called \"紧急修理\": 指定一个友方机械单位，在6秒内逐渐修复其生命, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A07L",
+  "name": "布放水雷",
+  "subject": "a naval battle skill called \"布放水雷\": 修复友军单位生命值大于一半或500就可布放一枚水雷。水雷会在敌人经过时爆炸, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A07O",
+  "name": "开花弹",
+  "subject": "a naval battle skill called \"开花弹\": 快速开炮轰击一小片区域内的敌人, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "ANso",
+  "name": "混乱",
+  "subject": "a naval battle skill called \"混乱\": 指定单位在一段时间内无法施放技能并持续受到破坏, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "AEfk",
+  "name": "万铳齐鸣",
+  "subject": "a naval battle skill called \"万铳齐鸣\": 向周围的敌人发射火铳。 对每个目标造成500点的破坏。, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A053",
+  "name": "坚硬外壳",
+  "subject": "a naval battle skill called \"坚硬外壳\": 抵挡所有伤害的坚硬外壳 持续时间: 6秒, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A01R",
+  "name": "登船作战",
+  "subject": "a naval battle skill called \"登船作战\": 与一艘敌船进行接舷登船作战。 对方在接舷战期间无法控制，且持续受到伤害, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "ANrf",
+  "name": "火焰雨",
+  "subject": "a naval battle skill called \"火焰雨\": 召唤来一阵阵从天而降的火焰雨砸向指定区域的敌人 目标被击中受到伤害后，还会持续3秒燃烧受伤害, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A038",
+  "name": "干扰信号",
+  "subject": "a naval battle skill called \"干扰信号\": 指定区域中的所有敌方单位一段时间无法使用技能, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A037",
+  "name": "电磁脉冲",
+  "subject": "a naval battle skill called \"电磁脉冲\": 发出强大的电磁脉冲，杀伤一定范围内的敌方单位，并使其航速下降, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A02D",
+  "name": "航行干扰",
+  "subject": "a naval battle skill called \"航行干扰\": 周围一定范围内敌船的航行速度被降低, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A05T",
+  "name": "烈焰喷射",
+  "subject": "a naval battle skill called \"烈焰喷射\": 喷射烈焰烧灼目标，造成首次伤害后还有持续伤害, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A05S",
+  "name": "拖网锁镣",
+  "subject": "a naval battle skill called \"拖网锁镣\": 以拖网约束一个敌目标单位，使其不能攻击和移动, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A02S",
+  "name": "船长火炮",
+  "subject": "a naval battle skill called \"船长火炮\": 船长亲自操控火炮,对目标船只造成破坏并使其失控, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A02T",
+  "name": "造影",
+  "subject": "a naval battle skill called \"造影\": 创造一艘战船的影子来为您作战, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A094",
+  "name": "影随行",
+  "subject": "a naval battle skill called \"影随行\": 如影子般跟随敌人。拥有其视野，并降低护甲, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "Arsw",
+  "name": "古树精灵",
+  "subject": "a naval battle skill called \"古树精灵\": 召唤出一个固定不动的古树精灵来协助攻击 持续40秒。, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "ANto",
+  "name": "龙卷风",
+  "subject": "a naval battle skill called \"龙卷风\": 召唤一股可控制的强劲龙卷风，持续40秒 可减慢附近敌单位移动速度 并破坏敌单位和建筑每秒130点, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A02V",
+  "name": "巨石群",
+  "subject": "a naval battle skill called \"巨石群\": 在一块区域内生出几块巨大石头来阻挡道路 冷却时间：30秒, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A06Y",
+  "name": "火力全开",
+  "subject": "a naval battle skill called \"火力全开\": 全船火炮持续射击周围敌方单位 冷却时间 60秒, 作用时间 10秒 攻击范围 900, 每秒破坏 250, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A06X",
+  "name": "镇魂曲",
+  "subject": "a naval battle skill called \"镇魂曲\": 杀死35个单位或1个英雄后在死亡单位处释放能量,对800范围内产生伤害,并震晕4秒, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A02L",
+  "name": "召唤海怪",
+  "subject": "a naval battle skill called \"召唤海怪\": 召唤出一只深海海怪来攻击附近的敌人, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A07W",
+  "name": "改良船体-大型",
+  "subject": "a naval battle skill called \"改良船体-大型\": 增加船体生命上限，并在受损后自动修复, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A03N",
+  "name": "撕帆炮",
+  "subject": "a naval battle skill called \"撕帆炮\": 发射链弹缠绕目标，击毁其船帆并造成一定破坏, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "ANvc",
+  "name": "火山爆发",
+  "subject": "a naval battle skill called \"火山爆发\": 让一定区域火山爆发并喷出 8波岩浆,对范围内的敌人单位造成点伤害并失控一段时间, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A02O",
+  "name": "瘟疫",
+  "subject": "a naval battle skill called \"瘟疫\": 用瘟疫来感染周围的敌人. 持续 120秒 瘟疫每秒能对敌人造成 30点的伤害 杀死英雄获得目标10%的生命恢复自身, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A065",
+  "name": "寄生感染",
+  "subject": "a naval battle skill called \"寄生感染\": 释放孢子感染目标单位，持续 60秒 每秒造成 30点破坏 目标在有效期内死亡将产生一个女妖 杀死英雄单位的女妖更强大, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A063",
+  "name": "海牙刺",
+  "subject": "a naval battle skill called \"海牙刺\": 对直线上的目标造成伤害并使其失控 备注: 被穿刺和被网的单位不能被再次穿刺 实际穿刺目标点会略微偏移瞄准点, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "ANch",
+  "name": "同化",
+  "subject": "a naval battle skill called \"同化\": 永久性控制某个敌方普通单位 (非英雄和高等级单位, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A09E",
+  "name": "巨大化",
+  "subject": "a naval battle skill called \"巨大化\": 短时间内大幅提高某个友军单位攻击速度,包括建筑, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "AOcr",
+  "name": "致命一击",
+  "subject": "a naval battle skill called \"致命一击\": 潜水艇的鱼雷攻击有35%的机率能造成2倍破坏, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A04N",
+  "name": "瞬间移动",
+  "subject": "a naval battle skill called \"瞬间移动\": 让潜水艇瞬间移动一段距离,注意地形要求 最远距离: 1500 冷却时间: 50, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A03M",
+  "name": "冻结",
+  "subject": "a naval battle skill called \"冻结\": 冻结周围船只数秒，并造成伤害 （按 S 键可取消施放技能）, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A02Z",
+  "name": "派遣间谍",
+  "subject": "a naval battle skill called \"派遣间谍\": 向一个单位派出间谍。在间谍被清除之前会一直拥有该单位的位置视野。即使该单位隐形也仍然可见, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A09B",
+  "name": "间谍破坏",
+  "subject": "a naval battle skill called \"间谍破坏\": 命令在敌人单位中的间谍从内部进行破坏. 破坏后间谍失效,造成最大生命百分比的真实伤害, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "AEer",
+  "name": "缠绕根须",
+  "subject": "a naval battle skill called \"缠绕根须\": 从水下伸出触手将目标缠绕住 8秒 并对其造成每秒 70点的伤害。, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "ANms",
+  "name": "能量护盾",
+  "subject": "a naval battle skill called \"能量护盾\": 每点能量可以吸收 2 点破坏的护盾, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A04A",
+  "name": "能量恢复",
+  "subject": "a naval battle skill called \"能量恢复\": 恢复附近友军 40点能量值。, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "AEim",
+  "name": "献祭",
+  "subject": "a naval battle skill called \"献祭\": 激活献祭后会让该单位处于火焰的包围之中 对周围的单位会造成每秒 100点的伤害, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A062",
+  "name": "轰天雷",
+  "subject": "a naval battle skill called \"轰天雷\": 发射大量火石弹药轰击指定区域的敌单位并使其失控, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A061",
+  "name": "战斗小艇",
+  "subject": "a naval battle skill called \"战斗小艇\": 派出多条战斗小艇，随机攻击附近敌人, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A058",
+  "name": "和谐",
+  "subject": "a naval battle skill called \"和谐\": 驱散指定区域内所有魔法效果，并杀伤敌方召唤单位, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A068",
+  "name": "要塞炮",
+  "subject": "a naval battle skill called \"要塞炮\": 轰击指定目标范围的敌方单位, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A069",
+  "name": "超负荷技术",
+  "subject": "a naval battle skill called \"超负荷技术\": 超负荷技术能让移动要塞维持10秒高速航行 提高航速 100%, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A06A",
+  "name": "释放飞艇",
+  "subject": "a naval battle skill called \"释放飞艇\": 释放1艘 行动自主的飞艇来协同战斗。 飞艇可以看到隐形单位, 还有一定攻击力 持续: 60秒 ,释放间隔120秒, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "ANhs",
+  "name": "灭火剂",
+  "subject": "a naval battle skill called \"灭火剂\": 喷出 8阵灭火剂,每阵气雾能修复100点损坏, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "AOvd",
+  "name": "舰队防御",
+  "subject": "a naval battle skill called \"舰队防御\": 指挥附近友军单位作战，使他们短时间处于无敌状态 注意指挥舰自己不是无敌, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A08X",
+  "name": "战鼓",
+  "subject": "a naval battle skill called \"战鼓\": 每秒自动修复受损船体，并提高周围友军单位杀伤力, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "AEsf",
+  "name": "神之惩罚",
+  "subject": "a naval battle skill called \"神之惩罚\": 召唤出一阵阵流星雨砸向自己周围的敌人, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "AHwe",
+  "name": "舰队支援",
+  "subject": "a naval battle skill called \"舰队支援\": 召唤两艘战船来协同战斗。, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A091",
+  "name": "风贝跳跃",
+  "subject": "a naval battle skill called \"风贝跳跃\": 使用风贝喷射飞出海面并降落到指定位置,对降落点附近敌人造成破坏并使其失控, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A086",
+  "name": "船精灵",
+  "subject": "a naval battle skill called \"船精灵\": 生命低于30%可能出现船精灵进行自我修复 只有真正被珍惜的船才会寄宿妖精，它是船的化身，这艘船是幸福的, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A096",
+  "name": "连续射击",
+  "subject": "a naval battle skill called \"连续射击\": 用自带的火炮在10秒内持续攻击周围敌人, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "AOsh",
+  "name": "主炮轰击",
+  "subject": "a naval battle skill called \"主炮轰击\": 对一条直线上的所有目标造成伤害, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A06E",
+  "name": "顺风顺水",
+  "subject": "a naval battle skill called \"顺风顺水\": 提高附近友军船只移动速度 100% 持续 10秒, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A031",
+  "name": "战场支援",
+  "subject": "a naval battle skill called \"战场支援\": 恢复附近友军 40点生命值。, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A051",
+  "name": "克虏伯主炮",
+  "subject": "a naval battle skill called \"克虏伯主炮\": 精确瞄准的重型火炮,对目标船只造成破坏并使其失控, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "AOcl",
+  "name": "跳跃闪电",
+  "subject": "a naval battle skill called \"跳跃闪电\": 发射出跳跃的闪电来杀伤附近数个敌方单位, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "AEtq",
+  "name": "龙王爷保佑",
+  "subject": "a naval battle skill called \"龙王爷保佑\": 一段时间内持续恢复附近友军单位生命, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "ANfl",
+  "name": "叉状闪电",
+  "subject": "a naval battle skill called \"叉状闪电\": 召唤一道锥形闪电伤害面前的多个敌单位 至多 8 个敌单位， 600点伤害, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A064",
+  "name": "潜行",
+  "subject": "a naval battle skill called \"潜行\": 消失在敌人的视野中高速航行 提高航速 40% / 持续 10秒, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A067",
+  "name": "灵魂控制",
+  "subject": "a naval battle skill called \"灵魂控制\": 让某个敌方英雄转变阵营9秒, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A018",
+  "name": "变异",
+  "subject": "a naval battle skill called \"变异\": 将敌人变成没有战斗力的单位 持续 6秒 / 使用间隔: 60秒, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "ANdr",
+  "name": "生命汲取",
+  "subject": "a naval battle skill called \"生命汲取\": 汲取目标单位的生命值给予死神号 有效范围: 900 每秒汲取 300点, 持续6秒, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A05N",
+  "name": "死亡能量",
+  "subject": "a naval battle skill called \"死亡能量\": 每个单位造成400点的伤害。 能量向周围7个敌方的其他单位。, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A011",
+  "name": "隐形",
+  "subject": "a naval battle skill called \"隐形\": 短时间从敌人视野中消失,从而躲避攻击和追踪, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A04V",
+  "name": "瞬间移动",
+  "subject": "a naval battle skill called \"瞬间移动\": 在一定范围内进行瞬间移动。注意目标地形 浅水区不能移往深水区 位于深浅水交界处无法瞬移, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A04T",
+  "name": "分身",
+  "subject": "a naval battle skill called \"分身\": 释放出分身可成倍提高攻击力，并分散敌方火力, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A00J",
+  "name": "海盗小艇",
+  "subject": "a naval battle skill called \"海盗小艇\": 派出多条海盗小艇，随机攻击附近敌人, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A071",
+  "name": "探测者",
+  "subject": "a naval battle skill called \"探测者\": 满级的黑珍珠能 显示周围的隐形单位。, shown as a dramatic magical or military effect"
+ }
+]

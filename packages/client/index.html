@@ -12,83 +12,175 @@
         text-shadow: 0 1px 2px #000a; pointer-events: none; white-space: pre;
       }
       #hud { left: 12px; top: 10px; }
-      #help { right: 12px; top: 10px; text-align: right; opacity: 0.85; }
-      #info { display: none; }
+      #help { right: 12px; top: 10px; text-align: right; opacity: 0.7; font-size: 12px; }
       .minimap {
         position: fixed; left: 12px; bottom: 12px; width: 220px; height: 220px;
         border: 2px solid #0008; border-radius: 4px; cursor: pointer;
       }
       .overlay { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-      .status { left: 50%; top: 10px; transform: translateX(-50%); font-size: 15px; background: #0008; padding: 4px 12px; border-radius: 6px; }
+      :root {
+        --panel: linear-gradient(180deg, #1a2a38f2, #0d1720f2); --edge: #c9a25a66; --edge-strong: #e2bd70;
+        --text: #e9f1f6; --dim: #93a9b8; --gold: #ffd25a; --up: #7dff8a; --down: #ff7a6a;
+        --south: #5aa0ff; --north: #ff6a5a;
+      }
+      .hud-panel { background: var(--panel); border: 1px solid var(--edge); border-radius: 8px; box-shadow: 0 4px 18px #0008, inset 0 1px 0 #ffffff14; color: var(--text); }
+      .topbar {
+        position: fixed; left: 50%; top: 8px; transform: translateX(-50%); display: flex; gap: 18px; align-items: center;
+        padding: 5px 16px; background: var(--panel); border: 1px solid var(--edge); border-radius: 0 0 10px 10px;
+        color: var(--text); font: 600 15px system-ui, sans-serif; box-shadow: 0 4px 14px #0007; pointer-events: none;
+      }
+      .topbar .gold { color: var(--gold); }
+      .topbar .gold::before { content: ''; display: inline-block; width: 12px; height: 12px; margin-right: 6px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff3b0, #e0a320 60%, #8a5a08); vertical-align: -1px; }
+      .topbar .score { font-size: 18px; }
+      .topbar .south, .scoreboard .south { color: var(--south); }
+      .topbar .north, .scoreboard .north { color: var(--north); }
+      .topbar .clock, .topbar .kd { color: var(--dim); font-weight: 500; }
+      .respawn {
+        position: fixed; left: 50%; top: 30%; transform: translateX(-50%); display: none; padding: 10px 22px; border-radius: 8px;
+        background: #000a; color: #ffb3a8; font: 600 20px system-ui, sans-serif; pointer-events: none;
+      }
+      .respawn.show { display: block; }
       .toast {
         position: fixed; left: 50%; top: 52px; transform: translateX(-50%); padding: 6px 14px; border-radius: 6px;
-        background: #a33c; color: #fff; font: 14px system-ui, sans-serif; opacity: 0; transition: opacity 0.2s; pointer-events: none;
+        background: #1d2a36ee; border: 1px solid var(--edge); color: #fff; font: 14px system-ui, sans-serif; opacity: 0; transition: opacity 0.2s; pointer-events: none;
       }
       .toast.show { opacity: 1; }
       .banner {
         position: fixed; left: 50%; top: 40%; transform: translate(-50%, -50%); display: none; padding: 18px 36px;
-        border-radius: 10px; font: bold 30px system-ui, sans-serif; color: #fff; background: #000b;
+        border-radius: 10px; font: bold 30px system-ui, sans-serif; color: #fff; background: #000b; border: 1px solid var(--edge-strong);
       }
       .banner.show { display: block; }
-      .banner.win { color: #ffd84a; }
-      .banner.lose { color: #ff7a6a; }
+      .banner.win { color: var(--gold); }
+      .banner.lose { color: var(--down); }
+
+      /* Icons: the picture covers its text fallback once it loads. */
+      .icon { position: relative; display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: 6px; overflow: hidden; background: #24384a; flex: none; }
+      .icon em { font: normal 600 11px/1.15 system-ui, sans-serif; color: var(--dim); text-align: center; padding: 2px; }
+      .icon i { position: absolute; inset: 0; background: center / cover no-repeat; }
+      .icon.mini { width: 22px; height: 22px; border-radius: 4px; vertical-align: middle; }
+      .icon.mini em { font-size: 8px; }
+
+      /* Bottom command panel. */
+      .command {
+        position: fixed; left: 50%; bottom: 8px; transform: translateX(-50%); display: flex; align-items: stretch; gap: 10px;
+        padding: 8px 10px; background: var(--panel); border: 1px solid var(--edge); border-radius: 10px; box-shadow: 0 6px 22px #000a;
+        color: var(--text); font: 12px/1.3 system-ui, sans-serif; max-width: calc(100vw - 480px);
+      }
+      .command button { font: inherit; color: inherit; cursor: pointer; }
+      .command .hero { display: flex; gap: 8px; align-items: center; }
+      .command .portrait { position: relative; }
+      .command .portrait .icon { width: 64px; height: 64px; border: 1px solid var(--edge-strong); }
+      .command .portrait .lv {
+        position: absolute; right: -4px; bottom: -4px; min-width: 20px; height: 20px; padding: 0 3px; border-radius: 10px; display: grid; place-items: center;
+        background: #2b1c08; border: 1px solid var(--edge-strong); color: var(--gold); font-weight: 700; font-size: 12px;
+      }
+      .command .vitals { width: 190px; display: flex; flex-direction: column; gap: 3px; }
+      .command .name { font-weight: 700; font-size: 14px; }
+      .command .name small { margin-left: 6px; color: var(--dim); font-weight: 400; font-size: 11px; }
+      .command .bar { position: relative; height: 14px; border-radius: 3px; background: #0008; overflow: hidden; border: 1px solid #0006; }
+      .command .bar i { position: absolute; inset: 0 auto 0 0; transition: width 0.15s; }
+      .command .bar.hp i { background: linear-gradient(180deg, #6fe27a, #2f9a3e); }
+      .command .bar.xp { height: 10px; }
+      .command .bar.xp i { background: linear-gradient(180deg, #b48cff, #6a43c9); }
+      .command .bar span { position: relative; display: block; text-align: center; font-size: 10px; line-height: 14px; text-shadow: 0 1px 2px #000; }
+      .command .bar.xp span { line-height: 10px; font-size: 9px; }
+      .command .stats { display: flex; gap: 10px; color: var(--dim); font-size: 11px; }
+      .command .skills, .command .items { display: flex; gap: 6px; align-items: flex-start; padding-left: 10px; border-left: 1px solid #ffffff14; }
+      .command .items { display: grid; grid-template-columns: repeat(3, 40px); grid-auto-rows: 40px; gap: 4px; }
+      .command .slot { position: relative; padding: 0; border: 1px solid #ffffff22; border-radius: 7px; background: #0006; }
+      .command .skill { border: 0; background: none; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+      .command .skill > button[data-cast] { position: relative; padding: 0; border: 1px solid var(--edge); border-radius: 7px; background: none; }
+      .command .skill > button[data-cast]:hover:not([disabled]) { border-color: var(--edge-strong); box-shadow: 0 0 8px #e2bd7088; }
+      .command .skill .icon { width: 52px; height: 52px; }
+      .command .unlearned .icon { filter: grayscale(1) brightness(0.55); }
+      .command .passive > button[data-cast] { border-style: dashed; cursor: help; }
+      .command .dots { display: flex; gap: 2px; }
+      .command .dots i { width: 5px; height: 5px; border-radius: 50%; background: #ffffff22; }
+      .command .dots i.on { background: var(--gold); box-shadow: 0 0 3px var(--gold); }
+      .command kbd { position: absolute; left: 3px; top: 2px; font: 700 10px monospace; color: #fff; text-shadow: 0 0 3px #000, 0 0 2px #000; }
+      .command .cd {
+        position: absolute; inset: 0; display: grid; place-items: center; border-radius: 6px; font-size: 16px; font-weight: 800; text-shadow: 0 1px 3px #000;
+        background: conic-gradient(#000b calc(var(--p) * 1turn), #0003 0);
+      }
+      .command .learn {
+        position: absolute; right: -7px; top: -9px; width: 22px; height: 22px; padding: 0; border-radius: 50%;
+        border: 1px solid #b8ffbe; background: radial-gradient(circle at 35% 35%, #7de38a, #237a33); color: #fff; font-weight: 800; font-size: 14px; line-height: 1;
+        animation: pulse 1.2s ease-in-out infinite;
+      }
+      @keyframes pulse { 50% { box-shadow: 0 0 10px #7dff8a; } }
+      .command .item .icon { width: 38px; height: 38px; }
+      .command .item.empty { border-style: dashed; border-color: #ffffff18; }
+      .command button.item:hover { border-color: var(--edge-strong); }
+      .command button.item.active { border-color: #7dbdff88; }
+
+      /* Shop. */
       .shop {
-        position: fixed; right: 12px; bottom: 80px; width: 300px; max-height: 60vh; overflow-y: auto; display: none;
-        background: #101820e6; border: 1px solid #fff2; border-radius: 8px; padding: 8px; color: #e6f1f7;
-        font: 13px/1.35 system-ui, sans-serif;
+        position: fixed; right: 10px; bottom: 120px; width: 312px; max-height: calc(100vh - 200px); overflow-y: auto; display: none;
+        background: var(--panel); border: 1px solid var(--edge); border-radius: 10px; padding: 8px 10px 10px; color: var(--text);
+        font: 13px/1.35 system-ui, sans-serif; box-shadow: 0 6px 22px #000a;
       }
       .shop.show { display: block; }
-      .shop h4 { margin: 8px 2px 4px; font-size: 13px; color: #9cc3d8; }
-      .shop button {
-        display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%; margin: 2px 0;
-        padding: 5px 8px; border: 1px solid #fff1; border-radius: 5px; background: #1d2a36; color: inherit;
-        font: inherit; text-align: left; cursor: pointer;
+      .shop nav { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 4px; }
+      .shop nav button, .shop nav span { padding: 3px 9px; border: 1px solid #ffffff1a; border-radius: 5px; background: #0005; color: var(--dim); font: inherit; font-size: 12px; cursor: pointer; }
+      .shop nav .on { color: var(--gold); border-color: var(--edge-strong); background: #2b1c0888; }
+      .shop h4 { margin: 8px 0 4px; font-size: 12px; color: var(--dim); font-weight: 600; letter-spacing: 1px; }
+      .shop .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+      .shop .tile { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 3px 0 2px; border: 1px solid #ffffff1a; border-radius: 7px; background: #0005; color: inherit; font: inherit; cursor: pointer; }
+      .shop .tile:hover { border-color: var(--edge-strong); background: #2a3d50; }
+      .shop .tile b { font-size: 11px; color: var(--gold); }
+      .shop .tile.poor b { color: var(--down); }
+      .shop .tile.poor .icon { filter: saturate(0.3) brightness(0.7); }
+      .shop .tile.current { border-color: #7dff8a88; }
+      .shop .shop-hint { margin: 8px 0 0; color: var(--dim); font-size: 11px; }
+
+      /* Tooltip. */
+      .tooltip {
+        position: fixed; left: 0; top: 0; z-index: 10; display: none; width: max-content; max-width: 290px; padding: 8px 10px; pointer-events: none;
+        background: linear-gradient(180deg, #141f29f7, #0b131af7); border: 1px solid var(--edge-strong); border-radius: 7px; box-shadow: 0 6px 20px #000c;
+        color: var(--text); font: 12px/1.45 system-ui, sans-serif;
       }
-      .shop button:hover:not([disabled]) { background: #2a3d50; }
-      .shop button[disabled] { opacity: 0.45; cursor: default; }
-      .shop button.inert { opacity: 0.55; }
-      .shop small { display: block; color: #9ab; font-size: 11px; }
-      .shop b { color: #ffd84a; font-weight: 600; }
-      .shop b.poor { color: #c66; }
-      .inventory { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
-      .inventory button, .inventory .empty { min-height: 34px; margin: 0; font-size: 12px; }
-      .inventory .empty { border: 1px dashed #fff2; border-radius: 5px; }
+      .tooltip.show { display: block; }
+      .tip-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+      .tip-head strong { font-size: 14px; color: #fff; }
+      .tip-head .gold { color: var(--gold); font-weight: 700; }
+      .tip-sub { color: var(--dim); font-size: 11px; margin-bottom: 4px; }
+      .tip-row { display: flex; justify-content: space-between; gap: 16px; }
+      .tip-row span { color: var(--dim); }
+      .tip-row b { font-weight: 600; }
+      .tip-row b.up { color: var(--up); } .tip-row b.up::after { content: ' ▲'; font-size: 9px; }
+      .tip-row b.down { color: var(--down); } .tip-row b.down::after { content: ' ▼'; font-size: 9px; }
+      .tip-text { margin: 5px 0 0; white-space: pre-line; color: #d6e2ea; }
+      .tip-next { margin-top: 6px; padding-top: 5px; border-top: 1px solid #ffffff1a; color: var(--gold); font-weight: 600; font-size: 11px; }
+      .tip-list, .tip-note { margin-top: 5px; color: var(--dim); font-size: 11px; }
+
+      /* Scoreboard (hold Tab). */
+      .scoreboard {
+        position: fixed; left: 50%; top: 60px; transform: translateX(-50%); display: none; padding: 10px 16px 14px; min-width: 640px;
+        background: var(--panel); border: 1px solid var(--edge); border-radius: 10px; box-shadow: 0 8px 30px #000c; color: var(--text);
+        font: 13px system-ui, sans-serif; pointer-events: none;
+      }
+      .scoreboard.show { display: block; }
+      .scoreboard h3 { margin: 6px 0 4px; font-size: 14px; }
+      .scoreboard table { width: 100%; border-collapse: collapse; }
+      .scoreboard th { text-align: left; color: var(--dim); font-weight: 500; font-size: 11px; padding: 2px 6px; }
+      .scoreboard td { padding: 3px 6px; border-top: 1px solid #ffffff0f; }
+      .scoreboard tr.me td { background: #e2bd7018; }
+      .scoreboard td.ship .icon { margin-right: 6px; }
+      .scoreboard td.items .icon { margin-right: 2px; }
+      /* Narrow windows: smaller minimap, the command panel beside it, the shop above. */
+      @media (max-width: 1100px) {
+        .minimap { width: 150px; height: 150px; }
+        .command { left: 170px; right: 8px; transform: none; max-width: none; flex-wrap: wrap; gap: 6px; }
+        .command .skills, .command .items { padding-left: 0; border-left: 0; }
+        .shop { bottom: 230px; width: min(312px, calc(100vw - 20px)); max-height: calc(100vh - 300px); }
+        .scoreboard { min-width: 0; width: calc(100vw - 40px); font-size: 11px; }
+        #help { display: none; }
+      }
       .repair {
-        position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%); display: none; padding: 8px 16px;
+        position: fixed; left: 50%; bottom: 120px; transform: translateX(-50%); display: none; padding: 8px 16px;
         border: 1px solid #5cff7a88; border-radius: 6px; background: #12301ce6; color: #c8ffd2; font: 14px system-ui, sans-serif; cursor: pointer;
       }
       .repair.show { display: block; }
-      .skillbar {
-        position: fixed; left: 50%; bottom: 10px; transform: translateX(-50%); display: flex; align-items: flex-end; gap: 4px;
-        padding: 6px 8px; background: #101820e6; border: 1px solid #fff2; border-radius: 8px; color: #e6f1f7;
-        font: 12px/1.3 system-ui, sans-serif; max-width: calc(100vw - 260px); flex-wrap: wrap;
-      }
-      .skillbar .level { display: flex; flex-direction: column; padding: 0 6px; font-weight: 600; font-size: 14px; }
-      .skillbar .level small { font-weight: 400; font-size: 11px; color: #9ab; }
-      .skillbar .skill { position: relative; }
-      .skillbar button {
-        position: relative; min-width: 64px; height: 46px; padding: 4px 6px; border: 1px solid #fff2; border-radius: 6px;
-        background: #1d2a36; color: inherit; font: inherit; cursor: pointer; text-align: left;
-      }
-      .skillbar button:hover:not([disabled]) { background: #2a3d50; }
-      .skillbar button[disabled] { cursor: default; }
-      .skillbar .unlearned button { opacity: 0.5; }
-      .skillbar .passive button { border-style: dashed; }
-      .skillbar .name { display: block; }
-      .skillbar .dots { font-size: 8px; color: #ffd84a; letter-spacing: 1px; }
-      .skillbar kbd { position: absolute; right: 4px; top: 2px; font: 10px monospace; color: #9cc3d8; }
-      .skillbar .cd {
-        position: absolute; inset: 0; display: grid; place-items: center; border-radius: 6px;
-        background: #000a; font-size: 16px; font-weight: 700;
-      }
-      .skillbar .learn {
-        position: absolute; right: -6px; top: -10px; min-width: 0; width: 22px; height: 22px; padding: 0;
-        border-radius: 50%; background: #2f7d3e; text-align: center; font-weight: 700;
-      }
-      .skillbar .divider { width: 1px; height: 40px; background: #fff2; margin: 0 4px; }
-      .skillbar .item { min-width: 56px; font-size: 11px; }
-      .skillbar .item.inert { opacity: 0.6; }
-      .skillbar .item.empty { display: inline-block; width: 56px; height: 46px; border: 1px dashed #fff2; border-radius: 6px; }
       .target-hint {
         position: fixed; left: 50%; top: 52px; transform: translateX(-50%); display: none; padding: 6px 14px; border-radius: 6px;
         background: #1d3b5ccc; color: #fff; font: 14px system-ui, sans-serif; pointer-events: none;
@@ -104,11 +196,8 @@
   <body>
     <div id="app"></div>
     <div id="hud" class="panel"></div>
-    <div id="help" class="panel">左键选择 / 拖动框选 · 右键航行
-方向键、屏幕边缘或中键拖动平移 · 滚轮缩放
-技能快捷键见技能栏 · 1–6 使用物品
-空格或 H 回到所选船只 · 点击小地图跳转</div>
-    <div id="info" class="panel"></div>
+    <div id="help" class="panel">左键选择 · 右键航行 · 方向键 / 边缘 / 中键平移 · 滚轮缩放
+技能快捷键见技能图标 · 1–6 物品 · 按住 Tab 查看战况 · 空格回到船只</div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

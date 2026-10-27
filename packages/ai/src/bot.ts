@@ -189,8 +189,8 @@ export class Bot {
       } else if (kind === 'unit') {
         // 同化 takes over ordinary ships only: grab the biggest one in reach.
         if (a.baseCode === 'ANch') {
-          const ship = this.enemiesWithin(ship, reach).filter((u) => u.kind === 'ship' && !u.isHero).sort((x, y) => y.maxHp - x.maxHp)[0];
-          if (ship) { cast({ unitId: ship.id }); return; }
+          const prey = this.enemiesWithin(ship, reach).filter((u) => u.kind === 'ship' && !u.isHero).sort((x, y) => y.maxHp - x.maxHp)[0];
+          if (prey) { cast({ unitId: prey.id }); return; }
           continue;
         }
         const target = heroes.sort((x, y) => x.hp - y.hp)[0]

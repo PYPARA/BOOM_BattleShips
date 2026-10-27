@@ -9,3 +9,5 @@ data/raw/
 key.json
 # Full-size generated images; downsized copies live in art/concepts/preview
 art/concepts/*.png
+# Full-size icons; 128 px copies live in packages/client/public/icons
+art/icons/
