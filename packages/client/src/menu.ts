@@ -28,8 +28,10 @@ export class MainMenu {
     this.root.innerHTML = `
       <div class="menu-ships">${ships.map((id) => `<i style="background-image:url(${import.meta.env.BASE_URL}icons/ship/${id}.jpg)"></i>`).join('')}</div>
       <div class="menu-card">
-        <h1>BOOM 海战<small>7.876 · 网页重制版</small></h1>
+        <i class="menu-compass"></i>
+        <h1><img src="${import.meta.env.BASE_URL}ui/logo.webp" alt=""><span>BOOM 海战<small>7.876 · 网页重制版</small></span></h1>
         <div class="menu-body"></div>
+        <i class="divider"></i>
         <div class="menu-actions">
           <button class="primary" data-action="start">开始游戏</button>
           <button data-action="settings">设置</button>

@@ -70,6 +70,7 @@ export class SettingsPanel {
       `<label class="check"><input type="checkbox" data-toggle="${key}" ${s[key] ? 'checked' : ''}>${label}</label>`;
     this.root.innerHTML = `<div class="settings-card">
       <h2>${this.inMatch ? '游戏已暂停' : '设置'}</h2>
+      <i class="divider"></i>
       <section><h3>画面</h3>
         <div class="seg">${QUALITY.map(([q, label, tip]) => `<button data-quality="${q}" class="${s.quality === q ? 'on' : ''}" title="${tip}">${label}</button>`).join('')}</div>
         <p class="hint">${QUALITY.find(([q]) => q === s.quality)![2]}${this.inMatch && s.quality !== this.startQuality ? ' · 下一局生效' : ''}</p>

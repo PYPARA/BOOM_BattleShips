@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BOOM 海战</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet" />
     <style>
       html, body { margin: 0; height: 100%; background: #0b1d2a; overflow: hidden; user-select: none; }
       #app { position: fixed; inset: 0; }
@@ -323,6 +326,153 @@
       .selection-box {
         position: fixed; display: none; pointer-events: none;
         border: 1px solid #7dff8a; background: #7dff8a22;
+      }
+
+      /* ===== Theme: clean modern UI — dark frosted glass, thin lines, one blue accent ===== */
+      :root {
+        --font-ui: 'Noto Sans SC', system-ui, sans-serif;
+        --glass: rgba(14, 20, 28, 0.74); --glass-strong: rgba(10, 14, 20, 0.88);
+        --line: rgba(255, 255, 255, 0.09); --line-strong: rgba(255, 255, 255, 0.18);
+        --accent: #3ea6ff; --accent-strong: #66b9ff; --accent-dim: rgba(62, 166, 255, 0.16);
+        --text: #e8edf2; --dim: #8d9aa8; --gold: #f2c94c;
+        --edge: var(--line); --edge-strong: var(--accent);
+        --panel: var(--glass);
+      }
+      body, button, input { font-family: var(--font-ui); }
+      /* Panels: frosted glass with a hairline border and a faint top highlight. */
+      .menu-card, .settings-card, .results-card, .scoreboard, .command, .command.info.show, .topbar, .tooltip,
+      .toast, .shop-hint, .killfeed div, .respawn, .banner, .volume-panel {
+        background: var(--glass) !important; border: 1px solid var(--line) !important; border-image: none !important;
+        backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important; filter: none;
+      }
+      .menu-card, .settings-card, .results-card { border-radius: 14px; }
+      .command, .command.info.show, .scoreboard { border-radius: 12px; }
+      .topbar { border-radius: 0 0 10px 10px; border-top: 0 !important; padding: 6px 16px; font-weight: 600; }
+      .topbar .gold::before { background: var(--gold); }
+      .topbar .clock, .topbar .kd, .topbar .tod { color: var(--dim); font-weight: 500; }
+      .tooltip { background: var(--glass-strong) !important; border-radius: 8px; }
+      .tip-head strong { color: #fff; }
+      .tip-head .gold, .command.info .tile b, .shop .tile b { color: var(--gold); }
+
+      /* Buttons: solid accent for the main action and the chosen option, outlined otherwise. */
+      .menu-actions button, .settings-actions button, .results-actions button, .seg button, .command.info .status button, .gear, .volume .speaker {
+        background: rgba(255, 255, 255, 0.04); border: 1px solid var(--line-strong); border-image: none; border-radius: 8px;
+        color: var(--text); font-weight: 500; transition: background 0.15s, border-color 0.15s;
+      }
+      .menu-actions button:hover, .settings-actions button:hover, .results-actions button:hover, .seg button:hover, .command.info .status button:hover {
+        background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.3);
+      }
+      .menu-actions button.primary, .settings-actions button.primary, .results-actions button.primary, .seg button.on {
+        background: var(--accent); border-color: var(--accent); color: #04121f; font-weight: 700;
+      }
+      .menu-actions button.primary:hover, .settings-actions button.primary:hover, .results-actions button.primary:hover { background: var(--accent-strong); }
+      .menu-actions button, .settings-actions button, .results-actions button { min-height: 42px; padding: 0 22px; font-size: 15px; }
+      .seg button { min-height: 34px; min-width: 52px; padding: 0 12px; font-size: 14px; }
+      .gear, .volume .speaker { width: 34px; height: 34px; padding: 0; border-radius: 50%; font-size: 14px; background: var(--glass); }
+      .gear { left: 52px; }
+
+      /* Main menu: the key art, darkened and softly blurred behind a glass card. */
+      .menu { background: #070b10 url(/ui/keyart.webp) center / cover no-repeat; }
+      .menu::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5, 8, 12, 0.92) 0%, rgba(5, 8, 12, 0.55) 45%, rgba(5, 8, 12, 0.25) 100%); backdrop-filter: blur(2px); }
+      .menu-ships { display: none; }
+      .menu { place-items: center start; padding-left: max(32px, 7vw); }
+      .menu-card { width: min(460px, calc(100vw - 32px)); padding: 28px 28px 20px; }
+      .menu h1 { margin: 0 0 22px; text-align: left; font-size: 44px; font-weight: 900; letter-spacing: 2px; color: #fff; text-shadow: none; line-height: 1.1; }
+      .menu h1 small { display: block; margin-top: 8px; font-size: 13px; font-weight: 500; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; }
+      .menu-row > span { color: var(--dim); font-size: 13px; }
+      .menu-note { color: var(--dim); }
+      .menu-actions { justify-content: flex-start; }
+      .menu-bar { height: 4px; border-radius: 2px; background: rgba(255, 255, 255, 0.1); border: 0; box-shadow: none; }
+      .menu-bar i { background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+      .menu-loading { left: max(32px, 7vw); transform: none; text-align: left; color: var(--dim); }
+      .menu.loading { background-image: url(/ui/loading.webp); place-items: center; padding-left: 0; }
+      .menu.loading .menu-loading { left: 50%; transform: translateX(-50%); text-align: center; }
+      .menu.loading .menu-loading::before { font-size: 30px; font-weight: 900; color: #fff; text-shadow: none; letter-spacing: 2px; }
+      .divider { display: block; height: 1px; margin: 16px 0; background: var(--line); }
+
+      /* Settings and results. */
+      .settings-card { padding: 22px 24px 18px; }
+      .settings h2 { font-size: 22px; font-weight: 700; color: #fff; text-align: left; margin: 0; }
+      .settings h3 { font-size: 12px; color: var(--dim); letter-spacing: 2px; }
+      .settings-actions { justify-content: flex-end; }
+      .settings input[type=range], .volume-panel input[type=range] { accent-color: var(--accent); }
+      .results-card { padding: 22px 26px 18px; }
+      .results h1 { font-size: 48px; font-weight: 900; letter-spacing: 6px; }
+      .results.won h1 { color: #fff; text-shadow: 0 0 30px rgba(62, 166, 255, 0.6); }
+      .results.lost h1 { color: #ff8a7a; text-shadow: 0 0 30px rgba(255, 90, 70, 0.45); }
+      .results tr.me td, .scoreboard tr.me td { background: var(--accent-dim); }
+      .results .mvp { background: var(--gold); color: #1a1200; }
+
+      /* Bottom panel and shop: flat dark slots, accent on hover. */
+      .command { padding: 8px 10px; }
+      .command .portrait .icon, .command .skill > button[data-cast], .command .slot, .command.info .tile {
+        border: 1px solid var(--line-strong) !important; border-image: none !important; background: rgba(0, 0, 0, 0.35) !important; border-radius: 8px !important;
+      }
+      .command .skill > button[data-cast]:hover:not([disabled]), .command button.item:hover, .command.info .tile:hover { border-color: var(--accent) !important; box-shadow: 0 0 0 1px var(--accent); filter: none; }
+      .command .portrait .icon { width: 64px; height: 64px; }
+      .command .portrait .lv { background: var(--glass-strong); border-color: var(--line-strong); color: #fff; }
+      .command .name { font-size: 15px; font-weight: 700; color: #fff; }
+      .command .bar.hp i { background: linear-gradient(180deg, #5fd36a, #2f9a3e); }
+      .command .bar.xp i { background: linear-gradient(180deg, #8f9bff, #5b63d8); }
+      .command .learn { background: var(--accent); border-color: var(--accent-strong); animation: none; box-shadow: 0 0 10px var(--accent); }
+      .command .dots i.on { background: var(--accent); box-shadow: none; }
+      .command.info .goods h4 { color: var(--dim); font-size: 11px; letter-spacing: 2px; }
+      .command.info .status .ok { color: #7ee08a; } .command.info .status .no { color: #ffb36b; }
+      .announce strong { font-weight: 900; letter-spacing: 3px; }
+
+      /* ===== HUD decoration on top of the glass: corner marks, glow lines, chamfered buttons ===== */
+      .menu-card, .settings-card, .results-card, .scoreboard, .command, .command.info.show { border-radius: 4px !important; }
+      .menu-card::before, .settings-card::before, .results-card::before, .scoreboard::before, .command::before, .topbar::after {
+        content: ''; position: absolute; inset: -1px; pointer-events: none; z-index: 1;
+        background:
+          linear-gradient(var(--accent), var(--accent)) top left / 22px 2px no-repeat,
+          linear-gradient(var(--accent), var(--accent)) top left / 2px 22px no-repeat,
+          linear-gradient(var(--accent), var(--accent)) bottom right / 22px 2px no-repeat,
+          linear-gradient(var(--accent), var(--accent)) bottom right / 2px 22px no-repeat,
+          linear-gradient(90deg, transparent, rgba(62, 166, 255, 0.75), transparent) top center / 70% 1px no-repeat;
+      }
+      .topbar::after { background: linear-gradient(90deg, transparent, var(--accent), transparent) bottom center / 80% 2px no-repeat; }
+      .menu-card, .settings-card, .results-card { overflow: visible; }
+      /* A faint diagonal-stripe band along the top of the big cards. */
+      .menu-card::after, .settings-card::after, .results-card::after {
+        content: ''; position: absolute; left: 0; right: 0; top: 0; height: 6px; pointer-events: none; opacity: 0.5;
+        background: repeating-linear-gradient(-45deg, rgba(62, 166, 255, 0.35) 0 6px, transparent 6px 12px);
+      }
+
+      /* Chamfered buttons: cut corners, uppercase-ish spacing; the main action glows. */
+      .menu-actions button, .settings-actions button, .results-actions button, .seg button, .command.info .status button {
+        border-radius: 0 !important; clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+        letter-spacing: 1px;
+      }
+      .seg button { clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px); }
+      .menu-actions button.primary, .settings-actions button.primary, .results-actions button.primary {
+        background: linear-gradient(180deg, #5cb8ff, #2a86e0) !important; box-shadow: 0 0 18px rgba(62, 166, 255, 0.55); font-weight: 900;
+      }
+      .seg button.on { background: linear-gradient(180deg, #5cb8ff, #2a86e0) !important; }
+
+      /* Section labels get an accent tick. */
+      .menu-row > span, .settings h3, .command.info .goods h4, .results h3, .scoreboard h3 { display: flex; align-items: center; gap: 8px; }
+      .menu-row > span::before, .settings h3::before, .command.info .goods h4::before {
+        content: ''; width: 3px; height: 12px; background: var(--accent); box-shadow: 0 0 6px var(--accent);
+      }
+
+      .minimap { border: 1px solid rgba(62, 166, 255, 0.55) !important; border-radius: 4px; box-shadow: 0 0 0 3px rgba(10, 14, 20, 0.7), 0 0 16px rgba(62, 166, 255, 0.35), 0 10px 26px #0009; }
+
+      /* Main menu: logo lockup over a slowly turning compass watermark. */
+      .menu-card { position: relative; }
+      .menu-compass {
+        position: absolute; width: 520px; height: 520px; left: -160px; top: 50%; translate: 0 -50%; pointer-events: none; opacity: 0.12;
+        background: url(/ui/compassLines.webp) center / contain no-repeat; animation: turn 240s linear infinite;
+      }
+      @keyframes turn { to { rotate: 360deg; } }
+      .menu h1 { display: flex; align-items: center; gap: 16px; }
+      .menu h1 img { width: 76px; filter: drop-shadow(0 4px 14px rgba(62, 166, 255, 0.45)); }
+      .menu h1 span { display: flex; flex-direction: column; font-style: italic; background: linear-gradient(180deg, #ffffff, #9fd4ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .menu h1 small { -webkit-text-fill-color: var(--accent); font-style: normal; }
+      .menu.loading::after {
+        content: ''; position: absolute; left: 50%; top: 32%; width: 150px; height: 170px; translate: -50% -50%;
+        background: url(/ui/logo.webp) center / contain no-repeat; filter: drop-shadow(0 6px 20px rgba(62, 166, 255, 0.5));
       }
     </style>
   </head>

@@ -64,6 +64,7 @@ export class Results {
     const root = Object.assign(document.body.appendChild(document.createElement('div')), { className: `results ${won ? 'won' : 'lost'}` });
     root.innerHTML = `<div class="results-card">
       <h1>${won ? '胜利' : '战败'}</h1>
+      <i class="divider"></i>
       <p class="results-sub">${winner === 'south' ? '南方' : '北方'}舰队摧毁了敌方主基地 · 用时 ${Math.floor(t / 60)} 分 ${t % 60} 秒</p>
       ${side('south', '南方')}${side('north', '北方')}
       <div class="results-actions">
