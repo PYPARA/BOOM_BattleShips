@@ -11,7 +11,7 @@ TypeScript · Three.js · 单人对战 AI · 网页重制版
 ![pnpm](https://img.shields.io/badge/pnpm-11.9.0-F69220?logo=pnpm&logoColor=white)
 ![Three.js](https://img.shields.io/badge/Three.js-3D-000000?logo=threedotjs&logoColor=white)
 
-[开始试玩](#开始试玩) · [玩法与操作](#玩法与操作) · [部署网页版](#部署网页版)
+[在线试玩](https://boom-battleships.vercel.app) · [玩法与操作](#玩法与操作) · [部署网页版](#部署网页版)
 
 ![BOOM 海战主视觉](packages/client/public/ui/keyart.webp)
 
@@ -36,7 +36,9 @@ TypeScript · Three.js · 单人对战 AI · 网页重制版
 
 ## 开始试玩
 
-目前可通过本地启动试玩；部署后的网页可直接分享给朋友，构建方式见[部署网页版](#部署网页版)。
+**[点击在线试玩 →](https://boom-battleships.vercel.app)**
+
+使用电脑浏览器打开即可游玩，无需下载安装。也可以按下面的步骤在本地启动；Vercel 部署方式见[部署网页版](#部署网页版)。
 
 ### 本地启动
 
@@ -117,7 +119,7 @@ pnpm dev
 | Framework Preset | `Other` |
 | Root Directory | 仓库根目录（默认） |
 | Node.js Version | `24.x` |
-| Install Command | 保持自动检测，使用仓库中的 `pnpm-lock.yaml` |
+| Install Command | `corepack pnpm install --frozen-lockfile` |
 | Build Command | `pnpm build` |
 | Output Directory | `packages/client/dist` |
 | Environment Variables | `ENABLE_EXPERIMENTAL_COREPACK=1` |
