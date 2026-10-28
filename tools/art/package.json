@@ -5,8 +5,9 @@
   "scripts": {
     "generate": "node src/generate.ts",
     "typecheck": "tsc -p .",
-    "pull-aha": "node src/pull-aha.ts",
-    "icons": "node src/icons.ts"
+    "pull-aha": "node src/pull-aha.ts && node src/bake-models.ts",
+    "icons": "node src/icons.ts",
+    "bake-models": "node src/bake-models.ts"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",

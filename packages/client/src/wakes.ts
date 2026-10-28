@@ -70,7 +70,7 @@ export class Wakes {
   }
 
   private drop(x: number, y: number, vx: number, vy: number, size: number, grow: number, alpha: number): void {
-    if (this.foam.length >= MAX_FOAM) this.foam.shift();
+    if (this.foam.length >= MAX_FOAM) return;
     this.foam.push({ x, y, vx, vy, age: 0, life: LIFE * (0.8 + Math.random() * 0.4), size0: size, size1: size * grow, alpha, turn: Math.random() * Math.PI * 2 });
   }
 
@@ -100,10 +100,12 @@ export class Wakes {
 
     let n = 0;
     const out = this.alphas.array as Float32Array;
-    const live: Foam[] = [];
+    // Compacted in place: no new array each frame.
+    let keep = 0;
     for (const f of this.foam) {
       f.age += dt;
       if (f.age >= f.life) continue;
+      this.foam[keep++] = f;
       const t = f.age / f.life;
       const k = Math.exp(-0.9 * dt);
       f.vx *= k; f.vy *= k;
@@ -115,11 +117,9 @@ export class Wakes {
       this.mesh.setMatrixAt(n, this.m.compose(this.pos, this.q, this.scale.set(size, size, size)));
       out[n * 4] = out[n * 4 + 1] = out[n * 4 + 2] = 0.9;
       out[n * 4 + 3] = f.alpha * (1 - t) * Math.min(1, t * 8);
-      live.push(f);
       n++;
     }
-    this.foam.length = 0;
-    this.foam.push(...live);
+    this.foam.length = keep;
     this.mesh.count = n;
     this.mesh.instanceMatrix.needsUpdate = true;
     this.alphas.needsUpdate = true;

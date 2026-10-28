@@ -168,10 +168,12 @@ export interface Projectile {
   special?: WeaponSpecial;
   /** Fired by a built-in attack (creep poisons, bashes and cleaves ride on these). */
   attack?: boolean;
+  /** The weapon item that fired it; looks only (the client picks the shell's style). */
+  weaponId?: string;
 }
 
 export type WorldEvent =
-  | { kind: 'shot'; projectileId: number; sourceId: number; targetId: number }
+  | { kind: 'shot'; projectileId: number; sourceId: number; targetId: number; weaponId?: string }
   | { kind: 'hit'; targetId: number; sourceOwner: number; damage: number; attackType: string; x: number; y: number }
   /** A bolt between two points (chain lightning jumps, bouncing shots), for the renderer. */
   | { kind: 'zap'; abilityId: string; fromX: number; fromY: number; toX: number; toY: number }
@@ -547,7 +549,7 @@ export class World {
       if (candidates.length === 0) { w.readyAt = this.tick + RETARGET_TICKS; continue; }
       const target = candidates[Math.floor(this.random() * candidates.length)]!;
       const crit = u.critChance > 0 && this.random() < u.critChance ? u.critMultiplier : 1;
-      if (!(miss > 0 && this.random() < miss)) this.shoot(u, target, w.damage * bonus * crit, 'spells', w.special);
+      if (!(miss > 0 && this.random() < miss)) this.shoot(u, target, w.damage * bonus * crit, 'spells', w.special, false, w.itemId);
       fired = true;
       w.readyAt = this.tick + Math.round(w.cooldown * TICK_RATE);
     }
@@ -555,13 +557,13 @@ export class World {
     if (fired && u.buffs.length) u.buffs = u.buffs.filter((b) => b.kind !== 'invisible');
   }
 
-  private shoot(source: UnitEntity, target: UnitEntity, damage: number, attackType: string, special?: WeaponSpecial, attack = false): void {
+  private shoot(source: UnitEntity, target: UnitEntity, damage: number, attackType: string, special?: WeaponSpecial, attack = false, weaponId?: string): void {
     const p: Projectile = {
       id: this.nextId++, sourceId: source.id, owner: source.owner, targetId: target.id,
-      x: source.x, y: source.y, prevX: source.x, prevY: source.y, damage, attackType, special, attack,
+      x: source.x, y: source.y, prevX: source.x, prevY: source.y, damage, attackType, special, attack, weaponId,
     };
     this.projectiles.set(p.id, p);
-    this.events.push({ kind: 'shot', projectileId: p.id, sourceId: source.id, targetId: target.id });
+    this.events.push({ kind: 'shot', projectileId: p.id, sourceId: source.id, targetId: target.id, weaponId });
   }
 
   private moveProjectiles(): void {

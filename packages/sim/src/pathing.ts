@@ -55,6 +55,8 @@ export class PathGrid {
     this.visit = new Uint32Array(n);
     this.closed = new Uint32Array(n);
     this.rebuildClearance();
+    // Label every hull size's regions now rather than on a ship's first order mid-match.
+    for (let need = 1; need <= MAX_CLEARANCE; need++) this.componentsFor(need);
   }
 
   /** Marks discs as blocked, e.g. for buildings standing in the water. */
@@ -152,21 +154,22 @@ export class PathGrid {
     if (labels) return labels;
     const { width: w, height: h } = this;
     labels = new Int32Array(w * h);
-    const stack: number[] = [];
+    const stack = new Int32Array(w * h);
+    const clearance = this.clearance;
     let next = 0;
     for (let start = 0; start < w * h; start++) {
-      if (labels[start] || this.clearance[start]! < need) continue;
+      if (labels[start] || clearance[start]! < need) continue;
       labels[start] = ++next;
-      stack.push(start);
-      while (stack.length) {
-        const i = stack.pop()!;
-        const x = i % w, y = (i - x) / w;
-        for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]] as const) {
-          const j = this.index(x + dx, y + dy);
-          if (j < 0 || labels[j] || this.clearance[j]! < need) continue;
-          labels[j] = next;
-          stack.push(j);
-        }
+      let top = 0;
+      stack[top++] = start;
+      while (top > 0) {
+        const i = stack[--top]!;
+        const x = i % w;
+        // The four neighbors, inline: this runs over the whole map.
+        if (x + 1 < w && !labels[i + 1] && clearance[i + 1]! >= need) { labels[i + 1] = next; stack[top++] = i + 1; }
+        if (x > 0 && !labels[i - 1] && clearance[i - 1]! >= need) { labels[i - 1] = next; stack[top++] = i - 1; }
+        if (i + w < w * h && !labels[i + w] && clearance[i + w]! >= need) { labels[i + w] = next; stack[top++] = i + w; }
+        if (i - w >= 0 && !labels[i - w] && clearance[i - w]! >= need) { labels[i - w] = next; stack[top++] = i - w; }
       }
     }
     this.components.set(need, labels);

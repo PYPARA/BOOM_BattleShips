@@ -2,7 +2,7 @@
 // cosmetic motion (bobbing, leaning into turns) that the simulation does not model.
 import * as THREE from 'three/webgpu';
 import { wrapAngle, type ShipEntity, type Team, type World } from '@boom/sim';
-import { glbModel } from './models/glb.ts';
+import { glbGeneration, glbModel } from './models/glb.ts';
 import { shipModels } from './models/index.ts';
 import { withEngineRig } from './models/rigs.ts';
 import { createPlaceholderShip } from './placeholderShip.ts';
@@ -17,6 +17,8 @@ interface ShipView {
   dive: number;
   /** Seconds (render clock) when the ship was sunk; the view sinks, then goes. */
   sunkAt?: number;
+  /** Built without its model (still loading in the background): rebuilt once it arrives. */
+  stand?: boolean;
 }
 
 const SINK_SECONDS = 2.5;
@@ -60,6 +62,7 @@ export class ShipViews {
   private readonly world: World;
   /** The local player's side: enemy ships it cannot see (invisible) are not drawn. */
   private readonly team: Team;
+  private generation = glbGeneration();
 
   constructor(world: World, team: Team) {
     this.world = world;
@@ -89,13 +92,22 @@ export class ShipViews {
     root.add(model, ring);
     root.userData.entityId = ship.id;
     this.group.add(root);
-    const view = { root, model, ring, roll: 0, dive: 0 };
+    const view: ShipView = { root, model, ring, roll: 0, dive: 0, stand: !glb };
     this.views.set(ship.id, view);
     return view;
   }
 
   /** `alpha` is how far we are between the previous and the current tick (0..1). */
   update(alpha: number, time: number, selected: ReadonlySet<number>, frameDt: number): void {
+    // Models that finished loading replace the stand-ins built before them.
+    if (glbGeneration() !== this.generation) {
+      this.generation = glbGeneration();
+      for (const [id, view] of this.views) {
+        if (!view.stand || view.sunkAt !== undefined) continue;
+        this.group.remove(view.root);
+        this.views.delete(id);
+      }
+    }
     for (const ship of this.world.ships.values()) {
       const view = this.views.get(ship.id) ?? this.create(ship);
       const x = ship.prevX + (ship.x - ship.prevX) * alpha;

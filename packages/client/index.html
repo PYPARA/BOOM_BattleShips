@@ -546,13 +546,14 @@
         border: 16px solid transparent !important; border-radius: 0; border-image: url(/ui/woodFrame.webp) 14% / 16px stretch !important;
         box-shadow: none; filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6)); left: 6px; bottom: 6px;
       }
+      .perf-graph { position: fixed; left: 10px; top: 76px; width: 300px; height: 80px; z-index: 6; pointer-events: none; border-radius: 4px; }
     </style>
   </head>
   <body>
     <div id="app"></div>
     <div id="hud" class="panel"></div>
     <div id="help" class="panel">左键选择 · 右键航行 · 方向键 / 边缘 / 中键平移 · 滚轮缩放
-技能快捷键见技能图标 · 1–6 物品 · 按住 Tab 查看战况 · 空格回到船只 · F10 设置</div>
+技能快捷键见技能图标 · 1–6 物品 · 按住 Tab 查看战况 · 空格回到船只 · F9 帧率图 · F10 设置</div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

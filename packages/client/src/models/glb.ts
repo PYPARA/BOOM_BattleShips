@@ -30,16 +30,25 @@ const sidecars = import.meta.glob('../../public/models/*/*.json', { eager: true,
 const templates = new Map<string, Template>();
 const teamMaterialCache = new Map<string, THREE.Material>();
 
-/** Loads every pulled GLB once; call before building the scene. Missing files are skipped. */
-export async function loadGlbModels(progress?: Progress): Promise<void> {
+/** Counts model loads, so views built before a model arrived can rebuild with it. */
+let generation = 0;
+export const glbGeneration = (): number => generation;
+
+/**
+ * Loads the pulled GLBs (those `include` accepts, or all) once; missing files are skipped. The
+ * match loads what it needs at the start up front and the rest in the background.
+ */
+export async function loadGlbModels(progress?: Progress, include: (kind: string, id: string) => boolean = () => true): Promise<void> {
   const loader = new GLTFLoader();
-  progress?.add(Object.keys(sidecars).length);
-  await Promise.all(Object.entries(sidecars).map(async ([path, sidecar]) => {
+  const wanted = Object.entries(sidecars).flatMap(([path, sidecar]) => {
     const match = /models\/(\w+)\/(\w+)\.json$/.exec(path);
-    if (!match) return;
-    const [, kind, id] = match;
+    return match && include(match[1]!, match[2]!) && !templates.has(`${match[1]}/${match[2]}`) ? [{ kind: match[1]!, id: match[2]!, sidecar }] : [];
+  });
+  progress?.add(wanted.length);
+  await Promise.all(wanted.map(async ({ kind, id, sidecar }) => {
     try {
-      const gltf = await loader.loadAsync(`${import.meta.env.BASE_URL}models/${kind}/${id}.glb`);
+      // The version in the URL lets hosts cache models for good; a new pull changes it.
+      const gltf = await loader.loadAsync(`${import.meta.env.BASE_URL}models/${kind}/${id}.glb?v=${encodeURIComponent(sidecar.versionName ?? '')}`);
       const scene = mergeByMaterial(gltf.scene);
       const box = new THREE.Box3().setFromObject(scene);
       templates.set(`${kind}/${id}`, {
@@ -49,6 +58,7 @@ export async function loadGlbModels(progress?: Progress): Promise<void> {
         center: box.getCenter(new THREE.Vector3()),
         sidecar,
       });
+      generation++;
     } catch (error) {
       console.warn(`Could not load model ${kind}/${id}:`, error);
     }
@@ -67,7 +77,18 @@ function mergeByMaterial(source: THREE.Object3D): THREE.Group {
   source.traverse((o) => {
     const mesh = o as THREE.Mesh;
     if (!mesh.isMesh || Array.isArray(mesh.material)) return;
-    let g = mesh.geometry.clone().applyMatrix4(mesh.matrixWorld);
+    let g = mesh.geometry.clone();
+    // Baked models store positions and normals as normalized integers (bake-models.ts): back to
+    // floats before baking the part's transform in, which integers could not hold.
+    for (const name of ['position', 'normal'] as const) {
+      const a = g.getAttribute(name);
+      if (a && !(a.array instanceof Float32Array)) {
+        const floats = new Float32Array(a.count * 3);
+        for (let i = 0; i < a.count; i++) floats.set([a.getX(i), a.getY(i), a.getZ(i)], i * 3);
+        g.setAttribute(name, new THREE.BufferAttribute(floats, 3));
+      }
+    }
+    g.applyMatrix4(mesh.matrixWorld);
     if (g.index) g = g.toNonIndexed();
     // Some models paint with vertex colors (Aha decorations); keep them, as RGB, where the
     // material uses them, and give uncolored parts white so the merged attributes line up.

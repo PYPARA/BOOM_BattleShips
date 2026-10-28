@@ -24,6 +24,8 @@ import { Results } from './results.ts';
 import { SelectionPanel } from './selection.ts';
 import { SettingsPanel } from './settings.ts';
 import { OpeningTips } from './tips.ts';
+import { prewarm } from './prewarm.ts';
+import { PerfGraph } from './perfGraph.ts';
 import { createBuildings, createDoodads, createRepairDocks } from './props.ts';
 import { ShipViews } from './shipViews.ts';
 import { SkillBar } from './skillbar.ts';
@@ -43,7 +45,10 @@ const hud = document.getElementById('hud')!;
 const params = new URLSearchParams(location.search);
 const settings = loadSettings();
 const progress = new Progress();
-const loading = Promise.all([loadData(progress), loadGlbModels(progress)]);
+// Ships nobody sails at the start (the 30-odd purchasable hulls) load after the match begins.
+const STARTING_SHIPS = new Set(['H000', 'h00I', 'h00B', 'h00H', 'h018']);
+const startingModel = (kind: string, id: string) => kind !== 'ships' || STARTING_SHIPS.has(id);
+const loading = Promise.all([loadData(progress), loadGlbModels(progress, startingModel)]);
 // Sound starts with the menu (on the first click), so the shanty plays while choosing.
 const audio = new AudioEngine();
 const music = new Music(audio);
@@ -87,7 +92,7 @@ environment.bakeEnvironment(renderer, scene);
 
 const fog = new FogLayer(world, match.players.get(PLAYER)!.team);
 scene.add(createTerrainMesh(data.terrain, fog));
-scene.add(createWater(data.terrain, fog));
+scene.add(createWater(data.terrain, fog, settings.quality !== 'low'));
 const doodads = createDoodads(data.doodads);
 scene.add(doodads);
 const buildingGroup = createBuildings(data.map.placements, data.unitsById, data.terrain);
@@ -114,8 +119,10 @@ scene.add(weatherView.group);
 weatherView.set(match.weather);
 environment.setWeather(match.weather);
 const combatFx = new CombatFx(effects, match, match.players.get(PLAYER)!.team);
-const projectileViews = new ProjectileViews(world);
-scene.add(projectileViews.mesh);
+// Shells land with their own impacts (projectiles.ts), styled by the weapon that fired them.
+const projectileViews = new ProjectileViews(world, effects, new Map(data.weapons.map((w) => [w.id, w])));
+projectileViews.sees = (x, y) => world.vision.sees(match.players.get(PLAYER)!.team, x, y);
+scene.add(projectileViews.group);
 const overlay = new Overlay(match, PLAYER);
 const hudPanel = new Hud(match, PLAYER, data);
 createVolumeControl(audio);
@@ -137,6 +144,10 @@ const tooltip = new Tooltip((key) => {
 });
 
 const rts = new RtsCamera(renderer.domElement, data.map.bounds);
+projectileViews.onHeavyImpact = (x, y, power) => {
+  const d = Math.hypot(x - rts.target.x, y + rts.target.z);
+  if (d < rts.viewDistance) rts.shake(power * (1 - d / rts.viewDistance));
+};
 // Created before selection input so its capture-phase listener sees targeting clicks first.
 const skillBar = new SkillBar(match, PLAYER, data.itemsById, rts, renderer.domElement);
 settingsPanel.onChange = (s) => { overlay.showDamage = s.damageNumbers; rts.edgePan = s.edgePan; };
@@ -183,12 +194,20 @@ window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
+// Build every shader now, behind the loading screen, instead of mid-fight.
+rts.update(0);
+await prewarm(renderer, scene, rts.camera);
+// The rest of the ships in the background; their shaders compile as they arrive.
+void loadGlbModels(undefined, (kind, id) => !startingModel(kind, id)).then(() => prewarm(renderer, scene, rts.camera, true));
+
+const perfGraph = new PerfGraph();
 let frame = 0;
 let accumulator = 0;
 let last = performance.now();
 let fps = 60;
 renderer.setAnimationLoop(() => {
   const now = performance.now();
+  perfGraph.frame(now - last);
   const frameDt = Math.min(0.25, (now - last) / 1000);
   last = now;
   fps += (1 / Math.max(frameDt, 1e-3) - fps) * 0.05;
@@ -239,7 +258,7 @@ renderer.setAnimationLoop(() => {
   }
   const ringed = input.focus?.kind === 'unit' ? new Set([...input.selected, input.focus.id]) : input.selected;
   shipViews.update(alpha, now / 1000, ringed, frameDt);
-  projectileViews.update(alpha);
+  projectileViews.update(alpha, settingsPanel.paused ? 0 : frameDt);
   combatFx.update();
   effects.update(frameDt, rts.camera);
 
@@ -253,7 +272,7 @@ renderer.setAnimationLoop(() => {
     marker.visible = false;
   }
 
-  renderer.render(scene, rts.camera);
+  if (innerWidth > 0 && innerHeight > 0) renderer.render(scene, rts.camera);
   overlay.draw(rts.camera, now);
   minimap.marks = hudPanel.questSpots;
   minimap.draw();

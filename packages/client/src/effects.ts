@@ -5,7 +5,7 @@
 // fx.ts calls for skills and combat events. Positions are in sim space (x, y, height).
 import * as THREE from 'three/webgpu';
 import {
-  abs, dot, float, instancedDynamicBufferAttribute, normalView, positionViewDirection, pow, texture, uniform, vec4,
+  abs, color as colorNode, dot, float, instancedDynamicBufferAttribute, normalView, positionViewDirection, pow, texture, uniform, vec4,
 } from 'three/tsl';
 import { SEA_LEVEL, toThree } from './space.ts';
 
@@ -78,7 +78,7 @@ class ParticlePool {
   }
 
   spawn(s: ParticleSpec): void {
-    if (this.particles.length >= MAX_PARTICLES) this.particles.shift();
+    if (this.particles.length >= MAX_PARTICLES) return; // a full pool drops new sparks, not old ones
     this.particles.push({
       x: s.x, y: s.y, z: s.z, vx: s.vx ?? 0, vy: s.vy ?? 0, vz: s.vz ?? 0, age: 0, life: s.life,
       size0: s.size, size1: s.endSize ?? s.size, c0: s.color, c1: s.endColor ?? s.color,
@@ -88,11 +88,12 @@ class ParticlePool {
 
   update(dt: number, camera: THREE.Camera): void {
     let n = 0;
-    const live: Particle[] = [];
     const colors = this.colors.array as Float32Array;
+    // Compacted in place: live particles keep the front of the list.
     for (const p of this.particles) {
       p.age += dt;
       if (p.age >= p.life) continue;
+      this.particles[n] = p;
       const k = Math.exp(-p.drag * dt);
       p.vx *= k; p.vy *= k; p.vz = p.vz * k - p.gravity * dt;
       p.x += p.vx * dt; p.y += p.vy * dt; p.z += p.vz * dt;
@@ -105,19 +106,20 @@ class ParticlePool {
       colors[n * 4 + 1] = lin(p.c0[1] + (p.c1[1] - p.c0[1]) * t);
       colors[n * 4 + 2] = lin(p.c0[2] + (p.c1[2] - p.c0[2]) * t);
       colors[n * 4 + 3] = p.a0 + (p.a1 - p.a0) * t;
-      live.push(p);
       n++;
     }
-    this.particles.length = 0;
-    this.particles.push(...live);
+    this.particles.length = n;
     this.mesh.count = n;
     this.mesh.instanceMatrix.needsUpdate = true;
     this.colors.needsUpdate = true;
   }
 }
 
-interface Ring { mesh: THREE.Mesh; opacity: { value: number }; age: number; life: number; from: number; to: number; alpha: number }
-interface Bolt { mesh: THREE.Mesh; opacity: { value: number }; age: number; life: number }
+/** Rings and bolts are pooled with their materials: a new node material per effect would be
+ * built into a shader on its first frame, a visible hitch in a big fight. */
+interface Pooled { mesh: THREE.Mesh; opacity: { value: number }; color: { value: THREE.Color } }
+interface Ring extends Pooled { age: number; life: number; from: number; to: number; alpha: number }
+interface Bolt extends Pooled { age: number; life: number }
 /** Something that keeps spawning particles for a while (smoke over a wreck, a burning area). */
 interface Emitter { until: number; every: number; next: number; spawn: () => void }
 
@@ -129,6 +131,9 @@ export class Effects {
   readonly core: ParticlePool;
   private readonly rings: Ring[] = [];
   private readonly bolts: Bolt[] = [];
+  private readonly freeRings: Pooled[] = [];
+  private readonly freeBolts: Pooled[] = [];
+  private readonly ringGeometry = new THREE.RingGeometry(0.82, 1, 48);
   private readonly emitters: Emitter[] = [];
   private readonly shields = new Map<number, THREE.Mesh>();
   private readonly shieldMaterial: THREE.MeshBasicNodeMaterial;
@@ -152,17 +157,14 @@ export class Effects {
 
   /** An expanding flat ring on the water (shockwaves, frost, summoning circles). */
   ring(x: number, y: number, from: number, to: number, color: Rgb, life = 0.6, alpha = 0.9, z = SEA_LEVEL + 4): void {
-    const opacity = uniform(alpha);
-    const material = new THREE.MeshBasicNodeMaterial({ transparent: true, depthWrite: false, toneMapped: false, side: THREE.DoubleSide, fog: false });
-    material.colorNode = vec4(lin(color[0]), lin(color[1]), lin(color[2]), 1);
-    material.opacityNode = opacity;
-    const mesh = new THREE.Mesh(new THREE.RingGeometry(0.82, 1, 48), material);
-    mesh.rotation.x = -Math.PI / 2;
-    toThree(x, y, z, mesh.position);
-    mesh.scale.setScalar(from);
-    mesh.renderOrder = 3;
-    this.group.add(mesh);
-    this.rings.push({ mesh, opacity, age: 0, life, from, to, alpha });
+    const r = this.freeRings.pop() ?? this.pooled(this.ringGeometry, THREE.NormalBlending, 3);
+    r.mesh.rotation.set(-Math.PI / 2, 0, 0);
+    r.color.value.setRGB(lin(color[0]), lin(color[1]), lin(color[2]));
+    r.opacity.value = alpha;
+    toThree(x, y, z, r.mesh.position);
+    r.mesh.scale.setScalar(from);
+    this.group.add(r.mesh);
+    this.rings.push({ ...r, age: 0, life, from, to, alpha });
   }
 
   /** A jagged lightning bolt between two points, flickering out over `life`. */
@@ -185,14 +187,24 @@ export class Effects {
     }
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    const bolt = this.freeBolts.pop() ?? this.pooled(geometry, THREE.AdditiveBlending, 4);
+    if (bolt.mesh.geometry !== geometry) { bolt.mesh.geometry.dispose(); bolt.mesh.geometry = geometry; }
+    bolt.color.value.setRGB(lin(color[0]), lin(color[1]), lin(color[2]));
+    bolt.opacity.value = 1;
+    this.group.add(bolt.mesh);
+    this.bolts.push({ ...bolt, age: 0, life });
+  }
+
+  /** A ring or bolt mesh with its own color and opacity uniforms (one shader for all of them). */
+  private pooled(geometry: THREE.BufferGeometry, blending: THREE.Blending, renderOrder: number): Pooled {
     const opacity = uniform(1);
-    const material = new THREE.MeshBasicNodeMaterial({ transparent: true, depthWrite: false, toneMapped: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, fog: false });
-    material.colorNode = vec4(lin(color[0]), lin(color[1]), lin(color[2]), 1);
+    const color = uniform(new THREE.Color());
+    const material = new THREE.MeshBasicNodeMaterial({ transparent: true, depthWrite: false, toneMapped: false, blending, side: THREE.DoubleSide, fog: false });
+    material.colorNode = vec4(colorNode(color), 1);
     material.opacityNode = opacity;
     const mesh = new THREE.Mesh(geometry, material);
-    mesh.renderOrder = 4;
-    this.group.add(mesh);
-    this.bolts.push({ mesh, opacity, age: 0, life });
+    mesh.renderOrder = renderOrder;
+    return { mesh, opacity, color: color as unknown as { value: THREE.Color } };
   }
 
   emit(seconds: number, every: number, spawn: () => void, delay = 0): void {
@@ -239,13 +251,13 @@ export class Effects {
       const t = Math.min(1, r.age / r.life);
       r.mesh.scale.setScalar(r.from + (r.to - r.from) * (1 - (1 - t) ** 2));
       r.opacity.value = r.alpha * (1 - t);
-      if (t >= 1) { r.mesh.removeFromParent(); r.mesh.geometry.dispose(); (r.mesh.material as THREE.Material).dispose(); this.rings.splice(i, 1); }
+      if (t >= 1) { r.mesh.removeFromParent(); this.freeRings.push(r); this.rings.splice(i, 1); }
     }
     for (let i = this.bolts.length - 1; i >= 0; i--) {
       const b = this.bolts[i]!;
       b.age += dt;
       b.opacity.value = Math.max(0, 1 - b.age / b.life) * (0.6 + Math.random() * 0.4);
-      if (b.age >= b.life) { b.mesh.removeFromParent(); b.mesh.geometry.dispose(); (b.mesh.material as THREE.Material).dispose(); this.bolts.splice(i, 1); }
+      if (b.age >= b.life) { b.mesh.removeFromParent(); this.freeBolts.push(b); this.bolts.splice(i, 1); }
     }
     this.glow.update(dt, camera);
     this.smoke.update(dt, camera);

@@ -134,12 +134,6 @@ export class CombatFx {
       } else if (e.kind === 'shot') {
         const from = world.unit(e.sourceId), to = world.unit(e.targetId);
         if (from && to && this.visible(from)) this.fx.muzzle(from.x, from.y, to.x - from.x, to.y - from.y, from.kind === 'structure' ? H(230) : undefined);
-      } else if (e.kind === 'hit') {
-        if (e.attackType === 'ability' || e.attackType === 'pure') continue;
-        const target = world.unit(e.targetId);
-        const big = e.damage >= 150;
-        this.fx.glow.spawn({ x: e.x, y: e.y, z: H(40), life: 0.2, size: big ? 70 : 40, endSize: 10, color: [1, 0.8, 0.45] });
-        if (!target || target.kind === 'ship') this.fx.splash(e.x + (Math.random() - 0.5) * 40, e.y + (Math.random() - 0.5) * 40, big ? 34 : 20);
       } else if (e.kind === 'death') {
         if (e.structure) {
           this.fx.explosion(e.x, e.y, 150, H(120));

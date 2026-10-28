@@ -29,6 +29,7 @@ export class RtsCamera {
   private mouse: { x: number; y: number } | undefined;
   private dragging = false;
   private readonly raycaster = new THREE.Raycaster();
+  private trauma = 0;
   private readonly seaPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), -SEA_LEVEL);
   private readonly bounds: MapBounds;
 
@@ -58,6 +59,11 @@ export class RtsCamera {
     this.target.set(x, SEA_LEVEL, -y);
   }
 
+  /** Shakes the view (big hits nearby); adds up to a cap and dies away within half a second. */
+  shake(amount: number): void {
+    this.trauma = Math.min(1, this.trauma + amount);
+  }
+
   update(dt: number): void {
     let dx = 0, dz = 0;
     // Letters are skill hotkeys (the map's own, e.g. F for 冻结), so only arrows pan.
@@ -83,6 +89,12 @@ export class RtsCamera {
       this.target.z + this.distance * Math.cos(PITCH),
     );
     this.camera.lookAt(this.target);
+    if (this.trauma > 0) {
+      const t = performance.now() / 1000, power = this.trauma * this.trauma * this.distance * 0.006;
+      this.camera.position.x += Math.sin(t * 47) * power;
+      this.camera.position.z += Math.cos(t * 53) * power;
+      this.trauma = Math.max(0, this.trauma - dt * 2.2);
+    }
   }
 
   resize(width: number, height: number): void {

@@ -25,6 +25,8 @@ export class WeatherView {
   private level = { rain: 0, snow: 0, rays: 0 };
   private box = 3000;
   private readonly m = new THREE.Matrix4();
+  private readonly flakeScale = new THREE.Vector3();
+  private readonly flakePos = new THREE.Vector3();
 
   constructor() {
     this.group.name = 'weather';
@@ -114,8 +116,8 @@ export class WeatherView {
     if (this.snow.visible) {
       const t = performance.now() / 1000;
       const q = camera.quaternion;
-      const scale = new THREE.Vector3(1, 1, 1).multiplyScalar(this.box / 3000);
-      const pos = new THREE.Vector3();
+      const scale = this.flakeScale.setScalar(this.box / 3000);
+      const pos = this.flakePos;
       this.flakes.forEach((f, i) => {
         f.y -= 90 * dt;
         if (f.y < 0) { f.y = TOP; f.x = Math.random() - 0.5; f.z = Math.random() - 0.5; }
