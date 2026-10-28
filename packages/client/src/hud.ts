@@ -68,6 +68,8 @@ export class Hud {
   /** 商船任务 mode: where the carried contracts lead next. */
   private readonly quests: HTMLElement;
   private questKey = '';
+  /** The right-hand column, for other cards to join. */
+  readonly column: HTMLElement;
   /** Quest destinations, for the minimap. */
   questSpots: Vec2[] = [];
 
@@ -86,7 +88,7 @@ export class Hud {
     this.feed = el('killfeed');
     this.announce = el('announce');
     this.timers = el('timers');
-    const column = el('sidebar');
+    const column = this.column = el('sidebar');
     this.mini = column.appendChild(Object.assign(document.createElement('div'), { className: 'miniboard' }));
     this.quests = column.appendChild(Object.assign(document.createElement('div'), { className: 'quests' }));
     try { this.miniOpen = localStorage.getItem('boom.miniboard') !== 'closed'; } catch { /* storage blocked */ }
@@ -133,6 +135,12 @@ export class Hud {
           : `<strong>${name} 出现了！</strong><small>西部海域的 Boss 点</small>`;
         this.announce.className = 'announce show';
         this.announceUntil = now + 4000;
+        this.onAnnounce?.();
+      }
+      if (e.kind === 'surrender') {
+        this.announce.innerHTML = `<strong>${e.team === 'south' ? '南方联盟' : '北方联盟'}全部投降</strong><small>5 秒后主基地自毁</small>`;
+        this.announce.className = `announce show ${e.team}`;
+        this.announceUntil = now + 5000;
         this.onAnnounce?.();
       }
       if (e.kind === 'victory') {

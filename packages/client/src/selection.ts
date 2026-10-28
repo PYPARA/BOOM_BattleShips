@@ -14,6 +14,9 @@ const BUFFS: Partial<Record<string, string>> = {
   damageBonus: '战鼓', spied: '被监视', invisible: '隐形', armorDown: '破甲', disarm: '变异',
 };
 
+/** The NPC fleets' boats share the ship icons; every other unit and building has its own. */
+const NPC_FLEET = /^h0(0[IEBFHG]|1[M3708]|10)$/;
+
 export interface SelectionData {
   units: Map<string, Unit>;
   items: Map<string, Item>;
@@ -90,7 +93,7 @@ export class SelectionPanel {
     // 商船任务 mode: teammates may hand each other gold.
     const gift = this.match.mode === 'traders' && side === '友军' && u.isHero && owner && owner.index >= 2 && !u.illusion
       ? `<div class="gift"><span>赠送金钱</span>${[100, 500, 1000].map((n) => `<button data-gift="${owner.index}:${n}">${n}</button>`).join('')}</div>` : '';
-    return `${gift}<div class="hero"><div class="portrait">${icon('ship', u.typeId, this.name(u.typeId))}${level ? `<span class="lv">${level}</span>` : ''}</div>
+    return `${gift}<div class="hero"><div class="portrait">${icon(this.match.world.shipType(u.typeId) || NPC_FLEET.test(u.typeId) ? 'ship' : 'unit', u.typeId, this.name(u.typeId))}${level ? `<span class="lv">${level}</span>` : ''}</div>
       <div class="vitals">
         <div class="name">${this.name(u.typeId)}<small class="side ${side === '敌方' ? 'enemy' : side === '中立' ? 'neutral' : 'friend'}">${side} · ${who}${u.illusion ? ' · 幻象' : ''}</small></div>
         <div class="bar hp ${side === '敌方' || creep ? 'foe' : ''}"><i style="width:${(hp * 100).toFixed(1)}%"></i><span>${Math.ceil(u.hp)} / ${Math.round(u.maxHp)}</span></div>
@@ -135,7 +138,7 @@ export class SelectionPanel {
     }
     const group = (title: string, tiles: string[]) => (tiles.length ? `<h4>${title}</h4><div class="grid">${tiles.join('')}</div>` : '');
     const own = p.items.map((id, i) => `<button class="tile mine" data-sell="${i}" data-tip="slot:${i}">${icon(this.match.world.weaponType(id) ? 'weapon' : 'item', id, clean(this.data.items.get(id)?.name), 'small')}</button>`).join('');
-    return `<div class="shop-head"><div class="portrait">${icon('item', shop.unitId, this.name(shop.unitId))}</div>
+    return `<div class="shop-head"><div class="portrait">${icon('unit', shop.unitId, this.name(shop.unitId))}</div>
         <div><div class="name">${this.name(shop.unitId)}</div><div class="status">${status}</div></div></div>
       <div class="goods">${group('船只', ships)}${group('雇佣舰队', hires)}${group('武器', weapons)}${group('装备', gear)}${group(`任务合同（需要声望 ★，你有 ${p.reputation}）`, contracts)}</div>
       ${own && inReach ? `<div class="loadout"><div><span>出售（返还 60%）</span>${own}</div></div>` : ''}`;

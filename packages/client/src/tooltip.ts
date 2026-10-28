@@ -33,7 +33,11 @@ export class Tooltip {
 
   /** Re-resolves the current key, e.g. once per frame while a cooldown counts down. */
   refresh(): void {
-    if (this.key) this.render();
+    if (!this.key) return;
+    // Panels redraw under a still pointer: look again at what is there now.
+    const target = document.elementFromPoint(this.x, this.y)?.closest('[data-tip]') as HTMLElement | null;
+    this.key = target?.dataset.tip;
+    this.render();
   }
 
   private render(): void {
@@ -54,7 +58,7 @@ export class Tooltip {
 const ICON_ALIASES: Record<string, string> = { h00E: 'h00I', h01M: 'h00I', h00F: 'h00B', h013: 'h00B', h00G: 'h00H', h017: 'h00H', h010: 'h00H' };
 
 /** An icon tile: the picture when it exists, its name underneath as the fallback. */
-export function icon(kind: 'ship' | 'weapon' | 'item' | 'skill', id: string, name: string, cls = ''): string {
+export function icon(kind: 'ship' | 'weapon' | 'item' | 'skill' | 'unit', id: string, name: string, cls = ''): string {
   id = ICON_ALIASES[id] ?? id;
   return `<span class="icon ${cls}"><em>${name.slice(0, 4)}</em><i style="background-image:url(${import.meta.env.BASE_URL}icons/${kind}/${id}.jpg)"></i></span>`;
 }

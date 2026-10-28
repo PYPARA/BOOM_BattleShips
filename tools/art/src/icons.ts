@@ -1,4 +1,4 @@
-// Builds the 2D icon list (ships, weapons, shop items, ship skills) from the extracted game data
+// Builds the 2D icon list (ships, weapons, shop items, ship skills, buildings, creeps, quest goods) from the extracted game data
 // and generates the icons through the same images API as generate.ts.
 //
 // Usage: node src/icons.ts list                 writes art/icons.json
@@ -16,7 +16,7 @@ const listFile = join(root, 'art/icons.json');
 const fullDir = join(root, 'art/icons');
 const outDir = join(root, 'packages/client/public/icons');
 
-type Kind = 'ship' | 'weapon' | 'item' | 'skill';
+type Kind = 'ship' | 'weapon' | 'item' | 'skill' | 'unit';
 interface Icon { kind: Kind; id: string; name: string; subject: string }
 
 const TEMPLATE = 'Game UI icon of {SUBJECT}, centered, bold readable shape, hand-painted fantasy naval style, rich colors, dark vignette background, square, no text, no letters, no border';
@@ -28,7 +28,8 @@ function buildList(): Icon[] {
   const ships = gen('ships.json') as { id: string; name: string; description: string }[];
   const weapons = gen('weapons.json') as { id: string; name: string }[];
   const items = gen('items.json') as { id: string; name: string; goldCost: number; description: string }[];
-  const units = gen('units.json') as { sellsItems?: string[] }[];
+  const units = gen('units.json') as { id: string; name: string; properName?: string; isHero: boolean; isBuilding: boolean; description?: string; sellsItems?: string[]; sellsUnits?: string[] }[];
+  const map = gen('map.json') as { placements: { id: string }[] };
   const abilities = gen('abilities.json') as { id: string; name: string; levels: { description: string }[] }[];
   const manifest = JSON.parse(readFileSync(join(root, 'art/manifest.json'), 'utf8')) as { items: { id: string; description: string }[] };
   const concept = new Map(manifest.items.map((i) => [i.id, i.description]));
@@ -60,9 +61,43 @@ function buildList(): Icon[] {
       : `a ship equipment item called "${clean(i.name)}": ${gist(i.description)}`;
     out.push({ kind: 'item', id: i.id, name: clean(i.name), subject });
   }
+  // Everything else the info card can show: buildings and shops, creeps, critters, summons.
+  const byUnit = new Map(units.map((u) => [u.id, u]));
+  const shipIds = new Set([...ships.map((s) => s.id), 'h00I', 'h00B', 'h00H', 'h018', 'h00E', 'h01M', 'h00F', 'h013', 'h00G', 'h017', 'h010']);
+  const creepSource = readFileSync(join(root, 'packages/sim/src/creeps.ts'), 'utf8');
+  const unitIds = new Set([...map.placements.map((p) => p.id), ...[...creepSource.matchAll(/'([nNhuU][a-z0-9]{3})'/g)].map((m) => m[1]!), 'h01T', 'n00U']);
+  for (const id of unitIds) {
+    const u = byUnit.get(id);
+    if (!u || shipIds.has(id) || id === 'H00J' || id === 'N00R') continue;
+    const name = clean(u.properName || u.name);
+    const subject = u.isBuilding
+      ? `a fantasy harbor building called "${name}" (${u.sellsItems?.length || u.sellsUnits?.length ? 'a shop or trading post' : 'a fortification, house or landmark'} on a small rocky island shore), three-quarter view`
+      : `a sea creature, monster or character called "${name}" (${gist(u.description ?? '') || 'a hostile creep on a pirate sea'}), bust portrait`;
+    out.push({ kind: 'unit', id, name, subject });
+  }
+  // Quest goods whose literal names would trip the image filter get a neutral object instead.
+  const QUEST_SUBJECTS: Record<string, string> = {
+    I014: 'a pair of opened iron shackles and a rope on a ship deck', I015: 'a pair of opened iron shackles and a rope on a ship deck',
+    I02L: 'heavy iron chains and a padlocked cargo crate', I02F: 'a bundle of red poppy flowers tied with string',
+    I02G: 'a small sealed clay jar of contraband with a black wax stamp',
+    I01E: 'a sealed merchant contract scroll with a red wax seal and a small powder keg emblem',
+    I02E: 'a sealed merchant contract scroll with a black wax seal and a red flower emblem',
+    I02N: 'a sealed merchant contract scroll with a grey wax seal and an iron chain emblem',
+  };
+  // Quest goods handed out by the trade quests (cost 0, never sold), and the submarine's 下潜.
+  const quest = /QUEST_ITEMS = new Set\(\[([\s\S]*?)\]\)/.exec(readFileSync(join(root, 'packages/sim/src/quests.ts'), 'utf8'))![1]!;
+  const contracts = /CONTRACTS[^=]*=\s*\{([\s\S]*?)\n\};/.exec(readFileSync(join(root, 'packages/sim/src/quests.ts'), 'utf8'))?.[1] ?? '';
+  for (const id of new Set([...quest.matchAll(/'(I[0-9A-Z]{3})'/g), ...contracts.matchAll(/(I[0-9A-Z]{3}):/g)].map((m) => m[1]!))) {
+    const i = items.find((x) => x.id === id);
+    if (!i || out.some((o) => o.id === id)) continue;
+    const contract = /合同|任务书|契约|协议/.test(i.name) || contracts.includes(`${id}:`);
+    out.push({ kind: 'item', id, name: clean(i.name), subject: QUEST_SUBJECTS[id] ?? (contract
+      ? `a sealed merchant contract scroll with a wax seal and ribbon, for a sea-trade job: "${clean(i.name)}"`
+      : `a cargo or quest item called "${clean(i.name)}": ${gist(i.description)}`) });
+  }
   const skills = new Set(ships.flatMap((s) => (s as unknown as { skills: string[] }).skills));
   // Skills bought for the ship (船只特殊能力) and the submarine's own actions.
-  for (const id of ['AUls', 'Asta', 'A03I', 'Acri', 'ANhs', 'ANab', 'A036', 'A02H', 'A04M']) skills.add(id);
+  for (const id of ['AUls', 'Asta', 'A03I', 'Acri', 'ANhs', 'ANab', 'A036', 'A02H', 'A04M', 'A046']) skills.add(id);
   for (const id of skills) {
     const a = byAbility.get(id);
     if (!a) continue;

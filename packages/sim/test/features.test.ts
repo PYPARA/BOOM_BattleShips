@@ -174,3 +174,14 @@ describe('weather', () => {
     expect(seen.size).toBeGreaterThan(2);
   }, 120_000);
 });
+
+describe('surrender', () => {
+  it('the main base falls five seconds after a side gives up', () => {
+    const m = createMatch(data, { players: [2, 7] });
+    m.issue({ kind: 'surrender', player: 2 });
+    run(m, 4);
+    expect(m.winner).toBeUndefined();
+    run(m, 1.2);
+    expect(m.winner).toBe('north');
+  });
+});

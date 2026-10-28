@@ -108,7 +108,9 @@ export type MatchCommand =
   | { kind: 'cast'; player: number; abilityId: string; unitId?: number; point?: Vec2 }
   | { kind: 'useItem'; player: number; slot: number; unitId?: number; point?: Vec2 }
   /** 商船任务 mode only: hand gold to a teammate. */
-  | { kind: 'giveGold'; player: number; to: number; amount: number };
+  | { kind: 'giveGold'; player: number; to: number; amount: number }
+  /** Player_Out: the side gives up; its main base falls five seconds later. */
+  | { kind: 'surrender'; player: number };
 
 export type MatchEvent =
   | { kind: 'gold'; player: number; amount: number; reason: string; x?: number; y?: number }
@@ -128,7 +130,8 @@ export type MatchEvent =
   | { kind: 'boss'; typeId: string; killed: boolean; killerOwner?: number; x: number; y: number }
   /** A quest step: cargo loaded, a delivery paid, a contract signed; `everyone` news is for all players. */
   | { kind: 'quest'; player: number; text: string; gold: number; xp: number; rep: number; everyone?: boolean }
-  | { kind: 'weather'; weather: Weather };
+  | { kind: 'weather'; weather: Weather }
+  | { kind: 'surrender'; team: Team };
 
 export interface MatchData {
   units: Unit[];
@@ -170,6 +173,8 @@ export class Match {
   mageDone = false;
   /** Buildings a repairman is restoring: hit points per tick until the tick given. */
   private repairJobs: { structureId: number; perTick: number; until: number }[] = [];
+  /** Tick at which a side that surrendered loses its main base. */
+  private surrenderAt: Partial<Record<'south' | 'north', number>> = {};
 
   constructor(world: World, data: MatchData, options: { mode?: GameMode; players: number[]; fog?: boolean }) {
     this.world = world;
@@ -301,6 +306,10 @@ export class Match {
     if (tick > 0 && tick % this.weatherEvery === 0) this.rollWeather();
     if (this.mode === 'traders' && tick % TICK_RATE === 0) this.runQuests();
     this.runRepairJobs();
+    for (const side of ['south', 'north'] as const) {
+      const base = this.surrenderAt[side] !== undefined && tick >= this.surrenderAt[side]! ? this.structureByHandle(BASES[side]) : undefined;
+      if (base) { base.invulnerable = false; base.buffs = base.buffs.filter((b) => b.kind !== 'invulnerable'); this.world.dealDamage(base, base.hp + 1, 'pure', FLEET[side === 'south' ? 'north' : 'south'], base.id); }
+    }
     if (tick > 0 && tick % (7 * TICK_RATE) === 0) this.paySalary();
     if (tick > 0 && tick % (180 * TICK_RATE) === 0) this.payEmpireGold();
     if (tick > 0 && tick % TECH_INTERVAL_TICKS === 0 && this.techLevel < TECH_MAX) this.raiseTech();
@@ -868,6 +877,13 @@ export class Match {
     const ship = this.world.ships.get(p.shipId ?? -1);
     if (c.kind === 'learn') {
       if (!ship || !this.world.abilities.learn(ship, c.abilityId)) this.deny(c.player, '现在还不能学习这个技能');
+      return;
+    }
+    if (c.kind === 'surrender') {
+      const side = p.team as 'south' | 'north';
+      if (this.surrenderAt[side] !== undefined || (side !== 'south' && side !== 'north')) return;
+      this.surrenderAt[side] = this.world.tick + 5 * TICK_RATE;
+      this.events.push({ kind: 'surrender', team: side });
       return;
     }
     if (c.kind === 'giveGold') {

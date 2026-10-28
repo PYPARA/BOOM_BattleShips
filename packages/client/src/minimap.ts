@@ -1,6 +1,6 @@
 // 2D minimap: sea/land from the pathing grid, buildings, ships and the camera's view.
 import type { PathingInfo, Placement, Terrain, Unit } from '@boom/gamedata';
-import type { World } from '@boom/sim';
+import type { MatchEvent, World } from '@boom/sim';
 import type { RtsCamera } from './camera.ts';
 import { TEAM_COLORS, teamOf } from './space.ts';
 
@@ -18,6 +18,8 @@ export class Minimap {
   private readonly originX: number;
   private readonly originY: number;
   private readonly buildingSizes: Map<Placement, number>;
+  /** Fights the player's side can see: where, when the last shot landed, and whether a building is under fire. */
+  private fights: { x: number; y: number; last: number; base: boolean }[] = [];
 
   private readonly buildings: Placement[];
   private readonly world: World;
@@ -86,6 +88,21 @@ export class Minimap {
     this.canvas.addEventListener('pointermove', (e) => { if (down) jump(e); });
   }
 
+  /** Notes visible hits, so the minimap can flash where the lanes clash. */
+  onEvents(events: MatchEvent[], now: number): void {
+    const team = teamOf(this.player);
+    for (const e of events) {
+      if (e.kind !== 'hit' || e.damage <= 0) continue;
+      const target = this.world.unit(e.targetId);
+      if (!target || !this.world.seenBy(team, target)) continue;
+      const base = target.kind === 'structure' && teamOf(target.owner) === team;
+      const near = this.fights.find((f) => Math.hypot(f.x - e.x, f.y - e.y) < 900);
+      if (near) { near.last = now; near.base ||= base; near.x += (e.x - near.x) * 0.1; near.y += (e.y - near.y) * 0.1; }
+      else this.fights.push({ x: e.x, y: e.y, last: now, base });
+    }
+    this.fights = this.fights.filter((f) => now - f.last < 3000);
+  }
+
   private toMap(x: number, y: number): [number, number] {
     const s = this.canvas.width;
     return [((x - this.originX) / this.worldW) * s, (1 - (y - this.originY) / this.worldH) * s];
@@ -114,6 +131,18 @@ export class Minimap {
       ctx.beginPath();
       ctx.arc(x, y, 3 * devicePixelRatio, 0, Math.PI * 2);
       ctx.fill();
+    }
+    // Fights in sight: pulsing rings, red when one of our buildings is being hit.
+    const now = performance.now();
+    for (const f of this.fights) {
+      const [x, y] = this.toMap(f.x, f.y);
+      const fade = 1 - (now - f.last) / 3000;
+      const pulse = (now % 900) / 900;
+      ctx.strokeStyle = f.base ? `rgba(255,70,50,${fade})` : `rgba(255,190,90,${fade * 0.9})`;
+      ctx.lineWidth = 1.5 * devicePixelRatio;
+      ctx.beginPath();
+      ctx.arc(x, y, (5 + pulse * 7) * devicePixelRatio, 0, Math.PI * 2);
+      ctx.stroke();
     }
     // Quest destinations (商船任务 mode): gold diamonds.
     for (const m of this.marks) {

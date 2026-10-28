@@ -1,5 +1,5 @@
 {
-  "model": "gpt-image-2.5-sunburst-4k",
+  "model": "gpt-image-2.5-sunburst",
   "style": "stylized low-poly 3D game asset, hand-painted textures, chunky slightly exaggerated proportions, warm wood and weathered metal, clean readable silhouette, isolated on a plain light grey background, soft flat even lighting, no cast shadows, full object in frame, centered",
   "views": {
     "34": "three-quarter view from the front-left, camera slightly above",

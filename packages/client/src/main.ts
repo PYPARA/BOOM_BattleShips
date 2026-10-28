@@ -23,6 +23,7 @@ import { ProjectileViews } from './projectiles.ts';
 import { Results } from './results.ts';
 import { SelectionPanel } from './selection.ts';
 import { SettingsPanel } from './settings.ts';
+import { OpeningTips } from './tips.ts';
 import { createBuildings, createDoodads, createRepairDocks } from './props.ts';
 import { ShipViews } from './shipViews.ts';
 import { SkillBar } from './skillbar.ts';
@@ -120,6 +121,8 @@ const hudPanel = new Hud(match, PLAYER, data);
 createVolumeControl(audio);
 const results = new Results(match, PLAYER);
 settingsPanel.enterMatch();
+const tips = new OpeningTips(match, PLAYER, hudPanel.column);
+settingsPanel.onSurrender = () => { if (!match.winner) match.issue({ kind: 'surrender', player: PLAYER }); };
 const soundFx = new SoundFx(audio, music, match, PLAYER);
 hudPanel.onAnnounce = () => soundFx.announce();
 const shipTypes = new Map(data.ships.map((s) => [s.id, s]));
@@ -201,6 +204,7 @@ renderer.setAnimationLoop(() => {
     results.onEvents(match.events);
     soundFx.onEvents(match.events);
     hudPanel.onEvents(match.events, now);
+    minimap.onEvents(match.events, now);
     for (const e of match.events) {
       if (e.kind === 'death') buildingMeshes.get(e.unitId)?.removeFromParent();
       if (e.kind === 'weather') { weatherView.set(e.weather); environment.setWeather(e.weather); }
@@ -254,6 +258,7 @@ renderer.setAnimationLoop(() => {
   minimap.marks = hudPanel.questSpots;
   minimap.draw();
   hudPanel.update(now);
+  tips.update(now);
   // The bottom panel shows the inspected unit or shop, else the player's own ship.
   skillBar.setVisible(!selectionPanel.update(input.focus));
   skillBar.update();

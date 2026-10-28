@@ -1182,6 +1182,744 @@
   "subject": "a rolled-out old parchment shipwright blueprint with ink technical drawings of ship parts, a brass compass and ruler on it (deck fitting plans)"
  },
  {
+  "kind": "unit",
+  "id": "n000",
+  "name": "主基地",
+  "subject": "a fantasy harbor building called \"主基地\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n003",
+  "name": "码头",
+  "subject": "a fantasy harbor building called \"码头\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "h00K",
+  "name": "岸防炮塔",
+  "subject": "a fantasy harbor building called \"岸防炮塔\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "h00M",
+  "name": "岸防炮塔(高级)",
+  "subject": "a fantasy harbor building called \"岸防炮塔(高级)\" (a fortification, house or landmark on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "h012",
+  "name": "高级能量之塔",
+  "subject": "a fantasy harbor building called \"高级能量之塔\" (a fortification, house or landmark on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n012",
+  "name": "船首像专买商",
+  "subject": "a fantasy harbor building called \"船首像专买商\" (a fortification, house or landmark on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "hhou",
+  "name": "农场",
+  "subject": "a fantasy harbor building called \"农场\" (a fortification, house or landmark on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "h01S",
+  "name": "石门守卫者",
+  "subject": "a fantasy harbor building called \"石门守卫者\" (a fortification, house or landmark on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "uskm",
+  "name": "骷髅魔法师",
+  "subject": "a sea creature, monster or character called \"骷髅魔法师\" (,), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "uske",
+  "name": "骷髅战士",
+  "subject": "a sea creature, monster or character called \"骷髅战士\" (,), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nenf",
+  "name": "强制者",
+  "subject": "a sea creature, monster or character called \"强制者\" (轻型的近战单位，具有影遁和闪避技能。 能攻击地面单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nwiz",
+  "name": "巫师学徒",
+  "subject": "a sea creature, monster or character called \"巫师学徒\" (轻型的远程攻击单位。 能攻击地面和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "ndmu",
+  "name": "达拉然之变种怪物",
+  "subject": "a sea creature, monster or character called \"达拉然之变种怪物\" (,), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nass",
+  "name": "刺客",
+  "subject": "a sea creature, monster or character called \"刺客\" (中型的远程攻击单位，能射出毒箭并具有影遁技能。 能攻击地面和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nskf",
+  "name": "火焰弓箭手",
+  "subject": "a sea creature, monster or character called \"火焰弓箭手\" (轻型的远程攻击单位，能射出灼热之箭。 能攻击地面和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "n00V",
+  "name": "海盗骷髅弓箭手",
+  "subject": "a sea creature, monster or character called \"海盗骷髅弓箭手\" (轻型的远程攻击单位。 能攻击地面和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "n00X",
+  "name": "海盗骷髅",
+  "subject": "a sea creature, monster or character called \"海盗骷髅\" (轻型的近战单位。 能攻击地面单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "n00W",
+  "name": "海盗骷髅王",
+  "subject": "a sea creature, monster or character called \"海盗骷髅王\" (轻型的近战单位。 能攻击地面单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nskm",
+  "name": "骷髅射手",
+  "subject": "a sea creature, monster or character called \"骷髅射手\" (轻型的远程攻击单位，具有冰冻冷箭技能。 能攻击地面和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "n00A",
+  "name": "瑞典人小屋",
+  "subject": "a fantasy harbor building called \"瑞典人小屋\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n009",
+  "name": "药剂坊",
+  "subject": "a fantasy harbor building called \"药剂坊\" (a fortification, house or landmark on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n00C",
+  "name": "农场",
+  "subject": "a fantasy harbor building called \"农场\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n006",
+  "name": "沉船",
+  "subject": "a fantasy harbor building called \"沉船\" (a fortification, house or landmark on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n00B",
+  "name": "图书馆",
+  "subject": "a fantasy harbor building called \"图书馆\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n008",
+  "name": "啤酒酿造厂",
+  "subject": "a fantasy harbor building called \"啤酒酿造厂\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n002",
+  "name": "装备商店",
+  "subject": "a fantasy harbor building called \"装备商店\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n007",
+  "name": "重武器商店",
+  "subject": "a fantasy harbor building called \"重武器商店\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n001",
+  "name": "武器商店",
+  "subject": "a fantasy harbor building called \"武器商店\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n00F",
+  "name": "贸易主",
+  "subject": "a fantasy harbor building called \"贸易主\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n005",
+  "name": "中立港",
+  "subject": "a fantasy harbor building called \"中立港\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n00E",
+  "name": "奸商",
+  "subject": "a fantasy harbor building called \"奸商\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n00H",
+  "name": "小精灵商店",
+  "subject": "a fantasy harbor building called \"小精灵商店\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n013",
+  "name": "武器研发中心",
+  "subject": "a fantasy harbor building called \"武器研发中心\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n011",
+  "name": "武器研发中心",
+  "subject": "a fantasy harbor building called \"武器研发中心\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n014",
+  "name": "亚历山大港",
+  "subject": "a fantasy harbor building called \"亚历山大港\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n00Z",
+  "name": "中武器商店",
+  "subject": "a fantasy harbor building called \"中武器商店\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n00Y",
+  "name": "改装中心",
+  "subject": "a fantasy harbor building called \"改装中心\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "nmh0",
+  "name": "两栖鱼人小屋",
+  "subject": "a fantasy harbor building called \"两栖鱼人小屋\" (a fortification, house or landmark on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n00U",
+  "name": "潜艇工厂",
+  "subject": "a fantasy harbor building called \"潜艇工厂\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "n01H",
+  "name": "船首像专买商",
+  "subject": "a fantasy harbor building called \"船首像专买商\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "nmh1",
+  "name": "两栖鱼人小屋",
+  "subject": "a fantasy harbor building called \"两栖鱼人小屋\" (a fortification, house or landmark on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "ncp2",
+  "name": "工程中心 (武器升级)",
+  "subject": "a fantasy harbor building called \"工程中心 (武器升级)\" (a shop or trading post on a small rocky island shore), three-quarter view"
+ },
+ {
+  "kind": "unit",
+  "id": "npig",
+  "name": "野猪",
+  "subject": "a sea creature, monster or character called \"野猪\" (你可以召唤野猪的灵魂来保护你。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nfro",
+  "name": "青蛙",
+  "subject": "a sea creature, monster or character called \"青蛙\" (召唤令人惊吓的青蛙来帮助你。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nalb",
+  "name": "信天翁",
+  "subject": "a sea creature, monster or character called \"信天翁\" (能召唤出信天翁的灵魂来挽救你。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nech",
+  "name": "小鸡",
+  "subject": "a sea creature, monster or character called \"小鸡\" (召唤令人惊吓的小鸡来帮助你。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "necr",
+  "name": "兔子",
+  "subject": "a sea creature, monster or character called \"兔子\" (召唤令人惊吓的兔子来帮助你。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nshe",
+  "name": "绵羊",
+  "subject": "a sea creature, monster or character called \"绵羊\" (召唤绵羊的灵魂来拯救你。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "n004",
+  "name": "黑魔法师",
+  "subject": "a sea creature, monster or character called \"黑魔法师\" (,), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "h00S",
+  "name": "金矿主",
+  "subject": "a sea creature, monster or character called \"金矿主\" (人族的基本工作单位，能采集金矿和木材还能建造和修理建筑物。紧急情况之下还可以变成民兵。 能攻击地面单位和树木。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nbzd",
+  "name": "金龙王",
+  "subject": "a sea creature, monster or character called \"金龙王\" (重型的远程攻击飞行单位，能吞噬对手并对魔法免疫。 能攻击地面和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "ntrd",
+  "name": "龙龟",
+  "subject": "a sea creature, monster or character called \"龙龟\" (重型近战两栖单位，具有吞噬和尖刺外壳技能。还能施放冲击波。 能攻击地面单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "n016",
+  "name": "多头蛇妖女王",
+  "subject": "a sea creature, monster or character called \"多头蛇妖女王\" (强大的召唤者。拥有初始技能寄生虫，可以对单位造成持续伤害并最终将其变成水奴。 还可以学习霜冻护甲和飓风技能。 能攻击地面和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "ndrm",
+  "name": "达拉内尔猎手",
+  "subject": "a sea creature, monster or character called \"达拉内尔猎手\" (轻型远程单位，可以施放治疗。 攻击陆地和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "ndrp",
+  "name": "达拉内尔战士",
+  "subject": "a sea creature, monster or character called \"达拉内尔战士\" (轻型近战单位，有诱捕技能。 攻击陆地单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "ndrh",
+  "name": "达拉内尔先驱",
+  "subject": "a sea creature, monster or character called \"达拉内尔先驱\" (中型远程单位，有嗜血术和瓦解光线技能。 攻击陆地和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "ndrw",
+  "name": "达拉内尔哨兵",
+  "subject": "a sea creature, monster or character called \"达拉内尔哨兵\" (轻型的近战单位。 能攻击地面单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "ndrs",
+  "name": "达拉内尔先知",
+  "subject": "a sea creature, monster or character called \"达拉内尔先知\" (重型远程攻击单位，具有辉煌光环。 可以施放减速和医疗波技能。 能攻击地面和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "ndrd",
+  "name": "达拉内尔暗黑屠杀者",
+  "subject": "a sea creature, monster or character called \"达拉内尔暗黑屠杀者\" (中型近战单位，有献祭技能。 攻击陆地单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nmbg",
+  "name": "鱼人投手",
+  "subject": "a sea creature, monster or character called \"鱼人投手\" (轻型远程攻击两栖单位，具有医疗技能。 能攻击地面和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nmtw",
+  "name": "鱼人战士",
+  "subject": "a sea creature, monster or character called \"鱼人战士\" (轻型近战两栖单位。 能攻击地面单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nmsn",
+  "name": "鱼人猎手",
+  "subject": "a sea creature, monster or character called \"鱼人猎手\" (中型远程攻击两栖单位，具有驱逐魔法及减速技能。 能攻击地面和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nmrr",
+  "name": "鱼人掠食者",
+  "subject": "a sea creature, monster or character called \"鱼人掠食者\" (轻型近战单位，能诱捕对手。 能攻击地面单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nmsc",
+  "name": "鱼人巫师",
+  "subject": "a sea creature, monster or character called \"鱼人巫师\" (重型的远程攻击两栖单位，具有诅咒和妖术两种技能。 能攻击地面和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nsel",
+  "name": "海元素",
+  "subject": "a sea creature, monster or character called \"海元素\" (中型的远程攻击单位，具有重击技能。 能攻击地面和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nmyr",
+  "name": "娜迦暴徒",
+  "subject": "a sea creature, monster or character called \"娜迦暴徒\" (强力近战单位。有着潜水技能，可以隐藏在水中，能学习诱捕技能。 能攻击地面单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "ntrt",
+  "name": "大海龟",
+  "subject": "a sea creature, monster or character called \"大海龟\" (中型的远程攻击单位，身上的尖刺外壳能对周围敌人的近战单位造成伤害。 能攻击地面和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "ndrv",
+  "name": "深渊幽灵",
+  "subject": "a sea creature, monster or character called \"深渊幽灵\" (重型的近战单位，能召唤海元素。 能攻击地面单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nsgb",
+  "name": "克拉克",
+  "subject": "a sea creature, monster or character called \"克拉克\" (重型近战两栖单位，具有投石，战争践踏和粉碎技能。 能攻击地面单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "ntka",
+  "name": "冰原猎手",
+  "subject": "a sea creature, monster or character called \"冰原猎手\" (轻型的远程攻击单位。 能攻击地面和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "ntkf",
+  "name": "冰原战士",
+  "subject": "a sea creature, monster or character called \"冰原战士\" (轻型的近战单位。 能攻击地面单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nwns",
+  "name": "雪怪萨满祭司",
+  "subject": "a sea creature, monster or character called \"雪怪萨满祭司\" (重型近战单位，具有咆哮和生命恢复这两项技能。 能攻击地面单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nwna",
+  "name": "远古雪怪",
+  "subject": "a sea creature, monster or character called \"远古雪怪\" (重型近战单位，具有重击，战争践踏和重生这三项技能。 能攻击地面单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nsnp",
+  "name": "飞龙",
+  "subject": "a sea creature, monster or character called \"飞龙\" (轻型远程单位，有着毒性攻击，可以缓慢和伤害敌单位。拥有潜水技能，可以隐藏在水中。 能攻击地面和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nsc3",
+  "name": "螃蟹怪",
+  "subject": "a sea creature, monster or character called \"螃蟹怪\" (重型的近战单位。 能攻击地面单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nlkl",
+  "name": "大虾",
+  "subject": "a sea creature, monster or character called \"大虾\" (重型的近战单位，具有专注光环和分裂攻击这两个技能。 能攻击地面单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nslv",
+  "name": "雷霆巨龙",
+  "subject": "a sea creature, monster or character called \"雷霆巨龙\" (重型的远程攻击单位，能施放驱魔，法力燃烧和嗜血技能。 能攻击地面和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nnrg",
+  "name": "娜迦皇家卫兵",
+  "subject": "a sea creature, monster or character called \"娜迦皇家卫兵\" (极其强大的近战单位，拥有潜水技能，允许该单位藏在水中。同时拥有抗性皮肤技能，可以减少负面魔法的延续时间，冰霜之箭技能，可以击晕目标单位，冲击波技能，能对一直线上), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "nahy",
+  "name": "远古九头怪蛇",
+  "subject": "a sea creature, monster or character called \"远古九头怪蛇\" (重型的远程攻击两栖单位，具有吞噬、战争践踏和慢性毒药这三项技能。当该单位被杀死的时候，许多小九头怪蛇就会从其尸体中冒出来。 能攻击地面和空中单位。), bust portrait"
+ },
+ {
+  "kind": "unit",
+  "id": "h01T",
+  "name": "失踪的地精",
+  "subject": "a sea creature, monster or character called \"失踪的地精\" (,), bust portrait"
+ },
+ {
+  "kind": "item",
+  "id": "I00J",
+  "name": "啤酒桶",
+  "subject": "a cargo or quest item called \"啤酒桶\": 贸易物品 不可重叠 一个装满啤酒的酒桶"
+ },
+ {
+  "kind": "item",
+  "id": "I003",
+  "name": "瑞典天然原木",
+  "subject": "a cargo or quest item called \"瑞典天然原木\": 贸易物品 不可重叠 瑞典产的天然原木."
+ },
+ {
+  "kind": "item",
+  "id": "I00V",
+  "name": "猪",
+  "subject": "a cargo or quest item called \"猪\": 贸易项目 不可重叠 一头满身长膘的大肥猪.(没有喂过饲料的)"
+ },
+ {
+  "kind": "item",
+  "id": "I00N",
+  "name": "印度神油",
+  "subject": "a cargo or quest item called \"印度神油\": 贸易物品 不可重叠 一瓶非常奇怪的药剂(?不知道有什么作用)"
+ },
+ {
+  "kind": "item",
+  "id": "I00R",
+  "name": "箱子",
+  "subject": "a cargo or quest item called \"箱子\": 贸易项目 不可重叠 1个来自沉船上的神秘箱子.(奇怪的是怎么也打不开)"
+ },
+ {
+  "kind": "item",
+  "id": "I00T",
+  "name": "书",
+  "subject": "a cargo or quest item called \"书\": 贸易物品 不可重叠 一本让人看了血脉愤张的美女图鉴"
+ },
+ {
+  "kind": "item",
+  "id": "I014",
+  "name": "俘虏",
+  "subject": "a pair of opened iron shackles and a rope on a ship deck"
+ },
+ {
+  "kind": "item",
+  "id": "I015",
+  "name": "俘虏",
+  "subject": "a pair of opened iron shackles and a rope on a ship deck"
+ },
+ {
+  "kind": "item",
+  "id": "I01F",
+  "name": "火药桶",
+  "subject": "a cargo or quest item called \"火药桶\": 贸易物品 无法叠加的 一个装满火药的桶. 可以制成炸药"
+ },
+ {
+  "kind": "item",
+  "id": "I01G",
+  "name": "炸药桶",
+  "subject": "a cargo or quest item called \"炸药桶\": 贸易物品 无法叠加的 一个装满炸药的桶. 随时准备爆炸的!"
+ },
+ {
+  "kind": "item",
+  "id": "I01J",
+  "name": "小精灵修理工",
+  "subject": "a cargo or quest item called \"小精灵修理工\": 贸易物品 不可重叠 一个值得信赖的小精灵修理工, 可以在20秒内修复一个建筑2500点生命"
+ },
+ {
+  "kind": "item",
+  "id": "I024",
+  "name": "金块",
+  "subject": "a cargo or quest item called \"金块\": 从金矿里开采出来的黄金块"
+ },
+ {
+  "kind": "item",
+  "id": "I02B",
+  "name": "假黄金",
+  "subject": "a cargo or quest item called \"假黄金\": 伪造的假黄金 里面是重金属。外面包裹了厚厚的一层黄金 看起来跟真的金子一模一样。"
+ },
+ {
+  "kind": "item",
+  "id": "I02L",
+  "name": "奴隶",
+  "subject": "heavy iron chains and a padlocked cargo crate"
+ },
+ {
+  "kind": "item",
+  "id": "I02F",
+  "name": "罂粟",
+  "subject": "a bundle of red poppy flowers tied with string"
+ },
+ {
+  "kind": "item",
+  "id": "I02G",
+  "name": "鸦片",
+  "subject": "a small sealed clay jar of contraband with a black wax stamp"
+ },
+ {
+  "kind": "item",
+  "id": "I02S",
+  "name": "生命药水",
+  "subject": "a cargo or quest item called \"生命药水\": 恢复250点的生命值。"
+ },
+ {
+  "kind": "item",
+  "id": "I021",
+  "name": "魔法书任务",
+  "subject": "a cargo or quest item called \"魔法书任务\": 任务委托书 无法叠加的 需要: 商船和对应的任务委托书 任务描述: 去东南岛上的精灵图书馆取得一本魔法书.然后交给黑魔法师 酬劳: 我没钱了"
+ },
+ {
+  "kind": "item",
+  "id": "I022",
+  "name": "魔法书",
+  "subject": "a cargo or quest item called \"魔法书\": 任务物品 不可重叠 一本魔法书，上面写着奇怪的文字。 *它被魔法封印了！"
+ },
+ {
+  "kind": "item",
+  "id": "I02M",
+  "name": "魔法药水任务",
+  "subject": "a cargo or quest item called \"魔法药水任务\": 任务委托书 无法叠加的 需要: 商船和对应的任务委托书 任务描述: 去西南的药剂厂取得一瓶魔法药水.然后交给黑魔法师 酬劳: 我没钱了"
+ },
+ {
+  "kind": "item",
+  "id": "I02K",
+  "name": "魔法药水",
+  "subject": "a cargo or quest item called \"魔法药水\": 任务物品 不可重叠 一瓶可以恢复和加强魔法力量的魔法药水"
+ },
+ {
+  "kind": "item",
+  "id": "I02O",
+  "name": "地图",
+  "subject": "a cargo or quest item called \"地图\": 一幅地图 上面写着看不懂的奇怪文字。 或许应该到西方农场附近找地图制作者看看"
+ },
+ {
+  "kind": "item",
+  "id": "I02H",
+  "name": "藏宝图",
+  "subject": "a cargo or quest item called \"藏宝图\": 一幅藏宝图 上面的奇怪文字已经由刀锋翻译过了。 图上标记着在最东北方穿过一条狭窄水道有一个山洞，那里就是藏宝地。 打开藏宝山洞的钥匙埋藏在精灵图书馆的墙角下。"
+ },
+ {
+  "kind": "item",
+  "id": "I02D",
+  "name": "海盗宝藏钥匙",
+  "subject": "a cargo or quest item called \"海盗宝藏钥匙\": 据说这是能打开海盗藏宝之处的钥匙"
+ },
+ {
+  "kind": "item",
+  "id": "I02Q",
+  "name": "小精灵",
+  "subject": "a cargo or quest item called \"小精灵\": 贸易物品 不可重叠 来自森林里的小精灵"
+ },
+ {
+  "kind": "item",
+  "id": "I00K",
+  "name": "啤酒贸易合同",
+  "subject": "a sealed merchant contract scroll with a wax seal and ribbon, for a sea-trade job: \"啤酒贸易合同\""
+ },
+ {
+  "kind": "item",
+  "id": "I00S",
+  "name": "瑞典天然原木贸易合同",
+  "subject": "a sealed merchant contract scroll with a wax seal and ribbon, for a sea-trade job: \"瑞典天然原木贸易合同\""
+ },
+ {
+  "kind": "item",
+  "id": "I00W",
+  "name": "贩猪贸易合同",
+  "subject": "a sealed merchant contract scroll with a wax seal and ribbon, for a sea-trade job: \"贩猪贸易合同\""
+ },
+ {
+  "kind": "item",
+  "id": "I00M",
+  "name": "药剂贸易合同",
+  "subject": "a sealed merchant contract scroll with a wax seal and ribbon, for a sea-trade job: \"药剂贸易合同\""
+ },
+ {
+  "kind": "item",
+  "id": "I00U",
+  "name": "书籍贸易合同",
+  "subject": "a sealed merchant contract scroll with a wax seal and ribbon, for a sea-trade job: \"书籍贸易合同\""
+ },
+ {
+  "kind": "item",
+  "id": "I00Q",
+  "name": "箱子打捞合同",
+  "subject": "a sealed merchant contract scroll with a wax seal and ribbon, for a sea-trade job: \"箱子打捞合同\""
+ },
+ {
+  "kind": "item",
+  "id": "I013",
+  "name": "北方俘虏任务",
+  "subject": "a sealed merchant contract scroll with a wax seal and ribbon, for a sea-trade job: \"北方俘虏任务\""
+ },
+ {
+  "kind": "item",
+  "id": "I012",
+  "name": "南方俘虏任务",
+  "subject": "a sealed merchant contract scroll with a wax seal and ribbon, for a sea-trade job: \"南方俘虏任务\""
+ },
+ {
+  "kind": "item",
+  "id": "I01Z",
+  "name": "假黄金输送任务",
+  "subject": "a sealed merchant contract scroll with a wax seal and ribbon, for a sea-trade job: \"假黄金输送任务\""
+ },
+ {
+  "kind": "item",
+  "id": "I02E",
+  "name": "贩卖鸦片合同",
+  "subject": "a sealed merchant contract scroll with a black wax seal and a red flower emblem"
+ },
+ {
+  "kind": "item",
+  "id": "I01I",
+  "name": "修理建筑物任务",
+  "subject": "a sealed merchant contract scroll with a wax seal and ribbon, for a sea-trade job: \"修理建筑物任务\""
+ },
+ {
+  "kind": "item",
+  "id": "I01E",
+  "name": "自杀攻击任务",
+  "subject": "a sealed merchant contract scroll with a red wax seal and a small powder keg emblem"
+ },
+ {
+  "kind": "item",
+  "id": "I02R",
+  "name": "拯救黑魔法师",
+  "subject": "a sealed merchant contract scroll with a wax seal and ribbon, for a sea-trade job: \"拯救黑魔法师\""
+ },
+ {
+  "kind": "item",
+  "id": "I01U",
+  "name": "运送瑞典天然原木合同",
+  "subject": "a sealed merchant contract scroll with a wax seal and ribbon, for a sea-trade job: \"运送瑞典天然原木合同\""
+ },
+ {
+  "kind": "item",
+  "id": "I02P",
+  "name": "小精灵运送任务",
+  "subject": "a sealed merchant contract scroll with a wax seal and ribbon, for a sea-trade job: \"小精灵运送任务\""
+ },
+ {
+  "kind": "item",
+  "id": "I02N",
+  "name": "贩运奴隶合同",
+  "subject": "a sealed merchant contract scroll with a grey wax seal and an iron chain emblem"
+ },
+ {
+  "kind": "item",
+  "id": "I02T",
+  "name": "南方旗帜",
+  "subject": "a sealed merchant contract scroll with a wax seal and ribbon, for a sea-trade job: \"南方旗帜\""
+ },
+ {
+  "kind": "item",
+  "id": "I02U",
+  "name": "北方旗帜",
+  "subject": "a sealed merchant contract scroll with a wax seal and ribbon, for a sea-trade job: \"北方旗帜\""
+ },
+ {
   "kind": "skill",
   "id": "A01Y",
   "name": "船长火炮",
@@ -1738,5 +2476,11 @@
   "id": "A04M",
   "name": "假目标",
   "subject": "a naval battle skill called \"假目标\": 假目标使潜水艇能够释放诱饵吸引敌人, 从而使自身有机会逃脱攻击 假目标持续 40 秒, shown as a dramatic magical or military effect"
+ },
+ {
+  "kind": "skill",
+  "id": "A046",
+  "name": "下潜",
+  "subject": "a naval battle skill called \"下潜\": 使潜水艇可以潜入水下，隐去行踪。, shown as a dramatic magical or military effect"
  }
 ]

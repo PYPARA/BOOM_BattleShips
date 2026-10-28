@@ -19,6 +19,8 @@ export class SettingsPanel {
   paused = false;
   private inMatch = false;
   onChange: ((s: Settings) => void) | undefined;
+  /** Gives the match up (set once a match is running and not yet decided). */
+  onSurrender: (() => void) | undefined;
 
   constructor(settings: Settings, audio: AudioEngine) {
     this.settings = settings;
@@ -86,7 +88,7 @@ export class SettingsPanel {
       </section>
       <div class="settings-actions">
         <button class="primary" data-action="close">${this.inMatch ? '继续游戏' : '完成'}</button>
-        ${this.inMatch ? '<button data-action="menu">返回主菜单</button>' : ''}
+        ${this.inMatch ? `${this.onSurrender ? '<button data-action="surrender">投降</button>' : ''}<button data-action="menu">返回主菜单</button>` : ''}
       </div>
     </div>`;
   }
@@ -98,6 +100,7 @@ export class SettingsPanel {
     if (b?.dataset.quality) { this.settings.quality = b.dataset.quality as Quality; this.commit(); }
     if (input?.dataset.toggle) { this.settings[input.dataset.toggle as 'damageNumbers' | 'edgePan'] = (input as HTMLInputElement).checked; this.commit(); }
     if (b?.dataset.action === 'close') this.close();
+    if (b?.dataset.action === 'surrender' && confirm('全队投降？5 秒后我方主基地自毁，本局判负。')) { this.close(); this.onSurrender?.(); }
     if (b?.dataset.action === 'menu' && confirm('离开当前对局，返回主菜单？')) location.href = location.pathname;
   }
 

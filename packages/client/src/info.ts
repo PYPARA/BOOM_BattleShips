@@ -119,11 +119,8 @@ export class Info {
     const need = (a.requiredLevel ?? 1) + level * (a.levelSkip ?? 2);
     const sub = `${bought ? '购买获得 · ' : ''}${passive ? '被动' : `主动 · 快捷键 ${a.hotkey ?? '—'}`} · 等级 ${level}/${a.levels.length}${wait ? ` · 冷却 ${wait} 秒` : ''}`;
     let html = head(a.name, sub);
-    if (now) html += text(now.description);
-    if (next && !bought) {
-      html += `<div class="tip-next">${level ? '下一级' : '学习后'}${canLearn(hero, a) ? '' : `（需要船只等级 ${need}）`}</div>`;
-      html += text(level ? next.description.split('\n').filter((l) => l.startsWith('-')).join('\n') || next.description : next.description);
-    }
+    html += levelTable(a, level);
+    if (next && !bought) html += `<div class="tip-next">${level ? '下一级' : '学习后'}：等级 ${level + 1}${canLearn(hero, a) ? '' : `（需要船只等级 ${need}）`}</div>`;
     return html;
   }
 
@@ -148,6 +145,26 @@ export class Info {
       + (u.damageTaken < 1 ? row('船甲减伤', `${Math.round((1 - u.damageTaken) * 100)}%`) : '')
       + (buffs.length ? `<div class="tip-list">状态：${buffs.join('、')}</div>` : '');
   }
+}
+
+/** A skill's every level: the shared text and fixed stats once, then a table of the stats that
+ * change per level, with the current level's column lit. */
+function levelTable(a: Ability, current: number): string {
+  const levels = a.levels.map((l) => clean(l.description));
+  const stats = levels.map((d) => new Map([...d.matchAll(/^-\s*([^：:\n]+)[：:]\s*(.+)$/gm)].map((m) => [m[1]!.trim(), m[2]!.trim()])));
+  const intro = (d: string) => d.split('\n').filter((l) => !l.startsWith('-')).join('\n').trim();
+  const labels = [...new Set(stats.flatMap((m) => [...m.keys()]))];
+  if (levels.length <= 1 || labels.length === 0) {
+    // No stat lines: each level's own text, or the one description.
+    if (new Set(levels).size <= 1) return text(levels[0]);
+    return levels.map((d, i) => `<p class="tip-text tip-lv${i + 1 === current ? ' on' : ''}"><b>${i + 1} 级</b> ${esc(d)}</p>`).join('');
+  }
+  const varying = labels.filter((l) => new Set(stats.map((m) => m.get(l))).size > 1);
+  const fixedRows = labels.filter((l) => !varying.includes(l)).map((l) => row(l, esc(stats[0]!.get(l) ?? '—'))).join('');
+  const cell = (v: string | undefined, i: number) => `<td${i + 1 === current ? ' class="on"' : ''}>${esc((v ?? '—').replace(/\s*秒$/, 's'))}</td>`;
+  const table = varying.length ? `<table class="tip-levels"><tr><th></th>${levels.map((_, i) => `<th${i + 1 === current ? ' class="on"' : ''}>${i + 1}</th>`).join('')}</tr>
+    ${varying.map((l) => `<tr><th>${esc(l)}</th>${stats.map((m, i) => cell(m.get(l), i)).join('')}</tr>`).join('')}</table>` : '';
+  return text(intro(levels[Math.max(0, current - 1)]!)) + fixedRows + table;
 }
 
 const BUFF_NAMES: Partial<Record<string, string>> = {
