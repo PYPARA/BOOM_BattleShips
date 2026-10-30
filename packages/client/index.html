@@ -72,7 +72,8 @@
       }
       .command button { font: inherit; color: inherit; cursor: pointer; }
       .command .hero { display: flex; gap: 8px; align-items: center; }
-      .command .portrait { position: relative; }
+      .command .portrait { position: relative; cursor: pointer; }
+      .command .portrait:hover .icon { filter: brightness(1.2); }
       .command .portrait .icon { width: 64px; height: 64px; border: 1px solid var(--edge-strong); }
       .command .portrait .lv {
         position: absolute; right: -4px; bottom: -4px; min-width: 20px; height: 20px; padding: 0 3px; border-radius: 10px; display: grid; place-items: center;
@@ -513,6 +514,11 @@
       .tip-list .chip { display: inline-block; margin: 0 4px 2px 0; padding: 0 6px; border-radius: 3px; background: rgba(255, 155, 122, 0.15); color: #ffb39a; font-style: normal; }
       .tip-levels td.on { color: #6ff0de; }
       .command.info .statgrid b[class^="s-"] { font-weight: 700; }
+
+      /* In-game confirmation box (over the settings panel). */
+      .dialog { position: fixed; inset: 0; z-index: 45; display: grid; place-items: center; background: #0009; font: 14px var(--font-ui); color: var(--text); animation: fadein 0.15s; }
+      .dialog-card { width: min(400px, calc(100vw - 32px)); }
+      .dialog-card p { margin: 4px 0 6px; line-height: 1.7; white-space: pre-line; }
 
       /* Codex. */
       .codex { position: fixed; inset: 0; z-index: 28; display: none; place-items: center; background: #0008; font: 13px var(--font-ui); color: var(--text); }

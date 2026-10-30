@@ -72,7 +72,7 @@ export class Codex {
       if (pressed(e, 'codex')) { e.preventDefault(); this.toggle(); }
     });
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.isOpen) { e.stopImmediatePropagation(); this.close(); }
+      if (e.key === 'Escape' && this.isOpen && !document.querySelector('.dialog')) { e.stopImmediatePropagation(); this.close(); }
     }, { capture: true });
     this.renderButton();
   }

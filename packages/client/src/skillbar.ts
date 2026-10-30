@@ -19,6 +19,8 @@ export class SkillBar {
   private readonly player: number;
   private readonly items: Map<string, Item>;
   private readonly rts: RtsCamera;
+  /** Clicking the portrait: the camera goes to the player's ship. */
+  onPortrait: (() => void) | undefined;
 
   constructor(match: Match, player: number, items: Map<string, Item>, rts: RtsCamera, canvas: HTMLElement) {
     this.match = match;
@@ -29,6 +31,7 @@ export class SkillBar {
     this.hint = Object.assign(document.body.appendChild(document.createElement('div')), { className: 'target-hint' });
 
     this.bar.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('.portrait')) { this.onPortrait?.(); return; }
       const b = (e.target as HTMLElement).closest('button');
       if (!b) return;
       if (b.dataset.learn) this.match.issue({ kind: 'learn', player, abilityId: b.dataset.learn });
@@ -150,7 +153,7 @@ export class SkillBar {
     const xpShare = hero.level >= 25 ? 1 : (hero.xp - prev) / Math.max(1, next - prev);
     const hpShare = ship ? ship.hp / ship.maxHp : 0;
     const points = skillPoints(hero);
-    const portrait = `<div class="portrait" data-tip="ship:${p.shipTypeId}">
+    const portrait = `<div class="portrait" data-tip="ship:${p.shipTypeId}" title="点击：镜头回到船只">
         ${icon('ship', p.shipTypeId, type?.name ?? '')}<span class="lv">${hero.level}</span>
       </div>
       <div class="vitals">

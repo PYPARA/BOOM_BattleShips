@@ -4,6 +4,7 @@
 // to go back to the main menu.
 import type { AudioEngine, AudioSettings } from './audio.ts';
 import { saveSettings, type Quality, type Settings } from './config.ts';
+import { confirmDialog } from './dialog.ts';
 import { canFullscreen, isFullscreen, toggleFullscreen } from './fullscreen.ts';
 import { bind, canBind, KEY_DEFS, keyFrom, keyName, keyOf, pressed, resetKeys, type KeyAction } from './keys.ts';
 import { resetTips } from './tips.ts';
@@ -54,6 +55,8 @@ export class SettingsPanel {
     // Keys typed here are not skill hotkeys.
     this.root.addEventListener('keydown', (e) => e.stopPropagation());
     window.addEventListener('keydown', (e) => {
+      // A confirmation box over the panel takes the keys.
+      if (document.querySelector('.dialog')) return;
       if (this.capturing) { e.preventDefault(); e.stopImmediatePropagation(); this.capture(e); return; }
       // Typing (the codex search box) is not hotkeys.
       if ((e.target as HTMLElement).closest?.('input[type=search], textarea')) return;
@@ -196,10 +199,15 @@ export class SettingsPanel {
       b.disabled = true;
     }
     if (b?.dataset.action === 'close') this.close();
-    if (b?.dataset.action === 'surrender' && confirm('全队投降？5 秒后我方主基地自毁，本局判负。')) { this.close(); this.onSurrender?.(); }
-    if (b?.dataset.action === 'menu' && confirm('返回主菜单？对局已自动保存，可以在主菜单选择「继续上局」。')) {
-      try { sessionStorage.removeItem('boom.inMatch'); } catch { /* storage blocked */ }
-      location.href = location.pathname;
+    if (b?.dataset.action === 'surrender') {
+      void confirmDialog('全队投降？5 秒后我方主基地自毁，本局判负。', '投降').then((yes) => { if (yes) { this.close(); this.onSurrender?.(); } });
+    }
+    if (b?.dataset.action === 'menu') {
+      void confirmDialog('返回主菜单？对局已自动保存，可以在主菜单选择「继续上局」。', '返回主菜单').then((yes) => {
+        if (!yes) return;
+        try { sessionStorage.removeItem('boom.inMatch'); } catch { /* storage blocked */ }
+        location.href = location.pathname;
+      });
     }
   }
 

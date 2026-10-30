@@ -31,6 +31,8 @@ export class SelectionPanel {
   private shopIndex: number | undefined;
   /** Sends the player's ship to a point (the shop's dock). */
   onSail: ((x: number, y: number) => void) | undefined;
+  /** Clicking the portrait: the camera goes to the unit or shop shown. */
+  onLook: ((x: number, y: number) => void) | undefined;
 
   constructor(match: Match, player: number, data: SelectionData) {
     this.match = match;
@@ -93,7 +95,7 @@ export class SelectionPanel {
     // 商船任务 mode: teammates may hand each other gold.
     const gift = this.match.mode === 'traders' && side === '友军' && u.isHero && owner && owner.index >= 2 && !u.illusion
       ? `<div class="gift"><span>赠送金钱</span>${[100, 500, 1000].map((n) => `<button data-gift="${owner.index}:${n}">${n}</button>`).join('')}</div>` : '';
-    return `${gift}<div class="hero"><div class="portrait">${icon(this.match.world.shipType(u.typeId) || NPC_FLEET.test(u.typeId) ? 'ship' : 'unit', u.typeId, this.name(u.typeId))}${level ? `<span class="lv">${level}</span>` : ''}</div>
+    return `${gift}<div class="hero"><div class="portrait" data-look="unit:${u.id}" title="点击：镜头移到这里">${icon(this.match.world.shipType(u.typeId) || NPC_FLEET.test(u.typeId) ? 'ship' : 'unit', u.typeId, this.name(u.typeId))}${level ? `<span class="lv">${level}</span>` : ''}</div>
       <div class="vitals">
         <div class="name">${this.name(u.typeId)}<small class="side ${side === '敌方' ? 'enemy' : side === '中立' ? 'neutral' : 'friend'}">${side} · ${who}${u.illusion ? ' · 幻象' : ''}</small></div>
         <div class="bar hp ${side === '敌方' || creep ? 'foe' : ''}"><i style="width:${(hp * 100).toFixed(1)}%"></i><span>${Math.ceil(u.hp)} / ${Math.round(u.maxHp)}</span></div>
@@ -138,13 +140,20 @@ export class SelectionPanel {
     }
     const group = (title: string, tiles: string[]) => (tiles.length ? `<h4>${title}</h4><div class="grid">${tiles.join('')}</div>` : '');
     const own = p.items.map((id, i) => `<button class="tile mine" data-sell="${i}" data-tip="slot:${i}">${icon(this.match.world.weaponType(id) ? 'weapon' : 'item', id, clean(this.data.items.get(id)?.name), 'small')}</button>`).join('');
-    return `<div class="shop-head"><div class="portrait">${icon('unit', shop.unitId, this.name(shop.unitId))}</div>
+    return `<div class="shop-head"><div class="portrait" data-look="shop:${index}" title="点击：镜头移到这里">${icon('unit', shop.unitId, this.name(shop.unitId))}</div>
         <div><div class="name">${this.name(shop.unitId)}</div><div class="status">${status}</div></div></div>
       <div class="goods">${group('船只', ships)}${group('雇佣舰队', hires)}${group('武器', weapons)}${group('装备', gear)}${group(`任务合同（需要声望 ★，你有 ${p.reputation}）`, contracts)}</div>
       ${own && inReach ? `<div class="loadout"><div><span>出售（返还 60%）</span>${own}</div></div>` : ''}`;
   }
 
   private onClick(e: Event): void {
+    const look = (e.target as HTMLElement).closest<HTMLElement>('[data-look]')?.dataset.look;
+    if (look) {
+      const [kind, id] = look.split(':');
+      const at = kind === 'shop' ? this.match.shops[Number(id)] : this.match.world.unit(Number(id));
+      if (at) this.onLook?.(at.x, at.y);
+      return;
+    }
     const b = (e.target as HTMLElement).closest('button');
     if (b?.dataset.gift) {
       const [to, amount] = b.dataset.gift.split(':').map(Number);

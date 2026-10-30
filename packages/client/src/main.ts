@@ -223,6 +223,11 @@ const input = new SelectionInput(renderer.domElement, rts, match, PLAYER);
 input.buildings = buildingGroup;
 const selectionPanel = new SelectionPanel(match, PLAYER, { units: data.unitsById, items: data.itemsById });
 selectionPanel.onSail = (x, y) => input.orderAt(x, y);
+selectionPanel.onLook = (x, y) => rts.lookAt(x, y);
+skillBar.onPortrait = () => {
+  const ship = world.ships.get(match.players.get(PLAYER)!.shipId ?? -1);
+  if (ship) rts.lookAt(ship.x, ship.y);
+};
 const buildings = placements.filter((p) => data.unitsById.get(p.id)?.isBuilding && p.id !== 'hhou');
 const minimap = new Minimap(data.terrain, data.pathingInfo, data.pathingCells, buildings, data.unitsById, world, rts, PLAYER);
 minimap.onOrder = (x, y) => input.orderAt(x, y);
