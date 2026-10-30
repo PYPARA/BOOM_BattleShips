@@ -75,7 +75,10 @@ export class Results {
     root.addEventListener('click', (e) => {
       const action = (e.target as HTMLElement).closest('button')?.dataset.action;
       if (action === 'again') location.href = `${location.pathname}?play`;
-      if (action === 'menu') location.href = location.pathname;
+      if (action === 'menu') {
+        try { sessionStorage.removeItem('boom.inMatch'); } catch { /* storage blocked */ }
+        location.href = location.pathname;
+      }
     });
     document.querySelector('.banner')?.classList.remove('show');
   }

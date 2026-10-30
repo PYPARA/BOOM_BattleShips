@@ -1,6 +1,6 @@
 // Main menu: mode, difficulty, side and computer players, shown while the game's data and
-// models load in the background (progress bar at the bottom). Starting before the load is done
-// switches to a loading screen until it is.
+// models load in the background (progress bar at the bottom); also resuming a saved match and the
+// tutorial. Starting before the load is done switches to a loading screen until it is.
 import { matchSlots, type GameConfig, type Progress } from './config.ts';
 
 const OPTIONS = {
@@ -10,14 +10,18 @@ const OPTIONS = {
 } as const;
 
 const HELP = `左键选择 · 右键航行 · 方向键 / 屏幕边缘 / 中键拖动平移 · 滚轮缩放
-技能快捷键见技能图标 · 1–6 使用物品 · 按住 Tab 查看战况 · 空格回到船只 · P 暂停 · F10 设置 · Alt+Enter 全屏
-在母港附近打开商店：买船、买武器装备；击沉敌船和舰队赚钱升级，摧毁敌方主基地获胜`;
+技能快捷键见技能图标 · 1–6 使用物品 · 按住 Tab 查看战况 · 空格回到船只 · P 暂停 · F10 设置 · F2 图鉴 · Alt+Enter 全屏
+在母港附近打开商店：买船、买武器装备；击沉敌船和舰队赚钱升级，摧毁敌方主基地获胜
+对局会自动保存：刷新页面或下次打开时可以继续；快捷键可在设置里修改`;
 
 export class MainMenu {
   private readonly root: HTMLElement;
   private readonly bar: HTMLElement;
   private readonly label: HTMLElement;
   private readonly progress: Progress;
+  /** Replaces the load progress under the loading title (resuming shows its own progress). */
+  private status: string | undefined;
+  private statusFraction: number | undefined;
   /** Opens the settings panel (set by main once it exists). */
   onSettings: (() => void) | undefined;
 
@@ -32,8 +36,10 @@ export class MainMenu {
         <h1><img src="${import.meta.env.BASE_URL}ui/woodCrest.webp" alt=""><span>BOOM 海战<small>7.876 · 网页重制版</small></span></h1>
         <div class="menu-body"></div>
         <i class="divider"></i>
+        <div class="menu-resume"></div>
         <div class="menu-actions">
           <button class="primary" data-action="start">开始游戏</button>
+          <button data-action="tutorial" title="一步步学会航行、购物、技能和战斗">新手教程</button>
           <button data-action="settings">设置</button>
           <button data-action="help">操作说明</button>
         </div>
@@ -47,13 +53,20 @@ export class MainMenu {
   }
 
   private renderProgress(): void {
-    const pct = Math.round(this.progress.fraction * 100);
+    const pct = Math.round((this.statusFraction ?? this.progress.fraction) * 100);
     this.bar.style.width = `${pct}%`;
-    this.label.textContent = pct >= 100 ? '资源已就绪' : `正在加载资源 ${pct}%`;
+    this.label.textContent = this.status ?? (pct >= 100 ? '资源已就绪' : `正在加载资源 ${pct}%`);
   }
 
-  /** Shows the options and resolves with the player's choice when they press start. */
-  choose(initial: GameConfig): Promise<GameConfig> {
+  /**
+   * Shows the options and resolves with the player's choice: a new match's options, or 'resume'
+   * for the saved match (`saved` describes it; without one there is nothing to resume).
+   */
+  choose(initial: GameConfig, saved?: string): Promise<GameConfig | 'resume'> {
+    if (saved) {
+      this.root.querySelector('.menu-resume')!.innerHTML = `<button data-action="resume"><span>继续上局</span><small>${saved}</small></button>`;
+      this.root.querySelector('.menu-actions .primary')!.textContent = '新的对局';
+    }
     const config = { ...initial };
     const body = this.root.querySelector('.menu-body')!;
     const render = () => {
@@ -80,6 +93,10 @@ export class MainMenu {
           render();
         } else if (b.dataset.action === 'start') {
           resolve(config);
+        } else if (b.dataset.action === 'resume') {
+          resolve('resume');
+        } else if (b.dataset.action === 'tutorial') {
+          resolve({ ...config, mode: 'fast', allies: 0, enemies: 0, tutorial: true });
         } else if (b.dataset.action === 'settings') {
           this.onSettings?.();
         } else if (b.dataset.action === 'help') {
@@ -89,10 +106,21 @@ export class MainMenu {
     });
   }
 
-  /** After start: a loading screen until `ready` settles, then the menu goes away. */
-  async finish(ready: Promise<unknown>): Promise<void> {
+  /** After start: the loading screen, titled for a new match or for resuming one. */
+  showLoading(resuming: boolean): void {
     this.root.classList.add('loading');
-    await ready;
+    this.root.classList.toggle('resuming', resuming);
+  }
+
+  /** Text under the loading title in place of the load progress (undefined: progress again). */
+  setStatus(text: string | undefined, fraction?: number): void {
+    this.status = text;
+    this.statusFraction = text === undefined ? undefined : fraction;
+    this.renderProgress();
+  }
+
+  /** The match is ready: the menu goes away. */
+  close(): void {
     this.root.classList.add('leaving');
     setTimeout(() => this.root.remove(), 400);
   }

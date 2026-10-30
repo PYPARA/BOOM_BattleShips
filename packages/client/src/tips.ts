@@ -27,7 +27,7 @@ const STEPS: Step[] = [
   },
   {
     title: '学习一个技能',
-    how: '技能图标上出现 + 号时点击它（或按 Ctrl + 快捷键）',
+    how: '技能图标上出现 + 号时点击它',
     done: (m, i) => Object.values(m.players.get(i)!.hero.learned).some((n) => n > 0),
   },
   {
@@ -57,16 +57,50 @@ export function resetTips(): void {
   try { localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(HINTS_KEY); } catch { /* storage blocked */ }
 }
 
+/** Above the weapon shop nearest `start`, where a pointer floats to show where to buy a first gun. */
+export function weaponShopAnchor(match: Match, terrain: Terrain, start: Vec2): THREE.Vector3 | undefined {
+  const shop = match.shops.filter((s) => s.unitId === WEAPON_SHOP)
+    .reduce<{ s: Vec2; d: number } | undefined>((best, s) => { const d = distance(s, start); return !best || d < best.d ? { s, d } : best; }, undefined);
+  return shop && toThree(shop.s.x, shop.s.y, Math.max(groundHeightAt(terrain, shop.s.x, shop.s.y), SEA_LEVEL) + 260);
+}
+
+/** A label floating over a point in the world; off screen, it waits at the nearest edge pointing the way. */
+export class WorldPointer {
+  private readonly el: HTMLElement;
+  private readonly name: string;
+  private readonly projected = new THREE.Vector3();
+
+  /** `name`: what is pointed at ("武器商店": "点击武器商店" over it, "◀ 武器商店" at an edge). */
+  constructor(name: string) {
+    this.name = name;
+    this.el = Object.assign(document.body.appendChild(document.createElement('div')), { className: 'tip-pointer' });
+  }
+
+  update(anchor: THREE.Vector3 | undefined, camera: THREE.Camera): void {
+    if (!anchor) { this.el.classList.remove('show'); return; }
+    const v = this.projected.copy(anchor).project(camera);
+    const sx = (v.z > 1 ? -v.x + 1 : v.x + 1) / 2 * innerWidth, sy = (v.z > 1 ? 2 : 1 - v.y) / 2 * innerHeight;
+    const x = Math.min(innerWidth - 70, Math.max(70, sx)), y = Math.min(innerHeight - 250, Math.max(110, sy));
+    const dx = sx - x, dy = sy - y, edge = dx !== 0 || dy !== 0;
+    const arrow = Math.abs(dx) > Math.abs(dy) ? (dx < 0 ? '◀' : '▶') : (dy < 0 ? '▲' : '▼');
+    const text = edge ? `${arrow} ${this.name}` : `点击${this.name}`;
+    if (this.el.textContent !== text) this.el.textContent = text;
+    this.el.classList.toggle('edge', edge);
+    this.el.style.transform = `translate(${x}px, ${y}px) translate(-50%, ${edge ? '-50%' : '-100%'})`;
+    this.el.classList.add('show');
+  }
+}
+
 export class OpeningTips {
   private readonly root: HTMLElement;
   private readonly hintCard: HTMLElement;
-  private readonly pointer: HTMLElement;
+  private readonly pointer = new WorldPointer('武器商店');
   private readonly match: Match;
   private readonly player: number;
   private readonly start: Vec2;
-  /** Above the weapon shop nearest the start, where the pointer floats while buying is the step. */
   private readonly shopAnchor: THREE.Vector3 | undefined;
-  private readonly projected = new THREE.Vector3();
+  /** Off in the tutorial, which teaches the same steps its own way (the hints stay). */
+  private readonly checklist: boolean;
   private closed = false;
   private finishedAt: number | undefined;
   private key = '';
@@ -74,11 +108,12 @@ export class OpeningTips {
   private readonly queue: HintId[] = [];
   private hint: { id: HintId; until: number } | undefined;
 
-  constructor(match: Match, player: number, column: HTMLElement, terrain: Terrain) {
+  /** `start`: where the player's first ship set out (a resumed match may be far from it). */
+  constructor(match: Match, player: number, column: HTMLElement, terrain: Terrain, start: Vec2, checklist = true) {
     this.match = match;
     this.player = player;
-    const ship = match.world.ships.get(match.players.get(player)!.shipId ?? -1);
-    this.start = ship ? { x: ship.x, y: ship.y } : { x: 0, y: 0 };
+    this.start = start;
+    this.checklist = checklist;
     try {
       this.closed = localStorage.getItem(STORAGE_KEY) === 'done';
       this.seen = new Set(JSON.parse(localStorage.getItem(HINTS_KEY) ?? '[]') as string[]);
@@ -87,10 +122,7 @@ export class OpeningTips {
     this.root.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('[data-close]')) this.finish(); });
     this.hintCard = column.insertBefore(Object.assign(document.createElement('div'), { className: 'quests tips hint' }), this.root.nextSibling);
     this.hintCard.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('[data-close]')) this.hint = undefined; });
-    this.pointer = Object.assign(document.body.appendChild(document.createElement('div')), { className: 'tip-pointer', textContent: '点击武器商店' });
-    const shop = match.shops.filter((s) => s.unitId === WEAPON_SHOP)
-      .reduce<{ s: Vec2; d: number } | undefined>((best, s) => { const d = distance(s, this.start); return !best || d < best.d ? { s, d } : best; }, undefined);
-    if (shop) this.shopAnchor = toThree(shop.s.x, shop.s.y, Math.max(groundHeightAt(terrain, shop.s.x, shop.s.y), SEA_LEVEL) + 260);
+    this.shopAnchor = weaponShopAnchor(match, terrain, start);
   }
 
   /** After the settings reset the guide: the checklist and the hints start over. */
@@ -133,10 +165,10 @@ export class OpeningTips {
     this.updateHint(now);
 
     const done = STEPS.map((s) => s.done(this.match, this.player, this.start));
-    const current = this.closed ? -1 : done.indexOf(false);
-    document.body.classList.toggle('tip-learn', current === 1);
-    this.updatePointer(current === 0 && !shopOpen, camera);
-    if (this.closed) return;
+    const current = this.closed || !this.checklist ? -1 : done.indexOf(false);
+    if (this.checklist) document.body.classList.toggle('tip-learn', current === 1);
+    this.pointer.update(current === 0 && !shopOpen ? this.shopAnchor : undefined, camera);
+    if (this.closed || !this.checklist) return;
     if (current < 0) {
       this.finishedAt ??= now;
       if (now - this.finishedAt > 4000) return this.finish();
@@ -156,20 +188,5 @@ export class OpeningTips {
       this.hintCard.innerHTML = `<h4>${HINTS[id].title}<button data-close title="知道了">×</button></h4><p>${HINTS[id].text}</p>`;
     }
     this.hintCard.classList.toggle('show', !!this.hint);
-  }
-
-  /** Floats the pointer over the shop; off screen, it waits at the nearest edge pointing the way. */
-  private updatePointer(visible: boolean, camera: THREE.Camera): void {
-    if (!visible || !this.shopAnchor) { this.pointer.classList.remove('show'); return; }
-    const v = this.projected.copy(this.shopAnchor).project(camera);
-    const sx = (v.z > 1 ? -v.x + 1 : v.x + 1) / 2 * innerWidth, sy = (v.z > 1 ? 2 : 1 - v.y) / 2 * innerHeight;
-    const x = Math.min(innerWidth - 70, Math.max(70, sx)), y = Math.min(innerHeight - 250, Math.max(110, sy));
-    const dx = sx - x, dy = sy - y, edge = dx !== 0 || dy !== 0;
-    const arrow = Math.abs(dx) > Math.abs(dy) ? (dx < 0 ? '◀' : '▶') : (dy < 0 ? '▲' : '▼');
-    const text = edge ? `${arrow} 武器商店` : '点击武器商店';
-    if (this.pointer.textContent !== text) this.pointer.textContent = text;
-    this.pointer.classList.toggle('edge', edge);
-    this.pointer.style.transform = `translate(${x}px, ${y}px) translate(-50%, ${edge ? '-50%' : '-100%'})`;
-    this.pointer.classList.add('show');
   }
 }

@@ -5,6 +5,7 @@ import * as THREE from 'three/webgpu';
 import type { Match, World } from '@boom/sim';
 import type { RtsCamera } from './camera.ts';
 import { toThree } from './space.ts';
+import { pressed } from './keys.ts';
 
 const DRAG_THRESHOLD_PX = 6;
 
@@ -61,8 +62,8 @@ export class SelectionInput {
     });
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') { this.selected.clear(); this.focus = undefined; }
-      if (e.key === 'F1') { e.preventDefault(); this.selected.clear(); this.focus = undefined; }
-      if (e.key.toLowerCase() === 'h' || e.key === ' ') this.focusSelection();
+      if (pressed(e, 'deselect')) { e.preventDefault(); this.selected.clear(); this.focus = undefined; }
+      if (pressed(e, 'focus')) { e.preventDefault(); this.focusSelection(); }
     });
   }
 

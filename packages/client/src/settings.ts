@@ -1,9 +1,11 @@
-// Settings panel: graphics quality and fullscreen, sound volumes, damage numbers, edge panning,
-// auto-pause and the beginner's guide. Opens from the menu, the gear button or F10; in a match it
-// pauses the game (also P, or leaving the window) and offers to go back to the main menu.
+// Settings panel: graphics quality and fullscreen, sound volumes, game speed, damage numbers, edge
+// panning, auto-pause, the beginner's guide and a page of rebindable keys. Opens from the menu,
+// the gear button or F10; in a match it pauses the game (also P, or leaving the window) and offers
+// to go back to the main menu.
 import type { AudioEngine, AudioSettings } from './audio.ts';
 import { saveSettings, type Quality, type Settings } from './config.ts';
 import { canFullscreen, isFullscreen, toggleFullscreen } from './fullscreen.ts';
+import { bind, canBind, KEY_DEFS, keyFrom, keyName, keyOf, pressed, resetKeys, type KeyAction } from './keys.ts';
 import { resetTips } from './tips.ts';
 
 const QUALITY: [Quality, string, string][] = [
@@ -11,6 +13,8 @@ const QUALITY: [Quality, string, string][] = [
   ['medium', '中', '阴影，标准分辨率'],
   ['high', '高', '高清阴影，高分屏全分辨率'],
 ];
+
+export const SPEEDS = [0.5, 1, 1.5, 2, 3];
 
 export class SettingsPanel {
   private readonly root: HTMLElement;
@@ -27,6 +31,11 @@ export class SettingsPanel {
   canPause: () => boolean = () => true;
   /** Brings the beginner's guide back in a running match. */
   onResetTips: (() => void) | undefined;
+  /** The main page or the key bindings. */
+  private view: 'main' | 'keys' = 'main';
+  /** The binding waiting for its new key. */
+  private capturing: KeyAction | undefined;
+  private speedButton: HTMLButtonElement | undefined;
 
   constructor(settings: Settings, audio: AudioEngine) {
     this.settings = settings;
@@ -45,11 +54,16 @@ export class SettingsPanel {
     // Keys typed here are not skill hotkeys.
     this.root.addEventListener('keydown', (e) => e.stopPropagation());
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'F10') { e.preventDefault(); this.toggle(); }
+      if (this.capturing) { e.preventDefault(); e.stopImmediatePropagation(); this.capture(e); return; }
+      // Typing (the codex search box) is not hotkeys.
+      if ((e.target as HTMLElement).closest?.('input[type=search], textarea')) return;
+      if (pressed(e, 'settings')) { e.preventDefault(); this.toggle(); }
       else if (e.key === 'Escape' && this.root.classList.contains('show')) { e.stopImmediatePropagation(); this.close(); }
-      else if (e.key.toLowerCase() === 'p' && !e.ctrlKey && !e.metaKey && !e.altKey && this.inMatch && (this.paused || this.canPause())) {
+      else if (pressed(e, 'pause') && this.inMatch && (this.paused || this.canPause())) {
         e.stopImmediatePropagation();
         this.toggle();
+      } else if (this.inMatch && !e.repeat && (pressed(e, 'slower') || pressed(e, 'faster'))) {
+        this.stepSpeed(pressed(e, 'faster') ? 1 : -1);
       }
     }, { capture: true });
     // Away from the game (another window or tab), the match waits.
@@ -64,6 +78,25 @@ export class SettingsPanel {
     this.inMatch = true;
     const gear = Object.assign(document.body.appendChild(document.createElement('button')), { className: 'gear', title: '设置 (F10)', textContent: '⚙' });
     gear.addEventListener('click', () => this.toggle());
+    this.speedButton = Object.assign(document.body.appendChild(document.createElement('button')), { className: 'speed' });
+    this.speedButton.addEventListener('click', () => this.stepSpeed(1, true));
+    this.renderSpeed();
+  }
+
+  /** One step faster or slower (`wrap`: from the fastest back to the slowest, for the button). */
+  private stepSpeed(dir: 1 | -1, wrap = false): void {
+    const i = SPEEDS.indexOf(this.settings.speed);
+    const next = wrap ? (i + 1) % SPEEDS.length : Math.max(0, Math.min(SPEEDS.length - 1, (i < 0 ? 1 : i) + dir));
+    if (SPEEDS[next] === this.settings.speed) return;
+    this.settings.speed = SPEEDS[next]!;
+    this.commit();
+  }
+
+  private renderSpeed(): void {
+    if (!this.speedButton) return;
+    this.speedButton.textContent = `${this.settings.speed}×`;
+    this.speedButton.title = `游戏速度 ${this.settings.speed}×（点击切换，${keyName(keyOf('slower'))} / ${keyName(keyOf('faster'))} 调整）`;
+    this.speedButton.classList.toggle('fast', this.settings.speed !== 1);
   }
 
   toggle(): void {
@@ -79,9 +112,12 @@ export class SettingsPanel {
   close(): void {
     this.root.classList.remove('show');
     this.paused = false;
+    this.view = 'main';
+    this.capturing = undefined;
   }
 
   private render(): void {
+    if (this.view === 'keys') return this.renderKeys();
     const s = this.settings, a = this.audio.settings;
     const toggle = (key: 'damageNumbers' | 'edgePan' | 'autoPause', label: string) =>
       `<label class="check"><input type="checkbox" data-toggle="${key}" ${s[key] ? 'checked' : ''}>${label}</label>`;
@@ -99,10 +135,11 @@ export class SettingsPanel {
         <label class="check"><input type="checkbox" data-audio="muted" ${a.muted ? 'checked' : ''}>静音</label>
       </section>
       <section><h3>游戏</h3>
+        <div class="seg speeds"><span>速度</span>${SPEEDS.map((v) => `<button data-speed="${v}" class="${s.speed === v ? 'on' : ''}">${v}×</button>`).join('')}</div>
         ${toggle('damageNumbers', '显示伤害数字')}
         ${toggle('edgePan', '鼠标移到屏幕边缘时平移镜头')}
-        ${toggle('autoPause', '切到其他窗口或标签页时自动暂停（P 键也可暂停）')}
-        <button class="link" data-action="tips">重新显示新手指引</button>
+        ${toggle('autoPause', `切到其他窗口或标签页时自动暂停（${keyName(keyOf('pause')) || '暂停键'} 也可暂停）`)}
+        <div class="links"><button class="link" data-action="keys">自定义快捷键</button><button class="link" data-action="tips">重新显示新手指引</button></div>
       </section>
       <div class="settings-actions">
         <button class="primary" data-action="close">${this.inMatch ? '继续游戏' : '完成'}</button>
@@ -111,10 +148,44 @@ export class SettingsPanel {
     </div>`;
   }
 
+  /** The key bindings page: click a key, then press the new one (Backspace clears, Esc keeps). */
+  private renderKeys(): void {
+    const groups = [...new Set(KEY_DEFS.map((d) => d.group))];
+    const row = (action: KeyAction, label: string) => {
+      const key = keyOf(action);
+      const text = this.capturing === action ? '按下新按键…' : key ? keyName(key) : action.startsWith('skill') ? '原版' : '未设置';
+      return `<div class="key-row"><span>${label}</span><button data-bind="${action}" class="${this.capturing === action ? 'waiting' : ''}${key ? '' : ' unset'}">${text}</button></div>`;
+    };
+    this.root.innerHTML = `<div class="settings-card keys">
+      <h2>快捷键</h2>
+      <p class="hint">点击按键后按下新的键；Backspace 清除，Esc 取消。按到已被占用的键时，两个功能互换按键。Esc、方向键和 Alt+Enter 固定不变。</p>
+      <i class="divider"></i>
+      <div class="key-groups">${groups.map((g) => `<section><h3>${g}</h3>${KEY_DEFS.filter((d) => d.group === g).map((d) => row(d.action, d.label)).join('')}</section>`).join('')}</div>
+      <div class="settings-actions">
+        <button class="primary" data-action="back">返回</button>
+        <button data-action="reset-keys">恢复默认</button>
+      </div>
+    </div>`;
+  }
+
+  private capture(e: KeyboardEvent): void {
+    const action = this.capturing!;
+    if (e.key === 'Escape') this.capturing = undefined;
+    else if (e.key === 'Backspace' || e.key === 'Delete') { bind(action, ''); this.capturing = undefined; }
+    else if (canBind(e.key)) { bind(action, keyFrom(e)); this.capturing = undefined; }
+    else return;
+    this.renderSpeed();
+    this.render();
+  }
+
   private onClick(e: Event): void {
     const t = e.target as HTMLElement;
     if (t === this.root) return this.close(); // click outside the card
     const b = t.closest('button'), input = t.closest('input');
+    if (b?.dataset.bind) { this.capturing = b.dataset.bind as KeyAction; this.render(); return; }
+    if (b?.dataset.action === 'keys' || b?.dataset.action === 'back') { this.view = b.dataset.action === 'keys' ? 'keys' : 'main'; this.capturing = undefined; this.render(); return; }
+    if (b?.dataset.action === 'reset-keys') { resetKeys(); this.renderSpeed(); this.render(); return; }
+    if (b?.dataset.speed) { this.settings.speed = Number(b.dataset.speed); this.commit(); }
     if (b?.dataset.quality) { this.settings.quality = b.dataset.quality as Quality; this.commit(); }
     if (input?.dataset.toggle) { this.settings[input.dataset.toggle as 'damageNumbers' | 'edgePan' | 'autoPause'] = (input as HTMLInputElement).checked; this.commit(); }
     if (input?.dataset.action === 'fullscreen') void toggleFullscreen().then(() => this.render());
@@ -126,12 +197,16 @@ export class SettingsPanel {
     }
     if (b?.dataset.action === 'close') this.close();
     if (b?.dataset.action === 'surrender' && confirm('全队投降？5 秒后我方主基地自毁，本局判负。')) { this.close(); this.onSurrender?.(); }
-    if (b?.dataset.action === 'menu' && confirm('离开当前对局，返回主菜单？')) location.href = location.pathname;
+    if (b?.dataset.action === 'menu' && confirm('返回主菜单？对局已自动保存，可以在主菜单选择「继续上局」。')) {
+      try { sessionStorage.removeItem('boom.inMatch'); } catch { /* storage blocked */ }
+      location.href = location.pathname;
+    }
   }
 
   private commit(): void {
     saveSettings(this.settings);
     this.onChange?.(this.settings);
-    this.render();
+    this.renderSpeed();
+    if (this.root.classList.contains('show')) this.render();
   }
 }

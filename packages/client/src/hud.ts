@@ -5,6 +5,7 @@
 import type { Item, Unit, Weapon } from '@boom/gamedata';
 import { isNight, nextSteps, REWARD_RECT, stepRect, TICK_RATE, timeOfDay, type Match, type MatchEvent, type Vec2, type Weather } from '@boom/sim';
 import { clean } from './info.ts';
+import { keyFrom, keyOf, pressed } from './keys.ts';
 import { icon } from './tooltip.ts';
 
 export interface HudData {
@@ -104,9 +105,9 @@ export class Hud {
     this.repairButton.addEventListener('click', () => this.match.issue({ kind: 'leaveRepair', player }));
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') this.match.issue({ kind: 'leaveRepair', player });
-      if (e.key === 'Tab') { e.preventDefault(); this.showBoard = true; }
+      if (pressed(e, 'scoreboard')) { e.preventDefault(); this.showBoard = true; }
     });
-    window.addEventListener('keyup', (e) => { if (e.key === 'Tab') this.showBoard = false; });
+    window.addEventListener('keyup', (e) => { if (keyFrom(e) === keyOf('scoreboard')) this.showBoard = false; });
     window.addEventListener('blur', () => { this.showBoard = false; });
   }
 
@@ -115,7 +116,7 @@ export class Hud {
     return clean(this.match.world.shipType(id)?.name ?? u?.properName ?? u?.name ?? id);
   }
 
-  private say(text: string, now: number, ms: number): void {
+  say(text: string, now: number, ms: number): void {
     this.toast.textContent = text;
     this.toastUntil = now + ms;
   }

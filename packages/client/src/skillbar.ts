@@ -5,6 +5,7 @@ import type { Ability, Item } from '@boom/gamedata';
 import { canLearn, skillPoints, TICK_RATE, xpForLevel, type Match } from '@boom/sim';
 import type { RtsCamera } from './camera.ts';
 import { clean } from './info.ts';
+import { keyFrom, keyName, keyOf, pressed, SKILL_SLOTS, type KeyAction } from './keys.ts';
 import { icon } from './tooltip.ts';
 
 interface Targeting { abilityId: string; itemSlot?: number; kind: 'unit' | 'ally' | 'point'; label: string }
@@ -49,8 +50,10 @@ export class SkillBar {
     window.addEventListener('keydown', (e) => {
       if (e.repeat || e.metaKey || e.ctrlKey) return;
       if (e.key === 'Escape') { this.cancel(); return; }
-      if (/^[1-6]$/.test(e.key)) { this.beginItem(Number(e.key) - 1); return; }
-      const ability = this.skills().find((a) => a.hotkey?.toLowerCase() === e.key.toLowerCase());
+      for (let slot = 0; slot < 6; slot++) if (pressed(e, `item${slot + 1}` as KeyAction)) { this.beginItem(slot); return; }
+      if (e.altKey) return;
+      const key = keyFrom(e);
+      const ability = this.skills().find((a, i) => this.hotkeyOf(a, i) === key);
       if (ability) this.begin(ability.id);
     });
   }
@@ -68,6 +71,18 @@ export class SkillBar {
   private skills(): Ability[] {
     const ship = this.ship();
     return ship ? [...this.match.world.abilities.skillsOf(ship.typeId), ...this.match.world.abilities.grantedOf(ship)] : [];
+  }
+
+  /**
+   * A skill's key by its slot: the slot's own binding, else the map's letter for the skill unless
+   * some other binding has taken that letter.
+   */
+  private hotkeyOf(a: Ability, slot: number): string {
+    const bound = slot < SKILL_SLOTS ? keyOf(`skill${slot + 1}` as KeyAction) : '';
+    if (bound) return bound;
+    const own = a.hotkey?.toLowerCase() ?? '';
+    const taken = this.skills().some((_, i) => i !== slot && i < SKILL_SLOTS && keyOf(`skill${i + 1}` as KeyAction) === own);
+    return taken ? '' : own;
   }
 
   private begin(abilityId: string, itemSlot?: number): void {
@@ -145,7 +160,8 @@ export class SkillBar {
         ${ship ? `<div class="stats"><span title="护甲">🛡 ${ship.armor.toFixed(1)}</span><span title="航速">⛵ ${Math.round(ship.maxSpeed)}</span>${ship.damageTaken < 1 ? `<span title="船甲减伤">⚓ −${Math.round((1 - ship.damageTaken) * 100)}%</span>` : ''}<span title="武器数量">💥 ${ship.weapons.length}</span></div>` : ''}
       </div>`;
 
-    const skills = this.skills().map((a) => {
+    const skills = this.skills().map((a, slot) => {
+      const hotkey = keyName(this.hotkeyOf(a, slot));
       const bought = !hero.learned[a.id] && !!hero.granted[a.id];
       const level = hero.learned[a.id] || hero.granted[a.id] || 0;
       const passive = abilities.targeting(a.id) === 'passive';
@@ -153,7 +169,7 @@ export class SkillBar {
       const cooldown = a.levels[Math.max(0, level - 1)]?.cooldown ?? 0;
       return `<div class="slot skill${level ? '' : ' unlearned'}${passive ? ' passive' : ''}${bought ? ' bought' : ''}">
           <button data-cast="${a.id}" data-tip="skill:${a.id}" ${level && !passive ? '' : 'disabled'}>
-            ${icon('skill', a.id, clean(a.name))}${a.hotkey && !passive ? `<kbd>${a.hotkey}</kbd>` : ''}${this.sweep(hero.readyAt[a.id], cooldown)}
+            ${icon('skill', a.id, clean(a.name))}${hotkey && !passive ? `<kbd>${hotkey}</kbd>` : ''}${this.sweep(hero.readyAt[a.id], cooldown)}
           </button><span class="dots">${dots}</span>
           ${!bought && canLearn(hero, a) ? `<button class="learn" data-learn="${a.id}" data-tip="skill:${a.id}">+</button>` : ''}
         </div>`;
@@ -168,7 +184,7 @@ export class SkillBar {
       const cooldown = active ? abilities.byId.get(active)?.levels[0]?.cooldown ?? 0 : 0;
       const kind = this.match.world.weaponType(id) ? 'weapon' : 'item';
       return `<button class="slot item${active ? ' active' : ''}" data-item="${i}" data-tip="slot:${i}">
-          ${icon(kind, id, clean(item?.name))}<kbd>${i + 1}</kbd>${hero.charges[id] ? `<span class="charges">${hero.charges[id]}</span>` : ''}${this.sweep(hero.readyAt[group], cooldown)}
+          ${icon(kind, id, clean(item?.name))}${keyOf(`item${i + 1}` as KeyAction) ? `<kbd>${keyName(keyOf(`item${i + 1}` as KeyAction))}</kbd>` : ''}${hero.charges[id] ? `<span class="charges">${hero.charges[id]}</span>` : ''}${this.sweep(hero.readyAt[group], cooldown)}
         </button>`;
     });
 

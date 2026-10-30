@@ -2,6 +2,7 @@
 // Everything returns HTML for the shared tooltip (tooltip.ts).
 import type { Ability, Item, Ship, Unit, Weapon } from '@boom/gamedata';
 import { BOSSES, canLearn, CREEP_OWNER, strongest, TICK_RATE, type Match, type UnitEntity } from '@boom/sim';
+import { keyName, keyOf, type KeyAction } from './keys.ts';
 
 export const clean = (s: string | undefined) => (s ?? '').replace(/\|c[0-9a-fA-F]{8}|\|r/g, '').replace(/\|n/g, '\n').replace(/^[.!~_@]+/, '').trim();
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -104,7 +105,8 @@ export class Info {
   private sellNote(id: string, slot?: number): string {
     if (slot === undefined) return '';
     const back = Math.floor((this.data.items.get(id)?.goldCost ?? this.data.weapons.get(id)?.price ?? 0) * 0.6);
-    return `<div class="tip-note">快捷键 ${slot + 1} 使用 · 在商店附近右键卖出（返还 ${back}）</div>`;
+    const key = keyName(keyOf(`item${slot + 1}` as KeyAction));
+    return `<div class="tip-note">${key ? `快捷键 ${key} 使用 · ` : ''}在商店附近右键卖出（返还 ${back}）</div>`;
   }
 
   /** A ship skill: the current level, and the next one when it can be learned. */
@@ -117,7 +119,7 @@ export class Info {
     const next = a.levels[level];
     const wait = Math.max(0, Math.ceil(((hero.readyAt[a.id] ?? 0) - this.match.world.tick) / TICK_RATE));
     const need = (a.requiredLevel ?? 1) + level * (a.levelSkip ?? 2);
-    const sub = `${bought ? '购买获得 · ' : ''}${passive ? '被动' : `主动 · 快捷键 ${a.hotkey ?? '—'}`} · 等级 ${level}/${a.levels.length}${wait ? ` · 冷却 ${wait} 秒` : ''}`;
+    const sub = `${bought ? '购买获得 · ' : ''}${passive ? '被动' : '主动（快捷键见技能图标）'} · 等级 ${level}/${a.levels.length}${wait ? ` · 冷却 ${wait} 秒` : ''}`;
     let html = head(a.name, sub);
     html += levelTable(a, level);
     if (next && !bought) html += `<div class="tip-next">${level ? '下一级' : '学习后'}：等级 ${level + 1}${canLearn(hero, a) ? '' : `（需要船只等级 ${need}）`}</div>`;

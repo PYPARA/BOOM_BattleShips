@@ -11,6 +11,8 @@ export interface GameConfig {
   /** Computer teammates (0–4) and opponents (0–5). */
   allies: number;
   enemies: number;
+  /** The guided tutorial: the player alone with the NPC fleets, one lesson at a time. */
+  tutorial?: boolean;
 }
 
 export type Quality = 'low' | 'medium' | 'high';
@@ -21,13 +23,15 @@ export interface Settings {
   edgePan: boolean;
   /** Pause the match when the window loses focus or the tab is hidden. */
   autoPause: boolean;
+  /** Game speed: sim ticks per real second relative to normal. */
+  speed: number;
 }
 
 const CONFIG_KEY = 'boom.config';
 const SETTINGS_KEY = 'boom.settings';
 
 export const DEFAULT_CONFIG: GameConfig = { mode: 'fast', difficulty: 'normal', side: 'south', allies: 4, enemies: 5 };
-export const DEFAULT_SETTINGS: Settings = { quality: 'high', damageNumbers: true, edgePan: true, autoPause: true };
+export const DEFAULT_SETTINGS: Settings = { quality: 'high', damageNumbers: true, edgePan: true, autoPause: true, speed: 1 };
 
 function read<T>(key: string, fallback: T): T {
   try {
@@ -70,6 +74,7 @@ export function matchSlots(config: GameConfig): { player: number; slots: number[
   const south = [2, 3, 4, 5, 6], north = [7, 8, 9, 10, 11];
   const [own, other] = config.side === 'south' ? [south, north] : [north, south];
   const player = own[0]!;
+  if (config.tutorial) return { player, slots: [player] };
   return { player, slots: [player, ...own.slice(1, 1 + config.allies), ...other.slice(0, config.enemies)] };
 }
 
