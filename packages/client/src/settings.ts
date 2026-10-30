@@ -1,8 +1,10 @@
-// Settings panel: graphics quality, sound volumes, damage numbers and edge panning. Opens from
-// the menu, the gear button or F10; in a match it pauses the game and offers to go back to the
-// main menu.
+// Settings panel: graphics quality and fullscreen, sound volumes, damage numbers, edge panning,
+// auto-pause and the beginner's guide. Opens from the menu, the gear button or F10; in a match it
+// pauses the game (also P, or leaving the window) and offers to go back to the main menu.
 import type { AudioEngine, AudioSettings } from './audio.ts';
 import { saveSettings, type Quality, type Settings } from './config.ts';
+import { canFullscreen, isFullscreen, toggleFullscreen } from './fullscreen.ts';
+import { resetTips } from './tips.ts';
 
 const QUALITY: [Quality, string, string][] = [
   ['low', '低', '无阴影，降低渲染分辨率'],
@@ -21,6 +23,10 @@ export class SettingsPanel {
   onChange: ((s: Settings) => void) | undefined;
   /** Gives the match up (set once a match is running and not yet decided). */
   onSurrender: (() => void) | undefined;
+  /** Whether leaving the window or pressing P may pause now (not once the match is decided). */
+  canPause: () => boolean = () => true;
+  /** Brings the beginner's guide back in a running match. */
+  onResetTips: (() => void) | undefined;
 
   constructor(settings: Settings, audio: AudioEngine) {
     this.settings = settings;
@@ -41,7 +47,16 @@ export class SettingsPanel {
     window.addEventListener('keydown', (e) => {
       if (e.key === 'F10') { e.preventDefault(); this.toggle(); }
       else if (e.key === 'Escape' && this.root.classList.contains('show')) { e.stopImmediatePropagation(); this.close(); }
+      else if (e.key.toLowerCase() === 'p' && !e.ctrlKey && !e.metaKey && !e.altKey && this.inMatch && (this.paused || this.canPause())) {
+        e.stopImmediatePropagation();
+        this.toggle();
+      }
     }, { capture: true });
+    // Away from the game (another window or tab), the match waits.
+    const away = () => { if (this.inMatch && this.settings.autoPause && !this.paused && this.canPause()) this.open(); };
+    window.addEventListener('blur', away);
+    document.addEventListener('visibilitychange', () => { if (document.hidden) away(); });
+    document.addEventListener('fullscreenchange', () => { if (this.root.classList.contains('show')) this.render(); });
   }
 
   /** From now on the panel pauses the match and offers to leave it. */
@@ -68,7 +83,7 @@ export class SettingsPanel {
 
   private render(): void {
     const s = this.settings, a = this.audio.settings;
-    const toggle = (key: 'damageNumbers' | 'edgePan', label: string) =>
+    const toggle = (key: 'damageNumbers' | 'edgePan' | 'autoPause', label: string) =>
       `<label class="check"><input type="checkbox" data-toggle="${key}" ${s[key] ? 'checked' : ''}>${label}</label>`;
     this.root.innerHTML = `<div class="settings-card">
       <h2>${this.inMatch ? '游戏已暂停' : '设置'}</h2>
@@ -76,6 +91,7 @@ export class SettingsPanel {
       <section><h3>画面</h3>
         <div class="seg">${QUALITY.map(([q, label, tip]) => `<button data-quality="${q}" class="${s.quality === q ? 'on' : ''}" title="${tip}">${label}</button>`).join('')}</div>
         <p class="hint">${QUALITY.find(([q]) => q === s.quality)![2]}${this.inMatch && s.quality !== this.startQuality ? ' · 下一局生效' : ''}</p>
+        ${canFullscreen ? `<label class="check"><input type="checkbox" data-action="fullscreen" ${isFullscreen() ? 'checked' : ''}>全屏（Alt+Enter）</label>` : ''}
       </section>
       <section><h3>声音</h3>
         <label>音效<input type="range" min="0" max="1" step="0.05" data-audio="sfx" value="${a.sfx}"></label>
@@ -85,6 +101,8 @@ export class SettingsPanel {
       <section><h3>游戏</h3>
         ${toggle('damageNumbers', '显示伤害数字')}
         ${toggle('edgePan', '鼠标移到屏幕边缘时平移镜头')}
+        ${toggle('autoPause', '切到其他窗口或标签页时自动暂停（P 键也可暂停）')}
+        <button class="link" data-action="tips">重新显示新手指引</button>
       </section>
       <div class="settings-actions">
         <button class="primary" data-action="close">${this.inMatch ? '继续游戏' : '完成'}</button>
@@ -98,7 +116,14 @@ export class SettingsPanel {
     if (t === this.root) return this.close(); // click outside the card
     const b = t.closest('button'), input = t.closest('input');
     if (b?.dataset.quality) { this.settings.quality = b.dataset.quality as Quality; this.commit(); }
-    if (input?.dataset.toggle) { this.settings[input.dataset.toggle as 'damageNumbers' | 'edgePan'] = (input as HTMLInputElement).checked; this.commit(); }
+    if (input?.dataset.toggle) { this.settings[input.dataset.toggle as 'damageNumbers' | 'edgePan' | 'autoPause'] = (input as HTMLInputElement).checked; this.commit(); }
+    if (input?.dataset.action === 'fullscreen') void toggleFullscreen().then(() => this.render());
+    if (b?.dataset.action === 'tips') {
+      resetTips();
+      this.onResetTips?.();
+      b.textContent = this.inMatch ? '新手指引已重新显示' : '下一局将显示新手指引';
+      b.disabled = true;
+    }
     if (b?.dataset.action === 'close') this.close();
     if (b?.dataset.action === 'surrender' && confirm('全队投降？5 秒后我方主基地自毁，本局判负。')) { this.close(); this.onSurrender?.(); }
     if (b?.dataset.action === 'menu' && confirm('离开当前对局，返回主菜单？')) location.href = location.pathname;

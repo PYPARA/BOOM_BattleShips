@@ -435,6 +435,34 @@
         background: url(/ui/woodSlot.webp) center / 100% 100% no-repeat; filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.6));
       }
       .gear { left: 54px; }
+      /* Fullscreen: top right over the menu, then beside the gear in a match. */
+      .fullscreen {
+        position: fixed; right: 16px; top: 16px; z-index: 21; display: grid; place-items: center; width: 38px; height: 38px; padding: 0; border: 0; cursor: pointer;
+        color: var(--text); background: url(/ui/woodSlot.webp) center / 100% 100% no-repeat; filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.6));
+      }
+      .fullscreen:hover, .gear:hover, .volume .speaker:hover { filter: brightness(1.25) drop-shadow(0 3px 6px rgba(0, 0, 0, 0.6)); }
+      .fullscreen svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+      .fullscreen.in-match { right: auto; left: 96px; top: 34px; z-index: auto; }
+      .settings button.link { margin-top: 4px; padding: 0; border: 0; background: none; color: var(--teal); font: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+      .settings button.link:disabled { color: var(--dim); cursor: default; text-decoration: none; }
+
+      /* Beginner's guide: situation hints, the pointer over the shop, the + on skills glowing. */
+      .tips.hint { animation: fadein 0.4s; }
+      .tips.hint h4 { color: #ffb36b; }
+      .tips.hint p { color: #fff3d6; line-height: 1.5; }
+      .tip-pointer {
+        position: fixed; left: 0; top: 0; z-index: 5; display: none; padding: 4px 10px; pointer-events: none; white-space: nowrap;
+        background: var(--wood); border: 1px solid var(--teal); border-radius: 5px; color: #f2fffd; font: 600 13px var(--font-ui); text-shadow: 0 1px 2px #000;
+        box-shadow: 0 0 12px rgba(63, 214, 196, 0.55), 0 4px 10px rgba(0, 0, 0, 0.6);
+      }
+      .tip-pointer.show { display: block; }
+      .tip-pointer.edge::after { display: none; }
+      .tip-pointer::after {
+        content: ''; position: absolute; left: 50%; top: calc(100% + 4px); translate: -50% 0; border: 9px solid transparent; border-top-color: var(--teal);
+        animation: bob 0.9s ease-in-out infinite alternate;
+      }
+      @keyframes bob { to { transform: translateY(8px); } }
+      body.tip-learn .command .learn { scale: 1.25; box-shadow: 0 0 0 3px rgba(63, 214, 196, 0.6), 0 0 16px var(--teal); }
 
       /* Headings: a carved-title serif, parchment on dark. */
       .menu h1, .settings h2, .results h1, .announce strong { font-family: var(--font-title); }
@@ -553,7 +581,7 @@
     <div id="app"></div>
     <div id="hud" class="panel"></div>
     <div id="help" class="panel">左键选择 · 右键航行 · 方向键 / 边缘 / 中键平移 · 滚轮缩放
-技能快捷键见技能图标 · 1–6 物品 · 按住 Tab 查看战况 · 空格回到船只 · F9 帧率图 · F10 设置</div>
+技能快捷键见技能图标 · 1–6 物品 · 按住 Tab 查看战况 · 空格回到船只 · P 暂停 · F9 帧率图 · F10 设置 · Alt+Enter 全屏</div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

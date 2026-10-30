@@ -8,6 +8,7 @@ import { AudioEngine, createVolumeControl } from './audio.ts';
 import { Effects } from './effects.ts';
 import { Environment } from './environment.ts';
 import { FogLayer } from './fog.ts';
+import { createFullscreenButton } from './fullscreen.ts';
 import { CombatFx } from './fx.ts';
 import { Hud } from './hud.ts';
 import { Info } from './info.ts';
@@ -54,6 +55,7 @@ const audio = new AudioEngine();
 const music = new Music(audio);
 audio.onStart = () => music.start();
 const settingsPanel = new SettingsPanel(settings, audio);
+const fullscreenButton = createFullscreenButton();
 const menu = new MainMenu(progress);
 menu.onSettings = () => settingsPanel.open();
 // `?play` (rematch) and the developer parameters skip the menu.
@@ -128,7 +130,10 @@ const hudPanel = new Hud(match, PLAYER, data);
 createVolumeControl(audio);
 const results = new Results(match, PLAYER);
 settingsPanel.enterMatch();
-const tips = new OpeningTips(match, PLAYER, hudPanel.column);
+fullscreenButton?.classList.add('in-match');
+settingsPanel.canPause = () => !match.winner;
+const tips = new OpeningTips(match, PLAYER, hudPanel.column, data.terrain);
+settingsPanel.onResetTips = () => tips.reopen();
 settingsPanel.onSurrender = () => { if (!match.winner) match.issue({ kind: 'surrender', player: PLAYER }); };
 const soundFx = new SoundFx(audio, music, match, PLAYER);
 hudPanel.onAnnounce = () => soundFx.announce();
@@ -224,6 +229,7 @@ renderer.setAnimationLoop(() => {
     soundFx.onEvents(match.events);
     hudPanel.onEvents(match.events, now);
     minimap.onEvents(match.events, now);
+    tips.onEvents(match.events);
     for (const e of match.events) {
       if (e.kind === 'death') buildingMeshes.get(e.unitId)?.removeFromParent();
       if (e.kind === 'weather') { weatherView.set(e.weather); environment.setWeather(e.weather); }
@@ -277,7 +283,7 @@ renderer.setAnimationLoop(() => {
   minimap.marks = hudPanel.questSpots;
   minimap.draw();
   hudPanel.update(now);
-  tips.update(now);
+  tips.update(now, rts.camera, input.focus?.kind === 'shop');
   // The bottom panel shows the inspected unit or shop, else the player's own ship.
   skillBar.setVisible(!selectionPanel.update(input.focus));
   skillBar.update();

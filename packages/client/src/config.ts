@@ -19,13 +19,15 @@ export interface Settings {
   quality: Quality;
   damageNumbers: boolean;
   edgePan: boolean;
+  /** Pause the match when the window loses focus or the tab is hidden. */
+  autoPause: boolean;
 }
 
 const CONFIG_KEY = 'boom.config';
 const SETTINGS_KEY = 'boom.settings';
 
 export const DEFAULT_CONFIG: GameConfig = { mode: 'fast', difficulty: 'normal', side: 'south', allies: 4, enemies: 5 };
-export const DEFAULT_SETTINGS: Settings = { quality: 'high', damageNumbers: true, edgePan: true };
+export const DEFAULT_SETTINGS: Settings = { quality: 'high', damageNumbers: true, edgePan: true, autoPause: true };
 
 function read<T>(key: string, fallback: T): T {
   try {
