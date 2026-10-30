@@ -192,8 +192,9 @@
       .tip-row { display: flex; justify-content: space-between; gap: 16px; }
       .tip-row span { color: var(--dim); }
       .tip-row b { font-weight: 600; }
-      .tip-row b.up { color: var(--up); } .tip-row b.up::after { content: ' ▲'; font-size: 9px; }
-      .tip-row b.down { color: var(--down); } .tip-row b.down::after { content: ' ▼'; font-size: 9px; }
+      .tip-row b.up::after { content: ' ▲'; font-size: 9px; color: var(--up); }
+      .tip-row b.down::after { content: ' ▼'; font-size: 9px; color: var(--down); }
+      .tip-note b.up { color: var(--up); } .tip-note b.down { color: var(--down); }
       .tip-text { margin: 5px 0 0; white-space: pre-line; color: #d6e2ea; }
       .tip-next { margin-top: 6px; padding-top: 5px; border-top: 1px solid #ffffff1a; color: var(--gold); font-weight: 600; font-size: 11px; }
       .tip-levels { margin-top: 6px; border-collapse: collapse; font-size: 11px; width: 100%; }
@@ -493,6 +494,26 @@
       .tutorial button { padding: 2px 10px; border: 1px solid var(--edge); border-radius: 4px; background: rgba(0, 0, 0, 0.4); color: var(--dim); font: 12px var(--font-ui); cursor: pointer; }
       .tutorial button:hover { color: #fff; border-color: var(--teal); }
       .tutorial button.primary { color: #f2fffd; border-color: var(--teal); background: var(--teal-dim); font-weight: 700; }
+      /* Details everywhere: one color per kind of stat, lit numbers and effect words, kind badges. */
+      .s-hp { color: #86e08f; } .s-armor { color: #a9c8ea; } .s-speed { color: #72e2ee; } .s-heal { color: #b2f08f; }
+      .s-dmg { color: #ff9f72; } .s-range { color: #93b9ff; } .s-time { color: #cdb7ff; } .s-gold { color: var(--gold); }
+      .tip-text .n, .codex-note .n { color: #ffe3a3; font-weight: 600; }
+      .tip-text .lbl { color: var(--dim); }
+      .tip-text .bul { display: inline-block; width: 5px; height: 5px; margin: 0 7px 2px 2px; rotate: 45deg; background: var(--teal); vertical-align: middle; }
+      .tip-text em, .codex-note em { font-style: normal; font-weight: 600; }
+      .fx-ice { color: #8fdcff; } .fx-fire { color: #ff8a4c; } .fx-shock { color: #c99dff; } .fx-heal { color: #8fe89a; }
+      .fx-poison { color: #b9e05a; } .fx-shield { color: #ffd25a; } .fx-sight { color: #9fe0d2; } .fx-warn { color: #ff9b7a; }
+      .tip-kind {
+        display: inline-block; margin-right: 6px; padding: 0 6px; border: 1px solid currentColor; border-radius: 3px; font-size: 10px; font-weight: 700;
+        line-height: 16px; letter-spacing: 1px; vertical-align: 1px; background: rgba(0, 0, 0, 0.35);
+      }
+      .k-ship { color: #f5cd58; } .k-weapon { color: #ff9f72; } .k-item { color: #6ff0de; } .k-skill { color: #c99dff; }
+      .k-hire { color: #a9c8ea; } .k-friend { color: #8fe89a; } .k-enemy { color: #ff7a6a; } .k-neutral { color: #e0cf9a; }
+      em.k-skill, em.k-weapon { font-style: normal; }
+      .tip-list .chip { display: inline-block; margin: 0 4px 2px 0; padding: 0 6px; border-radius: 3px; background: rgba(255, 155, 122, 0.15); color: #ffb39a; font-style: normal; }
+      .tip-levels td.on { color: #6ff0de; }
+      .command.info .statgrid b[class^="s-"] { font-weight: 700; }
+
       /* Codex. */
       .codex { position: fixed; inset: 0; z-index: 28; display: none; place-items: center; background: #0008; font: 13px var(--font-ui); color: var(--text); }
       .codex.show { display: grid; }
@@ -526,6 +547,36 @@
       .codex-skills span { display: flex; align-items: center; gap: 6px; padding: 2px 8px 2px 2px; border-radius: 5px; background: rgba(0, 0, 0, 0.35); cursor: help; }
       .codex-skills .icon { width: 34px; height: 34px; border-radius: 4px; }
       .codex-skills em { font-style: normal; font-size: 12px; }
+      .codex-body { grid-template-columns: 1fr 360px; }
+      .codex-sec { margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--line); }
+      .codex-sec h4 { margin: 0 0 6px !important; color: var(--teal-strong) !important; }
+      .codex-sources { margin: 0; padding: 0; list-style: none; }
+      .codex-sources li { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin: 4px 0; }
+      .codex-sources li b { color: #fff3d6; }
+      .codex-sources li span { color: var(--dim); font-size: 12px; }
+      .codex-sources li.off, .codex-sources li.off b { color: #8d806a; }
+      .codex-sources li small { flex-basis: 100%; color: var(--dim); font-size: 11px; }
+      .codex-chip {
+        display: inline-flex; align-items: center; gap: 5px; margin: 2px 0; padding: 1px 8px 1px 1px; border: 1px solid rgba(150, 120, 85, 0.45); border-radius: 4px;
+        background: rgba(0, 0, 0, 0.4); font: 600 12px var(--font-ui); cursor: pointer; vertical-align: middle;
+      }
+      .codex-chip .icon { width: 24px; height: 24px; border-radius: 3px; }
+      .codex-chip:hover { border-color: var(--teal); }
+      .codex-chip.on { border-color: var(--teal); box-shadow: 0 0 8px rgba(63, 214, 196, 0.5); }
+      .codex-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin: 4px 0; }
+      .codex-chain .arrow { display: inline-flex; flex-direction: column; align-items: center; color: var(--teal); font-weight: 700; line-height: 1; }
+      .codex-chain .arrow small { color: var(--dim); font-size: 10px; font-weight: 400; max-width: 90px; text-align: center; }
+      .codex-chain.v { flex-direction: column; align-items: flex-start; gap: 0; }
+      .codex-chain.v + .codex-chain.v { margin-top: 10px; }
+      .codex-chain .via { display: flex; align-items: center; gap: 6px; margin: 1px 0 1px 10px; font-size: 12px; }
+      .codex-chain .via > span { color: var(--teal); font-weight: 700; font-size: 15px; }
+      .codex-chain .via .codex-chip { opacity: 0.85; font-weight: 400; }
+      .codex .plus { margin: 0 3px; color: var(--teal); font-style: normal; font-weight: 700; }
+      .codex-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 3px 0; }
+      .codex-row small { color: var(--dim); }
+      .codex-ships { display: flex; flex-wrap: wrap; gap: 4px 8px; }
+      .codex-ships span { display: inline-flex; align-items: center; gap: 4px; }
+      .codex-note { margin: 4px 0; color: #d6e2ea; font-size: 12px; line-height: 1.6; }
       @media (max-width: 760px) { .codex-body { grid-template-columns: 1fr; grid-template-rows: 1fr auto; } .codex-detail { border-left: 0; border-top: 1px solid var(--line); max-height: 40vh; } }
       .settings button.link { margin-top: 4px; padding: 0; border: 0; background: none; color: var(--teal); font: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
       .settings button.link:disabled { color: var(--dim); cursor: default; text-decoration: none; }

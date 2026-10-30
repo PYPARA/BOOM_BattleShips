@@ -77,7 +77,10 @@ export function buildUnits(src: ObjectSources): Unit[] {
       heroAbilities: splitList(abil.heroAbilList),
       attacks,
       sellsUnits: s?.sellunits?.filter(Boolean) ?? [],
-      sellsItems: s?.sellitems?.filter(Boolean) ?? [],
+      // Shops list goods under Sellitems; the fleets' own shops in the bases list them under
+      // Makeitems ("items made", sold to the owner's allies): the 船首像专买商 (n012) its
+      // figureheads, the 高级能量之塔 (h012) 冷冻炮, 电磁炮 and the other goods no other shop has.
+      sellsItems: [...(s?.sellitems ?? []), ...(s?.makeitems ?? [])].filter(Boolean),
       upgradesTo: s?.upgrade?.filter(Boolean) ?? [],
       upgrades: splitList(bal.upgrades),
       tip: cleanText(first(s, 'tip')),

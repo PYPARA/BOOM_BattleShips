@@ -5,11 +5,41 @@ import { BOSSES, canLearn, CREEP_OWNER, strongest, TICK_RATE, type Match, type U
 import { keyName, keyOf, type KeyAction } from './keys.ts';
 
 export const clean = (s: string | undefined) => (s ?? '').replace(/\|c[0-9a-fA-F]{8}|\|r/g, '').replace(/\|n/g, '\n').replace(/^[.!~_@]+/, '').trim();
-const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const text = (s: string | undefined) => `<p class="tip-text">${esc(clean(s))}</p>`;
-const row = (label: string, value: string | number, cls = '') => `<div class="tip-row"><span>${label}</span><b class="${cls}">${value}</b></div>`;
-const head = (name: string, sub = '', price?: number) =>
-  `<div class="tip-head"><strong>${esc(clean(name))}</strong>${price !== undefined ? `<span class="gold">${price}</span>` : ''}</div>${sub ? `<div class="tip-sub">${sub}</div>` : ''}`;
+export const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+/** Each kind of stat keeps one color everywhere: tooltips, the codex, the info card. */
+const STAT_CLASSES: [RegExp, string][] = [
+  [/护甲|减伤|船甲/, 's-armor'], [/耐久|生命|船体/, 's-hp'], [/航速|转向|速度/, 's-speed'], [/回复|恢复/, 's-heal'],
+  [/破坏力|伤害|攻击|威力|武器/, 's-dmg'], [/射程|范围|视野|距离/, 's-range'], [/间隔|冷却|持续/, 's-time'], [/赏金|价格|退还/, 's-gold'],
+];
+export const statClass = (label: string) => STAT_CLASSES.find(([re]) => re.test(label))?.[1] ?? '';
+
+/** Effect words in descriptions, colored by element. */
+const EFFECTS: [RegExp, string][] = [
+  [/冰冻|冷冻|冰霜|减速|冻结/g, 'fx-ice'], [/燃烧|火焰|灼烧|火油|爆炸|轰炸/g, 'fx-fire'], [/电击|闪电|电磁|弹射|雷电/g, 'fx-shock'],
+  [/恢复|回复|修理|治疗/g, 'fx-heal'], [/腐蚀|中毒|剧毒|酸毒/g, 'fx-poison'], [/无敌|护盾|反噬|免疫/g, 'fx-shield'],
+  [/隐形|侦测|探测|真视|照明/g, 'fx-sight'], [/只能携带一[个件]|只能带一个|不能|无法/g, 'fx-warn'],
+];
+
+/** Game text made readable: "名称：值" lines get a dim label, list dashes become bullets, numbers and effect words light up. */
+export function rich(s: string | undefined): string {
+  return esc(clean(s)).split('\n').map((line) => {
+    let l = line.replace(/^\s*[-*•]\s*/, () => '<i class="bul"></i>');
+    l = l.replace(/^((?:<i class="bul"><\/i>)?)([^：:<]{1,10})([：:])/, '$1<span class="lbl">$2$3</span>');
+    l = l.replace(/[+＋\-−]?\d+(?:\.\d+)?\s*%?/g, (m) => `<b class="n">${m}</b>`);
+    for (const [re, cls] of EFFECTS) l = l.replace(re, (m) => `<em class="${cls}">${m}</em>`);
+    return l;
+  }).join('\n');
+}
+
+const text = (s: string | undefined) => `<p class="tip-text">${rich(s)}</p>`;
+const row = (label: string, value: string | number, cls = '') => `<div class="tip-row"><span>${label}</span><b class="${statClass(label)} ${cls}">${value}</b></div>`;
+export type Kind = 'ship' | 'weapon' | 'item' | 'skill' | 'hire' | 'friend' | 'enemy' | 'neutral';
+const KIND_LABELS: Record<Kind, string> = { ship: '船只', weapon: '武器', item: '物品', skill: '技能', hire: '雇佣舰', friend: '友方', enemy: '敌方', neutral: '中立' };
+/** A colored badge naming what the card is about. */
+export const kindBadge = (kind: Kind, label = KIND_LABELS[kind]) => `<span class="tip-kind k-${kind}">${label}</span>`;
+const head = (name: string, sub = '', price?: number, kind?: Kind, kindLabel?: string) =>
+  `<div class="tip-head"><strong>${esc(clean(name))}</strong>${price !== undefined ? `<span class="gold">${price}</span>` : ''}</div>${sub || kind ? `<div class="tip-sub">${kind ? kindBadge(kind, kindLabel) : ''}${sub}</div>` : ''}`;
 const fixed = (n: number, d = 1) => (Math.round(n * 10 ** d) / 10 ** d).toString();
 
 /** "船只 / 建筑 / 潜水艇" from a Warcraft target list. */
@@ -49,22 +79,22 @@ export class Info {
     const now = this.data.ships.get(this.state.shipTypeId);
     const cmp = (v: number, base: number | undefined, more = true) => (base === undefined || v === base ? '' : (v > base) === more ? 'up' : 'down');
     const skills = s.skills.map((a) => this.match.world.abilities.byId.get(a)).filter((a): a is Ability => !!a);
-    return head(s.name, `${s.hullClass} · ${s.size}`, s.price)
+    return head(s.name, `${s.hullClass} · ${s.size}`, s.price, 'ship')
       + row('耐久', s.hp, cmp(s.hp, now?.hp))
       + row('护甲', fixed(s.armor), cmp(s.armor, now?.armor))
       + row('航速', s.speed, cmp(s.speed, now?.speed))
       + row('转向', s.turnRate, cmp(s.turnRate, now?.turnRate))
       + row('回复', `${fixed(s.regenHp)}/秒`, cmp(s.regenHp, now?.regenHp))
       + text(s.description)
-      + (skills.length ? `<div class="tip-list">技能：${skills.map((a) => esc(clean(a.name))).join('、')}</div>` : '')
-      + (s.recommendedWeapons ? `<div class="tip-note">推荐：${esc(clean(s.recommendedWeapons))}</div>` : '')
+      + (skills.length ? `<div class="tip-list">技能：${skills.map((a) => `<em class="k-skill">${esc(clean(a.name))}</em>`).join('、')}</div>` : '')
+      + (s.recommendedWeapons ? `<div class="tip-note">推荐：<em class="k-weapon">${esc(clean(s.recommendedWeapons))}</em></div>` : '')
       + (id === this.state.shipTypeId ? '<div class="tip-note">当前船只</div>' : '');
   }
 
   /** A fleet ship for hire at the shipyard. */
   private fleetUnit(u: Unit): string {
     const a = u.attacks[0];
-    return head(u.name, '雇佣舰：加入己方舰队，沿航道进攻', u.goldCost)
+    return head(u.name, '加入己方舰队，沿航道进攻', u.goldCost, 'hire')
       + row('耐久', u.hp) + row('护甲', fixed(u.armor)) + row('航速', u.speed)
       + (a ? row('攻击', `${a.damageBase + a.dice}–${a.damageBase + a.dice * a.sides} / ${a.cooldown}s`) + row('射程', a.range) : '');
   }
@@ -76,13 +106,13 @@ export class Info {
     const carried = this.state.items.map((id) => this.data.weapons.get(id)).filter((x): x is Weapon => !!x && x.id !== w.id);
     const weakest = carried.length ? Math.min(...carried.map((x) => Number(x.damage) / Math.max(0.1, x.cooldown))) : undefined;
     const mode = w.mode === 'auto' ? '自动射击' : w.mode === 'salvo' ? '手动齐射' : '特殊武器';
-    return head(w.name, mode, w.price)
+    return head(w.name, mode, w.price, 'weapon')
       + row('破坏力', shots > 1 ? `${w.damage} × ${shots}` : w.damage)
       + row('射程', w.range)
       + row('间隔', `${w.cooldown} 秒`)
       + row('每秒伤害', fixed(dps), weakest === undefined ? '' : dps > weakest ? 'up' : 'down')
       + row('攻击对象', targetsLabel(w.targets))
-      + (weakest !== undefined ? `<div class="tip-note">与身上最弱的武器相比：${dps > weakest ? '更强' : '更弱'}（${fixed(weakest)}/秒）</div>` : '');
+      + (weakest !== undefined ? `<div class="tip-note">与身上最弱的武器相比：<b class="${dps > weakest ? 'up' : 'down'}">${dps > weakest ? '更强' : '更弱'}</b>（${fixed(weakest)}/秒）</div>` : '');
   }
 
   item(id: string, slot?: number): string {
@@ -99,7 +129,7 @@ export class Info {
     const instant = goods.purchases.has(id);
     const charges = this.state.hero.charges[id] ?? goods.charges.get(id);
     const kind = instant ? '购买后立即生效，不占物品栏' : active ? (i.perishable ? '消耗品 · 主动使用' : '主动使用') : '被动';
-    return head(i.name, `${kind}${charges ? ` · ${slot !== undefined ? '剩余' : ''} ${charges} 次` : ''}`, i.goldCost) + text(i.description) + this.sellNote(id, slot);
+    return head(i.name, `${kind}${charges ? ` · ${slot !== undefined ? '剩余' : ''} ${charges} 次` : ''}`, i.goldCost, 'item', instant ? '强化' : active ? '主动物品' : '物品') + text(i.description) + this.sellNote(id, slot);
   }
 
   private sellNote(id: string, slot?: number): string {
@@ -120,7 +150,7 @@ export class Info {
     const wait = Math.max(0, Math.ceil(((hero.readyAt[a.id] ?? 0) - this.match.world.tick) / TICK_RATE));
     const need = (a.requiredLevel ?? 1) + level * (a.levelSkip ?? 2);
     const sub = `${bought ? '购买获得 · ' : ''}${passive ? '被动' : '主动（快捷键见技能图标）'} · 等级 ${level}/${a.levels.length}${wait ? ` · 冷却 ${wait} 秒` : ''}`;
-    let html = head(a.name, sub);
+    let html = head(a.name, sub, undefined, 'skill', passive ? '被动技能' : '主动技能');
     html += levelTable(a, level);
     if (next && !bought) html += `<div class="tip-next">${level ? '下一级' : '学习后'}：等级 ${level + 1}${canLearn(hero, a) ? '' : `（需要船只等级 ${need}）`}</div>`;
     return html;
@@ -139,13 +169,13 @@ export class Info {
     const level = u.hero?.level ?? type?.level;
     const buffs = [...new Set(u.buffs.map((b) => BUFF_NAMES[b.kind]).filter(Boolean))];
     const speed = u.maxSpeed * (1 + strongest(u, 'haste')) * (1 - strongest(u, 'slow'));
-    return head(name, `${side} · ${who}${level ? ` · 等级 ${level}` : ''}${u.illusion ? ' · 幻象' : ''}`)
+    return head(name, `${who}${level ? ` · 等级 ${level}` : ''}${u.illusion ? ' · 幻象' : ''}`, undefined, creep ? 'neutral' : own || ally ? 'friend' : 'enemy', side)
       + row('耐久', `${Math.ceil(u.hp)} / ${Math.round(u.maxHp)}`)
       + row('护甲', fixed(u.armor - strongest(u, 'armorDown')))
       + (u.kind === 'ship' ? row('航速', Math.round(speed)) : '')
       + (u.weapons.length ? row('武器', u.weapons.length) : '')
       + (u.damageTaken < 1 ? row('船甲减伤', `${Math.round((1 - u.damageTaken) * 100)}%`) : '')
-      + (buffs.length ? `<div class="tip-list">状态：${buffs.join('、')}</div>` : '');
+      + (buffs.length ? `<div class="tip-list">状态：${buffs.map((b) => `<em class="chip">${b}</em>`).join('')}</div>` : '');
   }
 }
 
@@ -159,13 +189,13 @@ function levelTable(a: Ability, current: number): string {
   if (levels.length <= 1 || labels.length === 0) {
     // No stat lines: each level's own text, or the one description.
     if (new Set(levels).size <= 1) return text(levels[0]);
-    return levels.map((d, i) => `<p class="tip-text tip-lv${i + 1 === current ? ' on' : ''}"><b>${i + 1} 级</b> ${esc(d)}</p>`).join('');
+    return levels.map((d, i) => `<p class="tip-text tip-lv${i + 1 === current ? ' on' : ''}"><b>${i + 1} 级</b> ${rich(d)}</p>`).join('');
   }
   const varying = labels.filter((l) => new Set(stats.map((m) => m.get(l))).size > 1);
   const fixedRows = labels.filter((l) => !varying.includes(l)).map((l) => row(l, esc(stats[0]!.get(l) ?? '—'))).join('');
-  const cell = (v: string | undefined, i: number) => `<td${i + 1 === current ? ' class="on"' : ''}>${esc((v ?? '—').replace(/\s*秒$/, 's'))}</td>`;
+  const cell = (v: string | undefined, i: number, label: string) => `<td class="${statClass(label)}${i + 1 === current ? ' on' : ''}">${esc((v ?? '—').replace(/\s*秒$/, 's'))}</td>`;
   const table = varying.length ? `<table class="tip-levels"><tr><th></th>${levels.map((_, i) => `<th${i + 1 === current ? ' class="on"' : ''}>${i + 1}</th>`).join('')}</tr>
-    ${varying.map((l) => `<tr><th>${esc(l)}</th>${stats.map((m, i) => cell(m.get(l), i)).join('')}</tr>`).join('')}</table>` : '';
+    ${varying.map((l) => `<tr><th>${esc(l)}</th>${stats.map((m, i) => cell(m.get(l), i, l)).join('')}</tr>`).join('')}</table>` : '';
   return text(intro(levels[Math.max(0, current - 1)]!)) + fixedRows + table;
 }
 

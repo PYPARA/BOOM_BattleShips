@@ -15,7 +15,7 @@ export type GameMode = 'standard' | 'fast' | 'traders';
 /** §5: salary base per 7 seconds, split between the team's players. */
 const SALARY_BASE: Record<GameMode, number> = { standard: 60, fast: 120, traders: 60 };
 /** §2: shops only the 商船任务 mode keeps: 奸商, 贸易主 and the submarine factory. */
-const TRADER_SHOPS = new Set(['n00E', 'n00F', 'n00U']);
+export const TRADER_SHOPS = new Set(['n00E', 'n00F', 'n00U']);
 
 /** The Weather trigger's random sky, rolled again every 50–100 seconds. Looks only. */
 export type Weather = 'clear' | 'lightRain' | 'heavyRain' | 'snow' | 'sunrays';

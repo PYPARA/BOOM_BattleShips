@@ -1,6 +1,6 @@
 import * as THREE from 'three/webgpu';
 import { Bot } from '@boom/ai';
-import { createMatch, REPAIR_RECTS, TICK_DT } from '@boom/sim';
+import { createMatch, REPAIR_RECTS, TICK_DT, TRADER_SHOPS } from '@boom/sim';
 import { RtsCamera } from './camera.ts';
 import { loadConfig, loadSettings, matchSlots, Progress, saveConfig } from './config.ts';
 import { loadData } from './data.ts';
@@ -21,6 +21,7 @@ import { Wakes } from './wakes.ts';
 import { WeatherView } from './weather.ts';
 import { Overlay } from './overlay.ts';
 import { ProjectileViews } from './projectiles.ts';
+import { Catalog } from './catalog.ts';
 import { Codex } from './codex.ts';
 import { Results } from './results.ts';
 import { clearSave, describeSave, loadSave, Recorder, replay, type SavedMatch } from './save.ts';
@@ -147,7 +148,9 @@ scene.add(createTerrainMesh(data.terrain, fog));
 scene.add(createWater(data.terrain, fog, settings.quality !== 'low'));
 const doodads = createDoodads(data.doodads);
 scene.add(doodads);
-const buildingGroup = createBuildings(data.map.placements, data.unitsById, data.terrain);
+// The other modes take the 商船任务 shops (奸商, 贸易主, 潜艇工厂) off the map, as the original does.
+const placements = data.map.placements.filter((p) => match.mode === 'traders' || !TRADER_SHOPS.has(p.id));
+const buildingGroup = createBuildings(placements, data.unitsById, data.terrain);
 for (const mesh of [...buildingGroup.children]) if (destroyed.has(`${mesh.userData.mapX},${mesh.userData.mapY}`)) mesh.removeFromParent();
 scene.add(buildingGroup);
 scene.add(createRepairDocks((['south', 'north'] as const).map((team) => ({ team, ...match.rectCenter(REPAIR_RECTS[team].station) })), data.terrain));
@@ -189,7 +192,7 @@ const soundFx = new SoundFx(audio, music, match, PLAYER);
 hudPanel.onAnnounce = () => soundFx.announce();
 const shipTypes = new Map(data.ships.map((s) => [s.id, s]));
 const info = new Info(match, PLAYER, { ships: shipTypes, units: data.unitsById, items: data.itemsById, weapons: new Map(data.weapons.map((w) => [w.id, w])) });
-const codex = new Codex(match, info, data.unitsById, data.itemsById);
+const codex = new Codex(match, info, new Catalog(match, PLAYER, data.unitsById, data.itemsById, data.map.bounds));
 /** The settings panel and the codex pause the match; everything else keeps drawing. */
 const paused = () => settingsPanel.paused || codex.isOpen;
 const tooltip = new Tooltip((key) => {
@@ -220,7 +223,7 @@ const input = new SelectionInput(renderer.domElement, rts, match, PLAYER);
 input.buildings = buildingGroup;
 const selectionPanel = new SelectionPanel(match, PLAYER, { units: data.unitsById, items: data.itemsById });
 selectionPanel.onSail = (x, y) => input.orderAt(x, y);
-const buildings = data.map.placements.filter((p) => data.unitsById.get(p.id)?.isBuilding && p.id !== 'hhou');
+const buildings = placements.filter((p) => data.unitsById.get(p.id)?.isBuilding && p.id !== 'hhou');
 const minimap = new Minimap(data.terrain, data.pathingInfo, data.pathingCells, buildings, data.unitsById, world, rts, PLAYER);
 minimap.onOrder = (x, y) => input.orderAt(x, y);
 const tutorial = config.tutorial ? new Tutorial(match, PLAYER, spawn, rts, data.terrain, resume?.tutorialStep) : undefined;

@@ -860,7 +860,17 @@
       }
     ],
     "sellsUnits": [],
-    "sellsItems": [],
+    "sellsItems": [
+      "moon",
+      "plcl",
+      "dust",
+      "phea",
+      "pman",
+      "stwp",
+      "spre",
+      "oven",
+      "pams"
+    ],
     "upgradesTo": [],
     "upgrades": [
       "Renb",
@@ -2367,7 +2377,17 @@
     "heroAbilities": [],
     "attacks": [],
     "sellsUnits": [],
-    "sellsItems": [],
+    "sellsItems": [
+      "sreg",
+      "mcri",
+      "plcl",
+      "phea",
+      "pman",
+      "stwp",
+      "tsct",
+      "ofir",
+      "ssan"
+    ],
     "upgradesTo": [],
     "upgrades": [
       "Rhac",
@@ -10235,7 +10255,16 @@
       }
     ],
     "sellsUnits": [],
-    "sellsItems": [],
+    "sellsItems": [
+      "I06S",
+      "I005",
+      "I018",
+      "I05F",
+      "I03H",
+      "I01V",
+      "I06F",
+      "I06E"
+    ],
     "upgradesTo": [],
     "upgrades": [
       "R001",
@@ -12810,7 +12839,18 @@
     "heroAbilities": [],
     "attacks": [],
     "sellsUnits": [],
-    "sellsItems": [],
+    "sellsItems": [
+      "I04N",
+      "I045",
+      "I01K",
+      "I04Z",
+      "I03T",
+      "I04L",
+      "I04M",
+      "I04O",
+      "I04Q",
+      "I04Y"
+    ],
     "upgradesTo": [],
     "upgrades": [],
     "tip": "船首像专买商",

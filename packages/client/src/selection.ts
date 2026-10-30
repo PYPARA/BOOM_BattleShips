@@ -5,7 +5,7 @@
 import type { Item, Unit } from '@boom/gamedata';
 import { BOSSES, CONTRACTS, CREEP_OWNER, distance, SHOP_RANGE, strongest, type Match, type UnitEntity } from '@boom/sim';
 import type { Focus } from './input.ts';
-import { clean } from './info.ts';
+import { clean, statClass } from './info.ts';
 import { icon } from './tooltip.ts';
 
 const ARMOR: Record<string, string> = { small: '轻型', medium: '中型', large: '重型', fort: '城墙', hero: '英雄', divine: '神圣', none: '无', normal: '普通' };
@@ -70,7 +70,7 @@ export class SelectionPanel {
     const who = creep ? ((BOSSES as readonly string[]).includes(u.typeId) ? 'Boss' : '野怪')
       : u.isHero && owner && !u.illusion ? `玩家 ${owner.index - 1}` : u.kind === 'structure' ? '建筑' : u.summoned ? '召唤物' : '舰队';
     const level = u.hero?.level ?? type?.level;
-    const stat = (label: string, value: string | number) => `<div><span>${label}</span><b>${value}</b></div>`;
+    const stat = (label: string, value: string | number) => `<div><span>${label}</span><b class="${statClass(label)}">${value}</b></div>`;
     const stats: string[] = [];
     const a = u.attacks[0];
     if (a) stats.push(stat('攻击', `${a.damageBase + a.dice + u.bonusDamage}–${a.damageBase + a.dice * a.sides + u.bonusDamage}`), stat('间隔', `${(a.cooldown / (1 + u.attackSpeedBonus)).toFixed(2)} 秒`), stat('射程', a.range));

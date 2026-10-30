@@ -128,7 +128,10 @@ describe('shop goods', () => {
     const m = createMatch(data, { players: [2] });
     const goods = m.world.goods;
     const abilities = m.world.abilities;
-    const sold = new Set(data.units.flatMap((u) => u.sellsItems ?? []));
+    // Shops on the map, and the goblin shop the triggers bring in (stock Warcraft shops in the
+    // data, like the Arcane Vault, never appear).
+    const shops = new Set([...data.map.placements.map((p) => p.id), 'h01T']);
+    const sold = new Set(data.units.filter((u) => shops.has(u.id)).flatMap((u) => u.sellsItems ?? []));
     // Passive item effects the sim applies (refreshStats, auras) besides castable abilities.
     const passive = new Set(['AOae', 'AIml', 'Arel', 'AIms', 'AIdd', 'Adet', 'Aoar', 'Apxf']);
     // Kept for completeness but meaningless here: music boxes, quest timber, night vision.
